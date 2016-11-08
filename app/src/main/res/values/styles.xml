@@ -1,0 +1,35 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme"  parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/ColorStatus</item>
+        <!-- <item name="colorPrimaryDark">@color/ColorStatus</item>-->
+        <!--<item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>-->
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="img_Picker" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="actionBarTheme">@style/myTheme.actionBar</item>
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="actionBarSize">@dimen/iwf_actionBarSize</item>
+    </style>
+    <style name="myTheme.actionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/textColor</item>
+        <item name="actionBarSize">@dimen/iwf_actionBarSize</item>
+    </style>
+
+    <style name="AppThemes" parent="AppTheme">
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+    </style>
+
+    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:popupBackground">#f2f2f2</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textSize">2sp</item>
+    </style>
+
+
+
+</resources>
