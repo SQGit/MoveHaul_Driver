@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/header"
+        android:orientation="vertical"
+        android:layout_gravity="top"
+        android:gravity="top">
+
+        <include
+            layout="@layout/action_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </include>
+
+
+        <com.rey.material.widget.TabIndicatorView
+            android:id="@+id/tab_indicator"
+            android:layout_height="48dp"
+            android:layout_width="match_parent"
+            android:clipToPadding="false"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:tpi_tabSingleLine="true"
+            app:tpi_indicatorHeight="2dp"
+            app:tpi_tabPadding="@dimen/_25sdp"
+            app:tpi_indicatorColor="@color/redColor"
+            style="@style/Material.Widget.TabPageIndicator"
+
+            />
+
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/header"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_height="wrap_content"
+       />
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <include
+            layout="@layout/down_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></include>
+
+    </LinearLayout>
+
+</RelativeLayout>

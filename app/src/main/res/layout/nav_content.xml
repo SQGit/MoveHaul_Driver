@@ -46,7 +46,7 @@
             android:background="@color/viewColor" />
 
         <com.rey.material.widget.TextView
-            android:id="@+id/textView_jobreview"
+            android:id="@+id/textview_mytrips"
             style="@style/Material.Drawable.Ripple.Touch.Light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
             android:background="@color/viewColor" />
 
         <com.rey.material.widget.TextView
-            android:id="@+id/textView_tracking"
+            android:id="@+id/textview_reviews"
             style="@style/Material.Drawable.Ripple.Touch.MatchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
 
 
         <com.rey.material.widget.TextView
-            android:id="@+id/textView_offers"
+            android:id="@+id/textview_payments"
             style="@style/Material.Drawable.Ripple.Touch.MatchView.Light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

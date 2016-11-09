@@ -43,8 +43,8 @@ public class DashboardNavigation extends FragmentActivity implements NavigationV
     Toolbar toolbar;
     DrawerLayout drawer;
     NavigationView navigationView;
-    Button btn_book_now, btn_book_later;
-    TextView tv_name, tv_email, tv_myTrips, nav_tv_profile, tv_payments, tv_tracking, tv_offers, tv_emergencyContacts;
+    Button btn_submit, btn_book_later;
+    TextView tv_name, tv_email, nav_tv_mytrips, nav_tv_profile, nav_tv_reviews, tv_tracking, nav_tv_payments, tv_emergencyContacts;
     AutoCompleteTextView starting, destination;
     TextInputLayout flt_pickup, flt_droplocation;
     FloatingActionButton fab_truck;
@@ -63,15 +63,17 @@ public class DashboardNavigation extends FragmentActivity implements NavigationV
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         tv_name = (TextView) findViewById(R.id.textView_name);
         tv_email = (TextView) findViewById(R.id.textView_email);
-        tv_myTrips = (TextView) findViewById(R.id.textView_mytrips);
+       // tv_myTrips = (TextView) findViewById(R.id.textView_mytrips);
         nav_tv_profile = (TextView) findViewById(R.id.textview_profile);
-        tv_tracking = (TextView) findViewById(R.id.textView_tracking);
-        tv_offers = (TextView) findViewById(R.id.textView_offers);
+        nav_tv_mytrips = (TextView) findViewById(R.id.textview_mytrips);
+        nav_tv_reviews = (TextView) findViewById(R.id.textview_reviews);
+        nav_tv_payments = (TextView) findViewById(R.id.textview_payments);
         tv_emergencyContacts = (TextView) findViewById(R.id.textView_emergencycontacts);
         btn_menu = (ImageView) findViewById(R.id.img_menu);
         rightmenu = (ImageView) findViewById(R.id.right_menu);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+        btn_submit = (Button) findViewById(R.id.button_submit);
 
         mViewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
 
@@ -112,9 +114,38 @@ public class DashboardNavigation extends FragmentActivity implements NavigationV
                 startActivity(goProfile);
             }
         });
+        nav_tv_mytrips.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goProfile = new Intent(getApplicationContext(),MyTrips.class);
+                startActivity(goProfile);
+            }
+        });
+        nav_tv_payments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goPayments = new Intent(getApplicationContext(),Payment.class);
+                startActivity(goPayments);
+            }
+        });
+        nav_tv_reviews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goReviews = new Intent(getApplicationContext(),Reviews.class);
+                startActivity(goReviews);
+            }
+        });
 
 
 
+
+        btn_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goPostings = new Intent(getApplicationContext(),JobPosting.class);
+                startActivity(goPostings);
+            }
+        });
 
 
 

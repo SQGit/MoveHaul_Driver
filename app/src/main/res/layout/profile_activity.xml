@@ -39,14 +39,16 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/_25sdp"
-                    android:orientation="vertical"
                     android:layout_weight="1"
-                    android:paddingTop="@dimen/_10sdp">
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/_30sdp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profile_image"
                         android:layout_width="@dimen/_45sdp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/_5sdp"
                         android:layout_height="@dimen/_45sdp"
                         android:src="@drawable/profile_img" />
 
@@ -54,19 +56,22 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/_5sdp"
                         android:text="Jim Parker"
-                        android:textColor="@color/redColor"
+                        android:gravity="center"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/_9sdp" />
 
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:gravity="bottom"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/_5sdp"
                         android:text="Profile Pic"
                         android:textColor="@color/gold"
-                        android:textSize="@dimen/_11sdp" />
+                        android:textSize="@dimen/_12sdp" />
 
 
                 </LinearLayout>
@@ -78,11 +83,11 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="@dimen/_25sdp"
                     android:gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:paddingTop="@dimen/_10sdp">
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:layout_height="wrap_content">
 
                         <LinearLayout
@@ -94,15 +99,16 @@
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/profilsde_imsdfage"
-                                android:layout_width="@dimen/_30sdp"
-                                android:layout_height="@dimen/_30sdp"
+                                android:layout_width="@dimen/_35sdp"
+                                android:layout_height="@dimen/_35sdp"
                                 android:src="@drawable/profile_img" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Back"
-                                android:textColor="@color/redColor"
+                                android:layout_gravity="center"
+                                android:textColor="@color/white"
                                 android:textSize="@dimen/_9sdp" />
 
                         </LinearLayout>
@@ -116,16 +122,16 @@
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/profsdile_imsdfage"
-                                android:layout_width="@dimen/_30sdp"
-                                android:layout_height="@dimen/_30sdp"
+                                android:layout_width="@dimen/_35sdp"
+                                android:layout_height="@dimen/_35sdp"
                                 android:src="@drawable/profile_img" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:text="Back"
-                                android:textColor="@color/redColor"
+                                android:text="Front"
+                                android:layout_gravity="center"
+                                android:textColor="@color/white"
                                 android:textSize="@dimen/_9sdp" />
 
                         </LinearLayout>
@@ -137,16 +143,16 @@
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/profile_imsdfage"
-                                android:layout_width="@dimen/_30sdp"
-                                android:layout_height="@dimen/_30sdp"
+                                android:layout_width="@dimen/_35sdp"
+                                android:layout_height="@dimen/_35sdp"
                                 android:src="@drawable/profile_img" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:text="Back"
-                                android:textColor="@color/redColor"
+                                android:text="Side"
+                                android:layout_gravity="center"
+                                android:textColor="@color/white"
                                 android:textSize="@dimen/_9sdp" />
 
                         </LinearLayout>
@@ -158,11 +164,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:gravity="bottom"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_5sdp"
                         android:text="Vechile Pic"
                         android:textColor="@color/gold"
-                        android:textSize="@dimen/_11sdp" />
+                        android:textSize="@dimen/_12sdp" />
 
 
                 </LinearLayout>
@@ -182,6 +188,7 @@
         <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
             android:fadeScrollbars="false">
 
             <LinearLayout
@@ -438,7 +445,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-
                 android:text="Add Bank Details"
                 android:textColor="@color/redColor"
                 android:textSize="@dimen/_10sdp" />
