@@ -30,6 +30,7 @@
 
 
 
+
         <include layout="@layout/nav_content"
           />
     </android.support.design.widget.NavigationView>
