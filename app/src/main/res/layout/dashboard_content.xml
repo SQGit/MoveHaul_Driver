@@ -109,6 +109,8 @@
                         android:id="@+id/switch1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:thumb="@drawable/thumb"
+                        android:track="@drawable/track"
                         android:layout_marginLeft="@dimen/_10sdp" />
                 </LinearLayout>
 
@@ -118,9 +120,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:layout_weight="1"
+
                 android:autoStart="true"
-                android:flipInterval="2000">
+                android:flipInterval="35000">
 
                 <ViewFlipper
                     android:id="@+id/viewFlipper"

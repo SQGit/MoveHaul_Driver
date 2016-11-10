@@ -1,10 +1,14 @@
 package net.sqindia.movehaul.driver;
 
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Typeface;
+import android.location.Location;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -13,9 +17,11 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.Menu;
@@ -26,6 +32,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.rey.material.widget.Button;
@@ -36,7 +43,7 @@ import com.sloop.fonts.FontsManager;
  * Created by SQINDIA on 10/26/2016.
  */
 
-public class DashboardNavigation extends FragmentActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class DashboardNavigation extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
     Context mContext;
@@ -52,12 +59,20 @@ public class DashboardNavigation extends FragmentActivity implements NavigationV
     android.widget.LinearLayout droplv, pickuplv;
     private ViewFlipper mViewFlipper;
 
+    GPSTracker gps;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         FontsManager.initFormAssets(this, "fonts/lato.ttf");
         FontsManager.changeFonts(this);
+
+        gps = new GPSTracker(DashboardNavigation.this);
+
+        DashboardNavigation.this.registerReceiver(this.getLocation_Receiver, new IntentFilter("appendGetLocation"));
+
+
         mContext = this;
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -85,12 +100,11 @@ public class DashboardNavigation extends FragmentActivity implements NavigationV
 
         int[] resources = {
                 R.drawable.banner_bg,
-                R.drawable.goods_tracking,
-                R.drawable.drv_ico,
+                R.drawable.banner_bg1
         };
 
-        mViewFlipper.setInAnimation(this, android.R.anim.fade_in);
-        mViewFlipper.setOutAnimation(this, android.R.anim.fade_out);
+        mViewFlipper.setInAnimation(this, R.anim.anim1);
+        mViewFlipper.setOutAnimation(this, R.anim.anim2);
 
 
 
@@ -98,12 +112,12 @@ public class DashboardNavigation extends FragmentActivity implements NavigationV
         // Add all the images to the ViewFlipper
         for (int i = 0; i < resources.length; i++) {
             ImageView imageView = new ImageView(this);
-            imageView.setImageResource(resources[i]);
+            imageView.setImageDrawable(getResources().getDrawable(resources[i]));
             mViewFlipper.addView(imageView);
 
         }
         mViewFlipper.setAutoStart(true);
-        mViewFlipper.setFlipInterval(1500);
+        mViewFlipper.setFlipInterval(25000);
 
 
         tv_Bankdetails.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +127,20 @@ public class DashboardNavigation extends FragmentActivity implements NavigationV
                 startActivity(i);
             }
         });
+        if(gps.canGetLocation()){
+
+            double latitude = gps.getLatitude();
+            double longitude = gps.getLongitude();
+
+            // \n is for new line
+            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+        }else{
+            // can't get location
+            // GPS or Network is not enabled
+            // Ask user to enable GPS/network in settings
+            gps.showSettingsAlert();
+        }
+
 
         nav_tv_profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -256,6 +284,28 @@ public class DashboardNavigation extends FragmentActivity implements NavigationV
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
     }
+
+
+    BroadcastReceiver getLocation_Receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+
+
+
+            Bundle b = intent.getExtras();
+
+            String asdf = b.getString("latitude");
+            String ct_message = b.getString("longitude");
+
+            String latitude = asdf;
+            String longitude = ct_message;
+            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+
+
+
+        }
+    };
 
 
 }
