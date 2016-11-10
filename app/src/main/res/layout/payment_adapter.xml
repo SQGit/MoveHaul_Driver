@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/_5sdp"
-    android:paddingBottom="@dimen/_5sdp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -13,26 +12,108 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="end"
-            android:paddingRight="@dimen/_7sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:paddingRight="@dimen/_3sdp"
             android:orientation="horizontal">
+            <ImageView
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
+                android:layout_gravity="top"
+                android:layout_marginLeft="@dimen/_3sdp"
+                android:layout_marginRight="@dimen/_3sdp"
+                android:background="@drawable/date_icon" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Booking ID : "
-                android:textColor="@color/textColor"
-                android:textSize="@dimen/_15sdp" />
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/_3sdp">
 
-            <TextView
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date"
+                    android:maxLines="1"
+                    android:textColor="@color/redColor"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="25-09-2016"
+                    android:maxLines="1"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/_14sdp" />
+            </LinearLayout>
+            <ImageView
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
+                android:layout_gravity="top"
+                android:layout_marginLeft="@dimen/_3sdp"
+                android:layout_marginRight="@dimen/_3sdp"
+                android:background="@drawable/time_icon" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MOV5895756"
-                android:textColor="@color/redColor"
-                android:textSize="@dimen/_15sdp" />
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/_3sdp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Time"
+                    android:maxLines="1"
+                    android:textColor="@color/redColor"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12:30 PM"
+                    android:textColor="@color/textColor"
+                    android:maxLines="1"
+                    android:textSize="@dimen/_14sdp" />
+            </LinearLayout>
+            <ImageView
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
+                android:layout_gravity="top"
+                android:layout_marginLeft="@dimen/_3sdp"
+                android:layout_marginRight="@dimen/_3sdp"
+                android:background="@drawable/gas_money_icon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/_3sdp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gas Money"
+                    android:maxLines="1"
+                    android:textColor="@color/redColor"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$50"
+                    android:textColor="@color/textColor"
+                    android:maxLines="1"
+                    android:textSize="@dimen/_14sdp" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -41,43 +122,104 @@
             android:layout_marginBottom="@dimen/_5sdp"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="@dimen/_10sdp"
-                android:src="@drawable/date_icon" />
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
+                android:layout_gravity="top"
+                android:layout_marginLeft="@dimen/_3sdp"
+                android:layout_marginRight="@dimen/_3sdp"
+                android:background="@drawable/movehaul_percent_icon" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/_10sdp"
-                android:paddingTop="@dimen/_5sdp">
+                android:paddingLeft="@dimen/_3sdp">
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Transaction Date"
+                    android:text="Movehaul%"
+                    android:maxLines="1"
                     android:textColor="@color/redColor"
                     android:textSize="@dimen/_12sdp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="25-09-2016"
+                    android:text="15%"
+                    android:maxLines="1"
                     android:textColor="@color/textColor"
-                    android:textSize="@dimen/_15sdp" />
+                    android:textSize="@dimen/_14sdp" />
             </LinearLayout>
-            <TextView
+            <ImageView
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
+                android:layout_gravity="top"
+                android:layout_marginLeft="@dimen/_3sdp"
+                android:layout_marginRight="@dimen/_3sdp"
+                android:background="@drawable/amount_icon" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="$150"
-                android:textSize="@dimen/_26sdp"
-                android:textColor="@color/redColor"
-                android:padding="@dimen/_5sdp" />
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/_3sdp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Amount"
+                    android:maxLines="1"
+                    android:textColor="@color/redColor"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$500"
+                    android:textColor="@color/textColor"
+                    android:maxLines="1"
+                    android:textSize="@dimen/_14sdp" />
+            </LinearLayout>
+            <ImageView
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
+                android:layout_gravity="top"
+                android:layout_marginLeft="@dimen/_3sdp"
+                android:layout_marginRight="@dimen/_3sdp"
+                 />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:visibility="invisible"
+                android:paddingLeft="@dimen/_3sdp"
+                android:paddingTop="@dimen/_5sdp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gas Money"
+                    android:maxLines="1"
+
+                    android:textColor="@color/redColor"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$50"
+                    android:textColor="@color/textColor"
+                    android:maxLines="1"
+                    android:textSize="@dimen/_14sdp" />
+            </LinearLayout>
 
         </LinearLayout>
 
