@@ -44,7 +44,7 @@ public class DashboardNavigation extends FragmentActivity implements NavigationV
     DrawerLayout drawer;
     NavigationView navigationView;
     Button btn_submit, btn_book_later;
-    TextView tv_name, tv_email, nav_tv_mytrips, nav_tv_profile, nav_tv_reviews, tv_tracking, nav_tv_payments, tv_emergencyContacts;
+    TextView tv_name, tv_email, nav_tv_mytrips, nav_tv_profile, nav_tv_reviews, tv_tracking, nav_tv_payments, tv_Bankdetails;
     AutoCompleteTextView starting, destination;
     TextInputLayout flt_pickup, flt_droplocation;
     FloatingActionButton fab_truck;
@@ -68,7 +68,7 @@ public class DashboardNavigation extends FragmentActivity implements NavigationV
         nav_tv_mytrips = (TextView) findViewById(R.id.textview_mytrips);
         nav_tv_reviews = (TextView) findViewById(R.id.textview_reviews);
         nav_tv_payments = (TextView) findViewById(R.id.textview_payments);
-        tv_emergencyContacts = (TextView) findViewById(R.id.textView_emergencycontacts);
+        tv_Bankdetails = (TextView) findViewById(R.id.textView_bankdetails);
         btn_menu = (ImageView) findViewById(R.id.img_menu);
         rightmenu = (ImageView) findViewById(R.id.right_menu);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -106,6 +106,13 @@ public class DashboardNavigation extends FragmentActivity implements NavigationV
         mViewFlipper.setFlipInterval(1500);
 
 
+        tv_Bankdetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),Bank_details.class);
+                startActivity(i);
+            }
+        });
 
         nav_tv_profile.setOnClickListener(new View.OnClickListener() {
             @Override

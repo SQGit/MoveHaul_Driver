@@ -72,6 +72,11 @@
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
 
         <activity
+            android:name=".Bank_details"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
+
+        <activity
             android:name="me.iwf.photopicker.PhotoPickerActivity"
             android:theme="@style/img_Picker" />
 

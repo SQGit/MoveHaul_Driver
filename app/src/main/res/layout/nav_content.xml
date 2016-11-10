@@ -24,28 +24,6 @@
 
 
         <com.rey.material.widget.TextView
-            android:id="@+id/textView_mytrips"
-            style="@style/Material.Drawable.Ripple.Wave"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:drawableLeft="@drawable/nav_lft_home_ico"
-            android:drawablePadding="@dimen/_6sdp"
-            android:gravity="center_vertical"
-            android:paddingBottom="@dimen/_8sdp"
-            android:paddingTop="@dimen/_8sdp"
-            android:text="Home"
-            android:textColor="#313131"
-            android:textSize="@dimen/_15sdp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:background="@color/viewColor" />
-
-        <com.rey.material.widget.TextView
             android:id="@+id/textview_mytrips"
             style="@style/Material.Drawable.Ripple.Touch.Light"
             android:layout_width="match_parent"
@@ -131,7 +109,7 @@
             android:background="@color/viewColor" />
 
         <com.rey.material.widget.TextView
-            android:id="@+id/textView_emergencycontacts"
+            android:id="@+id/textView_bankdetails"
             style="@style/Material.Drawable.Ripple.Wave.Light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
