@@ -147,6 +147,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
             public void onClick(View view) {
                 Intent goProfile = new Intent(getApplicationContext(),ProfileActivity.class);
                 startActivity(goProfile);
+                drawer.closeDrawer(Gravity.LEFT);
             }
         });
         nav_tv_mytrips.setOnClickListener(new View.OnClickListener() {
@@ -154,6 +155,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
             public void onClick(View view) {
                 Intent goProfile = new Intent(getApplicationContext(),MyTrips.class);
                 startActivity(goProfile);
+                drawer.closeDrawer(Gravity.LEFT);
             }
         });
         nav_tv_payments.setOnClickListener(new View.OnClickListener() {
@@ -161,6 +163,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
             public void onClick(View view) {
                 Intent goPayments = new Intent(getApplicationContext(),Payment.class);
                 startActivity(goPayments);
+                drawer.closeDrawer(Gravity.LEFT);
             }
         });
         nav_tv_reviews.setOnClickListener(new View.OnClickListener() {
@@ -168,6 +171,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
             public void onClick(View view) {
                 Intent goReviews = new Intent(getApplicationContext(),Reviews.class);
                 startActivity(goReviews);
+                drawer.closeDrawer(Gravity.LEFT);
             }
         });
 

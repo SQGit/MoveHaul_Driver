@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.ramotion.foldingcell.FoldingCell;
+import com.rey.material.widget.LinearLayout;
 import com.rey.material.widget.ListView;
 import com.sloop.fonts.FontsManager;
 
@@ -20,6 +21,7 @@ public class JobPosting extends Activity {
 
     ListView lv_jobposting;
     ArrayList<String> ar_jobs;
+    LinearLayout btn_back;
 
 
     @Override
@@ -30,8 +32,19 @@ public class JobPosting extends Activity {
         FontsManager.initFormAssets(JobPosting.this, "fonts/lato.ttf");       //initialization
         FontsManager.changeFonts(JobPosting.this);
 
+        btn_back = (LinearLayout) findViewById(R.id.layout_back);
 
         lv_jobposting = (ListView) findViewById(R.id.listview_jobposting);
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*Intent i = new Intent(Payment.this,DashboardNavigation.class);
+                startActivity(i);*/
+                finish();
+            }
+        });
+
 
         ar_jobs = new ArrayList<>();
         final JobPostingAdapter drv_adapter = new JobPostingAdapter(JobPosting.this,JobPosting.this, ar_jobs);

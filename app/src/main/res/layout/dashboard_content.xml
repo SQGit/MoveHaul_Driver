@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg"
     android:orientation="vertical">
 
@@ -103,13 +104,16 @@
                         android:textColor="#313131"
                         android:textSize="@dimen/_13sdp" />
 
-                    <Switch
+                    <com.rey.material.widget.Switch
 
-                        android:id="@+id/switch1"
+                        android:id="@+id/switch_active"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:thumb="@drawable/thumb"
+                        app:sw_thumbRadius="@dimen/_10sdp"
                         android:track="@drawable/track"
+                        app:sw_trackColor="@color/brown"
+                        app:sw_trackCap="round"
                         android:layout_marginLeft="@dimen/_10sdp" />
                 </LinearLayout>
 

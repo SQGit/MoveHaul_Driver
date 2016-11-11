@@ -1,8 +1,11 @@
 package net.sqindia.movehaul.driver;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.rey.material.widget.LinearLayout;
 import com.sloop.fonts.FontsManager;
@@ -43,5 +46,14 @@ public class ProfileActivity extends Activity {
         Intent i = new Intent(Payment.this,DashboardNavigation.class);
         startActivity(i);*/
         finish();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(ev);
     }
 }
