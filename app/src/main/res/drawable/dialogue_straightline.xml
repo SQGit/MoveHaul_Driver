@@ -25,6 +25,7 @@
             </shape>
         </rotate>
     </item>
+
     <item>
         <rotate
             android:fromDegrees="90"
