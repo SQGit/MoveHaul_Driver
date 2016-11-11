@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Hi Tim Cooper"
+                android:text="Hi Tim "
                 android:textSize="@dimen/_15sdp"
                 android:textColor="@color/textColor" />
 
