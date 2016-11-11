@@ -217,7 +217,7 @@ public class GPSTracker extends Service implements LocationListener {
 
        Toast.makeText(mContext,"location Changed",Toast.LENGTH_LONG).show();
 
-        Intent i = new Intent();
+        Intent i = new Intent();//fafafadf
         i.setAction("appendGetLocation");
         i.putExtra("latitude", "lat worked"+latitude);
         i.putExtra("longitude", "long worked"+longitude);
