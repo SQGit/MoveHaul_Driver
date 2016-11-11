@@ -41,17 +41,17 @@ public class Reviews extends Activity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Reviews.this,DashboardNavigation.class);
-                startActivity(i);
+                /*Intent i = new Intent(Reviews.this,DashboardNavigation.class);
+                startActivity(i);*/
                 finish();
             }
         });
     }
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Intent i = new Intent(Reviews.this,DashboardNavigation.class);
-        startActivity(i);
+       // super.onBackPressed();
+       /* Intent i = new Intent(Reviews.this,DashboardNavigation.class);
+        startActivity(i);*/
         finish();
     }
 

@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:background="@drawable/bg"
     android:orientation="vertical">
 
@@ -120,13 +119,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-
+                android:layout_weight="1"
                 android:autoStart="true"
                 android:flipInterval="35000">
 
                 <ViewFlipper
                     android:id="@+id/viewFlipper"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="match_parent" />
 
 

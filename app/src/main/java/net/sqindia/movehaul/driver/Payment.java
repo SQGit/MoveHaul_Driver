@@ -75,8 +75,8 @@ public class Payment extends Activity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Payment.this,DashboardNavigation.class);
-                startActivity(i);
+                /*Intent i = new Intent(Payment.this,DashboardNavigation.class);
+                startActivity(i);*/
                 finish();
             }
         });
@@ -107,9 +107,9 @@ public class Payment extends Activity {
     };
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        /*super.onBackPressed();
         Intent i = new Intent(Payment.this,DashboardNavigation.class);
-        startActivity(i);
+        startActivity(i);*/
         finish();
     }
 
