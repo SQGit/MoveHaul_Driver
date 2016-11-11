@@ -156,7 +156,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         btn_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.exit(0);
+                finishAffinity();
             }
         });
 
