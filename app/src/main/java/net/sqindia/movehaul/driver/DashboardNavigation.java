@@ -1,11 +1,13 @@
 package net.sqindia.movehaul.driver;
 
 
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -29,6 +31,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.view.Window;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -58,8 +61,9 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     ImageView pickup_close, btn_menu, rightmenu;
     android.widget.LinearLayout droplv, pickuplv;
     private ViewFlipper mViewFlipper;
-
+    Dialog dialog1;
     GPSTracker gps;
+    Button btn_yes,btn_no;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -141,6 +145,27 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
             gps.showSettingsAlert();
         }
 
+        dialog1 = new Dialog(DashboardNavigation.this);
+        dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog1.setCancelable(false);
+        dialog1.setContentView(R.layout.dialog_yes_no);
+        btn_yes = (Button) dialog1.findViewById(R.id.button_yes);
+        btn_no = (Button) dialog1.findViewById(R.id.button_no);
+
+        btn_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.exit(0);
+            }
+        });
+
+        btn_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog1.dismiss();
+            }
+        });
 
         nav_tv_profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -311,5 +336,9 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         }
     };
 
-
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        dialog1.show();
+    }
 }

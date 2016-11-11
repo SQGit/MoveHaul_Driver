@@ -37,16 +37,16 @@ public class JobPostingAdapter extends ArrayAdapter<String> {
     Activity act;
     FoldingCell cell;
     ImageView btn_confirm;
-    Dialog dialog1,dialog2;
+    Dialog dialog1, dialog2;
     ImageView btn_close;
-    Button btn_ok,d2_btn_ok;
-    TextView tv_dialog1,tv_dialog2,tv_dialog3,tv_dialog4,d2_tv_dialog1,d2_tv_dialog2,d2_tv_dialog3,d2_tv_dialog4;
+    Button btn_ok, d2_btn_ok;
+    TextView tv_dialog1, tv_dialog2, tv_dialog3, tv_dialog4, d2_tv_dialog1, d2_tv_dialog2, d2_tv_dialog3, d2_tv_dialog4;
     Typeface type;
 
     public JobPostingAdapter(Context context, Activity acti, List<String> objects) {
         super(context, 0, objects);
         this.act = acti;
-        this.context=context;
+        this.context = context;
 
     }
 
@@ -94,7 +94,6 @@ public class JobPostingAdapter extends ArrayAdapter<String> {
         ImageView iv_bidding = (ImageView) cell.findViewById(R.id.imageview_bidding);
 
 
-
         dialog1 = new Dialog(JobPostingAdapter.this.getContext());
         dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -132,6 +131,14 @@ public class JobPostingAdapter extends ArrayAdapter<String> {
         d2_tv_dialog4.setTypeface(type);
         d2_btn_ok.setTypeface(type);
 
+        d2_tv_dialog4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog2.dismiss();
+                Intent i = new Intent(getContext(), MyTrips.class);
+                context.startActivity(i);
+            }
+        });
         btn_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,11 +160,9 @@ public class JobPostingAdapter extends ArrayAdapter<String> {
             @Override
             public void onClick(View view) {
                 dialog2.dismiss();
-                ((Activity)context).finish();
+                ((Activity) context).finish();
             }
         });
-
-
 
         iv_bidding.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,10 +170,6 @@ public class JobPostingAdapter extends ArrayAdapter<String> {
                 dialog1.show();
             }
         });
-
-
-
-
 
         return cell;
 
