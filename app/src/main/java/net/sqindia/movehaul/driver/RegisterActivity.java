@@ -1,16 +1,24 @@
 package net.sqindia.movehaul.driver;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.util.Log;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -50,6 +58,7 @@ import me.iwf.photopicker.utils.PhotoPickerIntent;
 public class RegisterActivity extends Activity {
 
 
+    public final static int REQUEST_CODE = 1;
     LinearLayout btn_back;
     Button btn_submit, btn_verify;
     TextView tv_register;
@@ -57,10 +66,21 @@ public class RegisterActivity extends Activity {
     String str_email, str_mobile, str_name, str_lic_name, str_lic_no, str_lic_mobile, str_lic_exp, str_lic_photo;
     TextInputLayout til_name, til_email, til_mobile, til_lic_no, til_lic_mobile, til__lic_name, til_lic_exp;
     android.widget.LinearLayout lt_first, lt_second, lt_add_photo;
-    public final static int REQUEST_CODE = 1;
     ArrayList<String> selectedPhotos = new ArrayList<>();
     ImageView iv_close;
+    Dialog dialog2;
+    Button btn_ok,d2_btn_ok;
+    TextView tv_dialog1,tv_dialog2,tv_dialog3,tv_dialog4,d2_tv_dialog1,d2_tv_dialog2,d2_tv_dialog3,d2_tv_dialog4;
+    ImageView btn_close;
+    Snackbar snackbar;
+    Typeface tf;
 
+    public static int getDeviceHeight(Context context) {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        int height = display.getHeight();
+        return height;
+    }
 
     @Override
     public void onBackPressed() {
@@ -74,6 +94,8 @@ public class RegisterActivity extends Activity {
         setContentView(R.layout.register_screen);
         FontsManager.initFormAssets(this, "fonts/lato.ttf");       //initialization
         FontsManager.changeFonts(this);
+
+        tf = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
 
         btn_back = (LinearLayout) findViewById(R.id.layout_back);
         btn_submit = (Button) findViewById(R.id.btn_submit);
@@ -111,6 +133,53 @@ public class RegisterActivity extends Activity {
         til_mobile.setTypeface(type);
         til_name.setTypeface(type);
 
+        final int height = getDeviceHeight(RegisterActivity.this);
+
+
+        snackbar = Snackbar
+                .make(findViewById(R.id.top), "Please Attach Driving Licence", Snackbar.LENGTH_LONG);
+
+        View sbView = snackbar.getView();
+        android.widget.TextView textView = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setTextColor(Color.WHITE);
+        textView.setTypeface(tf);
+
+        dialog2 = new Dialog(RegisterActivity.this);
+        dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog2.setCancelable(false);
+        dialog2.setContentView(R.layout.driver_bidding_confirm);
+        d2_btn_ok = (Button) dialog2.findViewById(R.id.button_ok);
+        btn_close = (ImageView) dialog2.findViewById(R.id.button_close);
+        d2_tv_dialog1 = (TextView) dialog2.findViewById(R.id.textView_1);
+        d2_tv_dialog2 = (TextView) dialog2.findViewById(R.id.textView_2);
+        d2_tv_dialog3 = (TextView) dialog2.findViewById(R.id.textView_3);
+        d2_tv_dialog4 = (TextView) dialog2.findViewById(R.id.textView_4);
+
+        d2_tv_dialog1.setTypeface(type);
+        d2_tv_dialog2.setTypeface(type);
+        d2_tv_dialog3.setTypeface(type);
+        d2_tv_dialog4.setTypeface(type);
+        d2_btn_ok.setTypeface(type);
+
+        d2_tv_dialog1.setText("Thank You for Submitting");
+        d2_tv_dialog2.setText("Your Details for Verification!!");
+        d2_tv_dialog3.setText("Once verification is completed. You can log into Movehaul.");
+        d2_tv_dialog4.setVisibility(View.GONE);
+        btn_close.setVisibility(View.GONE);
+
+        d2_btn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog2.dismiss();
+
+                Intent i = new Intent(RegisterActivity.this,DashboardNavigation.class);
+                startActivity(i);
+                finish();
+
+            }
+        });
+
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,8 +197,13 @@ public class RegisterActivity extends Activity {
                             startActivity(i);
                             finish();*/
 
+                            TranslateAnimation anim_btn_b2t = new TranslateAnimation(0, 0, height, 0);
+                            anim_btn_b2t.setDuration(500);
+
+                            lt_second.setAnimation(anim_btn_b2t);
+
                             lt_second.setVisibility(View.VISIBLE);
-                            lt_first.setVisibility(View.GONE);
+
 
 
                             str_email = et_email.getText().toString().trim();
@@ -178,17 +252,20 @@ public class RegisterActivity extends Activity {
                     if (!(str_lic_no.isEmpty())) {
                         if (!(str_lic_mobile.isEmpty() || str_lic_mobile.length() < 9)) {
 
-                            /*Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
-                            startActivity(i);
-                            finish();*/
+                            if ((str_lic_photo != null)) {
 
+                                str_lic_name = et_lic_name.getText().toString().trim();
+                                str_lic_no = et_lic_no.getText().toString().trim();
+                                str_lic_mobile = et_lic_mobile.getText().toString().trim();
+                                str_lic_exp = et_lic_exp.getText().toString().trim();
 
-                            str_lic_name = et_lic_name.getText().toString().trim();
-                            str_lic_no = et_lic_no.getText().toString().trim();
-                            str_lic_mobile = et_lic_mobile.getText().toString().trim();
-                            str_lic_exp = et_lic_exp.getText().toString().trim();
+                                dialog2.show();
 
-                            new register_customer().execute();
+                             //   new register_customer().execute();
+                            } else {
+
+                                snackbar.show();
+                            }
 
                         } else {
                             et_lic_mobile.setError("Enter valid phone number");
@@ -220,8 +297,16 @@ public class RegisterActivity extends Activity {
         iv_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+                TranslateAnimation anim_btn_t2b = new TranslateAnimation(0, 0, 0, height);
+                anim_btn_t2b.setDuration(500);
+
+                lt_second.setAnimation(anim_btn_t2b);
+
                 lt_second.setVisibility(View.GONE);
-                lt_first.setVisibility(View.VISIBLE);
+
+
             }
         });
 
@@ -238,6 +323,43 @@ public class RegisterActivity extends Activity {
         });
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        List<String> photos = null;
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+
+            Log.d("tag", "worked");
+            if (data != null) {
+                photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
+            }
+            selectedPhotos.clear();
+
+            if (photos != null) {
+
+                selectedPhotos.addAll(photos);
+            }
+
+            Uri uri = Uri.fromFile(new File(selectedPhotos.get(0)));
+
+            Log.d("tag", "potp" + selectedPhotos.get(0));
+            Log.d("tag", "323" + uri);
+            str_lic_photo = selectedPhotos.get(0);
+
+            Toast.makeText(getApplicationContext(), "Photo Added", Toast.LENGTH_LONG).show();
+
+        }
+    }
 
     public class register_customer extends AsyncTask<String, Void, String> {
 
@@ -278,8 +400,6 @@ public class RegisterActivity extends Activity {
                 httppost.setHeader("driver_mobile_sec", "+91" + str_lic_mobile);
                 httppost.setHeader("driver_licence_number", str_lic_no);
                 httppost.setHeader("driver_experience", str_lic_exp);
-
-
 
 
                 try {
@@ -332,6 +452,13 @@ public class RegisterActivity extends Activity {
                     String msg = jo.getString("message");
                     Log.d("tag", "<-----Status----->" + status);
 
+                    if(status.equals("true")){
+                        dialog2.show();
+                    }
+                    else{
+
+                    }
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -345,48 +472,6 @@ public class RegisterActivity extends Activity {
         }
 
     }
-
-
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (getCurrentFocus() != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        List<String> photos = null;
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-
-            Log.d("tag", "worked");
-            if (data != null) {
-                photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
-            }
-            selectedPhotos.clear();
-
-            if (photos != null) {
-
-                selectedPhotos.addAll(photos);
-            }
-
-            Uri uri = Uri.fromFile(new File(selectedPhotos.get(0)));
-
-            Log.d("tag","potp" +selectedPhotos.get(0));
-            Log.d("tag", "323" + uri);
-            str_lic_photo = selectedPhotos.get(0);
-
-            Toast.makeText(getApplicationContext(),"Photo Added",Toast.LENGTH_LONG).show();
-
-        }
-    }
-
 
 
 }

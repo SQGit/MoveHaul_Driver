@@ -21,7 +21,8 @@
                     android:color="#7d7d7d"
                     android:dashWidth="10px"
                     android:dashGap="10px"
-                    android:width="1dip" />
+
+                    android:width="2dip" />
             </shape>
         </rotate>
     </item>

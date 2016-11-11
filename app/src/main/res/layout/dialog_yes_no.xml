@@ -70,58 +70,56 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:gravity="center"
+            android:paddingTop="@dimen/_10sdp"
+            android:orientation="horizontal">
+
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center|top"
-                android:layout_marginRight="@dimen/_3sdp">
-            <com.rey.material.widget.Button
-                android:id="@+id/button_yes"
-                style="@style/Material.Drawable.Ripple.Touch"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_marginTop="@dimen/_13sdp"
-                android:background="@drawable/submit"
                 android:gravity="center"
-                android:paddingBottom="@dimen/_5sdp"
-                android:paddingRight="@dimen/_3sdp"
-                android:text="Yes"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                android:textSize="@dimen/_16sdp" />
+                android:layout_marginRight="@dimen/_3sdp"
+                android:layout_weight="1">
+
+                <com.rey.material.widget.Button
+                    android:id="@+id/button_yes"
+                    style="@style/Material.Drawable.Ripple.Touch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@drawable/submit"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:paddingRight="@dimen/_3sdp"
+                    android:text="Yes"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/_16sdp" />
             </LinearLayout>
 
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@drawable/dialogue_straightline" />
-
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center|top"
-                android:layout_marginLeft="@dimen/_3sdp">
-            <com.rey.material.widget.Button
-                android:id="@+id/button_no"
-                style="@style/Material.Drawable.Ripple.Touch"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_marginTop="@dimen/_13sdp"
-                android:background="@drawable/no"
                 android:gravity="center"
-                android:paddingBottom="@dimen/_5sdp"
-                android:paddingRight="@dimen/_3sdp"
-                android:text="No"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                android:textSize="@dimen/_16sdp" />
+                android:layout_marginLeft="@dimen/_3sdp"
+                android:layout_weight="1">
+
+                <com.rey.material.widget.Button
+                    android:id="@+id/button_no"
+                    style="@style/Material.Drawable.Ripple.Touch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@drawable/no"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:paddingRight="@dimen/_3sdp"
+                    android:text="No"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/_16sdp" />
             </LinearLayout>
         </LinearLayout>
+
 
     </LinearLayout>
 
