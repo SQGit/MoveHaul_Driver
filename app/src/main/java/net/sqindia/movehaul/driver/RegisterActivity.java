@@ -173,7 +173,7 @@ public class RegisterActivity extends Activity {
             public void onClick(View view) {
                 dialog2.dismiss();
 
-                Intent i = new Intent(RegisterActivity.this,DashboardNavigation.class);
+                Intent i = new Intent(RegisterActivity.this,LoginActivity.class);
                 startActivity(i);
                 finish();
 
@@ -259,9 +259,9 @@ public class RegisterActivity extends Activity {
                                 str_lic_mobile = et_lic_mobile.getText().toString().trim();
                                 str_lic_exp = et_lic_exp.getText().toString().trim();
 
-                                dialog2.show();
+                                //dialog2.show();
 
-                             //   new register_customer().execute();
+                               new register_customer().execute();
                             } else {
 
                                 snackbar.show();
@@ -412,7 +412,7 @@ public class RegisterActivity extends Activity {
 
                     File sourceFile = new File(selectedPhotos.get(0));
                     Log.e("tag3", "" + sourceFile);
-                    entity.addPart("file", new FileBody(sourceFile, "image/jpeg"));
+                    entity.addPart("driverlicence", new FileBody(sourceFile, "image/jpeg"));
                     httppost.setEntity(entity);
                     HttpResponse response = httpclient.execute(httppost);
                     HttpEntity r_entity = response.getEntity();

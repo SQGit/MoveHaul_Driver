@@ -3,8 +3,10 @@ package net.sqindia.movehaul.driver;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -35,6 +37,8 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
     Button btn_submit;
     TextView tv_resendotp;
     private static LoginOtpActivity inst;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     public static LoginOtpActivity instance() {
         return inst;
@@ -48,6 +52,10 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         FontsManager.changeFonts(this);
 
         Intent getIntent = getIntent();
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginOtpActivity.this);
+        editor = sharedPreferences.edit();
+
 
         str_phone = getIntent.getStringExtra("phone");
 
@@ -321,11 +329,11 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
             try {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("customer_mobile", "+919791073466");
-                jsonObject.accumulate("customer_otp", str_otppin);
+                jsonObject.accumulate("driver_mobile", "+919791073466");
+                jsonObject.accumulate("driver_otp", str_otppin);
 
                 json = jsonObject.toString();
-                return jsonStr = HttpUtils.makeRequest(Config.WEB_URL + "customer/mobilelogin", json);
+                return jsonStr = HttpUtils.makeRequest(Config.WEB_URL + "driver/mobilelogin", json);
 
             } catch (Exception e) {
                 Log.e("InputStream", e.getLocalizedMessage());
@@ -347,6 +355,15 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                     String msg = jo.getString("message");
                     Log.d("tag", "<-----Status----->" + status);
                     if (status.equals("true")) {
+
+                       // JSONObject data = new JSONObject(msg);
+
+                        String id = jo.getString("id");
+                        String token = jo.getString("token");
+
+                        editor.putString("id",id);
+                        editor.putString("token",token);
+                        editor.commit();
 
                         Intent i = new Intent(LoginOtpActivity.this, DashboardNavigation.class);
                         startActivity(i);

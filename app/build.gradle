@@ -48,6 +48,8 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.ramotion.foldingcell:folding-cell:1.0.1'
 
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
 
 
 }

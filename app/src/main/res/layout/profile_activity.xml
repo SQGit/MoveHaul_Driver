@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:id="@+id/top"
     android:background="@drawable/bg"
     android:orientation="vertical">
 
@@ -45,11 +46,11 @@
                     android:paddingLeft="@dimen/_30sdp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/profile_image"
+                        android:id="@+id/imageview_profile"
                         android:layout_width="@dimen/_45sdp"
+                        android:layout_height="@dimen/_45sdp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/_5sdp"
-                        android:layout_height="@dimen/_45sdp"
                         android:src="@drawable/profile_img" />
 
                     <TextView
@@ -57,8 +58,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/_5sdp"
-                        android:text="Jim Parker"
                         android:gravity="center"
+                        android:text="Jim Parker"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_9sdp" />
 
@@ -67,8 +68,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:gravity="center"
                         android:layout_marginTop="@dimen/_5sdp"
+                        android:gravity="center"
                         android:text="Profile Pic"
                         android:textColor="@color/gold"
                         android:textSize="@dimen/_12sdp" />
@@ -87,8 +88,8 @@
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -98,7 +99,7 @@
                             android:orientation="vertical">
 
                             <de.hdodenhof.circleimageview.CircleImageView
-                                android:id="@+id/profilsde_imsdfage"
+                                android:id="@+id/imageview_vechile_back"
                                 android:layout_width="@dimen/_35sdp"
                                 android:layout_height="@dimen/_35sdp"
                                 android:src="@drawable/profile_img" />
@@ -106,8 +107,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Back"
                                 android:layout_gravity="center"
+                                android:text="Back"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/_9sdp" />
 
@@ -121,7 +122,7 @@
                             android:orientation="vertical">
 
                             <de.hdodenhof.circleimageview.CircleImageView
-                                android:id="@+id/profsdile_imsdfage"
+                                android:id="@+id/imageview_vechile_front"
                                 android:layout_width="@dimen/_35sdp"
                                 android:layout_height="@dimen/_35sdp"
                                 android:src="@drawable/profile_img" />
@@ -129,8 +130,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Front"
                                 android:layout_gravity="center"
+                                android:text="Front"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/_9sdp" />
 
@@ -142,7 +143,7 @@
                             android:orientation="vertical">
 
                             <de.hdodenhof.circleimageview.CircleImageView
-                                android:id="@+id/profile_imsdfage"
+                                android:id="@+id/imageview_vechile_side"
                                 android:layout_width="@dimen/_35sdp"
                                 android:layout_height="@dimen/_35sdp"
                                 android:src="@drawable/profile_img" />
@@ -150,8 +151,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Side"
                                 android:layout_gravity="center"
+                                android:text="Side"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/_9sdp" />
 
@@ -204,20 +205,21 @@
                     android:orientation="vertical">
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/float_deliveryaddress"
+                        android:id="@+id/til_contactnumber"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/_3sdp"
                         android:textColorHint="@color/colorAccent">
 
                         <EditText
-                            android:id="@+id/editTextDelieveryAddress"
+                            android:id="@+id/edittext_contact"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:background="@null"
                             android:hint="Contact Number"
-                            android:inputType="text"
+                            android:inputType="number"
                             android:maxLines="1"
+                            android:maxLength="10"
                             android:paddingTop="@dimen/_10sdp"
                             android:textColor="#000000"
                             android:textSize="@dimen/_15sdp" />
@@ -230,20 +232,21 @@
                         android:background="#E1E1E1" />
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/float_deliveryaddssress"
+                        android:id="@+id/til_secondary"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/_3sdp"
                         android:textColorHint="@color/colorAccent">
 
                         <EditText
-                            android:id="@+id/editTextDesslieveryAddress"
+                            android:id="@+id/edittext_secondary"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:background="@null"
                             android:hint="Secondary Number"
-                            android:inputType="text"
+                            android:inputType="number"
                             android:maxLines="1"
+                            android:maxLength="10"
                             android:paddingTop="@dimen/_10sdp"
                             android:textColor="#000000"
                             android:textSize="@dimen/_15sdp" />
@@ -256,14 +259,14 @@
                         android:background="#E1E1E1" />
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/float_deliaveryaddress"
+                        android:id="@+id/til_deliveryaddress"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/_3sdp"
                         android:textColorHint="@color/colorAccent">
 
                         <EditText
-                            android:id="@+id/editTextDeliesveryAddress"
+                            android:id="@+id/edittext_deliveryaddress"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:background="@null"
@@ -285,24 +288,27 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp">
+                        android:layout_marginTop="@dimen/_10sdp">
 
-                        <LinearLayout
+                        <com.rey.material.widget.LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:id="@+id/layout_vechile_rc"
                             android:orientation="horizontal">
 
 
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/lic_ico" />
+                                android:layout_width="@dimen/_28sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:id="@+id/imageview_vechile_rc"
+                                android:src="@drawable/lic_ico" />
 
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:paddingLeft="@dimen/_3sdp"
                                 android:orientation="vertical">
 
                                 <TextView
@@ -317,33 +323,37 @@
                                 <View
                                     android:layout_width="match_parent"
                                     android:layout_height="1dp"
+                                    android:id="@+id/view_rc"
                                     android:background="@color/textColor" />
 
                             </LinearLayout>
 
 
-                        </LinearLayout>
+                        </com.rey.material.widget.LinearLayout>
 
 
-                        <LinearLayout
+                        <com.rey.material.widget.LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
                             android:layout_marginRight="@dimen/_5sdp"
+                            android:id="@+id/layout_vechile_insurence"
                             android:layout_weight="1"
                             android:gravity="right"
                             android:orientation="horizontal">
 
 
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/lic_ico" />
+                                android:layout_width="@dimen/_28sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:id="@+id/imageview_vechile_ins"
+                                android:src="@drawable/lic_ico" />
 
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:paddingLeft="@dimen/_3sdp"
                                 android:orientation="vertical">
 
                                 <TextView
@@ -358,12 +368,13 @@
                                 <View
                                     android:layout_width="match_parent"
                                     android:layout_height="1dp"
+                                    android:id="@+id/view_insurence"
                                     android:background="@color/textColor" />
 
                             </LinearLayout>
 
 
-                        </LinearLayout>
+                        </com.rey.material.widget.LinearLayout>
 
 
                     </LinearLayout>
@@ -385,7 +396,7 @@
             android:padding="@dimen/_3sdp">
 
             <com.rey.material.widget.Button
-                android:id="@+id/btn_post"
+                android:id="@+id/button_update"
                 style="@style/Material.Drawable.Ripple.Touch"
                 android:layout_width="@dimen/_140sdp"
                 android:layout_height="@dimen/_40sdp"

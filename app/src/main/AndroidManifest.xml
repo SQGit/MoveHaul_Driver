@@ -48,7 +48,7 @@
             android:theme="@style/AppThemes"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
 
-        <activity
+       <activity
             android:name=".ProfileActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>

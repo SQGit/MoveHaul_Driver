@@ -88,12 +88,12 @@ public class LoginActivity extends Activity {
                 if (!(str_mobile.isEmpty() || str_mobile.length() < 9)) {
 
 
-                   //new login_customer().execute();
+                   new login_customer().execute();
 
-                  Intent i = new Intent(LoginActivity.this, DashboardNavigation.class);
+                /*  Intent i = new Intent(LoginActivity.this, DashboardNavigation.class);
                     //i.putExtra("phone",str_mobile);
                     startActivity(i);
-                    finish();
+                    finish();*/
 
 
 
@@ -125,9 +125,9 @@ public class LoginActivity extends Activity {
 
             try {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("customer_mobile", "+91"+str_mobile);
+                jsonObject.accumulate("driver_mobile", "+91"+str_mobile);
                 json = jsonObject.toString();
-                return jsonStr = HttpUtils.makeRequest(Config.WEB_URL + "customermobileotp", json);
+                return jsonStr = HttpUtils.makeRequest(Config.WEB_URL + "drivermobileotp", json);
 
             } catch (Exception e) {
                 Log.e("InputStream", e.getLocalizedMessage());
