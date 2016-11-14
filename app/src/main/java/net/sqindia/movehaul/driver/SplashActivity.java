@@ -4,9 +4,15 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.provider.Settings;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -32,6 +38,12 @@ public class SplashActivity extends Activity {
     int is = 0;
     Config config;
     AVLoadingIndicatorView av_loader;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    Snackbar snackbar;
+    Typeface tf;
+    TranslateAnimation anim_btn_b2t,anim_btn_t2b,anim_truck_c2r;
+    Animation fadeIn,fadeOut;
 
     public static int getDeviceWidth(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -56,6 +68,9 @@ public class SplashActivity extends Activity {
         FontsManager.initFormAssets(this, "fonts/lato.ttf");       //initialization
         FontsManager.changeFonts(this);
 
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SplashActivity.this);
+        editor = sharedPreferences.edit();
+
 
         config = new Config();
 
@@ -79,10 +94,10 @@ public class SplashActivity extends Activity {
 
         truck_icon.animate().translationX(width / (float) 1.65).setDuration(1700).withLayer();
 
-        Animation fadeIn = new AlphaAnimation(0, 1);
+        fadeIn = new AlphaAnimation(0, 1);
         fadeIn.setDuration(1500);
 
-        final Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut = new AlphaAnimation(1, 0);
         fadeOut.setDuration(1700);
 
         AnimationSet animation = new AnimationSet(true);
@@ -93,16 +108,16 @@ public class SplashActivity extends Activity {
 
         final float height = getDeviceHeight(this);
 
-        final TranslateAnimation anim_btn_b2t = new TranslateAnimation(0, 0, height + lt_bottom.getHeight(), lt_bottom.getHeight());
+          anim_btn_b2t = new TranslateAnimation(0, 0, height + lt_bottom.getHeight(), lt_bottom.getHeight());
         anim_btn_b2t.setDuration(1400);
         lt_bottom.setAnimation(anim_btn_b2t);
 
 
-        final TranslateAnimation anim_btn_t2b = new TranslateAnimation(0, 0, lt_bottom.getHeight(), height + lt_bottom.getHeight());
+          anim_btn_t2b = new TranslateAnimation(0, 0, lt_bottom.getHeight(), height + lt_bottom.getHeight());
         anim_btn_t2b.setDuration(1700);
         anim_btn_t2b.setFillAfter(false);
 
-        final TranslateAnimation anim_truck_c2r = new TranslateAnimation(0, width, 0, 0);
+          anim_truck_c2r = new TranslateAnimation(0, width, 0, 0);
         anim_truck_c2r.setDuration(2000);
         anim_truck_c2r.setFillAfter(false);
 
@@ -112,9 +127,36 @@ public class SplashActivity extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                av_loader.setVisibility(View.VISIBLE);
                 new check_internet().execute();
             }
         }, 1300);
+
+
+        snackbar = Snackbar
+                .make(findViewById(R.id.top), "No internet connection!", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Open Settings", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // snackbar.dismiss();
+                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+
+                    }
+                });
+
+// Changing message text color
+        snackbar.setActionTextColor(Color.RED);
+
+
+// Changing action button text color
+        View sbView = snackbar.getView();
+        android.widget.TextView textView = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+
+        android.widget.TextView textView1 = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_action);
+        textView.setTextColor(Color.WHITE);
+        textView.setTypeface(tf);
+        textView1.setTypeface(tf);
+
 
 
 
@@ -182,6 +224,11 @@ public class SplashActivity extends Activity {
     protected void onRestart() {
         super.onRestart();
         Log.e("tag", "ds+" + is);
+        if (!config.isConnected(SplashActivity.this)) {
+            snackbar.show();
+        } else {
+            snackbar.dismiss();
+        }
     }
 
 
@@ -192,7 +239,7 @@ public class SplashActivity extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             Log.e("tag","reg_preexe");
-          //  av_loader.setVisibility(View.VISIBLE);
+
         }
 
         @Override
@@ -223,6 +270,28 @@ public class SplashActivity extends Activity {
 
             if(s.equals("true")){
                 av_loader.setVisibility(View.GONE);
+                if (sharedPreferences.getString("login", "").equals("success")) {
+
+                    lt_bottom.startAnimation(anim_btn_t2b);
+                    truck_icon.startAnimation(anim_truck_c2r);
+                    bg_icon.setAnimation(fadeOut);
+
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            Intent isd = new Intent(SplashActivity.this, DashboardNavigation.class);
+                            Bundle bndlanimation =
+                                    ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.anim1, R.anim.anim2).toBundle();
+                            startActivity(isd, bndlanimation);
+
+                        }
+                    }, 1000);
+
+                }
+
+
             }
             else if(s.equals("false")){
                av_loader.setVisibility(View.GONE);
@@ -234,5 +303,13 @@ public class SplashActivity extends Activity {
         }
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+    }
+
+
 
 }
