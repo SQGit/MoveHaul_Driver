@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
@@ -64,6 +65,13 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     Dialog dialog1;
     GpsTracker gps;
     Button btn_yes,btn_no;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    int exit_status;
+    android.widget.TextView tv_txt1,tv_txt2,tv_txt3;
+    Typeface tf;
+    double dl_latitude,dl_logitude;
+    String str_lati,str_longi;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,6 +79,11 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         setContentView(R.layout.activity_dashboard);
         FontsManager.initFormAssets(this, "fonts/lato.ttf");
         FontsManager.changeFonts(this);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(DashboardNavigation.this);
+        editor = sharedPreferences.edit();
+
+        tf = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
 
         gps = new GpsTracker(DashboardNavigation.this);
 
@@ -137,7 +150,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
             double longitude = gps.getLongitude();
 
             // \n is for new line
-            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+           // Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
         }else{
             // can't get location
             // GPS or Network is not enabled
@@ -153,10 +166,33 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         btn_yes = (Button) dialog1.findViewById(R.id.button_yes);
         btn_no = (Button) dialog1.findViewById(R.id.button_no);
 
+        tv_txt1 = (android.widget.TextView) dialog1.findViewById(R.id.textView_1);
+        tv_txt2 = (android.widget.TextView) dialog1.findViewById(R.id.textView_2);
+        tv_txt3 = (android.widget.TextView) dialog1.findViewById(R.id.textView_3);
+
+        tv_txt1.setTypeface(tf);
+        tv_txt2.setTypeface(tf);
+        tv_txt3.setTypeface(tf);
+
         btn_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finishAffinity();
+
+                if(exit_status ==0){
+
+                    editor.putString("login","success");
+                    editor.commit();
+
+                    Intent i = new Intent(DashboardNavigation.this, LoginOtpActivity.class);
+                    startActivity(i);
+                    finishAffinity();
+
+                }
+                else if (exit_status ==1){
+                    finishAffinity();
+                }
+
+
             }
         });
 
@@ -259,11 +295,20 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
                         switch (item.getItemId()) {
 
-                            case R.id.item1: {
+                            case R.id.support: {
 
                                 return true;
                             }
-                            case R.id.item2: {
+                            case R.id.feedback: {
+
+                                return true;
+                            }
+                            case R.id.logout: {
+
+
+                                dialog1.show();
+                                exit_status =0;
+                                tv_txt3.setText("Logout");
 
                                 return true;
                             }
@@ -324,12 +369,20 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
             Bundle b = intent.getExtras();
 
-            String asdf = b.getString("latitude");
-            String ct_message = b.getString("longitude");
+            str_lati = b.getString("latitude");
+            str_longi = b.getString("longitude");
+            String address = b.getString("address");
+            String city = b.getString("city");
+            String state = b.getString("state");
+            String country =b.getString("country");
+            String postalCode = b.getString("postalCode");
+            String knownName = b.getString("knownName");
 
-            String latitude = asdf;
-            String longitude = ct_message;
-            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+            Log.e("tag","as:"+str_lati+str_longi+"a:"+address+"b:"+city+"c:"+state+"d:"+country+"e:"+postalCode+"f:"+knownName);
+
+           // String latitude = asdf;
+           // String longitude = ct_message;
+            //Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
 
 
 
@@ -340,5 +393,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     public void onBackPressed() {
         //super.onBackPressed();
         dialog1.show();
+        exit_status =1;
+        tv_txt3.setText("Exit");
     }
 }

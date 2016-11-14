@@ -127,7 +127,7 @@ public class SplashActivity extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                av_loader.setVisibility(View.VISIBLE);
+               // av_loader.setVisibility(View.VISIBLE);
                 new check_internet().execute();
             }
         }, 1300);
@@ -270,7 +270,7 @@ public class SplashActivity extends Activity {
             Log.e("tag", "net:" + s);
 
             if (s.equals("true")) {
-                av_loader.setVisibility(View.GONE);
+               // av_loader.setVisibility(View.GONE);
                 if (sharedPreferences.getString("login", "").equals("success")) {
 
                     lt_bottom.startAnimation(anim_btn_t2b);
@@ -294,7 +294,7 @@ public class SplashActivity extends Activity {
 
 
             } else if (s.equals("false")) {
-                av_loader.setVisibility(View.GONE);
+                //av_loader.setVisibility(View.GONE);
                 snackbar.show();
             }
 

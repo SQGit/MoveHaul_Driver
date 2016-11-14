@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -16,6 +18,10 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.Toast;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by SQINDIA on 11/10/2016.
@@ -37,6 +43,9 @@ public class GpsTracker extends Service implements LocationListener {
     Location location; // location
     double latitude; // latitude
     double longitude; // longitude
+
+    Geocoder geocoder;
+    List<Address> addresses;
 
     // The minimum distance to change Updates in meters
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
@@ -214,13 +223,35 @@ public class GpsTracker extends Service implements LocationListener {
         longitude = location.getLongitude();
 
 
+        geocoder = new Geocoder(mContext, Locale.getDefault());
 
-       Toast.makeText(mContext,"location Changed",Toast.LENGTH_LONG).show();
+        try {
+            addresses = geocoder.getFromLocation(latitude, longitude, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String address = addresses.get(0).getAddressLine(0);
+        String city = addresses.get(0).getLocality();
+        String state = addresses.get(0).getAdminArea();
+        String country = addresses.get(0).getCountryName();
+        String postalCode = addresses.get(0).getPostalCode();
+        String knownName = addresses.get(0).getFeatureName();
+
+
+
+        Toast.makeText(mContext,"location Changed",Toast.LENGTH_LONG).show();
 
         Intent i = new Intent();//fafafadf
         i.setAction("appendGetLocation");
-        i.putExtra("latitude", "lat worked"+latitude);
-        i.putExtra("longitude", "long worked"+longitude);
+        i.putExtra("latitude", String.valueOf(latitude));
+        i.putExtra("longitude", String.valueOf(longitude));
+        i.putExtra("address", address);
+        i.putExtra("city", city);
+        i.putExtra("state", state);
+        i.putExtra("country", country);
+        i.putExtra("postalCode", postalCode);
+        i.putExtra("knownName", knownName);
         mContext.sendBroadcast(i);
 
 
