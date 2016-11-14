@@ -43,6 +43,8 @@ public class GpsTracker extends Service implements LocationListener {
     Location location; // location
     double latitude; // latitude
     double longitude; // longitude
+    String locality;
+    String address;
 
     Geocoder geocoder;
     List<Address> addresses;
@@ -175,6 +177,52 @@ public class GpsTracker extends Service implements LocationListener {
         return longitude;
     }
 
+
+    public String getlocality(){
+        if(location != null){
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+        }
+
+        geocoder = new Geocoder(mContext, Locale.getDefault());
+
+        try {
+            addresses = geocoder.getFromLocation(latitude, longitude, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+         locality = addresses.get(0).getLocality();
+
+
+        // return longitude
+        return locality;
+    }
+
+
+    public String getaddress(){
+        if(location != null){
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+        }
+
+        geocoder = new Geocoder(mContext, Locale.getDefault());
+
+        try {
+            addresses = geocoder.getFromLocation(latitude, longitude, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        locality = addresses.get(0).getAddressLine(0);
+
+
+        // return longitude
+        return address;
+    }
+
+
+
     /**
      * Function to check GPS/wifi enabled
      * @return boolean
@@ -240,7 +288,7 @@ public class GpsTracker extends Service implements LocationListener {
 
 
 
-        Toast.makeText(mContext,"location Changed",Toast.LENGTH_LONG).show();
+      //  Toast.makeText(mContext,"location Changed",Toast.LENGTH_LONG).show();
 
         Intent i = new Intent();//fafafadf
         i.setAction("appendGetLocation");

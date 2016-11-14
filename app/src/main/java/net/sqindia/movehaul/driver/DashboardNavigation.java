@@ -40,6 +40,7 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.rey.material.widget.Button;
+import com.rey.material.widget.Switch;
 import com.rey.material.widget.TextView;
 import com.sloop.fonts.FontsManager;
 
@@ -70,8 +71,9 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     int exit_status;
     android.widget.TextView tv_txt1,tv_txt2,tv_txt3;
     Typeface tf;
-    double dl_latitude,dl_logitude;
-    String str_lati,str_longi;
+    double dl_latitude,dl_longitude;
+    String str_lati,str_longi,str_locality,str_address;
+    Switch sw_active;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,6 +92,8 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         DashboardNavigation.this.registerReceiver(this.getLocation_Receiver, new IntentFilter("appendGetLocation"));
 
 
+
+
         mContext = this;
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -104,6 +108,8 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         btn_menu = (ImageView) findViewById(R.id.img_menu);
         rightmenu = (ImageView) findViewById(R.id.right_menu);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        sw_active = (Switch) findViewById(R.id.switch_active);
 
         btn_submit = (Button) findViewById(R.id.button_submit);
 
@@ -146,8 +152,15 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         });
         if(gps.canGetLocation()){
 
-            double latitude = gps.getLatitude();
-            double longitude = gps.getLongitude();
+             dl_latitude = gps.getLatitude();
+             dl_longitude = gps.getLongitude();
+            str_locality = gps.getlocality();
+            str_address = gps.getaddress();
+            str_lati = String.valueOf(dl_latitude);
+            str_longi = String.valueOf(dl_longitude);
+
+            Log.e("tag","ee:"+str_lati+"aa:"+str_longi+"bb:"+str_locality+"cc:"+str_address);
+
 
             // \n is for new line
            // Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
@@ -193,6 +206,19 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                 }
 
 
+            }
+        });
+
+
+        sw_active.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(Switch view, boolean checked) {
+                if(checked){
+                    Log.e("tag","checked");
+                }
+                else{
+                    Log.e("tag","un_checked");
+                }
             }
         });
 
