@@ -8,8 +8,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
@@ -25,7 +25,6 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.sloop.fonts.FontsManager;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -42,8 +41,8 @@ public class SplashActivity extends Activity {
     SharedPreferences.Editor editor;
     Snackbar snackbar;
     Typeface tf;
-    TranslateAnimation anim_btn_b2t,anim_btn_t2b,anim_truck_c2r;
-    Animation fadeIn,fadeOut;
+    TranslateAnimation anim_btn_b2t, anim_btn_t2b, anim_truck_c2r;
+    Animation fadeIn, fadeOut;
 
     public static int getDeviceWidth(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -67,6 +66,8 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.splash_screen);
         FontsManager.initFormAssets(this, "fonts/lato.ttf");       //initialization
         FontsManager.changeFonts(this);
+        tf = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
+
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SplashActivity.this);
         editor = sharedPreferences.edit();
@@ -108,19 +109,18 @@ public class SplashActivity extends Activity {
 
         final float height = getDeviceHeight(this);
 
-          anim_btn_b2t = new TranslateAnimation(0, 0, height + lt_bottom.getHeight(), lt_bottom.getHeight());
+        anim_btn_b2t = new TranslateAnimation(0, 0, height + lt_bottom.getHeight(), lt_bottom.getHeight());
         anim_btn_b2t.setDuration(1400);
         lt_bottom.setAnimation(anim_btn_b2t);
 
 
-          anim_btn_t2b = new TranslateAnimation(0, 0, lt_bottom.getHeight(), height + lt_bottom.getHeight());
+        anim_btn_t2b = new TranslateAnimation(0, 0, lt_bottom.getHeight(), height + lt_bottom.getHeight());
         anim_btn_t2b.setDuration(1700);
         anim_btn_t2b.setFillAfter(false);
 
-          anim_truck_c2r = new TranslateAnimation(0, width, 0, 0);
+        anim_truck_c2r = new TranslateAnimation(0, width, 0, 0);
         anim_truck_c2r.setDuration(2000);
         anim_truck_c2r.setFillAfter(false);
-
 
 
         final Handler handler = new Handler();
@@ -156,9 +156,6 @@ public class SplashActivity extends Activity {
         textView.setTextColor(Color.WHITE);
         textView.setTypeface(tf);
         textView1.setTypeface(tf);
-
-
-
 
 
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -231,6 +228,11 @@ public class SplashActivity extends Activity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+    }
 
     public class check_internet extends AsyncTask<String, Void, String> {
 
@@ -238,7 +240,7 @@ public class SplashActivity extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Log.e("tag","reg_preexe");
+            Log.e("tag", "reg_preexe");
 
         }
 
@@ -249,10 +251,9 @@ public class SplashActivity extends Activity {
 
                 boolean isconnected = config.isConnected(SplashActivity.this);
 
-                if(isconnected){
+                if (isconnected) {
                     return "true";
-                }
-                else{
+                } else {
                     return "false";
                 }
 
@@ -266,9 +267,9 @@ public class SplashActivity extends Activity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.e("tag","net:"+s);
+            Log.e("tag", "net:" + s);
 
-            if(s.equals("true")){
+            if (s.equals("true")) {
                 av_loader.setVisibility(View.GONE);
                 if (sharedPreferences.getString("login", "").equals("success")) {
 
@@ -292,24 +293,15 @@ public class SplashActivity extends Activity {
                 }
 
 
+            } else if (s.equals("false")) {
+                av_loader.setVisibility(View.GONE);
+                snackbar.show();
             }
-            else if(s.equals("false")){
-               av_loader.setVisibility(View.GONE);
-                Toast.makeText(getApplicationContext(),"splash",Toast.LENGTH_LONG).show();
-            }
-
 
 
         }
 
     }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finishAffinity();
-    }
-
 
 
 }
