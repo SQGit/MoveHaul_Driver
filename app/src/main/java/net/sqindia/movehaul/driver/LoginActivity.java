@@ -85,22 +85,20 @@ public class LoginActivity extends Activity {
             public void onClick(View view) {
                 str_mobile = et_mobile_no.getText().toString().trim();
 
-                if (!(str_mobile.isEmpty() || str_mobile.length() < 9)) {
+                Intent i = new Intent(LoginActivity.this, LoginOtpActivity.class);
+                startActivity(i);
+                finish();
 
-
+            /*    if (!(str_mobile.isEmpty() || str_mobile.length() < 9)) {
                   // new login_customer().execute();
-
                   Intent i = new Intent(LoginActivity.this, DashboardNavigation.class);
                     //i.putExtra("phone",str_mobile);
                     startActivity(i);
                     finish();
-
-
-
                 } else {
                     et_mobile_no.setError("Enter valid phone number");
                     et_mobile_no.requestFocus();
-                }
+                }*/
 
             }
         });

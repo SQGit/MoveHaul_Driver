@@ -131,7 +131,16 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (et_otp1.getText().toString().isEmpty()) {
+
+                Intent i = new Intent(LoginOtpActivity.this, DashboardNavigation.class);
+                startActivity(i);
+                finish();
+
+                editor.putString("login","success");
+                editor.commit();
+
+
+          /*      if (et_otp1.getText().toString().isEmpty()) {
                     et_otp1.requestFocus();
                 } else {
                     if (et_otp2.getText().toString().isEmpty()) {
@@ -152,8 +161,12 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                             }
                         }
                     }
-                }
+                }*/
+
+
+
             }
+
         });
 
 
