@@ -62,7 +62,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     android.widget.LinearLayout droplv, pickuplv;
     private ViewFlipper mViewFlipper;
     Dialog dialog1;
-    GPSTracker gps;
+    GpsTracker gps;
     Button btn_yes,btn_no;
 
     @Override
@@ -72,7 +72,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         FontsManager.initFormAssets(this, "fonts/lato.ttf");
         FontsManager.changeFonts(this);
 
-        gps = new GPSTracker(DashboardNavigation.this);
+        gps = new GpsTracker(DashboardNavigation.this);
 
         DashboardNavigation.this.registerReceiver(this.getLocation_Receiver, new IntentFilter("appendGetLocation"));
 

@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_335sdp"
+        android:layout_height="@dimen/_275sdp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -22,7 +22,7 @@
 
             <View
                 android:layout_width="2dp"
-                android:layout_height="@dimen/_140sdp"
+                android:layout_height="@dimen/_110sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:background="@color/redColor" />
@@ -36,7 +36,7 @@
 
             <View
                 android:layout_width="2dp"
-                android:layout_height="@dimen/_140sdp"
+                android:layout_height="@dimen/_110sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@color/redColor" />
@@ -89,12 +89,14 @@
 
             </LinearLayout>
 
+<!--
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:focusable="false"
                 android:src="@drawable/truck_ad" />
+-->
 
 
             <LinearLayout
@@ -340,7 +342,57 @@
 
                 </LinearLayout>
 
+
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:focusable="false">
+
+                <ImageView
+                    android:id="@+id/imageVie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:focusable="false"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/goods_type" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/_10sdp">
+
+
+                    <com.rey.material.widget.TextView
+                        android:id="@+id/textview_book_to_tx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:text="Goods Type"
+                        android:textColor="@color/redColor"
+                        android:textSize="@dimen/_10sdp" />
+
+                    <com.rey.material.widget.TextView
+                        android:id="@+id/textview_book_t"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:maxLines="1"
+                        android:paddingTop="@dimen/_1sdp"
+                        android:text="Computers Systems"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/_13sdp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
 
 
             <com.rey.material.widget.Button
