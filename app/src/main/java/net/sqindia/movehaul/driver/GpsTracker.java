@@ -21,7 +21,7 @@ import android.widget.Toast;
  * Created by SQINDIA on 11/10/2016.
  */
 
-public class GPSTracker extends Service implements LocationListener {
+public class GpsTracker extends Service implements LocationListener {
 
     private final Context mContext;
 
@@ -47,7 +47,7 @@ public class GPSTracker extends Service implements LocationListener {
     // Declaring a Location Manager
     protected LocationManager locationManager;
 
-    public GPSTracker(Context context) {
+    public GpsTracker(Context context) {
         this.mContext = context;
         getLocation();
     }
@@ -138,7 +138,7 @@ public class GPSTracker extends Service implements LocationListener {
                 // for ActivityCompat#requestPermissions for more details.
                 return;
             }
-            locationManager.removeUpdates(GPSTracker.this);
+            locationManager.removeUpdates(GpsTracker.this);
         }
     }
 
