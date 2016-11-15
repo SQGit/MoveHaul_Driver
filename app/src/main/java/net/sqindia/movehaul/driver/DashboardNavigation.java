@@ -7,17 +7,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.location.Location;
+import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -25,10 +28,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
@@ -43,6 +44,9 @@ import com.rey.material.widget.Button;
 import com.rey.material.widget.Switch;
 import com.rey.material.widget.TextView;
 import com.sloop.fonts.FontsManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by SQINDIA on 10/26/2016.
@@ -72,8 +76,12 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     android.widget.TextView tv_txt1,tv_txt2,tv_txt3;
     Typeface tf;
     double dl_latitude,dl_longitude;
-    String str_lati,str_longi,str_locality,str_address;
+    String str_lati,str_longi,str_locality,str_address,str_active="inactive";
     Switch sw_active;
+    Snackbar snackbar;
+    android.widget.TextView sb_text;
+    LocationManager manager;
+    String service_id,service_token;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,7 +97,13 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
         gps = new GpsTracker(DashboardNavigation.this);
 
-        DashboardNavigation.this.registerReceiver(this.getLocation_Receiver, new IntentFilter("appendGetLocation"));
+
+        manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
+
+        service_id = sharedPreferences.getString("id","");
+        service_token = sharedPreferences.getString("token","");
+
+
 
 
 
@@ -129,6 +143,30 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         mViewFlipper.setInAnimation(this, R.anim.anim1);
         mViewFlipper.setOutAnimation(this, R.anim.anim2);
 
+       snackbar = Snackbar
+                .make(findViewById(R.id.drawer_layout), "Switch On GPS First!", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Open Settings", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        snackbar.dismiss();
+                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
+                    }
+                });
+
+// Changing message text color
+        snackbar.setActionTextColor(Color.RED);
+
+
+        View sbView = snackbar.getView();
+        sb_text = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        android.widget.TextView textView1 = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_action);
+        sb_text = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_action);
+        sb_text.setTextColor(Color.WHITE);
+        sb_text.setTypeface(tf);
+        textView1.setTypeface(tf);
+        textView1.setTextColor(Color.RED);
+
 
 
 
@@ -150,25 +188,65 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                 startActivity(i);
             }
         });
-        if(gps.canGetLocation()){
-
-             dl_latitude = gps.getLatitude();
-             dl_longitude = gps.getLongitude();
-            str_locality = gps.getlocality();
-            str_address = gps.getaddress();
-            str_lati = String.valueOf(dl_latitude);
-            str_longi = String.valueOf(dl_longitude);
-
-            Log.e("tag","ee:"+str_lati+"aa:"+str_longi+"bb:"+str_locality+"cc:"+str_address);
 
 
-            // \n is for new line
-           // Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
-        }else{
-            // can't get location
-            // GPS or Network is not enabled
-            // Ask user to enable GPS/network in settings
-            gps.showSettingsAlert();
+
+
+        if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+            snackbar.show();
+            btn_submit.setEnabled(false);
+
+        }
+
+        else {
+            if (gps.canGetLocation()) {
+
+                dl_latitude = gps.getLatitude();
+                dl_longitude = gps.getLongitude();
+
+                str_locality = gps.getlocality();
+                str_address = gps.getaddress();
+                str_lati = String.valueOf(dl_latitude);
+                str_longi = String.valueOf(dl_longitude);
+
+                Log.e("tag", "ee:" + str_lati + "aa:" + str_longi + "bb:" + str_locality + "cc:" + str_address);
+                // snackbar.dismiss();
+
+                if(!(sharedPreferences.getString("driver_status","").equals(""))){
+                    str_active = sharedPreferences.getString("driver_status","");
+                    if(str_active.equals("active")){
+                        sw_active.setChecked(true);
+                        new updateLocation().execute();
+                    }
+                    else{
+
+
+                        sw_active.setChecked(false);
+                        new updateLocation().execute();
+                    }
+                }
+                else{
+
+                    str_active ="inactive";
+
+                    editor.putString("driver_status",str_active);
+                    editor.commit();
+
+                    new updateLocation().execute();
+                }
+
+
+
+                // \n is for new line
+                // Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+            } else {
+                // can't get location
+                // GPS or Network is not enabled
+                // Ask user to enable GPS/network in settings
+                //gps.showSettingsAlert();
+
+
+            }
         }
 
         dialog1 = new Dialog(DashboardNavigation.this);
@@ -194,15 +272,21 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                 if(exit_status ==0){
 
                     editor.putString("login","");
+                    editor.clear();
                     editor.commit();
+
+                    dialog1.dismiss();
 
                     Intent i = new Intent(DashboardNavigation.this, LoginActivity.class);
                     startActivity(i);
                     finishAffinity();
 
+
+
                 }
                 else if (exit_status ==1){
                     finishAffinity();
+                    dialog1.dismiss();
                 }
 
 
@@ -215,9 +299,34 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
             public void onCheckedChanged(Switch view, boolean checked) {
                 if(checked){
                     Log.e("tag","checked");
+                    str_active ="active";
+
+                    editor.putString("driver_status",str_active);
+                    editor.commit();
+
+                    try {
+                        DashboardNavigation.this.registerReceiver(DashboardNavigation.this.getLocation_Receiver, new IntentFilter("appendGetLocation"));
+                    }
+                    catch (Exception e){
+                        Log.e("tag","er:"+e.toString());
+                    }
+
+                    new updateLocation().execute();
                 }
                 else{
                     Log.e("tag","un_checked");
+                    str_active ="inactive";
+
+                    editor.putString("driver_status",str_active);
+                    editor.commit();
+
+
+                    try {
+                        DashboardNavigation.this.unregisterReceiver(DashboardNavigation.this.getLocation_Receiver);                    }
+                    catch (Exception e){
+                        Log.e("tag","er1:"+e.toString());
+                    }
+                    new updateLocation().execute();
                 }
             }
         });
@@ -361,15 +470,38 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     }
 
 
+
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-                                    ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
+    protected void onRestart() {
+        super.onRestart();
 
+        if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+            snackbar.show();
+        } else {
+            snackbar.dismiss();
 
+            if (gps.canGetLocation()) {
+
+                dl_latitude = gps.getLatitude();
+                dl_longitude = gps.getLongitude();
+
+                str_locality = gps.getlocality();
+                str_address = gps.getaddress();
+                str_lati = String.valueOf(dl_latitude);
+                str_longi = String.valueOf(dl_longitude);
+
+                Log.e("tag", "esse:" + str_lati + "aa:" + str_longi + "bb:" + str_locality + "cc:" + str_address);
+                // snackbar.dismiss();
+
+                new updateLocation().execute();
+                // \n is for new line
+                // Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+            }
+
+        }
     }
+
+
 
 
     private void applyFontToMenuItem(MenuItem mi) {
@@ -386,7 +518,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     }
 
 
-    BroadcastReceiver getLocation_Receiver = new BroadcastReceiver() {
+     public BroadcastReceiver getLocation_Receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
 
@@ -397,19 +529,18 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
             str_lati = b.getString("latitude");
             str_longi = b.getString("longitude");
-            String address = b.getString("address");
-            String city = b.getString("city");
+            str_address = b.getString("address");
+            str_locality = b.getString("city");
             String state = b.getString("state");
             String country =b.getString("country");
             String postalCode = b.getString("postalCode");
             String knownName = b.getString("knownName");
 
-            Log.e("tag","as:"+str_lati+str_longi+"a:"+address+"b:"+city+"c:"+state+"d:"+country+"e:"+postalCode+"f:"+knownName);
+            Log.e("tag","as:"+str_lati+str_longi+"adr:"+str_address+"loc:"+str_locality+"c:"+state+"d:"+country+"e:"+postalCode+"f:"+knownName);
 
-           // String latitude = asdf;
-           // String longitude = ct_message;
-            //Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+            new updateLocation().execute();
 
+            Toast.makeText(getApplicationContext(),"updated:", Toast.LENGTH_LONG).show();
 
 
         }
@@ -421,5 +552,71 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         dialog1.show();
         exit_status =1;
         tv_txt3.setText("Exit");
+    }
+
+   public class updateLocation extends AsyncTask<String, Void, String> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Log.e("tag","reg_preexe");
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            String json = "", jsonStr = "";
+
+            try {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.accumulate("driver_status", str_active);
+                jsonObject.accumulate("driver_latitude", str_lati);
+                jsonObject.accumulate("driver_longitude", str_longi);
+                jsonObject.accumulate("driver_locality1", str_locality);
+                jsonObject.accumulate("driver_locality2", str_address);
+                json = jsonObject.toString();
+                return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + "driver/location", json,service_id,service_token);
+
+            } catch (Exception e) {
+                Log.e("InputStream", e.getLocalizedMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.e("tag","tag"+s);
+
+
+            if (s != null) {
+                try {
+                    JSONObject jo = new JSONObject(s);
+                    String status = jo.getString("status");
+                    String msg = jo.getString("message");
+                    Log.d("tag", "<-----Status----->" + status);
+                    if (status.equals("true")) {
+                        Log.e("tag","Location Updated");
+
+                    } else if (status.equals("false")) {
+
+                        Log.e("tag","Location not updated");
+                        //has to check internet and location...
+
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e("tag","nt"+e.toString());
+                   // Toast.makeText(getApplicationContext(),"Network Errror0",Toast.LENGTH_LONG).show();
+                }
+            } else {
+               // Toast.makeText(getApplicationContext(),"Network Errror1",Toast.LENGTH_LONG).show();
+            }
+
+        }
+
     }
 }

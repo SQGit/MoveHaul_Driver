@@ -132,15 +132,15 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
             @Override
             public void onClick(View view) {
 
-                Intent i = new Intent(LoginOtpActivity.this, DashboardNavigation.class);
+                /*Intent i = new Intent(LoginOtpActivity.this, DashboardNavigation.class);
                 startActivity(i);
-                finish();
+                finish();*/
 
-                editor.putString("login","success");
-                editor.commit();
+                /*editor.putString("login","success");
+                editor.commit();*/
 
 
-          /*      if (et_otp1.getText().toString().isEmpty()) {
+               if (et_otp1.getText().toString().isEmpty()) {
                     et_otp1.requestFocus();
                 } else {
                     if (et_otp2.getText().toString().isEmpty()) {
@@ -161,7 +161,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                             }
                         }
                     }
-                }*/
+                }
 
 
 
@@ -342,7 +342,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
             try {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("driver_mobile", "+919791073466");
+                jsonObject.accumulate("driver_mobile", "+91"+str_phone);
                 jsonObject.accumulate("driver_otp", str_otppin);
 
                 json = jsonObject.toString();
@@ -376,6 +376,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
                         editor.putString("id",id);
                         editor.putString("token",token);
+                        editor.putString("login","success");
                         editor.commit();
 
                         Intent i = new Intent(LoginOtpActivity.this, DashboardNavigation.class);

@@ -90,6 +90,16 @@ public class SplashActivity extends Activity {
         lt_bottom = (LinearLayout) findViewById(R.id.layout_bottom);
         av_loader = (AVLoadingIndicatorView) findViewById(R.id.loader);
 
+
+
+        if (sharedPreferences.getString("login", "").equals("success")) {
+
+            lt_bottom.setVisibility(View.GONE);
+
+
+        }
+
+
         av_loader.setVisibility(View.GONE);
 
 
@@ -210,6 +220,7 @@ public class SplashActivity extends Activity {
                                 ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.anim1, R.anim.anim2).toBundle();
                         startActivity(isd, bndlanimation);
 
+
                     }
                 }, 1000);
 
@@ -287,8 +298,9 @@ public class SplashActivity extends Activity {
                                     ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.anim1, R.anim.anim2).toBundle();
                             startActivity(isd, bndlanimation);
 
+
                         }
-                    }, 1000);
+                    }, 1200);
 
                 }
 

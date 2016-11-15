@@ -85,20 +85,20 @@ public class LoginActivity extends Activity {
             public void onClick(View view) {
                 str_mobile = et_mobile_no.getText().toString().trim();
 
-                Intent i = new Intent(LoginActivity.this, LoginOtpActivity.class);
+                /*Intent i = new Intent(LoginActivity.this, LoginOtpActivity.class);
                 startActivity(i);
-                finish();
+                finish();*/
 
-            /*    if (!(str_mobile.isEmpty() || str_mobile.length() < 9)) {
-                  // new login_customer().execute();
-                  Intent i = new Intent(LoginActivity.this, DashboardNavigation.class);
+               if (!(str_mobile.isEmpty() || str_mobile.length() < 9)) {
+                   new login_customer().execute();
+                  /*Intent i = new Intent(LoginActivity.this, DashboardNavigation.class);
                     //i.putExtra("phone",str_mobile);
                     startActivity(i);
-                    finish();
+                    finish();*/
                 } else {
                     et_mobile_no.setError("Enter valid phone number");
                     et_mobile_no.requestFocus();
-                }*/
+                }
 
             }
         });
@@ -154,6 +154,7 @@ public class LoginActivity extends Activity {
                         //Toast.makeText(getApplicationContext(),sus_txt,Toast.LENGTH_LONG).show();
 
                         Intent i = new Intent(LoginActivity.this, LoginOtpActivity.class);
+                        i.putExtra("phone",str_mobile);
                         startActivity(i);
                         finish();
 
@@ -165,7 +166,17 @@ public class LoginActivity extends Activity {
 
                             Toast.makeText(getApplicationContext(),"Mobile Number Not Registered",Toast.LENGTH_LONG).show();
 
-                        } else  {
+                        }
+                        if (msg.contains("Error Occured[object Object]")) {
+
+                            Intent i = new Intent(LoginActivity.this, LoginOtpActivity.class);
+                            i.putExtra("phone",str_mobile);
+                            startActivity(i);
+                            finish();
+
+                        }
+
+                        else  {
 
                             Toast.makeText(getApplicationContext(),"Please Try Again Later",Toast.LENGTH_LONG).show();
                         }

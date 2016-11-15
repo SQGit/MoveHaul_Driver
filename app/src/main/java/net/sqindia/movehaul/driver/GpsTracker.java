@@ -214,7 +214,7 @@ public class GpsTracker extends Service implements LocationListener {
             e.printStackTrace();
         }
 
-        locality = addresses.get(0).getAddressLine(0);
+        address = addresses.get(0).getAddressLine(0);
 
 
         // return longitude
@@ -290,7 +290,7 @@ public class GpsTracker extends Service implements LocationListener {
 
       //  Toast.makeText(mContext,"location Changed",Toast.LENGTH_LONG).show();
 
-        Intent i = new Intent();//fafafadf
+       /* Intent i = new Intent();//fafafadf
         i.setAction("appendGetLocation");
         i.putExtra("latitude", String.valueOf(latitude));
         i.putExtra("longitude", String.valueOf(longitude));
@@ -300,7 +300,7 @@ public class GpsTracker extends Service implements LocationListener {
         i.putExtra("country", country);
         i.putExtra("postalCode", postalCode);
         i.putExtra("knownName", knownName);
-        mContext.sendBroadcast(i);
+        mContext.sendBroadcast(i);*/
 
 
     }
