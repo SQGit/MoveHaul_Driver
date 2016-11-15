@@ -1,7 +1,9 @@
 package net.sqindia.movehaul.driver;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
@@ -11,10 +13,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ramotion.foldingcell.FoldingCell;
+import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
 import com.rey.material.widget.ListView;
 import com.rey.material.widget.TabIndicatorView;
@@ -34,8 +40,11 @@ public class MyTrips extends AppCompatActivity {
     TabIndicatorView tiv;
     ListView ht_lview;
     LinearLayout btn_back;
+    Button btn_start,btn_cancel,btn_confirm;
+    ImageView btn_close;
     ArrayList<String> ht_arlist;
-
+    Dialog dialog1;
+    TextView tv_dialog1,tv_dialog2,tv_dialog3,tv_dialog4;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +73,29 @@ public class MyTrips extends AppCompatActivity {
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
         tiv.setTabIndicatorFactory(new TabIndicatorView.ViewPagerIndicatorFactory(viewPager));
 
-
+        dialog1 = new Dialog(MyTrips.this);
+        dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog1.setCancelable(false);
+        dialog1.setContentView(R.layout.dialog_cancel);
+        tv_dialog1 = (TextView) dialog1.findViewById(R.id.textView_1);
+        tv_dialog2 = (TextView) dialog1.findViewById(R.id.textView_2);
+        tv_dialog3 = (TextView) dialog1.findViewById(R.id.textView_3);
+        tv_dialog4 = (TextView) dialog1.findViewById(R.id.textView_4);
+        btn_confirm = (Button) dialog1.findViewById(R.id.button_confirm);
+        btn_close = (ImageView) dialog1.findViewById(R.id.button_close);
+        btn_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog1.dismiss();
+            }
+        });
+        btn_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog1.dismiss();
+            }
+        });
     }
 
 
@@ -85,7 +116,20 @@ public class MyTrips extends AppCompatActivity {
 
             if (position == 0)
             {
-
+                btn_start = (Button) findViewById(R.id.btn_start);
+                btn_cancel = (Button) findViewById(R.id.btn_cancel);
+                btn_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog1.show();
+                    }
+                });
+                btn_start.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        btn_start.setText("End");
+                    }
+                });
 
             }
            /* else

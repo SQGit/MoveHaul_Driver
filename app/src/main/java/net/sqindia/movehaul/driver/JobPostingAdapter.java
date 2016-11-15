@@ -6,15 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.LayerDrawable;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.ramotion.foldingcell.FoldingCell;
@@ -36,10 +33,10 @@ public class JobPostingAdapter extends ArrayAdapter<String> {
     ArrayList<String> up_lists;
     Activity act;
     FoldingCell cell;
-    ImageView btn_confirm;
+    ImageView btn_confi;
     Dialog dialog1, dialog2;
     ImageView btn_close;
-    Button btn_ok, d2_btn_ok;
+    Button btn_confirm, d2_btn_ok;
     TextView tv_dialog1, tv_dialog2, tv_dialog3, tv_dialog4, d2_tv_dialog1, d2_tv_dialog2, d2_tv_dialog3, d2_tv_dialog4;
     Typeface type;
 
@@ -99,7 +96,7 @@ public class JobPostingAdapter extends ArrayAdapter<String> {
         dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog1.setCancelable(false);
         dialog1.setContentView(R.layout.driver_bidding);
-        btn_ok = (Button) dialog1.findViewById(R.id.button_ok);
+        btn_confirm = (Button) dialog1.findViewById(R.id.button_confirm);
         btn_close = (ImageView) dialog1.findViewById(R.id.button_close);
         tv_dialog1 = (TextView) dialog1.findViewById(R.id.textView_1);
         tv_dialog2 = (TextView) dialog1.findViewById(R.id.textView_2);
@@ -110,7 +107,7 @@ public class JobPostingAdapter extends ArrayAdapter<String> {
         tv_dialog2.setTypeface(type);
         tv_dialog3.setTypeface(type);
         tv_dialog4.setTypeface(type);
-        btn_ok.setTypeface(type);
+        btn_confirm.setTypeface(type);
 
 
         dialog2 = new Dialog(JobPostingAdapter.this.getContext());
@@ -146,7 +143,7 @@ public class JobPostingAdapter extends ArrayAdapter<String> {
             }
         });
 
-        btn_ok.setOnClickListener(new View.OnClickListener() {
+        btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog1.dismiss();

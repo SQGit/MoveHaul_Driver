@@ -357,7 +357,7 @@
             android:gravity="center|top">
 
             <com.rey.material.widget.Button
-                android:id="@+id/btn_canceljob"
+                android:id="@+id/btn_start"
                 style="@style/Material.Drawable.Ripple.Touch"
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="@dimen/_35sdp"

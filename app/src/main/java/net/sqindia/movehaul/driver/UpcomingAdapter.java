@@ -1,12 +1,17 @@
 package net.sqindia.movehaul.driver;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ramotion.foldingcell.FoldingCell;
 import com.rey.material.widget.Button;
@@ -28,7 +33,10 @@ public class UpcomingAdapter extends ArrayAdapter<String> {
     ArrayList<String> up_lists;
     Activity act;
     FoldingCell cell;
-
+    TextView tv_dialog1, tv_dialog2, tv_dialog3, tv_dialog4;
+    Dialog dialog1;
+    Button btn_confirm;
+    ImageView btn_close;
 
     public UpcomingAdapter(Context context,Activity acti, List<String> objects) {
         super(context, 0, objects);
@@ -83,13 +91,35 @@ public class UpcomingAdapter extends ArrayAdapter<String> {
             public void onClick(View view) {
                 Log.e("tag","buttonclick");
                 cell.unfold((true));
+                dialog1.show();
             }
         });
 
 
+        dialog1 = new Dialog(UpcomingAdapter.this.getContext());
+        dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog1.setCancelable(false);
+        dialog1.setContentView(R.layout.dialog_cancel);
+        btn_confirm = (Button) dialog1.findViewById(R.id.button_confirm);
+        btn_close = (ImageView) dialog1.findViewById(R.id.button_close);
+        tv_dialog1 = (TextView) dialog1.findViewById(R.id.textView_1);
+        tv_dialog2 = (TextView) dialog1.findViewById(R.id.textView_2);
+        tv_dialog3 = (TextView) dialog1.findViewById(R.id.textView_3);
+        tv_dialog4 = (TextView) dialog1.findViewById(R.id.textView_4);
 
-
-
+        btn_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog1.dismiss();
+            }
+        });
+        btn_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog1.dismiss();
+            }
+        });
         return cell;
     }
 
