@@ -82,6 +82,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     android.widget.TextView sb_text;
     LocationManager manager;
     String service_id,service_token;
+    public boolean isRegistered;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -217,12 +218,14 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     if(str_active.equals("active")){
                         sw_active.setChecked(true);
                         new updateLocation().execute();
+                         isRegistered = true;
                     }
                     else{
 
 
                         sw_active.setChecked(false);
                         new updateLocation().execute();
+                        isRegistered = false;
                     }
                 }
                 else{
@@ -305,6 +308,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     editor.commit();
 
                     try {
+                        isRegistered = true;
                         DashboardNavigation.this.registerReceiver(DashboardNavigation.this.getLocation_Receiver, new IntentFilter("appendGetLocation"));
                     }
                     catch (Exception e){
@@ -322,6 +326,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
 
                     try {
+                        isRegistered = false;
                         DashboardNavigation.this.unregisterReceiver(DashboardNavigation.this.getLocation_Receiver);                    }
                     catch (Exception e){
                         Log.e("tag","er1:"+e.toString());
@@ -467,6 +472,16 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
 
 
+    }
+
+
+    @Override
+    protected void onStop()
+    {
+        if(isRegistered) {
+            unregisterReceiver(getLocation_Receiver);
+        }
+        super.onStop();
     }
 
 
