@@ -193,10 +193,10 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
                 if(exit_status ==0){
 
-                    editor.putString("login","success");
+                    editor.putString("login","");
                     editor.commit();
 
-                    Intent i = new Intent(DashboardNavigation.this, LoginOtpActivity.class);
+                    Intent i = new Intent(DashboardNavigation.this, LoginActivity.class);
                     startActivity(i);
                     finishAffinity();
 

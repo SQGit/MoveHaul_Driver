@@ -54,7 +54,7 @@ public class MyTrips extends AppCompatActivity {
 
         layouts = new int[]{
                 R.layout.current_trips,
-                R.layout.history_trips,
+               /* R.layout.history_trips,*/
                 R.layout.upcoming_trips,};
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
@@ -88,14 +88,14 @@ public class MyTrips extends AppCompatActivity {
 
 
             }
-            else if (position == 1)
+           /* else
             {
                 ht_lview = (ListView) view.findViewById(R.id.lview);
                 ht_arlist = new ArrayList<>();
                 HistoryAdapter adapter = new HistoryAdapter(MyTrips.this, ht_arlist);
                 ht_lview.setAdapter(adapter);
-            }
-            else
+            }*/
+            else  if (position == 1)
             {
                 android.widget.ListView up_lview;
                 up_lview = (android.widget.ListView) view.findViewById(R.id.lview);
@@ -146,9 +146,9 @@ public class MyTrips extends AppCompatActivity {
 
             if (position == 0) {
                 title = "Current";
-            } else if (position == 1) {
+            }/* else if (position == 1) {
                 title = "History";
-            } else {
+            }*/ else {
                 title = "Upcoming";
             }
 
@@ -172,10 +172,10 @@ public class MyTrips extends AppCompatActivity {
                 FontsManager.changeFonts(MyTrips.this);
 
 
-            } else if (position == 1) {
+            } /*else if (position == 1) {
 
 
-            } else {
+            }*/ else {
 
 
             }
