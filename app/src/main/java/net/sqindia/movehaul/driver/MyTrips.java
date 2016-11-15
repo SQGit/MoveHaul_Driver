@@ -3,6 +3,7 @@ package net.sqindia.movehaul.driver;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -44,6 +45,7 @@ public class MyTrips extends AppCompatActivity {
     ImageView btn_close;
     ArrayList<String> ht_arlist;
     Dialog dialog1;
+    Typeface type;
     TextView tv_dialog1,tv_dialog2,tv_dialog3,tv_dialog4;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +53,9 @@ public class MyTrips extends AppCompatActivity {
         setContentView(R.layout.mytrips);
         FontsManager.initFormAssets(this, "fonts/lato.ttf");
         FontsManager.changeFonts(this);
+
+        type = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/lato.ttf");
+
         btn_back = (LinearLayout) findViewById(R.id.layout_back);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +89,11 @@ public class MyTrips extends AppCompatActivity {
         tv_dialog4 = (TextView) dialog1.findViewById(R.id.textView_4);
         btn_confirm = (Button) dialog1.findViewById(R.id.button_confirm);
         btn_close = (ImageView) dialog1.findViewById(R.id.button_close);
+        tv_dialog1.setTypeface(type);
+        tv_dialog2.setTypeface(type);
+        tv_dialog3.setTypeface(type);
+        tv_dialog4.setTypeface(type);
+        btn_confirm.setTypeface(type);
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -3,6 +3,7 @@ package net.sqindia.movehaul.driver;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ public class UpcomingAdapter extends ArrayAdapter<String> {
     Dialog dialog1;
     Button btn_confirm;
     ImageView btn_close;
+    Typeface type;
 
     public UpcomingAdapter(Context context,Activity acti, List<String> objects) {
         super(context, 0, objects);
@@ -59,7 +61,7 @@ public class UpcomingAdapter extends ArrayAdapter<String> {
 
        FontsManager.initFormAssets(act, "fonts/lato.ttf");       //initialization
        FontsManager.changeFonts(act);
-
+        type = Typeface.createFromAsset(getContext().getAssets(), "fonts/lato.ttf");
         if (cell == null) {
             viewHolder = new ViewHolder();
             LayoutInflater vi = LayoutInflater.from(getContext());
@@ -107,7 +109,11 @@ public class UpcomingAdapter extends ArrayAdapter<String> {
         tv_dialog2 = (TextView) dialog1.findViewById(R.id.textView_2);
         tv_dialog3 = (TextView) dialog1.findViewById(R.id.textView_3);
         tv_dialog4 = (TextView) dialog1.findViewById(R.id.textView_4);
-
+        tv_dialog1.setTypeface(type);
+        tv_dialog2.setTypeface(type);
+        tv_dialog3.setTypeface(type);
+        tv_dialog4.setTypeface(type);
+        btn_confirm.setTypeface(type);
         btn_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
