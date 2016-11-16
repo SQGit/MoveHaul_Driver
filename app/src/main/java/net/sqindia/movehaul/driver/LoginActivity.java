@@ -33,6 +33,7 @@ public class LoginActivity extends Activity {
     String str_mobile;
     EditText et_mobile_no;
     TextInputLayout flt_mobile_no;
+    Config config;
 
     @Override
     public void onBackPressed() {
@@ -47,7 +48,7 @@ public class LoginActivity extends Activity {
         FontsManager.initFormAssets(this, "fonts/lato.ttf");       //initialization
         FontsManager.changeFonts(this);
         Typeface tf = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/lato.ttf");
-
+        config = new Config();
 
         btn_submit = (Button) findViewById(R.id.btn_submit);
         btn_back = (LinearLayout) findViewById(R.id.layout_back);
@@ -60,8 +61,8 @@ public class LoginActivity extends Activity {
         flt_mobile_no.setTypeface(type);
 
 
-        if (!config.isConnected(SplashActivity.this)) {
-            lt_bottom.setVisibility(View.GONE);
+        if (!config.isConnected(LoginActivity.this)) {
+
         }
 
         btn_back.setOnClickListener(new View.OnClickListener() {
