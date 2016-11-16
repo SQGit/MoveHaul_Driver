@@ -59,6 +59,11 @@ public class LoginActivity extends Activity {
         et_mobile_no.setTypeface(tf);
         flt_mobile_no.setTypeface(type);
 
+
+        if (!config.isConnected(SplashActivity.this)) {
+            lt_bottom.setVisibility(View.GONE);
+        }
+
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
