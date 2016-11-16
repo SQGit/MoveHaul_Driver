@@ -173,7 +173,7 @@ public class LoginActivity extends Activity {
                             Toast.makeText(getApplicationContext(),"Mobile Number Not Registered",Toast.LENGTH_LONG).show();
 
                         }
-                        if (msg.contains("Error Occured[object Object]")) {
+                        else if (msg.contains("Error Occured[object Object]")) {
 
                             Intent i = new Intent(LoginActivity.this, LoginOtpActivity.class);
                             i.putExtra("phone",str_mobile);
