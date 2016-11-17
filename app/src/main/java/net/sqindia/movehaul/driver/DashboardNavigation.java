@@ -82,6 +82,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     android.widget.TextView sb_text;
     LocationManager manager;
     String service_id,service_token;
+
     public boolean isRegistered;
 
     @Override
