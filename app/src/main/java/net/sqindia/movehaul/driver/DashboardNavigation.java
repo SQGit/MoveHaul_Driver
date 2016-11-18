@@ -253,7 +253,15 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                         sw_active.setChecked(true);
                        // new updateLocation().execute();
                          isRegistered = true;
+                        try {
+                            DashboardNavigation.this.registerReceiver(DashboardNavigation.this.getLocation_Receiver, new IntentFilter("appendGetLocation"));
+                        }
+                        catch (Exception e){
+                            Log.e("tag","er:"+e.toString());
+                        }
+
                     }
+
                     else{
 
 
@@ -268,6 +276,12 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
                     editor.putString("driver_status",str_active);
                     editor.commit();
+
+                    try {
+                        DashboardNavigation.this.unregisterReceiver(DashboardNavigation.this.getLocation_Receiver);                    }
+                    catch (Exception e){
+                        Log.e("tag","er1:"+e.toString());
+                    }
 
                    // new updateLocation().execute();
                 }
