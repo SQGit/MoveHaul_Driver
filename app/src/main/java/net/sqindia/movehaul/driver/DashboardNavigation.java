@@ -10,6 +10,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -48,6 +50,10 @@ import com.sloop.fonts.FontsManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 /**
  * Created by SQINDIA on 10/26/2016.
  */
@@ -75,6 +81,8 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     int exit_status;
     android.widget.TextView tv_txt1,tv_txt2,tv_txt3;
     Typeface tf;
+    Geocoder geocoder;
+    List<Address> addresses;
     double dl_latitude,dl_longitude;
     String str_lati,str_longi,str_locality,str_address,str_active="inactive";
     Switch sw_active;
@@ -98,6 +106,8 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         tf = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
 
         gps = new GpsTracker(DashboardNavigation.this);
+
+        geocoder = new Geocoder(DashboardNavigation.this, Locale.getDefault());
 
 
         manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
@@ -194,22 +204,45 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
 
 
-        if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+        if ( !manager.isProviderEnabled(LocationManager.GPS_PROVIDER ) ) {
             snackbar.show();
             btn_submit.setEnabled(false);
 
         }
 
         else {
+            Log.e("tag","gpsis"+gps.canGetLocation);
             if (gps.canGetLocation()) {
 
                 dl_latitude = gps.getLatitude();
                 dl_longitude = gps.getLongitude();
 
-                str_locality = gps.getlocality();
-                str_address = gps.getaddress();
+              //  str_locality = gps.getlocality();
+              //  str_address = gps.getaddress();
                 str_lati = String.valueOf(dl_latitude);
                 str_longi = String.valueOf(dl_longitude);
+
+
+                try {
+                    geocoder = new Geocoder(DashboardNavigation.this, Locale.getDefault());
+                    try {
+                        addresses = geocoder.getFromLocation(dl_latitude, dl_longitude, 1);
+                    }
+                    catch (Exception e){
+                        Log.e("tag","er:"+e.toString());
+                    }
+                    str_locality = addresses.get(0).getLocality();
+                    str_address = addresses.get(0).getAddressLine(0);
+                    Log.e("tagplace0", "lati: " + str_lati + "longi: " + str_longi + "\nlocality: " + str_locality + "\taddr0: " + str_address +
+                            "\naddr1: " + addresses.get(0).getAddressLine(1) + "\n addr2: " + addresses.get(0).getAddressLine(2) + "\n adminarea: "
+                            + addresses.get(0).getAdminArea() + "\n feature name: " + addresses.get(0).getFeatureName() + "\n Sub loca: "
+                            + addresses.get(0).getSubLocality() + "\n subadmin: " + addresses.get(0).getSubAdminArea()
+                            + "\n premisis: " + addresses.get(0).getPremises() + "\n postal " + addresses.get(0).getPostalCode());
+                } catch (IndexOutOfBoundsException e){
+                    Log.e("tag","eroo:"+e.toString());
+                }
+
+
 
                 Log.e("tag", "ee:" + str_lati + "aa:" + str_longi + "bb:" + str_locality + "cc:" + str_address);
                 // snackbar.dismiss();
@@ -218,14 +251,14 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     str_active = sharedPreferences.getString("driver_status","");
                     if(str_active.equals("active")){
                         sw_active.setChecked(true);
-                        new updateLocation().execute();
+                       // new updateLocation().execute();
                          isRegistered = true;
                     }
                     else{
 
 
                         sw_active.setChecked(false);
-                        new updateLocation().execute();
+                       // new updateLocation().execute();
                         isRegistered = false;
                     }
                 }
@@ -236,7 +269,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     editor.putString("driver_status",str_active);
                     editor.commit();
 
-                    new updateLocation().execute();
+                   // new updateLocation().execute();
                 }
 
 
@@ -501,10 +534,26 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                 dl_latitude = gps.getLatitude();
                 dl_longitude = gps.getLongitude();
 
-                str_locality = gps.getlocality();
-                str_address = gps.getaddress();
+               // str_locality = gps.getlocality();
+               // str_address = gps.getaddress();
                 str_lati = String.valueOf(dl_latitude);
                 str_longi = String.valueOf(dl_longitude);
+
+
+                geocoder = new Geocoder(DashboardNavigation.this, Locale.getDefault());
+                try {
+                    addresses = geocoder.getFromLocation(dl_latitude, dl_longitude, 1);
+                }
+                catch (Exception e){
+                    Log.e("tag","er:"+e.toString());
+                }
+                str_locality = addresses.get(0).getLocality();
+                str_address = addresses.get(0).getAddressLine(0);
+                Log.e("tagplace0", "lati: " + str_lati + "longi: " + str_longi + "\nlocality: " + str_locality + "\taddr0: " + str_address +
+                        "\naddr1: " + addresses.get(0).getAddressLine(1) + "\n addr2: " + addresses.get(0).getAddressLine(2) + "\n adminarea: "
+                        + addresses.get(0).getAdminArea() + "\n feature name: " + addresses.get(0).getFeatureName() + "\n Sub loca: "
+                        + addresses.get(0).getSubLocality() + "\n subadmin: " + addresses.get(0).getSubAdminArea()
+                        + "\n premisis: " + addresses.get(0).getPremises() + "\n postal " + addresses.get(0).getPostalCode());
 
                 Log.e("tag", "esse:" + str_lati + "aa:" + str_longi + "bb:" + str_locality + "cc:" + str_address);
                 // snackbar.dismiss();
@@ -545,14 +594,30 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
             str_lati = b.getString("latitude");
             str_longi = b.getString("longitude");
-            str_address = b.getString("address");
-            str_locality = b.getString("city");
-            String state = b.getString("state");
-            String country =b.getString("country");
-            String postalCode = b.getString("postalCode");
-            String knownName = b.getString("knownName");
+           // str_address = b.getString("address");
+           // str_locality = b.getString("city");
+           // String state = b.getString("state");
+           // String country =b.getString("country");
+           // String postalCode = b.getString("postalCode");
+            //String knownName = b.getString("knownName");
 
-            Log.e("tag","as:"+str_lati+str_longi+"adr:"+str_address+"loc:"+str_locality+"c:"+state+"d:"+country+"e:"+postalCode+"f:"+knownName);
+
+            geocoder = new Geocoder(DashboardNavigation.this, Locale.getDefault());
+            try {
+                addresses = geocoder.getFromLocation(dl_latitude, dl_longitude, 1);
+            }
+            catch (Exception e){
+                Log.e("tag","er:"+e.toString());
+            }
+            str_locality = addresses.get(0).getLocality();
+            str_address = addresses.get(0).getAddressLine(0);
+            Log.e("tagplace0", "lati: " + str_lati + "longi: " + str_longi + "\nlocality: " + str_locality + "\taddr0: " + str_address +
+                    "\naddr1: " + addresses.get(0).getAddressLine(1) + "\n addr2: " + addresses.get(0).getAddressLine(2) + "\n adminarea: "
+                    + addresses.get(0).getAdminArea() + "\n feature name: " + addresses.get(0).getFeatureName() + "\n Sub loca: "
+                    + addresses.get(0).getSubLocality() + "\n subadmin: " + addresses.get(0).getSubAdminArea()
+                    + "\n premisis: " + addresses.get(0).getPremises() + "\n postal " + addresses.get(0).getPostalCode());
+
+            Log.e("tag","as:"+str_lati+str_longi+"adr:"+str_address+"loc:"+str_locality);
 
             new updateLocation().execute();
 
