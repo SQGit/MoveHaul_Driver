@@ -50,7 +50,7 @@
 
 
             <com.rey.material.widget.TextView
-                android:id="@+id/textView_name"
+                android:id="@+id/textview_drivername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -59,7 +59,7 @@
                 android:textColor="@color/textColor" />
 
             <com.rey.material.widget.TextView
-                android:id="@+id/textView_email"
+                android:id="@+id/textview_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

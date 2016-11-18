@@ -113,6 +113,12 @@ public class ProfileActivity extends Activity {
         et_secondary = (EditText) findViewById(R.id.edittext_secondary);
         et_address = (EditText) findViewById(R.id.edittext_deliveryaddress);
 
+
+        str_contact = sharedPreferences.getString("driver_mobile","");
+        et_contact.setText(str_contact);
+        et_secondary.requestFocus();
+
+
         snackbar = Snackbar
                 .make(findViewById(R.id.top), "Network Error", Snackbar.LENGTH_LONG);
 
@@ -484,6 +490,9 @@ public class ProfileActivity extends Activity {
 
                         /*Intent i = new Intent(ProfileActivity.this,DashboardNavigation.class);
                         startActivity(i);*/
+
+                        editor.putString("profile","");
+                        editor.commit();
 
                         finish();
                     }

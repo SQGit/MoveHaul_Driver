@@ -219,7 +219,7 @@
                             android:hint="Contact Number"
                             android:inputType="number"
                             android:maxLines="1"
-                            android:maxLength="10"
+                            android:maxLength="13"
                             android:paddingTop="@dimen/_10sdp"
                             android:textColor="#000000"
                             android:textSize="@dimen/_15sdp" />

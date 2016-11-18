@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.util.Log;
@@ -205,6 +206,17 @@ public class RegisterActivity extends Activity {
                             lt_second.setVisibility(View.VISIBLE);
 
 
+                            final Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    lt_first.setVisibility(View.GONE);
+                                }
+                            }, 600);
+
+
+
+
 
                             str_email = et_email.getText().toString().trim();
                             str_mobile = et_mobile.getText().toString().trim();
@@ -301,7 +313,7 @@ public class RegisterActivity extends Activity {
 
                 TranslateAnimation anim_btn_t2b = new TranslateAnimation(0, 0, 0, height);
                 anim_btn_t2b.setDuration(500);
-
+                lt_first.setVisibility(View.VISIBLE);
                 lt_second.setAnimation(anim_btn_t2b);
 
                 lt_second.setVisibility(View.GONE);

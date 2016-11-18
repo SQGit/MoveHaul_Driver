@@ -86,10 +86,12 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     double dl_latitude,dl_longitude;
     String str_lati,str_longi,str_locality,str_address,str_active="inactive";
     Switch sw_active;
-    Snackbar snackbar;
+    Snackbar snackbar,snackbart;
     android.widget.TextView sb_text;
     LocationManager manager;
-    String service_id,service_token;
+    String service_id,service_token,str_driver_email,str_driver_phone,str_driver_name;
+    TextView tv_driver_name,tv_driver_email;
+    android.widget.TextView tv_snack;
 
     public boolean isRegistered;
 
@@ -116,6 +118,10 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         service_token = sharedPreferences.getString("token","");
 
 
+        str_driver_name = sharedPreferences.getString("driver_name","");
+        str_driver_phone = sharedPreferences.getString("driver_mobile","");
+        str_driver_email = sharedPreferences.getString("driver_email","");
+
 
 
 
@@ -123,8 +129,8 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         mContext = this;
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-        tv_name = (TextView) findViewById(R.id.textView_name);
-        tv_email = (TextView) findViewById(R.id.textView_email);
+       // tv_name = (TextView) findViewById(R.id.textView_name);
+      //  tv_email = (TextView) findViewById(R.id.textView_email);
        // tv_myTrips = (TextView) findViewById(R.id.textView_mytrips);
         nav_tv_profile = (TextView) findViewById(R.id.textview_profile);
         nav_tv_mytrips = (TextView) findViewById(R.id.textview_mytrips);
@@ -140,6 +146,11 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         btn_submit = (Button) findViewById(R.id.button_submit);
 
         mViewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
+
+
+        tv_driver_name = (TextView) findViewById(R.id.textview_drivername);
+        tv_driver_email = (TextView) findViewById(R.id.textview_email);
+
 
         final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.app_name, R.string.app_name);
@@ -179,6 +190,13 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         textView1.setTypeface(tf);
         textView1.setTextColor(Color.RED);
 
+        snackbart = Snackbar
+                .make(findViewById(R.id.drawer_layout), "Please Complete Your Profile First", Snackbar.LENGTH_LONG);
+        View sbView1 = snackbar.getView();
+        tv_snack = (android.widget.TextView) sbView1.findViewById(android.support.design.R.id.snackbar_text);
+        tv_snack.setTextColor(Color.WHITE);
+        tv_snack.setTypeface(tf);
+
 
 
 
@@ -192,14 +210,11 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         mViewFlipper.setAutoStart(true);
         mViewFlipper.setFlipInterval(25000);
 
+        tv_driver_name.setText(str_driver_name);
+        tv_driver_email.setText(str_driver_email);
 
-        tv_Bankdetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),Bank_details.class);
-                startActivity(i);
-            }
-        });
+
+
 
 
 
@@ -259,11 +274,8 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                         catch (Exception e){
                             Log.e("tag","er:"+e.toString());
                         }
-
                     }
-
                     else{
-
 
                         sw_active.setChecked(false);
                        // new updateLocation().execute();
@@ -271,22 +283,17 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     }
                 }
                 else{
-
                     str_active ="inactive";
-
                     editor.putString("driver_status",str_active);
                     editor.commit();
-
-                    try {
+                   /* try {
                         DashboardNavigation.this.unregisterReceiver(DashboardNavigation.this.getLocation_Receiver);                    }
                     catch (Exception e){
                         Log.e("tag","er1:"+e.toString());
-                    }
+                    }*/
 
                    // new updateLocation().execute();
                 }
-
-
 
                 // \n is for new line
                 // Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
@@ -295,10 +302,11 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                 // GPS or Network is not enabled
                 // Ask user to enable GPS/network in settings
                 //gps.showSettingsAlert();
-
-
             }
         }
+
+
+
 
         dialog1 = new Dialog(DashboardNavigation.this);
         dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -348,38 +356,55 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         sw_active.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(Switch view, boolean checked) {
-                if(checked){
-                    Log.e("tag","checked");
-                    str_active ="active";
 
-                    editor.putString("driver_status",str_active);
-                    editor.commit();
 
-                    try {
-                        isRegistered = true;
-                        DashboardNavigation.this.registerReceiver(DashboardNavigation.this.getLocation_Receiver, new IntentFilter("appendGetLocation"));
+                if (sharedPreferences.getString("profile", "").equals("")) {
+                    snackbart.show();
+                    sw_active.setChecked(false);
+                } else {
+
+                    if (checked) {
+
+                        if ((sharedPreferences.getString("profile", "").equals(""))) {
+                            snackbart.show();
+                        } else {
+                            Log.e("tag", "checked");
+                            str_active = "active";
+
+                            editor.putString("driver_status", str_active);
+                            editor.commit();
+
+                            try {
+                                isRegistered = true;
+                                DashboardNavigation.this.registerReceiver(DashboardNavigation.this.getLocation_Receiver, new IntentFilter("appendGetLocation"));
+                            } catch (Exception e) {
+                                Log.e("tag", "er:" + e.toString());
+                            }
+
+                            new updateLocation().execute();
+                        }
+
+                    } else {
+
+                        if ((sharedPreferences.getString("profile", "").equals(""))) {
+                            snackbart.show();
+                        } else {
+                            Log.e("tag", "un_checked");
+                            str_active = "inactive";
+
+                            editor.putString("driver_status", str_active);
+                            editor.commit();
+
+
+                            try {
+                                isRegistered = false;
+                                DashboardNavigation.this.unregisterReceiver(DashboardNavigation.this.getLocation_Receiver);
+                            } catch (Exception e) {
+                                Log.e("tag", "er1:" + e.toString());
+                            }
+                            new updateLocation().execute();
+                        }
                     }
-                    catch (Exception e){
-                        Log.e("tag","er:"+e.toString());
-                    }
-
-                    new updateLocation().execute();
-                }
-                else{
-                    Log.e("tag","un_checked");
-                    str_active ="inactive";
-
-                    editor.putString("driver_status",str_active);
-                    editor.commit();
-
-
-                    try {
-                        isRegistered = false;
-                        DashboardNavigation.this.unregisterReceiver(DashboardNavigation.this.getLocation_Receiver);                    }
-                    catch (Exception e){
-                        Log.e("tag","er1:"+e.toString());
-                    }
-                    new updateLocation().execute();
                 }
             }
         });
@@ -391,18 +416,27 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
             }
         });
 
-        nav_tv_profile.setOnClickListener(new View.OnClickListener() {
+        tv_Bankdetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent goProfile = new Intent(getApplicationContext(),ProfileActivity.class);
-                startActivity(goProfile);
-                drawer.closeDrawer(Gravity.LEFT);
+                Intent i = new Intent(getApplicationContext(),Bank_details.class);
+                startActivity(i);
             }
         });
+
+
         nav_tv_mytrips.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent goProfile = new Intent(getApplicationContext(),MyTrips.class);
+                startActivity(goProfile);
+                drawer.closeDrawer(Gravity.LEFT);
+            }
+        });
+        nav_tv_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goProfile = new Intent(getApplicationContext(),ProfileActivity.class);
                 startActivity(goProfile);
                 drawer.closeDrawer(Gravity.LEFT);
             }
@@ -430,8 +464,14 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent goPostings = new Intent(getApplicationContext(),JobPosting.class);
-                startActivity(goPostings);
+
+                if(sharedPreferences.getString("profile","").equals("")){
+                    snackbart.show();
+                }
+                else {
+                    Intent goPostings = new Intent(getApplicationContext(), JobPosting.class);
+                    startActivity(goPostings);
+                }
             }
         });
 
@@ -672,11 +712,9 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                 jsonObject.accumulate("driver_locality2", str_address);
                 json = jsonObject.toString();
                 return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + "driver/location", json,service_id,service_token);
-
             } catch (Exception e) {
                 Log.e("InputStream", e.getLocalizedMessage());
             }
-
             return null;
         }
 
@@ -684,8 +722,6 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             Log.e("tag","tag"+s);
-
-
             if (s != null) {
                 try {
                     JSONObject jo = new JSONObject(s);
@@ -694,13 +730,9 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     Log.d("tag", "<-----Status----->" + status);
                     if (status.equals("true")) {
                         Log.e("tag","Location Updated");
-
                     } else if (status.equals("false")) {
-
                         Log.e("tag","Location not updated");
                         //has to check internet and location...
-
-
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -710,8 +742,6 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
             } else {
                // Toast.makeText(getApplicationContext(),"Network Errror1",Toast.LENGTH_LONG).show();
             }
-
         }
-
     }
 }

@@ -373,11 +373,20 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
                         String id = jo.getString("id");
                         String token = jo.getString("token");
+                        String driver_mobile = jo.getString("driver_mobile");
+                        String driver_email = jo.getString("driver_email");
+                        String driver_name = jo.getString("driver_name");
+
 
                         editor.putString("id",id);
                         editor.putString("token",token);
                         editor.putString("login","success");
+                        editor.putString("driver_name",driver_name);
+                        editor.putString("driver_mobile",driver_mobile);
+                        editor.putString("driver_email",driver_email);
                         editor.commit();
+
+
 
                         Intent i = new Intent(LoginOtpActivity.this, DashboardNavigation.class);
                         startActivity(i);
