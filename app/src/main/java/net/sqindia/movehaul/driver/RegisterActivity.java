@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.util.Log;
@@ -26,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
 import com.sloop.fonts.FontsManager;
@@ -50,6 +52,7 @@ import java.util.List;
 
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
+import nl.changer.polypicker.ImagePickerActivity;
 
 
 /**
@@ -60,21 +63,22 @@ public class RegisterActivity extends Activity {
 
 
     public final static int REQUEST_CODE = 1;
-    LinearLayout btn_back;
+    LinearLayout btn_back,lt_add_photo;
     Button btn_submit, btn_verify;
-    TextView tv_register;
+    TextView tv_register,tv_snack;
     EditText et_name, et_email, et_mobile, et_lic_name, et_lic_no, et_lic_mobile, et_lic_exp;
     String str_email, str_mobile, str_name, str_lic_name, str_lic_no, str_lic_mobile, str_lic_exp, str_lic_photo;
     TextInputLayout til_name, til_email, til_mobile, til_lic_no, til_lic_mobile, til__lic_name, til_lic_exp;
-    android.widget.LinearLayout lt_first, lt_second, lt_add_photo;
+    android.widget.LinearLayout lt_first, lt_second;
     ArrayList<String> selectedPhotos = new ArrayList<>();
     ImageView iv_close;
     Dialog dialog2;
     Button btn_ok,d2_btn_ok;
     TextView tv_dialog1,tv_dialog2,tv_dialog3,tv_dialog4,d2_tv_dialog1,d2_tv_dialog2,d2_tv_dialog3,d2_tv_dialog4;
-    ImageView btn_close;
+    ImageView btn_close,iv_driver_lic;
     Snackbar snackbar;
     Typeface tf;
+    View view_lic;
 
     public static int getDeviceHeight(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -92,7 +96,7 @@ public class RegisterActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register_screen);
+        setContentView(R.layout.activity_register);
         FontsManager.initFormAssets(this, "fonts/lato.ttf");       //initialization
         FontsManager.changeFonts(this);
 
@@ -123,9 +127,12 @@ public class RegisterActivity extends Activity {
 
         lt_first = (android.widget.LinearLayout) findViewById(R.id.first_layout);
         lt_second = (android.widget.LinearLayout) findViewById(R.id.second_layout);
-        lt_add_photo = (android.widget.LinearLayout) findViewById(R.id.layout_lic_image);
+        lt_add_photo = (LinearLayout) findViewById(R.id.layout_lic_image);
 
         iv_close = (ImageView) findViewById(R.id.imageview_close);
+        iv_driver_lic = (ImageView) findViewById(R.id.imageview_driver_lic);
+
+        view_lic = findViewById(R.id.view_driver_lic);
 
         lt_second.setVisibility(View.GONE);
 
@@ -141,9 +148,9 @@ public class RegisterActivity extends Activity {
                 .make(findViewById(R.id.top), "Please Attach Driving Licence", Snackbar.LENGTH_LONG);
 
         View sbView = snackbar.getView();
-        android.widget.TextView textView = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-        textView.setTextColor(Color.WHITE);
-        textView.setTypeface(tf);
+        tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        tv_snack.setTextColor(Color.WHITE);
+        tv_snack.setTypeface(tf);
 
         dialog2 = new Dialog(RegisterActivity.this);
         dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -298,11 +305,23 @@ public class RegisterActivity extends Activity {
         lt_add_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PhotoPickerIntent intent = new PhotoPickerIntent(RegisterActivity.this);
+
+
+        /*        PhotoPickerIntent intent = new PhotoPickerIntent(RegisterActivity.this);
                 intent.setPhotoCount(1);
                 intent.setColumn(4);
                 intent.setShowCamera(true);
+                startActivityForResult(intent, REQUEST_CODE);*/
+
+                Intent intent = new Intent(getApplicationContext(), ImagePickerActivity.class);
+                nl.changer.polypicker.Config config = new nl.changer.polypicker.Config.Builder()
+                        .setTabBackgroundColor(R.color.white)    // set tab background color. Default white.
+                        .setSelectionLimit(1)    // set photo selection limit. Default unlimited selection.
+                        .build();
+                ImagePickerActivity.setConfig(config);
                 startActivityForResult(intent, REQUEST_CODE);
+
+
             }
         });
 
@@ -352,23 +371,46 @@ public class RegisterActivity extends Activity {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
 
             Log.d("tag", "worked");
+
+
+           /* Parcelable[] parcelableUris = data.getParcelableArrayExtra(ImagePickerActivity.EXTRA_IMAGE_URIS);
+
+            if (parcelableUris == null) {
+                return;
+            }
+            // Java doesn't allow array casting, this is a little hack
+            Uri[] uris = new Uri[parcelableUris.length];
+            System.arraycopy(parcelableUris, 0, uris, 0, parcelableUris.length);
+            if (uris != null) {
+                for (Uri uri : uris) {
+                    Log.e("tag", " uri: " + uri);
+                    String path = uri.toString();
+
+                    str_lic_photo = path;
+                    Glide.with(RegisterActivity.this).load(new File(str_lic_photo)).centerCrop().into(iv_driver_lic);
+                    snackbar.show();
+                    tv_snack.setText("Driver Licence Added.");
+                    view_lic.setVisibility(View.GONE);
+
+                }
+            }*/
+
+
+
+
+
             if (data != null) {
                 photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
             }
             selectedPhotos.clear();
-
             if (photos != null) {
-
                 selectedPhotos.addAll(photos);
             }
-
-            Uri uri = Uri.fromFile(new File(selectedPhotos.get(0)));
-
-            Log.d("tag", "potp" + selectedPhotos.get(0));
-            Log.d("tag", "323" + uri);
             str_lic_photo = selectedPhotos.get(0);
-
-            Toast.makeText(getApplicationContext(), "Photo Added", Toast.LENGTH_LONG).show();
+            Glide.with(RegisterActivity.this).load(new File(str_lic_photo)).centerCrop().into(iv_driver_lic);
+            snackbar.show();
+            tv_snack.setText("Driver Licence Added.");
+            view_lic.setVisibility(View.GONE);
 
         }
     }

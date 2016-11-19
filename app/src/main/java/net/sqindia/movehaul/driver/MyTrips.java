@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,7 @@ import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
 import com.rey.material.widget.ListView;
 import com.rey.material.widget.TabIndicatorView;
+import com.rey.material.widget.TabPageIndicator;
 import com.sloop.fonts.FontsManager;
 
 import java.util.ArrayList;
@@ -47,6 +49,10 @@ public class MyTrips extends AppCompatActivity {
     Dialog dialog1;
     Typeface type;
     TextView tv_dialog1,tv_dialog2,tv_dialog3,tv_dialog4;
+    TabPageIndicator tpi_ic;
+    TabLayout tl_indicator;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +63,9 @@ public class MyTrips extends AppCompatActivity {
         type = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/lato.ttf");
 
         btn_back = (LinearLayout) findViewById(R.id.layout_back);
+       // tpi_ic = (TabPageIndicator) findViewById(R.id.tabpage);
+        tl_indicator = (TabLayout) findViewById(R.id.tabs);
+
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,11 +81,15 @@ public class MyTrips extends AppCompatActivity {
                 R.layout.upcoming_trips,};
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
-        tiv = (TabIndicatorView) findViewById(R.id.tab_indicator);
+      //  tiv = (TabIndicatorView) findViewById(R.id.tab_indicator);
         myViewPagerAdapter = new MyViewPagerAdapter();
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
-        tiv.setTabIndicatorFactory(new TabIndicatorView.ViewPagerIndicatorFactory(viewPager));
+      //  tiv.setTabIndicatorFactory(new TabIndicatorView.ViewPagerIndicatorFactory(viewPager));
+
+        tl_indicator.setupWithViewPager(viewPager);
+
+      //  tpi_ic.setViewPager(viewPager);
 
         dialog1 = new Dialog(MyTrips.this);
         dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);

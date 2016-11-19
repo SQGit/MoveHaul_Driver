@@ -164,7 +164,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="@dimen/_5sdp"
-                    android:text="By signing up you agree to the terms &amp; conditions \nand privacy policy of Movehaul"
+                    android:text="MoveHaul is better place to move the goods from one place to another in a minute!!"
                     android:textSize="@dimen/_10sdp" />
 
 

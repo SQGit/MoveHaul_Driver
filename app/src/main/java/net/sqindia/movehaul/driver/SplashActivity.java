@@ -139,6 +139,8 @@ public class SplashActivity extends Activity {
         textView.setTextColor(Color.WHITE);
         textView.setTypeface(tf);
         textView1.setTypeface(tf);
+        textView.setTextSize(getResources().getDimension(R.dimen.snack_text));
+        textView1.setTextSize(getResources().getDimension(R.dimen.snack_action));
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
