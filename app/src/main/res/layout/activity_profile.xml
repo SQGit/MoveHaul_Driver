@@ -390,7 +390,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginTop="@dimen/_25sdp"
+
             android:gravity="center|bottom"
             android:orientation="vertical"
             android:padding="@dimen/_3sdp">
@@ -400,7 +400,7 @@
                 style="@style/Material.Drawable.Ripple.Touch"
                 android:layout_width="@dimen/_140sdp"
                 android:layout_height="@dimen/_40sdp"
-                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_25sdp"
                 android:background="@drawable/submit"
                 android:gravity="center"
                 android:paddingBottom="@dimen/_5sdp"
@@ -439,7 +439,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -458,7 +458,8 @@
                 android:layout_gravity="center_vertical"
                 android:text="Add Bank Details"
                 android:textColor="@color/redColor"
-                android:textSize="@dimen/_10sdp" />
+                android:textSize="@dimen/_10sdp"
+                android:id="@+id/textView" />
 
 
         </LinearLayout>

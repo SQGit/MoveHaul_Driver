@@ -1,18 +1,23 @@
 package net.sqindia.movehaul.driver;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -30,15 +35,28 @@ import org.json.JSONObject;
  */
 
 public class LoginOtpActivity extends Activity implements TextWatcher {
-    LinearLayout btn_back;
     static EditText et_otp1, et_otp2, et_otp3, et_otp4;
-    private View view;
-    String str_otppin,str_phone;
-    Button btn_submit;
-    TextView tv_resendotp;
     private static LoginOtpActivity inst;
+    LinearLayout btn_back;
+    String  str_phone;
+    Button btn_submit;
+    TextView tv_resendotp, tv_snack;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    Snackbar snackbar;
+    Config config;
+    ProgressDialog mProgressDialog;
+    Typeface tf;
+    private View view;
+    String str_otppin, str_for, str_data,str_URL;
+
+    private LoginOtpActivity(View view) {
+        this.view = view;
+    }
+
+    public LoginOtpActivity() {
+
+    }
 
     public static LoginOtpActivity instance() {
         return inst;
@@ -50,15 +68,38 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         setContentView(R.layout.login_otp_screen);
         FontsManager.initFormAssets(this, "fonts/lato.ttf");       //initialization
         FontsManager.changeFonts(this);
+        config = new Config();
 
         Intent getIntent = getIntent();
 
+        str_for = getIntent.getStringExtra("for");
+        str_data = getIntent.getStringExtra("data");
+
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginOtpActivity.this);
         editor = sharedPreferences.edit();
-
+        Typeface tf = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/lato.ttf");
 
         str_phone = getIntent.getStringExtra("phone");
 
+
+        mProgressDialog = new ProgressDialog(LoginOtpActivity.this);
+        mProgressDialog.setTitle("Loading..");
+        mProgressDialog.setMessage("Please wait");
+        mProgressDialog.setIndeterminate(false);
+        mProgressDialog.setCancelable(false);
+
+
+        snackbar = Snackbar
+                .make(findViewById(R.id.top), "Network Error! Please Try Again Later.", Snackbar.LENGTH_LONG);
+        View sbView = snackbar.getView();
+        tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        tv_snack.setTextColor(Color.WHITE);
+        tv_snack.setTypeface(tf);
+
+        if (!config.isConnected(LoginOtpActivity.this)) {
+            snackbar.show();
+            tv_snack.setText("Please Connect Internet and Try again");
+        }
 
 
         btn_back = (LinearLayout) findViewById(R.id.layout_back);
@@ -87,7 +128,6 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                 Toast.makeText(LoginOtpActivity.this,"Message: "+messageText,Toast.LENGTH_LONG).show();
             }
         });*/
-
 
 
         btn_back.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +163,9 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
             @Override
             public void onClick(View view) {
                 tv_resendotp.setVisibility(View.GONE);
-                Toast.makeText(getApplicationContext(),"Otp Send to "+str_phone,Toast.LENGTH_LONG).show();
+                new resend_otp().execute();
+
+                //Toast.makeText(getApplicationContext(), "Otp Send to " + str_phone, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -140,20 +182,28 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                 editor.commit();*/
 
 
-               if (et_otp1.getText().toString().isEmpty()) {
+                if (et_otp1.getText().toString().isEmpty()) {
                     et_otp1.requestFocus();
+                    tv_snack.setText("Enter Otp");
+                    snackbar.show();
                 } else {
                     if (et_otp2.getText().toString().isEmpty()) {
                         et_otp2.requestFocus();
+                        tv_snack.setText("Enter Otp");
+                        snackbar.show();
                     } else {
                         if (et_otp3.getText().toString().isEmpty()) {
                             et_otp3.requestFocus();
+                            tv_snack.setText("Enter Otp");
+                            snackbar.show();
                         } else {
                             if (et_otp4.getText().toString().isEmpty()) {
                                 et_otp4.requestFocus();
+                                tv_snack.setText("Enter Otp");
+                                snackbar.show();
                             } else {
-                                str_otppin = et_otp1.getText().toString()+et_otp2.getText().toString()+et_otp3.getText().toString()+et_otp4.getText().toString();
-                                Log.e("tag","pin:"+str_otppin);
+                                str_otppin = et_otp1.getText().toString() + et_otp2.getText().toString() + et_otp3.getText().toString() + et_otp4.getText().toString();
+                                Log.e("tag", "pin:" + str_otppin);
 
                                 new otp_verify().execute();
 
@@ -164,7 +214,6 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                 }
 
 
-
             }
 
         });
@@ -172,10 +221,9 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
     }
 
-
     public void updateList(final String smsMessage) {
 
-        Log.e("tag","ss"+smsMessage);
+        Log.e("tag", "ss" + smsMessage);
 
         /*char[] cArray = smsMessage.toCharArray();
 
@@ -187,11 +235,10 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         Toast.makeText(LoginOtpActivity.this,"Message: "+smsMessage,Toast.LENGTH_LONG).show();*/
     }
 
-
     public void receiveSms(String message) {
         Log.e("tag", "msgd4" + message);
 
-        Toast.makeText(getApplicationContext(), "toast::" + message, Toast.LENGTH_LONG).show();
+       // Toast.makeText(getApplicationContext(), "toast::" + message, Toast.LENGTH_LONG).show();
 
         try {
 
@@ -205,7 +252,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
 
         } catch (Exception e) {
-            Log.e("tag","asd: "+e.toString());
+            Log.e("tag", "asd: " + e.toString());
         }
 
 
@@ -223,38 +270,21 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
     }
 
+    public void recivedSms(String message) {
+        try {
+            Log.e("tag", "asd: " + message);
 
-    public void recivedSms(String message)
-    {
-        try
-        {
-            Log.e("tag","asd: "+message);
+            char[] cArray = message.toCharArray();
 
-        char[] cArray = message.toCharArray();
-
-        et_otp1.setText(String.valueOf(cArray[cArray.length-4]));
-        et_otp2.setText(String.valueOf(cArray[cArray.length-3]));
-        et_otp3.setText(String.valueOf(cArray[cArray.length-2]));
-        et_otp4.setText(String.valueOf(cArray[cArray.length-1]));
+            et_otp1.setText(String.valueOf(cArray[cArray.length - 4]));
+            et_otp2.setText(String.valueOf(cArray[cArray.length - 3]));
+            et_otp3.setText(String.valueOf(cArray[cArray.length - 2]));
+            et_otp4.setText(String.valueOf(cArray[cArray.length - 1]));
 
 
-
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
         }
     }
-
-
-    private LoginOtpActivity(View view) {
-        this.view = view;
-    }
-
-
-    public LoginOtpActivity() {
-
-    }
-
 
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -291,6 +321,8 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
                 if (editable.length() == 0) {
                     et_otp2.requestFocus();
+
+
                 } else if (editable.length() == 1) {
                     et_otp4.requestFocus();
                 }
@@ -319,11 +351,10 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent i = new Intent(LoginOtpActivity.this,LoginActivity.class);
+        Intent i = new Intent(LoginOtpActivity.this, LoginActivity.class);
         startActivity(i);
         finish();
     }
-
 
 
     public class otp_verify extends AsyncTask<String, Void, String> {
@@ -332,7 +363,8 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Log.e("tag","reg_preexe");
+            Log.e("tag", "reg_preexe");
+            mProgressDialog.show();
         }
 
         @Override
@@ -342,8 +374,21 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
             try {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("driver_mobile", "+91"+str_phone);
+                jsonObject.accumulate("driver_mobile", "+91" + str_phone);
                 jsonObject.accumulate("driver_otp", str_otppin);
+
+
+                if (str_for.equals("phone")) {
+
+                    jsonObject.accumulate("customer_mobile", "+91"+str_data);
+                    jsonObject.accumulate("customer_otp", str_otppin);
+                } else {
+
+                    jsonObject.accumulate("customer_email", str_data);
+                    jsonObject.accumulate("customer_otp", str_otppin);
+                }
+
+
 
                 json = jsonObject.toString();
                 return jsonStr = HttpUtils.makeRequest(Config.WEB_URL + "driver/mobilelogin", json);
@@ -358,7 +403,8 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.e("tag","tag"+s);
+            Log.e("tag", "tag" + s);
+            mProgressDialog.dismiss();
 
 
             if (s != null) {
@@ -369,23 +415,26 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                     Log.d("tag", "<-----Status----->" + status);
                     if (status.equals("true")) {
 
-                       // JSONObject data = new JSONObject(msg);
+                        // JSONObject data = new JSONObject(msg);
 
-                        String id = jo.getString("id");
+                        String id = jo.getString("driver_id");
                         String token = jo.getString("token");
                         String driver_mobile = jo.getString("driver_mobile");
                         String driver_email = jo.getString("driver_email");
                         String driver_name = jo.getString("driver_name");
+                        String driver_image = jo.getString("driver_name");
+                        String driver_licence = jo.getString("driver_name");
 
 
-                        editor.putString("id",id);
-                        editor.putString("token",token);
-                        editor.putString("login","success");
-                        editor.putString("driver_name",driver_name);
-                        editor.putString("driver_mobile",driver_mobile);
-                        editor.putString("driver_email",driver_email);
+                        editor.putString("driver_id", id);
+                        editor.putString("token", token);
+                        editor.putString("login", "success");
+                        editor.putString("driver_name", driver_name);
+                        editor.putString("driver_mobile", driver_mobile);
+                        editor.putString("driver_email", driver_email);
+                        // editor.putString("driver_image",driver_image);
+                        //  editor.putString("driver_licence_image",driver_licence);
                         editor.commit();
-
 
 
                         Intent i = new Intent(LoginOtpActivity.this, DashboardNavigation.class);
@@ -396,16 +445,28 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                     } else if (status.equals("false")) {
 
 
-                        Toast.makeText(getApplicationContext(),"Otp Failed",Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(),"Otp Failed",Toast.LENGTH_LONG).show();
+
+                        if (msg.contains("Authentication failed.Wrong Password")) {
+
+                            tv_snack.setText("Otp Failed. Try Again Later");
+                            snackbar.show();
+
+
+                        } else {
+
+                            tv_snack.setText("Network Error Please Try again Later.");
+                            snackbar.show();
+                        }
 
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.e("tag","nt"+e.toString());
-                    Toast.makeText(getApplicationContext(),"Network Errror0",Toast.LENGTH_LONG).show();
+                    Log.e("tag", "nt" + e.toString());
+                    snackbar.show();
                 }
             } else {
-                Toast.makeText(getApplicationContext(),"Network Errror1",Toast.LENGTH_LONG).show();
+                snackbar.show();
             }
 
         }
@@ -413,6 +474,85 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
     }
 
 
+
+    public class resend_otp extends AsyncTask<String, Void, String> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Log.e("tag","reg_preexe");
+            mProgressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            String json = "", jsonStr = "";
+
+            try {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.accumulate("driver_mobile", "+91"+str_phone);
+                json = jsonObject.toString();
+                return jsonStr = HttpUtils.makeRequest(Config.WEB_URL + "drivermobileotp", json);
+
+            } catch (Exception e) {
+                Log.e("InputStream", e.getLocalizedMessage());
+                mProgressDialog.dismiss();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.e("tag","tag"+s);
+            mProgressDialog.dismiss();
+
+
+            if (s != null) {
+                try {
+                    JSONObject jo = new JSONObject(s);
+                    String status = jo.getString("status");
+                    String msg = jo.getString("message");
+                    Log.d("tag", "<-----Status----->" + status);
+                    if (status.equals("true")) {
+
+
+                        // String sus_txt = "Thank you for Signing Up MoveHaul.";
+
+                        //Toast.makeText(getApplicationContext(),sus_txt,Toast.LENGTH_LONG).show();
+                        tv_snack.setText("Otp Send to " + str_phone);
+                        snackbar.show();
+
+
+                    } else if (status.equals("false")) {
+
+
+                        if (msg.contains("Error Occured[object Object]")) {
+
+
+
+                        }
+
+
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e("tag","nt"+e.toString());
+                    // Toast.makeText(getApplicationContext(),"Network Errror0",Toast.LENGTH_LONG).show();
+                    snackbar.show();
+                }
+            } else {
+                // Toast.makeText(getApplicationContext(),"Network Errror1",Toast.LENGTH_LONG).show();
+                snackbar.show();
+            }
+
+        }
+
+    }
 
 
 }

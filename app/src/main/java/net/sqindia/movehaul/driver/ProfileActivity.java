@@ -1,6 +1,7 @@
 package net.sqindia.movehaul.driver;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -68,8 +69,10 @@ public class ProfileActivity extends Activity {
     Typeface tf;
     Snackbar snackbar;
     TextView tv_snack;
+    Config config;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    ProgressDialog mProgressDialog;
     String id,token;
 
     @Override
@@ -81,10 +84,19 @@ public class ProfileActivity extends Activity {
         FontsManager.changeFonts(this);
         tf = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
 
+        config = new Config();
+
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this);
         editor = sharedPreferences.edit();
 
         btn_update = (Button) findViewById(R.id.button_update);
+
+
+        mProgressDialog = new ProgressDialog(ProfileActivity.this);
+        mProgressDialog.setTitle("Loading..");
+        mProgressDialog.setMessage("Please wait");
+        mProgressDialog.setIndeterminate(false);
+        mProgressDialog.setCancelable(false);
 
 
         iv_profile = (ImageView) findViewById(R.id.imageview_profile);
@@ -115,12 +127,12 @@ public class ProfileActivity extends Activity {
 
 
         str_contact = sharedPreferences.getString("driver_mobile","");
-        et_contact.setText(str_contact);
+        et_contact.setText(str_contact.substring(3,str_contact.length()));
         et_secondary.requestFocus();
 
 
         snackbar = Snackbar
-                .make(findViewById(R.id.top), "Network Error", Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.top), "Network Error! Please Try Again Later.", Snackbar.LENGTH_LONG);
 
         View sbView = snackbar.getView();
         tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
@@ -131,6 +143,13 @@ public class ProfileActivity extends Activity {
         token =sharedPreferences.getString("token","");
 
         Log.e("tag","id:"+id+token);
+
+
+
+        if (!config.isConnected(ProfileActivity.this)) {
+            snackbar.show();
+            tv_snack.setText("Please Connect Internet and Try again");
+        }
 
 
         iv_profile.setOnClickListener(new View.OnClickListener() {
@@ -403,6 +422,7 @@ public class ProfileActivity extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             Log.e("tag", "reg_preexe");
+            mProgressDialog.show();
         }
 
         @Override
@@ -476,6 +496,9 @@ public class ProfileActivity extends Activity {
             super.onPostExecute(s);
             Log.e("tag", "tag" + s);
 
+
+            mProgressDialog.dismiss();
+
            // tag{"status":true}
 
 
@@ -491,23 +514,29 @@ public class ProfileActivity extends Activity {
                         /*Intent i = new Intent(ProfileActivity.this,DashboardNavigation.class);
                         startActivity(i);*/
 
-                        editor.putString("profile","");
+                        editor.putString("profile","success");
                         editor.commit();
 
                         finish();
                     }
                     else{
-                        Toast.makeText(getApplicationContext(), "Network Errror", Toast.LENGTH_LONG).show();
+                       // Toast.makeText(getApplicationContext(), "Network Errror", Toast.LENGTH_LONG).show();
+                        snackbar.show();
+                        tv_snack.setText("Network Error! Please Try Again Later.");
                     }
 
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e("tag", "nt" + e.toString());
-                    Toast.makeText(getApplicationContext(), "Network Errror0", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "Network Errror0", Toast.LENGTH_LONG).show();
+                    snackbar.show();
+                    tv_snack.setText("Network Error! Please Try Again Later.");
                 }
             } else {
-                Toast.makeText(getApplicationContext(), "Network Errror1", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Network Errror1", Toast.LENGTH_LONG).show();
+                snackbar.show();
+                tv_snack.setText("Network Error! Please Try Again Later.");
             }
 
         }

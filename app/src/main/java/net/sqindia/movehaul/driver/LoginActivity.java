@@ -1,19 +1,22 @@
 package net.sqindia.movehaul.driver;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
@@ -28,12 +31,16 @@ import org.json.JSONObject;
 
 public class LoginActivity extends Activity {
     Button btn_submit;
-    TextView tv_forgot_mobile;
+    TextView tv_forgot_mobile,tv_snack;
     LinearLayout btn_back;
     String str_mobile;
     EditText et_mobile_no;
     TextInputLayout flt_mobile_no;
     Config config;
+    ProgressBar progresss;
+    Snackbar snackbar, snack_wifi;
+    ProgressDialog mProgressDialog;
+
 
     @Override
     public void onBackPressed() {
@@ -50,6 +57,28 @@ public class LoginActivity extends Activity {
         Typeface tf = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/lato.ttf");
         config = new Config();
 
+
+        mProgressDialog = new ProgressDialog(LoginActivity.this);
+        mProgressDialog.setTitle("Loading..");
+        mProgressDialog.setMessage("Please wait");
+        mProgressDialog.setIndeterminate(false);
+        mProgressDialog.setCancelable(false);
+
+
+
+        snackbar = Snackbar
+                .make(findViewById(R.id.top), "Network Error! Please Try Again Later.", Snackbar.LENGTH_LONG);
+        View sbView = snackbar.getView();
+        tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        tv_snack.setTextColor(Color.WHITE);
+        tv_snack.setTypeface(tf);
+
+        if (!config.isConnected(LoginActivity.this)) {
+            snackbar.show();
+            tv_snack.setText("Please Connect Internet and Try again");
+        }
+
+
         btn_submit = (Button) findViewById(R.id.btn_submit);
         btn_back = (LinearLayout) findViewById(R.id.layout_back);
         tv_forgot_mobile = (TextView) findViewById(R.id.text_forgot_no);
@@ -61,20 +90,11 @@ public class LoginActivity extends Activity {
         flt_mobile_no.setTypeface(type);
 
 
-        if (!config.isConnected(LoginActivity.this)) {
-
-        }
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              /*  Intent i = new Intent(LoginActivity.this, Splash_screen.class);
-                startActivity(i);
-                finish();*/
-               // onBackPressed();
                 finish();
-                //overridePendingTransition(R.anim.anim3, R.anim.anim4);
-               // finish();
             }
         });
 
@@ -95,14 +115,16 @@ public class LoginActivity extends Activity {
                 startActivity(i);
                 finish();*/
 
-               if (!(str_mobile.isEmpty() || str_mobile.length() < 9)) {
+               if (!(str_mobile.isEmpty() || str_mobile.length() < 10)) {
                    new login_customer().execute();
                   /*Intent i = new Intent(LoginActivity.this, DashboardNavigation.class);
                     //i.putExtra("phone",str_mobile);
                     startActivity(i);
                     finish();*/
                 } else {
-                    et_mobile_no.setError("Enter valid phone number");
+                    //et_mobile_no.setError("Enter valid phone number");
+                   tv_snack.setText("Enter valid phone Number");
+                   snackbar.show();
                     et_mobile_no.requestFocus();
                 }
 
@@ -120,6 +142,7 @@ public class LoginActivity extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             Log.e("tag","reg_preexe");
+            mProgressDialog.show();
         }
 
         @Override
@@ -135,6 +158,7 @@ public class LoginActivity extends Activity {
 
             } catch (Exception e) {
                 Log.e("InputStream", e.getLocalizedMessage());
+                mProgressDialog.dismiss();
             }
 
             return null;
@@ -144,6 +168,7 @@ public class LoginActivity extends Activity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             Log.e("tag","tag"+s);
+            mProgressDialog.dismiss();
 
 
             if (s != null) {
@@ -167,10 +192,12 @@ public class LoginActivity extends Activity {
 
                     } else if (status.equals("false")) {
 
-
                         if (msg.contains("Register with Movehaul first to Generate OTP")) {
 
-                            Toast.makeText(getApplicationContext(),"Mobile Number Not Registered",Toast.LENGTH_LONG).show();
+                           // Toast.makeText(getApplicationContext(),"Mobile Number Not Registered",Toast.LENGTH_LONG).show();
+                            snackbar.show();
+                            tv_snack.setText("Mobile Number Not Registered");
+
 
                         }
                         else if (msg.contains("Error Occured[object Object]")) {
@@ -184,7 +211,8 @@ public class LoginActivity extends Activity {
 
                         else  {
 
-                            Toast.makeText(getApplicationContext(),"Please Try Again Later",Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(),"Please Try Again Later",Toast.LENGTH_LONG).show();
+                            snackbar.show();
                         }
 
 
@@ -192,10 +220,12 @@ public class LoginActivity extends Activity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e("tag","nt"+e.toString());
-                    Toast.makeText(getApplicationContext(),"Network Errror0",Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getApplicationContext(),"Network Errror0",Toast.LENGTH_LONG).show();
+                    snackbar.show();
                 }
             } else {
-                Toast.makeText(getApplicationContext(),"Network Errror1",Toast.LENGTH_LONG).show();
+               // Toast.makeText(getApplicationContext(),"Network Errror1",Toast.LENGTH_LONG).show();
+                snackbar.show();
             }
 
         }
