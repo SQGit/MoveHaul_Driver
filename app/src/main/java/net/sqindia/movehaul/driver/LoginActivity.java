@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.util.Log;
@@ -18,12 +19,19 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.firebase.client.Firebase;
+import com.firebase.client.authentication.Constants;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
 import com.sloop.fonts.FontsManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by sqindia on 21-10-2016.
@@ -57,6 +65,8 @@ public class LoginActivity extends Activity {
         Typeface tf = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/lato.ttf");
         config = new Config();
 
+        Firebase.setAndroidContext(getApplicationContext());
+        registerDevice();
 
         mProgressDialog = new ProgressDialog(LoginActivity.this);
         mProgressDialog.setTitle("Loading..");
@@ -134,6 +144,39 @@ public class LoginActivity extends Activity {
 
 
 
+    private void registerDevice() {
+        //Creating a firebase object
+
+
+        Log.e("tag","register");
+
+        Firebase firebase = new Firebase("https://movehaul-driver.firebaseio.com/");
+
+        //Pushing a new element to firebase it will automatically create a unique id
+        Firebase newFirebase = firebase.push();
+
+        //Creating a map to store name value pair
+        Map<String, String> val = new HashMap<>();
+
+        //pushing msg = none in the map
+        val.put("msg", "none");
+
+        //saving the map to firebase
+        newFirebase.setValue(val);
+
+        //Getting the unique id generated at firebase
+        String uniqueId = newFirebase.getKey();
+        Log.e("tag","undd:: "+uniqueId);
+
+        //Finally we need to implement a method to store this unique id to our server
+        sendIdToServer(uniqueId);
+    }
+
+    private void sendIdToServer(String uniqueId) {
+        String unie = FirebaseInstanceId.getInstance().getToken();
+        Log.e("tag","id: "+unie);
+    }
+
 
     public class login_customer extends AsyncTask<String, Void, String> {
 
@@ -185,7 +228,8 @@ public class LoginActivity extends Activity {
                         //Toast.makeText(getApplicationContext(),sus_txt,Toast.LENGTH_LONG).show();
 
                         Intent i = new Intent(LoginActivity.this, LoginOtpActivity.class);
-                        i.putExtra("phone",str_mobile);
+                        i.putExtra("for","phone");
+                        i.putExtra("data",str_mobile);
                         startActivity(i);
                         finish();
 
@@ -203,7 +247,8 @@ public class LoginActivity extends Activity {
                         else if (msg.contains("Error Occured[object Object]")) {
 
                             Intent i = new Intent(LoginActivity.this, LoginOtpActivity.class);
-                            i.putExtra("phone",str_mobile);
+                            i.putExtra("for","phone");
+                            i.putExtra("data",str_mobile);
                             startActivity(i);
                             finish();
 

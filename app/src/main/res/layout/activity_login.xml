@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="@dimen/_5sdp"
-                android:text="By signing up you agree to the terms &amp; conditions \nand privacy policy of Movehaul"
+                android:text="By Login you agree to the terms &amp; conditions \nand privacy policy of Movehaul"
                 android:textSize="@dimen/_10sdp" />
 
 

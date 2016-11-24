@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "877916506885",
+    "firebase_url": "https://movehaul-driver.firebaseio.com",
+    "project_id": "movehaul-driver",
+    "storage_bucket": "movehaul-driver.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:877916506885:android:040af1c5dbbf94bf",
+        "android_client_info": {
+          "package_name": "net.sqindia.movehaul.driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "877916506885-hkgu54moo9l9q1uvptsc4g4vh7fnsp41.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXlcKwIKxB7gMg0YC6g0sQ0JWlMDU8Gjc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

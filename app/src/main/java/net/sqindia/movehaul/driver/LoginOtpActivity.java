@@ -75,11 +75,13 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         str_for = getIntent.getStringExtra("for");
         str_data = getIntent.getStringExtra("data");
 
+        Log.e("tag","data:"+str_for);
+
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginOtpActivity.this);
         editor = sharedPreferences.edit();
         Typeface tf = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/lato.ttf");
 
-        str_phone = getIntent.getStringExtra("phone");
+        //str_phone = getIntent.getStringExtra("phone");
 
 
         mProgressDialog = new ProgressDialog(LoginOtpActivity.this);
@@ -370,28 +372,30 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         @Override
         protected String doInBackground(String... strings) {
 
-            String json = "", jsonStr = "";
+            String json = "", jsonStr = "",url ;
 
             try {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("driver_mobile", "+91" + str_phone);
-                jsonObject.accumulate("driver_otp", str_otppin);
 
+
+                Log.e("tag",str_for+ " dd: "+str_data+str_otppin);
 
                 if (str_for.equals("phone")) {
 
-                    jsonObject.accumulate("customer_mobile", "+91"+str_data);
-                    jsonObject.accumulate("customer_otp", str_otppin);
+                    jsonObject.accumulate("driver_mobile", "+91"+str_data);
+                    jsonObject.accumulate("driver_otp", str_otppin);
+                    url ="driver/mobilelogin";
                 } else {
 
-                    jsonObject.accumulate("customer_email", str_data);
-                    jsonObject.accumulate("customer_otp", str_otppin);
+                    jsonObject.accumulate("driver_email", str_data);
+                    jsonObject.accumulate("driver_otp", str_otppin);
+                    url = "driver/emaillogin";
                 }
 
 
 
                 json = jsonObject.toString();
-                return jsonStr = HttpUtils.makeRequest(Config.WEB_URL + "driver/mobilelogin", json);
+                return jsonStr = HttpUtils.makeRequest(Config.WEB_URL + url, json);
 
             } catch (Exception e) {
                 Log.e("InputStream", e.getLocalizedMessage());
@@ -488,13 +492,30 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         @Override
         protected String doInBackground(String... strings) {
 
-            String json = "", jsonStr = "";
+            String json = "", jsonStr = "",url;
 
             try {
                 JSONObject jsonObject = new JSONObject();
+
+
+
+                if (str_for.equals("phone")) {
+
+                    jsonObject.accumulate("driver_mobile", "+91"+str_data);
+                    jsonObject.accumulate("driver_otp", str_otppin);
+                    url ="drivermobileotp";
+                } else {
+
+                    jsonObject.accumulate("driver_email", str_data);
+                    jsonObject.accumulate("driver_otp", str_otppin);
+                    url = "driveremailotp";
+                }
+
+
+
                 jsonObject.accumulate("driver_mobile", "+91"+str_phone);
                 json = jsonObject.toString();
-                return jsonStr = HttpUtils.makeRequest(Config.WEB_URL + "drivermobileotp", json);
+                return jsonStr = HttpUtils.makeRequest(Config.WEB_URL + url, json);
 
             } catch (Exception e) {
                 Log.e("InputStream", e.getLocalizedMessage());
@@ -523,7 +544,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                         // String sus_txt = "Thank you for Signing Up MoveHaul.";
 
                         //Toast.makeText(getApplicationContext(),sus_txt,Toast.LENGTH_LONG).show();
-                        tv_snack.setText("Otp Send to " + str_phone);
+                        tv_snack.setText("Otp Send to " + str_data);
                         snackbar.show();
 
 
