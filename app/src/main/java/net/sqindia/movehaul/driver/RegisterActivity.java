@@ -2,6 +2,7 @@ package net.sqindia.movehaul.driver;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -79,6 +80,8 @@ public class RegisterActivity extends Activity {
     Snackbar snackbar;
     Typeface tf;
     View view_lic;
+    Config config;
+    ProgressDialog mProgressDialog;
 
     public static int getDeviceHeight(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -101,6 +104,15 @@ public class RegisterActivity extends Activity {
         FontsManager.changeFonts(this);
 
         tf = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
+        config = new Config();
+
+
+        mProgressDialog = new ProgressDialog(RegisterActivity.this);
+        mProgressDialog.setTitle("Loading..");
+        mProgressDialog.setMessage("Please wait");
+        mProgressDialog.setIndeterminate(false);
+        mProgressDialog.setCancelable(false);
+
 
         btn_back = (LinearLayout) findViewById(R.id.layout_back);
         btn_submit = (Button) findViewById(R.id.btn_submit);
@@ -145,12 +157,26 @@ public class RegisterActivity extends Activity {
 
 
         snackbar = Snackbar
+                .make(findViewById(R.id.top), "Network Error! Please Try Again Later.", Snackbar.LENGTH_LONG);
+        View sbView = snackbar.getView();
+        tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        tv_snack.setTextColor(Color.WHITE);
+        tv_snack.setTypeface(tf);
+
+        if (!config.isConnected(RegisterActivity.this)) {
+            snackbar.show();
+            tv_snack.setText("Please Connect Internet and Try again");
+        }
+
+
+
+       /* snackbar = Snackbar
                 .make(findViewById(R.id.top), "Please Attach Driving Licence", Snackbar.LENGTH_LONG);
 
         View sbView = snackbar.getView();
         tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
         tv_snack.setTextColor(Color.WHITE);
-        tv_snack.setTypeface(tf);
+        tv_snack.setTypeface(tf);*/
 
         dialog2 = new Dialog(RegisterActivity.this);
         dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -170,9 +196,9 @@ public class RegisterActivity extends Activity {
         d2_tv_dialog4.setTypeface(type);
         d2_btn_ok.setTypeface(type);
 
-        d2_tv_dialog1.setText("Thank You for Submitting");
-        d2_tv_dialog2.setText("Your Details for Verification!!");
-        d2_tv_dialog3.setText("Once verification is completed. You can log into Movehaul.");
+        d2_tv_dialog1.setText("SUCCESS");
+        d2_tv_dialog2.setText("Thankyou for submitting your details for verification!!");
+        d2_tv_dialog3.setText("Once verification is completed. You can login to Movehaul.");
         d2_tv_dialog4.setVisibility(View.GONE);
         btn_close.setVisibility(View.GONE);
 
@@ -231,15 +257,24 @@ public class RegisterActivity extends Activity {
 
 
                         } else {
-                            et_mobile.setError("Enter valid phone number");
+                           // et_mobile.setError("Enter valid phone number");
+
+
+                            snackbar.show();
+                            tv_snack.setText("Enter valid phone Number");
+
                             et_mobile.requestFocus();
                         }
                     } else {
-                        et_email.setError("Enter a valid email address!");
+                        //et_email.setError("Enter a valid email address!");
+                        snackbar.show();
+                        tv_snack.setText("Enter valid email address!");
                         et_email.requestFocus();
                     }
                 } else {
-                    et_name.setError("Enter a Name!");
+                 //   et_name.setError("Enter a Name!");
+                    snackbar.show();
+                    tv_snack.setText("Enter UserName!");
                     et_name.requestFocus();
                 }
 
@@ -280,22 +315,31 @@ public class RegisterActivity extends Activity {
 
                                 //dialog2.show();
 
-                               new register_customer().execute();
+                               new register_driver().execute();
                             } else {
 
                                 snackbar.show();
+                                tv_snack.setText("Upload Licence Image");
                             }
 
                         } else {
-                            et_lic_mobile.setError("Enter valid phone number");
+                           // et_lic_mobile.setError("Enter valid phone number");
+
+                            snackbar.show();
+                            tv_snack.setText("Enter valid Secondary phone number");
+
                             et_lic_mobile.requestFocus();
                         }
                     } else {
-                        et_lic_no.setError("Enter a valid email address!");
+                       // et_lic_no.setError("Enter a valid email address!");
+                        snackbar.show();
+                        tv_snack.setText("Enter a valid Licence Number");
                         et_lic_no.requestFocus();
                     }
                 } else {
-                    et_lic_name.setError("Enter a Name!");
+                    //et_lic_name.setError("Enter a Name!");
+                    snackbar.show();
+                    tv_snack.setText("Enter Full Name!");
                     et_lic_name.requestFocus();
                 }
             }
@@ -307,19 +351,19 @@ public class RegisterActivity extends Activity {
             public void onClick(View view) {
 
 
-        /*        PhotoPickerIntent intent = new PhotoPickerIntent(RegisterActivity.this);
+               PhotoPickerIntent intent = new PhotoPickerIntent(RegisterActivity.this);
                 intent.setPhotoCount(1);
                 intent.setColumn(4);
                 intent.setShowCamera(true);
-                startActivityForResult(intent, REQUEST_CODE);*/
+                startActivityForResult(intent, REQUEST_CODE);
 
-                Intent intent = new Intent(getApplicationContext(), ImagePickerActivity.class);
+               /* Intent intent = new Intent(getApplicationContext(), ImagePickerActivity.class);
                 nl.changer.polypicker.Config config = new nl.changer.polypicker.Config.Builder()
                         .setTabBackgroundColor(R.color.white)    // set tab background color. Default white.
                         .setSelectionLimit(1)    // set photo selection limit. Default unlimited selection.
                         .build();
                 ImagePickerActivity.setConfig(config);
-                startActivityForResult(intent, REQUEST_CODE);
+                startActivityForResult(intent, REQUEST_CODE);*/
 
 
             }
@@ -415,13 +459,14 @@ public class RegisterActivity extends Activity {
         }
     }
 
-    public class register_customer extends AsyncTask<String, Void, String> {
+    public class register_driver extends AsyncTask<String, Void, String> {
 
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             Log.e("tag", "reg_preexe");
+            mProgressDialog.show();
         }
 
         @Override
@@ -430,18 +475,6 @@ public class RegisterActivity extends Activity {
             String json = "", jsonStr = "";
 
             try {
-               /* JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("driver_name", str_name);
-                jsonObject.accumulate("driver_mobile_pri", "+91" + str_mobile);
-                jsonObject.accumulate("driver_email", str_email);
-                jsonObject.accumulate("driver_license_name", str_lic_name);
-                jsonObject.accumulate("driver_mobile_sec", "+91" + str_lic_mobile);
-                jsonObject.accumulate("driver_licence_number", str_lic_no);
-                jsonObject.accumulate("driver_experience", str_lic_exp);
-
-                json = jsonObject.toString();
-                return jsonStr = HttpUtils.makeRequest(Config.WEB_URL + "driversignup", json);*/
-
 
                 String responseString = null;
                 HttpClient httpclient = new DefaultHttpClient();
@@ -458,20 +491,18 @@ public class RegisterActivity extends Activity {
 
                 try {
 
-                    JSONObject jsonObject = new JSONObject();
-
-
                     MultipartEntity entity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 
-
                     File sourceFile = new File(selectedPhotos.get(0));
-                    Log.e("tag3", "" + sourceFile);
+                    Log.e("tagtag3", "" + sourceFile);
                     entity.addPart("driverlicence", new FileBody(sourceFile, "image/jpeg"));
                     httppost.setEntity(entity);
                     HttpResponse response = httpclient.execute(httppost);
                     HttpEntity r_entity = response.getEntity();
+                    Log.e("tagurl","ur:"+Config.WEB_URL + "driversignup");
+                    Log.e("tag","headers:"+httppost.getAllHeaders().toString());
                     int statusCode = response.getStatusLine().getStatusCode();
-                    Log.e("tag", response.getStatusLine().toString());
+                    Log.e("tagtag", response.getStatusLine().toString());
                     if (statusCode == 200) {
                         responseString = EntityUtils.toString(r_entity);
                     } else {
@@ -480,14 +511,16 @@ public class RegisterActivity extends Activity {
                     }
                 } catch (ClientProtocolException e) {
                     responseString = e.toString();
+                    Log.e("tagerr0: ", e.toString());
                 } catch (IOException e) {
                     responseString = e.toString();
+                    Log.e("tagerr1: ", e.toString());
                 }
                 return responseString;
 
 
             } catch (Exception e) {
-                Log.e("InputStream", e.getLocalizedMessage());
+                Log.e("tagerr2:", e.toString());
             }
 
             return null;
@@ -496,35 +529,37 @@ public class RegisterActivity extends Activity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.e("tag", "tag" + s);
+            Log.e("tag", "tagtag" + s);
 
+                mProgressDialog.dismiss();
 
             if (s != null) {
                 try {
                     JSONObject jo = new JSONObject(s);
                     String status = jo.getString("status");
-                    String msg = jo.getString("message");
                     Log.d("tag", "<-----Status----->" + status);
 
                     if(status.equals("true")){
                         dialog2.show();
                     }
                     else{
-
+                        snackbar.show();
                     }
 
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.e("tag", "nt" + e.toString());
-                    Toast.makeText(getApplicationContext(), "Network Errror0", Toast.LENGTH_LONG).show();
+                    Log.e("tag", "tagnt: " + e.toString());
+                   // Toast.makeText(getApplicationContext(), "Network Errror0", Toast.LENGTH_LONG).show();
+
+                    snackbar.show();
+                    tv_snack.setText("Network Error! Please Try Again Later.");
                 }
             } else {
-                Toast.makeText(getApplicationContext(), "Network Errror1", Toast.LENGTH_LONG).show();
+                snackbar.show();
+                tv_snack.setText("Network Error! Please Try Again Later.");
             }
-
         }
-
     }
 
 

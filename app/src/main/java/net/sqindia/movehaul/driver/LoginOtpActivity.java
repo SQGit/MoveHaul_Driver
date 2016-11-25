@@ -511,9 +511,6 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                     url = "driveremailotp";
                 }
 
-
-
-                jsonObject.accumulate("driver_mobile", "+91"+str_phone);
                 json = jsonObject.toString();
                 return jsonStr = HttpUtils.makeRequest(Config.WEB_URL + url, json);
 

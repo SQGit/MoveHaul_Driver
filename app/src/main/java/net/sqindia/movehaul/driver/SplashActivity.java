@@ -26,6 +26,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.sloop.fonts.FontsManager;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -43,6 +45,7 @@ public class SplashActivity extends Activity {
     Typeface tf;
     TranslateAnimation anim_btn_b2t, anim_btn_t2b, anim_truck_c2r;
     Animation fadeIn, fadeOut;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public static int getDeviceWidth(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -64,6 +67,15 @@ public class SplashActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.splash_screen);
+
+        Log.e("tag", "In the onCreate() event");
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, FirebaseInstanceId.getInstance().getToken());
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, android.os.Build.MODEL);
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
         FontsManager.initFormAssets(this, "fonts/lato.ttf");       //initialization
         FontsManager.changeFonts(this);
         tf = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
@@ -105,6 +117,7 @@ public class SplashActivity extends Activity {
 
         anim_btn_b2t = new TranslateAnimation(0, 0, height + lt_bottom.getHeight(), lt_bottom.getHeight());
         anim_btn_b2t.setDuration(1400);
+        anim_btn_b2t.setFillAfter(false);
         lt_bottom.setAnimation(anim_btn_b2t);
 
 
@@ -181,10 +194,19 @@ public class SplashActivity extends Activity {
         });
     }
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+    }
+
+
+
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.e("tag", "ds+" + is);
+        Log.e("tag", "In the onRestart() event");
         lt_bottom.setVisibility(View.GONE);
         if (!config.isConnected(SplashActivity.this)) {
             lt_bottom.setVisibility(View.GONE);
@@ -194,6 +216,56 @@ public class SplashActivity extends Activity {
             snackbar.dismiss();
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("tag", "In the onResume() event");
+    }
+
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        Log.e("tag", "In the onStart() event");
+    }
+
+
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        Log.e("tag", "In the onStop() event");
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        Log.e("tag", "In the onDestroy() event");
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -240,7 +312,7 @@ public class SplashActivity extends Activity {
                             startActivity(isd, bndlanimation);
 
                         }
-                    }, 1200);
+                    }, 1100);
                 }
             } else if (s.equals("false")) {
                 snackbar.show();

@@ -126,15 +126,26 @@ public class LoginActivity extends Activity {
                 finish();*/
 
                if (!(str_mobile.isEmpty() || str_mobile.length() < 10)) {
-                   new login_customer().execute();
+                 //  new login_customer().execute();
                   /*Intent i = new Intent(LoginActivity.this, DashboardNavigation.class);
                     //i.putExtra("phone",str_mobile);
                     startActivity(i);
                     finish();*/
+
+                   if (config.isConnected(LoginActivity.this)) {
+                       new login_customer().execute();
+                   } else {
+                       snackbar.show();
+                       tv_snack.setText("Please Connect Internet and Try again");
+                   }
+
+
+
                 } else {
                     //et_mobile_no.setError("Enter valid phone number");
-                   tv_snack.setText("Enter valid phone Number");
+
                    snackbar.show();
+                   tv_snack.setText("Enter valid phone Number");
                     et_mobile_no.requestFocus();
                 }
 
@@ -201,7 +212,7 @@ public class LoginActivity extends Activity {
 
             } catch (Exception e) {
                 Log.e("InputStream", e.getLocalizedMessage());
-                mProgressDialog.dismiss();
+
             }
 
             return null;

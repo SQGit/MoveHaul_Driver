@@ -459,6 +459,8 @@ public class ProfileActivity extends Activity {
                     entity.addPart("vehicleback", new FileBody(new File(str_vec_back), "image/jpeg"));
                     entity.addPart("vehicleside", new FileBody(new File(str_vec_side), "image/jpeg"));
                     entity.addPart("vehicletitle", new FileBody(new File(str_vec_rc), "image/jpeg"));
+                    entity.addPart("vehicletitle", new FileBody(new File(str_vec_rc), "image/jpeg"));
+                    entity.addPart("vehicleinsurance", new FileBody(new File(str_vec_ins), "image/jpeg"));
                     entity.addPart("vehicleinsurance", new FileBody(new File(str_vec_ins), "image/jpeg"));
 
                     Log.e("tag","imgs"+entity.toString());

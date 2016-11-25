@@ -76,7 +76,7 @@
                 >
 
                 <com.rey.material.widget.TextView
-                    android:id="@+id/textView_jobreddview"
+                    android:id="@+id/textview_driverid"
                     style="@style/Material.Drawable.Ripple.Touch.Light"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
