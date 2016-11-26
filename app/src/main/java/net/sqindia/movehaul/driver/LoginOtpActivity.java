@@ -430,7 +430,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                         String driver_licence = jo.getString("driver_name");
 
 
-                        editor.putString("driver_id", id);
+                        editor.putString("id", id);
                         editor.putString("token", token);
                         editor.putString("login", "success");
                         editor.putString("driver_name", driver_name);

@@ -207,9 +207,11 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
 
 
-        String  dr_id = String.valueOf(str_driver_name.charAt(1)+str_driver_name.charAt(0)+str_driver_name.charAt(str_driver_name.length()-1));
 
-        String dr_ph =String.valueOf(str_driver_phone.charAt(5)+str_driver_phone.charAt(0)+str_driver_phone.charAt(str_driver_phone.length()-1));
+
+        String  dr_id = Character.toString(str_driver_name.charAt(1))+Character.toString(str_driver_name.charAt(0))+Character.toString(str_driver_name.charAt(str_driver_name.length()-1));
+
+        String dr_ph =Character.toString(str_driver_phone.charAt(5))+Character.toString(str_driver_phone.charAt(0))+Character.toString(str_driver_phone.charAt(str_driver_phone.length()-1));
 
 
         Log.e("tag","ch"+str_driver_name);
