@@ -422,12 +422,15 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                         // JSONObject data = new JSONObject(msg);
 
                         String id = jo.getString("driver_id");
-                        String token = jo.getString("token");
                         String driver_mobile = jo.getString("driver_mobile");
                         String driver_email = jo.getString("driver_email");
                         String driver_name = jo.getString("driver_name");
-                        String driver_image = jo.getString("driver_name");
-                        String driver_licence = jo.getString("driver_name");
+                        String driver_image = jo.getString("driver_image");
+                        String driver_licence = jo.getString("driver_licence_image");
+                        String driver_verification = jo.getString("driver_verification");
+                        String driver_status = jo.getString("driver_status");
+                        String account_status = jo.getString("account_status");
+                        String token = jo.getString("token");
 
 
                         editor.putString("id", id);
@@ -436,9 +439,27 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                         editor.putString("driver_name", driver_name);
                         editor.putString("driver_mobile", driver_mobile);
                         editor.putString("driver_email", driver_email);
+                        editor.putString("driver_verification", driver_verification);
+                        editor.putString("driver_status", driver_status);
+                        editor.putString("account_status", account_status);
+                        editor.putString("driver_image", driver_image);
+                        editor.putString("driver_licence_image", driver_licence);
                         // editor.putString("driver_image",driver_image);
                         //  editor.putString("driver_licence_image",driver_licence);
                         editor.commit();
+
+
+                        if(driver_image == null){
+                            Log.e("tag","null value");
+                        }
+
+
+                        if(jo.has("truck_title_image1")){
+                            Log.e("tag","has value");
+                        }
+                        else{
+                            Log.e("tag","no value");
+                        }
 
 
                         Intent i = new Intent(LoginOtpActivity.this, DashboardNavigation.class);
