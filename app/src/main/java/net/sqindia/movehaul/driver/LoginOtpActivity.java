@@ -432,7 +432,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                         String account_status = jo.getString("account_status");
                         String token = jo.getString("token");
 
-
+//
                         editor.putString("id", id);
                         editor.putString("token", token);
                         editor.putString("login", "success");
