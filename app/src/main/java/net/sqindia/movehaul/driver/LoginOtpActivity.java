@@ -438,6 +438,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                         editor.putString("login", "success");
                         editor.putString("driver_name", driver_name);
                         editor.putString("driver_mobile", driver_mobile);
+                        editor.putString("driver_mobile2", driver_mobile);
                         editor.putString("driver_email", driver_email);
                         editor.putString("driver_verification", driver_verification);
                         editor.putString("driver_status", driver_status);
@@ -453,6 +454,10 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                             Log.e("tag","null value");
                         }
 
+
+                        if(driver_image == "null"){
+                            Log.e("tag","null string");
+                        }
 
                         if(jo.has("truck_title_image1")){
                             Log.e("tag","has value");

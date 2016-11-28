@@ -19,7 +19,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.rey.material.widget.Button;
@@ -68,12 +67,12 @@ public class ProfileActivity extends Activity {
     Button btn_update;
     Typeface tf;
     Snackbar snackbar;
-    TextView tv_snack;
+    TextView tv_snack,tv_profile_name;
     Config config;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     ProgressDialog mProgressDialog;
-    String id,token;
+    String id, token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +104,7 @@ public class ProfileActivity extends Activity {
         iv_vec_side = (ImageView) findViewById(R.id.imageview_vechile_side);
         iv_vec_rc = (ImageView) findViewById(R.id.imageview_vechile_rc);
         iv_vec_ins = (ImageView) findViewById(R.id.imageview_vechile_ins);
+        tv_profile_name = (TextView) findViewById(R.id.textview_profile_name);
 
         btn_back = (LinearLayout) findViewById(R.id.layout_back);
         lt_vec_rc = (LinearLayout) findViewById(R.id.layout_vechile_rc);
@@ -126,10 +126,19 @@ public class ProfileActivity extends Activity {
         et_address = (EditText) findViewById(R.id.edittext_deliveryaddress);
 
 
-        str_contact = sharedPreferences.getString("driver_mobile","");
-        et_contact.setText(str_contact.substring(3,str_contact.length()));
-        et_secondary.requestFocus();
+        str_contact = sharedPreferences.getString("driver_mobile", "");
+        str_secondary = sharedPreferences.getString("driver_mobile", "");
 
+        et_contact.setText(str_contact.substring(3, str_contact.length()));
+        tv_profile_name.setText(sharedPreferences.getString("driver_name",""));
+        et_secondary.setText(str_contact.substring(3, str_contact.length()));
+
+        et_address.requestFocus();
+
+        if (!config.isConnected(ProfileActivity.this)) {
+            snackbar.show();
+            tv_snack.setText("Please Connect Internet and Try again");
+        }
 
         snackbar = Snackbar
                 .make(findViewById(R.id.top), "Network Error! Please Try Again Later.", Snackbar.LENGTH_LONG);
@@ -139,17 +148,22 @@ public class ProfileActivity extends Activity {
         tv_snack.setTextColor(Color.WHITE);
         tv_snack.setTypeface(tf);
 
-        id = sharedPreferences.getString("id","");
-        token =sharedPreferences.getString("token","");
+        id = sharedPreferences.getString("id", "");
+        token = sharedPreferences.getString("token", "");
 
-        Log.e("tag","id:"+id+token);
+        Log.e("tag", "id:" + id + token);
 
 
 
-        if (!config.isConnected(ProfileActivity.this)) {
-            snackbar.show();
-            tv_snack.setText("Please Connect Internet and Try again");
+        if(!sharedPreferences.getString("profile_image","").equals("")){
+
+            String img = sharedPreferences.getString("profile_image","");
+
+            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"driverdetails/"+img).into(iv_profile);
+
         }
+
+
 
 
         iv_profile.setOnClickListener(new View.OnClickListener() {
@@ -241,44 +255,39 @@ public class ProfileActivity extends Activity {
                                               if (!(str_contact.isEmpty() || str_contact.length() < 9)) {
                                                   if (!(str_secondary.isEmpty() || str_secondary.length() < 9)) {
                                                       if (!(str_address.isEmpty() || str_address.length() < 5)) {
-                                                          if(str_profile_img != null){
-                                                              if(str_vec_back != null){
-                                                                  if(str_vec_front != null){
-                                                                      if(str_vec_side != null){
-                                                                          if(str_vec_rc != null){
-                                                                              if(str_vec_ins != null){
+                                                          if (str_profile_img != null || !(sharedPreferences.getString("profile_image","").equals(""))) {
+                                                              if (str_vec_back != null) {
+                                                                  if (str_vec_front != null) {
+                                                                      if (str_vec_side != null) {
+                                                                          if (str_vec_rc != null) {
+                                                                              if (str_vec_ins != null) {
 
-                                                                                  new profile_update().execute();
-                                                                              }
-                                                                              else {
+                                                                                  //new profile_update().execute();
+                                                                                  new vechile_update().execute();
+                                                                              } else {
                                                                                   snackbar.show();
                                                                                   tv_snack.setText("Upload Vechile Insurence");
                                                                               }
-                                                                          }
-                                                                          else {
+                                                                          } else {
                                                                               snackbar.show();
                                                                               tv_snack.setText("Upload Vechile RC");
                                                                           }
-                                                                      }
-                                                                      else {
+                                                                      } else {
                                                                           snackbar.show();
                                                                           tv_snack.setText("Upload Vechile Side Image");
                                                                       }
 
-                                                                  }
-                                                                  else {
+                                                                  } else {
                                                                       snackbar.show();
                                                                       tv_snack.setText("Upload Vechile Front Image");
                                                                   }
 
 
-                                                              }
-                                                              else {
+                                                              } else {
                                                                   snackbar.show();
                                                                   tv_snack.setText("Upload Vechile Back Image");
                                                               }
-                                                          }
-                                                          else {
+                                                          } else {
                                                               snackbar.show();
                                                               tv_snack.setText("Upload Profile Image");
                                                           }
@@ -413,8 +422,6 @@ public class ProfileActivity extends Activity {
     }
 
 
-
-
     public class profile_update extends AsyncTask<String, Void, String> {
 
 
@@ -432,18 +439,18 @@ public class ProfileActivity extends Activity {
 
             try {
 
-
+                //driver/driverupdate
                 String responseString = null;
                 HttpClient httpclient = new DefaultHttpClient();
-                HttpPost httppost = new HttpPost(Config.WEB_URL + "driver/vehicleupdate");
+                HttpPost httppost = new HttpPost(Config.WEB_URL + "driver/driverupdate");
 
                 httppost.setHeader("driver_mobile_pri", "+91" + str_contact);
                 httppost.setHeader("driver_mobile_sec", "+91" + str_secondary);
                 httppost.setHeader("driver_address", str_address);
                 //{"id":"10000","sessiontoken":"fkjdshfjdsfhkjdfkgdgfdgfuau"
 
-                httppost.setHeader("id",id);
-                httppost.setHeader("sessiontoken",token);
+                httppost.setHeader("id", id);
+                httppost.setHeader("sessiontoken", token);
 
 
                 try {
@@ -455,16 +462,128 @@ public class ProfileActivity extends Activity {
 
 
                     entity.addPart("driverimage", new FileBody(new File(str_profile_img), "image/jpeg"));
+
+                    httppost.setEntity(entity);
+                    HttpResponse response = httpclient.execute(httppost);
+                    HttpEntity r_entity = response.getEntity();
+                    int statusCode = response.getStatusLine().getStatusCode();
+                    Log.e("tag", response.getStatusLine().toString());
+                    if (statusCode == 200) {
+                        responseString = EntityUtils.toString(r_entity);
+                    } else {
+                        responseString = "Error occurred! Http Status Code: "
+                                + statusCode;
+                    }
+                } catch (ClientProtocolException e) {
+                    responseString = e.toString();
+                } catch (IOException e) {
+                    responseString = e.toString();
+                }
+                return responseString;
+
+
+            } catch (Exception e) {
+                Log.e("InputStream", e.getLocalizedMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.e("tag", "tag" + s);
+
+
+            mProgressDialog.dismiss();
+
+            // tag{"status":true}
+
+
+            if (s != null) {
+                try {
+                    JSONObject jo = new JSONObject(s);
+                    String status = jo.getString("status");
+                    String msg = jo.getString("driverimage");
+                    Log.d("tag", "<-----Status----->" + status);
+
+                    if (status.equals("true")) {
+
+                        /*Intent i = new Intent(ProfileActivity.this,DashboardNavigation.class);
+                        startActivity(i);*/
+
+                        editor.putString("profile_image", msg);
+                        editor.commit();
+
+                        new vechile_update().execute();
+
+
+                    } else {
+                        // Toast.makeText(getApplicationContext(), "Network Errror", Toast.LENGTH_LONG).show();
+                        snackbar.show();
+                        tv_snack.setText("Network Error! Please Try Again Later.");
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e("tag", "nt" + e.toString());
+                    //Toast.makeText(getApplicationContext(), "Network Errror0", Toast.LENGTH_LONG).show();
+                    snackbar.show();
+                    tv_snack.setText("Network Error! Please Try Again Later.");
+                }
+            } else {
+                //Toast.makeText(getApplicationContext(), "Network Errror1", Toast.LENGTH_LONG).show();
+                snackbar.show();
+                tv_snack.setText("Network Error! Please Try Again Later.");
+            }
+
+        }
+
+    }
+
+
+    public class vechile_update extends AsyncTask<String, Void, String> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Log.e("tag", "reg_preexe");
+            mProgressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            String json = "", jsonStr = "";
+
+            try {
+
+                //driver/driverupdate
+                String responseString = null;
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpPost httppost = new HttpPost(Config.WEB_URL + "driver/vehicleupdate");
+
+
+                httppost.setHeader("id", id);
+                httppost.setHeader("sessiontoken", token);
+
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject();
+
+
+                    MultipartEntity entity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+
                     entity.addPart("vehiclefront", new FileBody(new File(str_vec_front), "image/jpeg"));
                     entity.addPart("vehicleback", new FileBody(new File(str_vec_back), "image/jpeg"));
                     entity.addPart("vehicleside", new FileBody(new File(str_vec_side), "image/jpeg"));
                     entity.addPart("vehicletitle", new FileBody(new File(str_vec_rc), "image/jpeg"));
-                    entity.addPart("vehicletitle", new FileBody(new File(str_vec_rc), "image/jpeg"));
+                   // entity.addPart("vehicletitle", new FileBody(new File(str_vec_rc), "image/jpeg"));
                     entity.addPart("vehicleinsurance", new FileBody(new File(str_vec_ins), "image/jpeg"));
-                    entity.addPart("vehicleinsurance", new FileBody(new File(str_vec_ins), "image/jpeg"));
-
-                    Log.e("tag","imgs"+entity.toString());
-
+                   // entity.addPart("vehicleinsurance", new FileBody(new File(str_vec_ins), "image/jpeg"));
 
 
                     httppost.setEntity(entity);
@@ -501,28 +620,34 @@ public class ProfileActivity extends Activity {
 
             mProgressDialog.dismiss();
 
-           // tag{"status":true}
+            // tag{"status":true}
 
 
             if (s != null) {
                 try {
                     JSONObject jo = new JSONObject(s);
                     String status = jo.getString("status");
-                   // String msg = jo.getString("message");
+                    // String msg = jo.getString("message");
                     Log.d("tag", "<-----Status----->" + status);
 
-                    if(status.equals("true")){
+                    if (status.equals("true")) {
 
                         /*Intent i = new Intent(ProfileActivity.this,DashboardNavigation.class);
                         startActivity(i);*/
 
-                        editor.putString("profile","success");
+                        editor.putString("profile", "success");
+                        editor.putString("vehiclefront", "success");
+                        editor.putString("vehicleback", "success");
+                        editor.putString("vehicleside", "success");
+                        editor.putString("vehicletitle1", "success");
+                        editor.putString("vehicletitle2", "success");
+                        editor.putString("vehicleinsurance1", "success");
+                        editor.putString("vehicleinsurance2", "success");
                         editor.commit();
 
                         finish();
-                    }
-                    else{
-                       // Toast.makeText(getApplicationContext(), "Network Errror", Toast.LENGTH_LONG).show();
+                    } else {
+                        // Toast.makeText(getApplicationContext(), "Network Errror", Toast.LENGTH_LONG).show();
                         snackbar.show();
                         tv_snack.setText("Network Error! Please Try Again Later.");
                     }
@@ -544,5 +669,6 @@ public class ProfileActivity extends Activity {
         }
 
     }
+
 
 }

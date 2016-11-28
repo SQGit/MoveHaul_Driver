@@ -197,7 +197,7 @@ public class RegisterActivity extends Activity {
         d2_btn_ok.setTypeface(type);
 
         d2_tv_dialog1.setText("SUCCESS");
-        d2_tv_dialog2.setText("Thankyou for submitting your details for verification!!");
+        d2_tv_dialog2.setText("Thank you for submitting your details for verification!\nAdmin needs to verify your details.");
         d2_tv_dialog3.setText("Once verification is completed. You can login to Movehaul.");
         d2_tv_dialog4.setVisibility(View.GONE);
         btn_close.setVisibility(View.GONE);

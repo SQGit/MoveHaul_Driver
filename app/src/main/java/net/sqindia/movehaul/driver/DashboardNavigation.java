@@ -42,6 +42,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.bumptech.glide.Glide;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.Switch;
 import com.rey.material.widget.TextView;
@@ -50,6 +51,7 @@ import com.sloop.fonts.FontsManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.List;
 import java.util.Locale;
 
@@ -129,6 +131,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     Snackbar snackbar, snackbart;
     android.widget.TextView sb_text;
     LocationManager manager;
+    ImageView iv_nav_profile;
     String service_id, service_token, str_driver_email, str_driver_phone, str_driver_name;
     TextView tv_driver_name, tv_driver_email;
     android.widget.TextView tv_snack;
@@ -176,6 +179,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         nav_tv_reviews = (TextView) findViewById(R.id.textview_reviews);
         nav_tv_payments = (TextView) findViewById(R.id.textview_payments);
         nav_tv_Bankdetails = (TextView) findViewById(R.id.textView_bankdetails);
+        iv_nav_profile = (ImageView) findViewById(R.id.imageview_profile);
         btn_menu = (ImageView) findViewById(R.id.img_menu);
         rightmenu = (ImageView) findViewById(R.id.right_menu);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -665,6 +669,14 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
             } else {
                 snackbart.show();
+            }
+
+            if(!sharedPreferences.getString("profile_image","").equals("")){
+
+                String img = sharedPreferences.getString("profile_image","");
+
+                Glide.with(DashboardNavigation.this).load(Config.WEB_URL+"driverdetails/"+img).into(iv_nav_profile);
+
             }
 
 
