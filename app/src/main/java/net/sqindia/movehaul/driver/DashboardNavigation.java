@@ -162,6 +162,9 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         service_id = sharedPreferences.getString("id", "");
         service_token = sharedPreferences.getString("token", "");
 
+        Log.e("tag","id: "+service_id);
+        Log.e("tag","token: "+service_token);
+
 
         str_driver_name = sharedPreferences.getString("driver_name", "");
         str_driver_phone = sharedPreferences.getString("driver_mobile", "");
