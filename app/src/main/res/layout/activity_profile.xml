@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/top"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:id="@+id/top"
     android:background="@drawable/bg"
     android:orientation="vertical">
 
@@ -12,10 +12,26 @@
         android:layout_gravity="top"
         android:gravity="top">
 
-        <include
-            layout="@layout/action_bar"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></include>
+            android:layout_height="wrap_content">
+
+            <include
+                layout="@layout/action_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></include>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
+
+                android:layout_marginRight="@dimen/_5sdp"
+                android:src="@drawable/edit_icon" />
+        </FrameLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -54,13 +70,13 @@
                         android:src="@drawable/profile_img" />
 
                     <TextView
+                        android:id="@+id/textview_profile_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/_5sdp"
                         android:gravity="center"
                         android:text="Jim Parker"
-                        android:id="@+id/textview_profile_name"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_9sdp" />
 
@@ -103,7 +119,7 @@
                                 android:id="@+id/imageview_vechile_back"
                                 android:layout_width="@dimen/_45sdp"
                                 android:layout_height="@dimen/_45sdp"
-                                android:src="@drawable/profile_img" />
+                                android:src="@drawable/truck_back_ico" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -126,7 +142,7 @@
                                 android:id="@+id/imageview_vechile_front"
                                 android:layout_width="@dimen/_45sdp"
                                 android:layout_height="@dimen/_45sdp"
-                                android:src="@drawable/profile_img" />
+                                android:src="@drawable/truck_front_ico" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -147,7 +163,7 @@
                                 android:id="@+id/imageview_vechile_side"
                                 android:layout_width="@dimen/_45sdp"
                                 android:layout_height="@dimen/_45sdp"
-                                android:src="@drawable/profile_img" />
+                                android:src="@drawable/truck_side_ico" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -219,8 +235,8 @@
                             android:background="@null"
                             android:hint="Contact Number"
                             android:inputType="number"
-                            android:maxLines="1"
                             android:maxLength="13"
+                            android:maxLines="1"
                             android:paddingTop="@dimen/_10sdp"
                             android:textColor="#000000"
                             android:textSize="@dimen/_15sdp" />
@@ -246,8 +262,8 @@
                             android:background="@null"
                             android:hint="Secondary Number"
                             android:inputType="number"
-                            android:maxLines="1"
                             android:maxLength="10"
+                            android:maxLines="1"
                             android:paddingTop="@dimen/_10sdp"
                             android:textColor="#000000"
                             android:textSize="@dimen/_15sdp" />
@@ -292,25 +308,25 @@
                         android:layout_marginTop="@dimen/_10sdp">
 
                         <com.rey.material.widget.LinearLayout
+                            android:id="@+id/layout_vechile_rc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:id="@+id/layout_vechile_rc"
                             android:orientation="horizontal">
 
 
                             <ImageView
+                                android:id="@+id/imageview_vechile_rc"
                                 android:layout_width="@dimen/_28sdp"
                                 android:layout_height="@dimen/_25sdp"
-                                android:id="@+id/imageview_vechile_rc"
                                 android:src="@drawable/lic_ico" />
 
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:paddingLeft="@dimen/_3sdp"
-                                android:orientation="vertical">
+                                android:orientation="vertical"
+                                android:paddingLeft="@dimen/_3sdp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -322,9 +338,9 @@
                                     android:textSize="@dimen/_10sdp" />
 
                                 <View
+                                    android:id="@+id/view_rc"
                                     android:layout_width="match_parent"
                                     android:layout_height="1dp"
-                                    android:id="@+id/view_rc"
                                     android:background="@color/textColor" />
 
                             </LinearLayout>
@@ -334,28 +350,28 @@
 
 
                         <com.rey.material.widget.LinearLayout
+                            android:id="@+id/layout_vechile_insurence"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
                             android:layout_marginRight="@dimen/_5sdp"
-                            android:id="@+id/layout_vechile_insurence"
                             android:layout_weight="1"
                             android:gravity="right"
                             android:orientation="horizontal">
 
 
                             <ImageView
+                                android:id="@+id/imageview_vechile_ins"
                                 android:layout_width="@dimen/_28sdp"
                                 android:layout_height="@dimen/_25sdp"
-                                android:id="@+id/imageview_vechile_ins"
                                 android:src="@drawable/lic_ico" />
 
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:paddingLeft="@dimen/_3sdp"
-                                android:orientation="vertical">
+                                android:orientation="vertical"
+                                android:paddingLeft="@dimen/_3sdp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -367,9 +383,9 @@
                                     android:textSize="@dimen/_10sdp" />
 
                                 <View
+                                    android:id="@+id/view_insurence"
                                     android:layout_width="match_parent"
                                     android:layout_height="1dp"
-                                    android:id="@+id/view_insurence"
                                     android:background="@color/textColor" />
 
                             </LinearLayout>
@@ -454,13 +470,13 @@
 
 
             <TextView
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="Add Bank Details"
                 android:textColor="@color/redColor"
-                android:textSize="@dimen/_10sdp"
-                android:id="@+id/textView" />
+                android:textSize="@dimen/_10sdp" />
 
 
         </LinearLayout>

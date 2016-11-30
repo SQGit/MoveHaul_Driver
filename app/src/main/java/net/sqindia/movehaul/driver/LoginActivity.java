@@ -1,11 +1,13 @@
 package net.sqindia.movehaul.driver;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.SyncStateContract;
@@ -14,8 +16,10 @@ import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -48,6 +52,10 @@ public class LoginActivity extends Activity {
     ProgressBar progresss;
     Snackbar snackbar, snack_wifi;
     ProgressDialog mProgressDialog;
+    Dialog dialog2;
+    Button btn_ok,d2_btn_ok;
+    TextView tv_dialog1,tv_dialog2,tv_dialog3,tv_dialog4,d2_tv_dialog1,d2_tv_dialog2,d2_tv_dialog3,d2_tv_dialog4;
+    ImageView btn_close,iv_driver_lic;
 
 
     @Override
@@ -98,6 +106,41 @@ public class LoginActivity extends Activity {
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
         et_mobile_no.setTypeface(tf);
         flt_mobile_no.setTypeface(type);
+
+
+
+        dialog2 = new Dialog(LoginActivity.this);
+        dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog2.setCancelable(false);
+        dialog2.setContentView(R.layout.driver_bidding_confirm);
+        d2_btn_ok = (Button) dialog2.findViewById(R.id.button_ok);
+        btn_close = (ImageView) dialog2.findViewById(R.id.button_close);
+        d2_tv_dialog1 = (TextView) dialog2.findViewById(R.id.textView_1);
+        d2_tv_dialog2 = (TextView) dialog2.findViewById(R.id.textView_2);
+        d2_tv_dialog3 = (TextView) dialog2.findViewById(R.id.textView_3);
+        d2_tv_dialog4 = (TextView) dialog2.findViewById(R.id.textView_4);
+
+        d2_tv_dialog1.setTypeface(type);
+        d2_tv_dialog2.setTypeface(type);
+        d2_tv_dialog3.setTypeface(type);
+        d2_tv_dialog4.setTypeface(type);
+        d2_btn_ok.setTypeface(type);
+
+        d2_tv_dialog1.setText("Account Not Activated");
+        d2_tv_dialog2.setText("Your details for Verification!!");
+        d2_tv_dialog3.setText("Once Verificationis completed, You can login to Movehaul.");
+        d2_tv_dialog4.setVisibility(View.GONE);
+        btn_close.setVisibility(View.GONE);
+
+        d2_btn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog2.dismiss();
+            }
+        });
+
+
 
 
 
@@ -229,7 +272,10 @@ public class LoginActivity extends Activity {
                 try {
                     JSONObject jo = new JSONObject(s);
                     String status = jo.getString("status");
-                    String msg = jo.getString("message");
+                    String msg = "Please Try Again Later.";
+                    if(jo.has("message")) {
+                        msg = jo.getString("message");
+                    }
                     Log.d("tag", "<-----Status----->" + status);
                     if (status.equals("true")) {
 
@@ -262,8 +308,14 @@ public class LoginActivity extends Activity {
                             i.putExtra("data",str_mobile);
                             startActivity(i);
                             finish();
-
                         }
+
+                        else if(jo.has("driver_verification")){
+                            Log.e("tag","ds: "+jo.getString("driver_verification"));
+                            Log.e("tag","da: "+jo.getString("account_status"));
+                            dialog2.show();
+                        }
+
 
                         else  {
 
