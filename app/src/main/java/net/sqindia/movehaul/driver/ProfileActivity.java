@@ -155,6 +155,24 @@ public class ProfileActivity extends Activity {
 
 
 
+        if(!sharedPreferences.getString("vehiclefront","").equals("")){
+
+            String img = sharedPreferences.getString("vehiclefront","");
+            String img1 = sharedPreferences.getString("vehicleside","");
+            String img2 = sharedPreferences.getString("vehicleback","");
+            String img3 = sharedPreferences.getString("vehicletitle1","");
+            String img4 = sharedPreferences.getString("vehicleinsurance1","");
+
+
+            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicledetails/"+img).into(iv_vec_front);
+            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicledetails/"+img1).into(iv_vec_side);
+            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicledetails/"+img2).into(iv_vec_back);
+            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicledetails/"+img3).into(iv_vec_rc);
+            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicledetails/"+img4).into(iv_vec_ins);
+
+        }
+
+
         if(!sharedPreferences.getString("profile_image","").equals("")){
 
             String img = sharedPreferences.getString("profile_image","");
@@ -256,14 +274,14 @@ public class ProfileActivity extends Activity {
                                                   if (!(str_secondary.isEmpty() || str_secondary.length() < 9)) {
                                                       if (!(str_address.isEmpty() || str_address.length() < 5)) {
                                                           if (str_profile_img != null || !(sharedPreferences.getString("profile_image","").equals(""))) {
-                                                              if (str_vec_back != null) {
-                                                                  if (str_vec_front != null) {
-                                                                      if (str_vec_side != null) {
-                                                                          if (str_vec_rc != null) {
-                                                                              if (str_vec_ins != null) {
+                                                              if (str_vec_back != null || !(sharedPreferences.getString("vehicleback","").equals(""))) {
+                                                                  if (str_vec_front != null || !(sharedPreferences.getString("vehiclefront","").equals(""))) {
+                                                                      if (str_vec_side != null || !(sharedPreferences.getString("vehicleside","").equals(""))) {
+                                                                          if (str_vec_rc != null || !(sharedPreferences.getString("vehicletitle1","").equals(""))) {
+                                                                              if (str_vec_ins != null || !(sharedPreferences.getString("vehicleinsurance1","").equals(""))) {
 
-                                                                                  //new profile_update().execute();
-                                                                                  new vechile_update().execute();
+                                                                                  new profile_update().execute();
+
                                                                               } else {
                                                                                   snackbar.show();
                                                                                   tv_snack.setText("Upload Vechile Insurence");
@@ -460,10 +478,16 @@ public class ProfileActivity extends Activity {
 
                     MultipartEntity entity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 
+                    if(str_profile_img != null) {
+                        entity.addPart("driverimage", new FileBody(new File(str_profile_img), "image/jpeg"));
+                        Log.e("tag","img: if ");
+                        httppost.setEntity(entity);
+                    }
+                    else{
+                        Log.e("tag","img: else ");
+                    }
 
-                    entity.addPart("driverimage", new FileBody(new File(str_profile_img), "image/jpeg"));
 
-                    httppost.setEntity(entity);
                     HttpResponse response = httpclient.execute(httppost);
                     HttpEntity r_entity = response.getEntity();
                     int statusCode = response.getStatusLine().getStatusCode();
@@ -483,7 +507,7 @@ public class ProfileActivity extends Activity {
 
 
             } catch (Exception e) {
-                Log.e("InputStream", e.getLocalizedMessage());
+                Log.e("InputStream0", e.getLocalizedMessage());
             }
 
             return null;
@@ -515,7 +539,7 @@ public class ProfileActivity extends Activity {
                         editor.putString("profile_image", msg);
                         editor.commit();
 
-                        new vechile_update().execute();
+                       new vechile_update().execute();
 
 
                     } else {
@@ -572,17 +596,29 @@ public class ProfileActivity extends Activity {
 
                 try {
 
-                    JSONObject jsonObject = new JSONObject();
-
-
                     MultipartEntity entity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 
-                    entity.addPart("vehiclefront", new FileBody(new File(str_vec_front), "image/jpeg"));
-                    entity.addPart("vehicleback", new FileBody(new File(str_vec_back), "image/jpeg"));
-                    entity.addPart("vehicleside", new FileBody(new File(str_vec_side), "image/jpeg"));
-                    entity.addPart("vehicletitle", new FileBody(new File(str_vec_rc), "image/jpeg"));
+                    if(str_vec_front!= null){
+                        entity.addPart("vehiclefront", new FileBody(new File(str_vec_front), "image/jpeg"));
+                    }
+                    if(str_vec_back!= null){
+                        entity.addPart("vehicleback", new FileBody(new File(str_vec_back), "image/jpeg"));
+                    }
+                    if(str_vec_side!= null){
+                        entity.addPart("vehicleside", new FileBody(new File(str_vec_side), "image/jpeg"));
+                    }
+                    else{
+                        Log.e("tag","img:"+str_vec_side);
+                    }
+                    if(str_vec_rc!= null){
+                        entity.addPart("vehicletitle", new FileBody(new File(str_vec_rc), "image/jpeg"));
+                    }
+                    if(str_vec_ins!= null){
+                        entity.addPart("vehicleinsurance", new FileBody(new File(str_vec_ins), "image/jpeg"));
+                    }
+
+
                    // entity.addPart("vehicletitle", new FileBody(new File(str_vec_rc), "image/jpeg"));
-                    entity.addPart("vehicleinsurance", new FileBody(new File(str_vec_ins), "image/jpeg"));
                    // entity.addPart("vehicleinsurance", new FileBody(new File(str_vec_ins), "image/jpeg"));
 
 
@@ -606,7 +642,7 @@ public class ProfileActivity extends Activity {
 
 
             } catch (Exception e) {
-                Log.e("InputStream", e.getLocalizedMessage());
+                Log.e("InputStream1", e.toString());
             }
 
             return null;
@@ -636,13 +672,13 @@ public class ProfileActivity extends Activity {
                         startActivity(i);*/
 
                         editor.putString("profile", "success");
-                        editor.putString("vehiclefront", "success");
-                        editor.putString("vehicleback", "success");
-                        editor.putString("vehicleside", "success");
-                        editor.putString("vehicletitle1", "success");
-                        editor.putString("vehicletitle2", "success");
-                        editor.putString("vehicleinsurance1", "success");
-                        editor.putString("vehicleinsurance2", "success");
+                        editor.putString("vehiclefront", jo.getString("vehiclefront"));
+                        editor.putString("vehicleback", jo.getString("vehicleback"));
+                        editor.putString("vehicleside", jo.getString("vehicleside"));
+                        editor.putString("vehicletitle1",jo.getString("vehicletitle1"));
+                      //  editor.putString("vehicletitle2", jo.getString("vehiclefront"));
+                        editor.putString("vehicleinsurance1",jo.getString("vehicleinsurance1"));
+                       // editor.putString("vehicleinsurance2", jo.getString("vehiclefront"));
                         editor.commit();
 
                         finish();
