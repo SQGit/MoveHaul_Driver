@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.util.Log;
@@ -142,6 +143,7 @@ public class ProfileActivity extends Activity {
 
         snackbar = Snackbar
                 .make(findViewById(R.id.top), "Network Error! Please Try Again Later.", Snackbar.LENGTH_LONG);
+        snackbar.setActionTextColor(Color.RED);
 
         View sbView = snackbar.getView();
         tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
@@ -154,28 +156,35 @@ public class ProfileActivity extends Activity {
         Log.e("tag", "id:" + id + token);
 
 
-
-        if(!sharedPreferences.getString("vehiclefront","").equals("")){
-
-            String img = sharedPreferences.getString("vehiclefront","");
-            String img1 = sharedPreferences.getString("vehicleside","");
-            String img2 = sharedPreferences.getString("vehicleback","");
-            String img3 = sharedPreferences.getString("vehicletitle1","");
-            String img4 = sharedPreferences.getString("vehicleinsurance1","");
+        if(!sharedPreferences.getString("truck_front","").equals("")){
+            et_address.setText(sharedPreferences.getString("truck_front",""));
+        }
 
 
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicledetails/"+img).into(iv_vec_front);
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicledetails/"+img1).into(iv_vec_side);
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicledetails/"+img2).into(iv_vec_back);
+
+        if(!sharedPreferences.getString("truck_front","").equals("")){
+
+            Log.e("tag","truckrond");
+
+            String img = sharedPreferences.getString("truck_front","");
+            String img1 = sharedPreferences.getString("truck_side","");
+            String img2 = sharedPreferences.getString("truck_back","");
+            String img3 = sharedPreferences.getString("truck_rc","");
+            String img4 = sharedPreferences.getString("truck_ins","");
+
+
+            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicledetails/"+img).error(R.drawable.truck_front_ico).into(iv_vec_front);
+            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicledetails/"+img1).error(R.drawable.truck_side_ico).into(iv_vec_side);
+            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicledetails/"+img2).error(R.drawable.truck_back_ico).into(iv_vec_back);
             Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicledetails/"+img3).into(iv_vec_rc);
             Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicledetails/"+img4).into(iv_vec_ins);
 
         }
 
 
-        if(!sharedPreferences.getString("profile_image","").equals("")){
+        if(!sharedPreferences.getString("driver_image","").equals("")){
 
-            String img = sharedPreferences.getString("profile_image","");
+            String img = sharedPreferences.getString("driver_image","");
 
             Glide.with(ProfileActivity.this).load(Config.WEB_URL+"driverdetails/"+img).into(iv_profile);
 
@@ -273,14 +282,22 @@ public class ProfileActivity extends Activity {
                                               if (!(str_contact.isEmpty() || str_contact.length() < 9)) {
                                                   if (!(str_secondary.isEmpty() || str_secondary.length() < 9)) {
                                                       if (!(str_address.isEmpty() || str_address.length() < 5)) {
-                                                          if (str_profile_img != null || !(sharedPreferences.getString("profile_image","").equals(""))) {
-                                                              if (str_vec_back != null || !(sharedPreferences.getString("vehicleback","").equals(""))) {
-                                                                  if (str_vec_front != null || !(sharedPreferences.getString("vehiclefront","").equals(""))) {
-                                                                      if (str_vec_side != null || !(sharedPreferences.getString("vehicleside","").equals(""))) {
-                                                                          if (str_vec_rc != null || !(sharedPreferences.getString("vehicletitle1","").equals(""))) {
-                                                                              if (str_vec_ins != null || !(sharedPreferences.getString("vehicleinsurance1","").equals(""))) {
+                                                          if (str_profile_img != null || !(sharedPreferences.getString("driver_image","").equals(""))) {
+                                                              if (str_vec_back != null || !(sharedPreferences.getString("truck_back","").equals(""))) {
+                                                                  if (str_vec_front != null || !(sharedPreferences.getString("truck_front","").equals(""))) {
+                                                                      if (str_vec_side != null || !(sharedPreferences.getString("truck_side","").equals(""))) {
+                                                                          if (str_vec_rc != null || !(sharedPreferences.getString("truck_rc","").equals(""))) {
+                                                                              if (str_vec_ins != null || !(sharedPreferences.getString("truck_ins","").equals(""))) {
 
-                                                                                  new profile_update().execute();
+
+                                                                                  if(str_profile_img != null)
+                                                                                  {
+
+                                                                                      new profile_update().execute();
+                                                                                  }
+                                                                                  else{
+                                                                                      new vechile_update().execute();
+                                                                                  }
 
                                                                               } else {
                                                                                   snackbar.show();
@@ -536,7 +553,7 @@ public class ProfileActivity extends Activity {
                         /*Intent i = new Intent(ProfileActivity.this,DashboardNavigation.class);
                         startActivity(i);*/
 
-                        editor.putString("profile_image", msg);
+                        editor.putString("driver_image", msg);
                         editor.commit();
 
                        new vechile_update().execute();
@@ -672,12 +689,12 @@ public class ProfileActivity extends Activity {
                         startActivity(i);*/
 
                         editor.putString("profile", "success");
-                        editor.putString("vehiclefront", jo.getString("vehiclefront"));
-                        editor.putString("vehicleback", jo.getString("vehicleback"));
-                        editor.putString("vehicleside", jo.getString("vehicleside"));
-                        editor.putString("vehicletitle1",jo.getString("vehicletitle1"));
+                        editor.putString("truck_front", jo.getString("vehiclefront"));
+                        editor.putString("truck_back", jo.getString("vehicleback"));
+                        editor.putString("truck_side", jo.getString("vehicleside"));
+                        editor.putString("truck_rc",jo.getString("vehicletitle1"));
                       //  editor.putString("vehicletitle2", jo.getString("vehiclefront"));
-                        editor.putString("vehicleinsurance1",jo.getString("vehicleinsurance1"));
+                        editor.putString("truck_ins",jo.getString("vehicleinsurance1"));
                        // editor.putString("vehicleinsurance2", jo.getString("vehiclefront"));
                         editor.commit();
 

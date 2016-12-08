@@ -62,7 +62,7 @@ import java.util.Locale;
 public class DashboardNavigation extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    public boolean isRegistered;
+    public boolean isRegistered = false;
     Context mContext;
     Toolbar toolbar;
     DrawerLayout drawer;
@@ -152,10 +152,6 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         gps = new GpsTracker(DashboardNavigation.this);
 
         geocoder = new Geocoder(DashboardNavigation.this, Locale.getDefault());
-
-
-
-
 
         manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -255,6 +251,16 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         snackbart = Snackbar
                 .make(findViewById(R.id.drawer_layout), "Please Complete Your Profile First", Snackbar.LENGTH_LONG);
         View sbView1 = snackbar.getView();
+        snackbart.setAction("Profile", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent i = new Intent(DashboardNavigation.this, ProfileActivity.class);
+                startActivity(i);
+
+            }
+        });
+        snackbart.setActionTextColor(getResources().getColor(R.color.redColor));
         tv_snack = (android.widget.TextView) sbView1.findViewById(android.support.design.R.id.snackbar_text);
         tv_snack.setTextColor(Color.WHITE);
         tv_snack.setTypeface(tf);
@@ -300,11 +306,12 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     geocoder = new Geocoder(DashboardNavigation.this, Locale.getDefault());
                     try {
                         addresses = geocoder.getFromLocation(dl_latitude, dl_longitude, 1);
+                        str_locality = addresses.get(0).getLocality();
+                        str_address = addresses.get(0).getAddressLine(0);
                     } catch (Exception e) {
                         Log.e("tag", "er:" + e.toString());
                     }
-                    str_locality = addresses.get(0).getLocality();
-                    str_address = addresses.get(0).getAddressLine(0);
+
                     Log.e("tagplace0", "lati: " + str_lati + "longi: " + str_longi + "\nlocality: " + str_locality + "\taddr0: " + str_address +
                             "\naddr1: " + addresses.get(0).getAddressLine(1) + "\n addr2: " + addresses.get(0).getAddressLine(2) + "\n adminarea: "
                             + addresses.get(0).getAdminArea() + "\n feature name: " + addresses.get(0).getFeatureName() + "\n Sub loca: "
@@ -337,7 +344,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     }
                 } else {
                     str_active = "inactive";
-                    editor.putString("driver_status", str_active);
+                    editor.putString(" ", str_active);
                     editor.commit();
                    /* try {
                         DashboardNavigation.this.unregisterReceiver(DashboardNavigation.this.getLocation_Receiver);                    }
@@ -674,10 +681,10 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                 snackbart.show();
             }
 
-            if(!sharedPreferences.getString("profile_image","").equals("")){
+            if(!sharedPreferences.getString("driver_image","").equals("")){
 
-                String img = sharedPreferences.getString("profile_image","");
-
+                String img = sharedPreferences.getString("driver_image","");
+                Log.e("tag","dr:"+img);
                 Glide.with(DashboardNavigation.this).load(Config.WEB_URL+"driverdetails/"+img).into(iv_nav_profile);
 
             }

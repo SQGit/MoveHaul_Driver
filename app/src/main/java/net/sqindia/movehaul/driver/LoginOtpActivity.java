@@ -443,24 +443,39 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                         editor.putString("driver_verification", driver_verification);
                         editor.putString("driver_status", driver_status);
                         editor.putString("account_status", account_status);
-                        editor.putString("driver_image", driver_image);
                         editor.putString("driver_licence_image", driver_licence);
                         // editor.putString("driver_image",driver_image);
                         //  editor.putString("driver_licence_image",driver_licence);
                         editor.commit();
 
 
-                        if(driver_image == null){
-                            Log.e("tag","null value");
-                        }
-
-
-                        if(driver_image == "null"){
+                        if(jo.getString("driver_image") != "null"){
                             Log.e("tag","null string");
+                            editor.putString("driver_image", driver_image);
+                            editor.commit();
                         }
 
-                        if(jo.has("truck_title_image1")){
+                        if(jo.has("truck_image_front")){
                             Log.e("tag","has value");
+
+                            editor.putString("truck_front", jo.getString("truck_image_front"));
+                            editor.putString("truck_back", jo.getString("truck_image_back"));
+                            editor.putString("truck_side", jo.getString("truck_image_side"));
+                            editor.putString("truck_rc", jo.getString("truck_title_image1"));
+                            editor.putString("truck_ins", jo.getString("truck_insurance_image1"));
+
+
+                            if(jo.getString("truck_title_image2") != "null"){
+                                editor.putString("truck_rc1", jo.getString("truck_title_image2"));
+                            }
+                            if(jo.getString("truck_insurance_image2") != "null"){
+                                editor.putString("truck_ins1", jo.getString("truck_insurance_image2"));
+                            }
+
+
+                            editor.commit();
+
+
                         }
                         else{
                             Log.e("tag","no value");
