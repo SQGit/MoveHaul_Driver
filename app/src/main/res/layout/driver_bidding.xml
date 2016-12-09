@@ -5,19 +5,21 @@
     android:background="@android:color/transparent"
     android:orientation="vertical">
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginTop="18dp"
         android:background="@drawable/white"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingBottom="@dimen/_15sdp"
-        android:paddingTop="@dimen/_15sdp">
+        android:paddingTop="@dimen/_15sdp"
+        android:layout_alignTop="@+id/button_close"
+        android:layout_centerHorizontal="true">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -51,13 +53,15 @@
                 android:textSize="@dimen/_15sdp" />
 
             <EditText
-                android:id="@+id/textView_2"
+                android:id="@+id/edittext_bidding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="@null"
                 android:inputType="number"
+                android:layout_marginLeft="@dimen/_7sdp"
                 android:hint="Amount"
+                android:maxLength="5"
                 android:imeOptions="actionNext"
                 android:maxLines="1"
                 android:textColor="@color/redColor"
@@ -81,14 +85,15 @@
             android:layout_marginTop="@dimen/_15sdp">
 
         <EditText
-            android:id="@+id/textView_3"
+            android:id="@+id/edittext_driver_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
             android:layout_gravity="center"
             android:gravity="center"
-            android:inputType="text"
+            android:inputType="number"
             android:maxLines="1"
+            android:maxLength="10"
             android:imeOptions="actionDone"
             android:lines="1"
             android:hint="Enter your Driver ID"
@@ -151,6 +156,7 @@
     </LinearLayout>
 
 
+
     <ImageView
         android:id="@+id/button_close"
         android:layout_width="wrap_content"
@@ -159,7 +165,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerInParent="false"
         android:layout_marginTop="@dimen/_15sdp"
-        android:paddingLeft="@dimen/_5sdp"
+        android:paddingLeft="@dimen/_20sdp"
+        android:paddingBottom="@dimen/_20sdp"
         android:src="@drawable/close_btn" />
 
 

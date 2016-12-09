@@ -308,15 +308,18 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                         addresses = geocoder.getFromLocation(dl_latitude, dl_longitude, 1);
                         str_locality = addresses.get(0).getLocality();
                         str_address = addresses.get(0).getAddressLine(0);
+
+                        Log.e("tagplace0", "lati: " + str_lati + "longi: " + str_longi + "\nlocality: " + str_locality + "\taddr0: " + str_address +
+                                "\naddr1: " + addresses.get(0).getAddressLine(1) + "\n addr2: " + addresses.get(0).getAddressLine(2) + "\n adminarea: "
+                                + addresses.get(0).getAdminArea() + "\n feature name: " + addresses.get(0).getFeatureName() + "\n Sub loca: "
+                                + addresses.get(0).getSubLocality() + "\n subadmin: " + addresses.get(0).getSubAdminArea()
+                                + "\n premisis: " + addresses.get(0).getPremises() + "\n postal " + addresses.get(0).getPostalCode());
+
                     } catch (Exception e) {
                         Log.e("tag", "er:" + e.toString());
                     }
 
-                    Log.e("tagplace0", "lati: " + str_lati + "longi: " + str_longi + "\nlocality: " + str_locality + "\taddr0: " + str_address +
-                            "\naddr1: " + addresses.get(0).getAddressLine(1) + "\n addr2: " + addresses.get(0).getAddressLine(2) + "\n adminarea: "
-                            + addresses.get(0).getAdminArea() + "\n feature name: " + addresses.get(0).getFeatureName() + "\n Sub loca: "
-                            + addresses.get(0).getSubLocality() + "\n subadmin: " + addresses.get(0).getSubAdminArea()
-                            + "\n premisis: " + addresses.get(0).getPremises() + "\n postal " + addresses.get(0).getPostalCode());
+
                 } catch (IndexOutOfBoundsException e) {
                     Log.e("tag", "eroo:" + e.toString());
                 }
@@ -629,7 +632,13 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     @Override
     protected void onStop() {
         if (isRegistered) {
-            unregisterReceiver(getLocation_Receiver);
+            try{
+                unregisterReceiver(getLocation_Receiver);
+            }
+            catch (Exception e){
+                Log.e("tag", "er1_refg:" + e.toString());
+            }
+
         }
         super.onStop();
     }
@@ -658,18 +667,23 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     geocoder = new Geocoder(DashboardNavigation.this, Locale.getDefault());
                     try {
                         addresses = geocoder.getFromLocation(dl_latitude, dl_longitude, 1);
+
+
+                        str_locality = addresses.get(0).getLocality();
+                        str_address = addresses.get(0).getAddressLine(0);
+                        Log.e("tagplace0", "lati: " + str_lati + "longi: " + str_longi + "\nlocality: " + str_locality + "\taddr0: " + str_address +
+                                "\naddr1: " + addresses.get(0).getAddressLine(1) + "\n addr2: " + addresses.get(0).getAddressLine(2) + "\n adminarea: "
+                                + addresses.get(0).getAdminArea() + "\n feature name: " + addresses.get(0).getFeatureName() + "\n Sub loca: "
+                                + addresses.get(0).getSubLocality() + "\n subadmin: " + addresses.get(0).getSubAdminArea()
+                                + "\n premisis: " + addresses.get(0).getPremises() + "\n postal " + addresses.get(0).getPostalCode());
+
+                        Log.e("tag", "esse:" + str_lati + "aa:" + str_longi + "bb:" + str_locality + "cc:" + str_address);
+
+
                     } catch (Exception e) {
                         Log.e("tag", "er:" + e.toString());
                     }
-                    str_locality = addresses.get(0).getLocality();
-                    str_address = addresses.get(0).getAddressLine(0);
-                    Log.e("tagplace0", "lati: " + str_lati + "longi: " + str_longi + "\nlocality: " + str_locality + "\taddr0: " + str_address +
-                            "\naddr1: " + addresses.get(0).getAddressLine(1) + "\n addr2: " + addresses.get(0).getAddressLine(2) + "\n adminarea: "
-                            + addresses.get(0).getAdminArea() + "\n feature name: " + addresses.get(0).getFeatureName() + "\n Sub loca: "
-                            + addresses.get(0).getSubLocality() + "\n subadmin: " + addresses.get(0).getSubAdminArea()
-                            + "\n premisis: " + addresses.get(0).getPremises() + "\n postal " + addresses.get(0).getPostalCode());
 
-                    Log.e("tag", "esse:" + str_lati + "aa:" + str_longi + "bb:" + str_locality + "cc:" + str_address);
                     // snackbar.dismiss();
 
                     new updateLocation().execute();
@@ -685,8 +699,18 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
                 String img = sharedPreferences.getString("driver_image","");
                 Log.e("tag","dr:"+img);
-                Glide.with(DashboardNavigation.this).load(Config.WEB_URL+"driverdetails/"+img).into(iv_nav_profile);
+                Glide.with(DashboardNavigation.this).load(Config.WEB_URL+"driver_details/"+img).into(iv_nav_profile);
 
+            }
+
+
+            if(!(sharedPreferences.getString("job_size","") == "")) {
+                if (Integer.valueOf(sharedPreferences.getString("job_size", "")) == 0) {
+
+                    snackbart.show();
+                    tv_snack.setText("No Jobs Found");
+
+                }
             }
 
 

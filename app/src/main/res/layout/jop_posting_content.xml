@@ -55,7 +55,7 @@
                         android:textSize="@dimen/_12sdp" />
 
                     <com.rey.material.widget.TextView
-                        android:id="@+id/textviewg_book_from"
+                        android:id="@+id/textview_content_pickup"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
@@ -100,7 +100,7 @@
                         android:textSize="@dimen/_12sdp" />
 
                     <com.rey.material.widget.TextView
-                        android:id="@+id/textviews_book_to"
+                        android:id="@+id/textview_content_drop"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
@@ -145,7 +145,7 @@
                         android:textSize="@dimen/_12sdp" />
 
                     <com.rey.material.widget.TextView
-                        android:id="@+id/textview_ssbook_to"
+                        android:id="@+id/textview_content_goodstype"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
@@ -179,8 +179,8 @@
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/_5sdp"
-                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_marginLeft="@dimen/_7sdp"
+                        android:layout_marginRight="@dimen/_7sdp"
                         android:src="@drawable/time_icon" />
 
                     <LinearLayout
@@ -200,7 +200,7 @@
                             android:textSize="@dimen/_12sdp" />
 
                         <com.rey.material.widget.TextView
-                            android:id="@+id/textviews_book_from"
+                            android:id="@+id/textview_content_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
@@ -248,7 +248,7 @@
                             android:textSize="@dimen/_12sdp" />
 
                         <com.rey.material.widget.TextView
-                            android:id="@+id/textview_book_from"
+                            android:id="@+id/textview_content_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
@@ -263,9 +263,10 @@
 
                 </LinearLayout>
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="right"
                     android:layout_weight="1">
 
                     <ImageView
@@ -273,11 +274,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:padding="@dimen/_2sdp"
                         android:src="@drawable/bid_ico" />
 
 
-                </LinearLayout>
+                </FrameLayout>
 
             </LinearLayout>
 
@@ -301,6 +301,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical"
+                    android:paddingBottom="@dimen/_3sdp"
                     android:paddingLeft="@dimen/_10sdp">
 
 
@@ -313,7 +314,7 @@
                         android:textSize="@dimen/_12sdp" />
 
                     <com.rey.material.widget.TextView
-                        android:id="@+id/textview_book_to"
+                        android:id="@+id/textview_content_desc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"

@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+        android:paddingBottom="@dimen/_5sdp"
     android:background="@android:color/transparent"
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/_95sdp"
+
+
         android:orientation="horizontal">
 
         <LinearLayout
@@ -69,7 +72,7 @@
                             android:textSize="@dimen/_12sdp" />
 
                         <com.rey.material.widget.TextView
-                            android:id="@+id/textviewg_book_from"
+                            android:id="@+id/textview_title_pickup"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
@@ -117,7 +120,7 @@
                             android:textSize="@dimen/_12sdp" />
 
                         <com.rey.material.widget.TextView
-                            android:id="@+id/textview_book_to"
+                            android:id="@+id/textview_title_drop"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
@@ -175,7 +178,7 @@
                             android:textSize="@dimen/_12sdp" />
 
                         <com.rey.material.widget.TextView
-                            android:id="@+id/textview_book_from"
+                            android:id="@+id/textview_title_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
