@@ -537,13 +537,21 @@ public class RegisterActivity extends Activity {
                 try {
                     JSONObject jo = new JSONObject(s);
                     String status = jo.getString("status");
+                    String msg = jo.getString("message");
                     Log.d("tag", "<-----Status----->" + status);
 
                     if(status.equals("true")){
                         dialog2.show();
                     }
                     else{
-                        snackbar.show();
+                        if(msg.contains("Error OccuredError: ER_DUP_ENTRY: Duplicate entry")) {
+                            snackbar.show();
+                            tv_snack.setText("User Details already Registered by someone,Please Try again");
+                        }
+                        else{
+                            snackbar.show();
+                            tv_snack.setText("Network Error! Please Try Again Later.");
+                        }
                     }
 
 

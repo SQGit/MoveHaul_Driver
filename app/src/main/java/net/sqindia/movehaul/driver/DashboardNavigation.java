@@ -222,6 +222,9 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         Log.e("tag","hi mvd"+dr_id+dr_ph);
 
 
+        tv_driver_id.setText(sharedPreferences.getString("fake_id",""));
+
+
 
 
         snackbar = Snackbar
