@@ -204,6 +204,10 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         d2_tv_dialog4.setTypeface(type);
         d2_btn_ok.setTypeface(type);
 
+        d2_tv_dialog2.setText("You successfully bidded for the job id:"+mv_datas.getBooking_id());
+        d2_tv_dialog3.setVisibility(View.GONE);
+        d2_tv_dialog4.setVisibility(View.GONE);
+
         d2_tv_dialog4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
