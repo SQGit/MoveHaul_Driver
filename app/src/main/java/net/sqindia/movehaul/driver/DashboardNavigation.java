@@ -545,6 +545,12 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                 if (sharedPreferences.getString("profile", "").equals("")) {
                     snackbart.show();
                 } else {
+
+                    editor.putString("latitude",str_lati);
+                    editor.putString("longitude",str_longi);
+                    editor.commit();
+
+
                     Intent goPostings = new Intent(getApplicationContext(), JobPosting.class);
                     startActivity(goPostings);
                 }

@@ -48,6 +48,7 @@ public class JobPosting extends Activity {
     ArrayList<MV_Datas> ar_job_data;
     MV_Datas mv_datas;
     JobPostingAdapter drv_adapter;
+    String dr_lati,dr_long;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,8 @@ public class JobPosting extends Activity {
 
         id = sharedPreferences.getString("id", "");
         token = sharedPreferences.getString("token", "");
+        dr_lati = sharedPreferences.getString("latitude","");
+        dr_long = sharedPreferences.getString("longitude","");
 
         btn_back = (LinearLayout) findViewById(R.id.layout_back);
         lv_jobposting = (ListView) findViewById(R.id.listview_jobposting);
