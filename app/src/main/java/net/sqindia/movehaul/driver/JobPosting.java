@@ -102,7 +102,7 @@ public class JobPosting extends Activity {
             tv_snack.setText("Please Connect Internet and Try again");
         }
         else{
-            new fetch_goods().execute();
+            new show_jobs_task().execute();
         }
 
 
@@ -134,43 +134,38 @@ public class JobPosting extends Activity {
         }
 
 
-    class fetch_goods extends AsyncTask<String, Void, String> {
+    class show_jobs_task extends AsyncTask<String, Void, String> {
         protected void onPreExecute() {
             super.onPreExecute();
             mProgressDialog.show();
 
         }
 
-        protected String doInBackground(String... params) {
 
+
+
+        @Override
+        protected String doInBackground(String... strings) {
             String json = "", jsonStr = "";
-
-
             try {
-
-                String virtual_url = net.sqindia.movehaul.driver.Config.WEB_URL + "driver/showjobs";
-                Log.e("tag","url: "+virtual_url);
-
-
-                JSONObject jsonobject = HttpUtils.getData(virtual_url,id,token);
-
-                Log.e("tag_", "0" + jsonobject.toString());
-                if (jsonobject.toString() == "sam") {
-
-                    Log.e("tag_", "1" + jsonobject.toString());
-                }
-
-                json = jsonobject.toString();
-
-                return json;
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.accumulate("latitude", dr_lati);
+                jsonObject.accumulate("longitude",dr_long);
+                jsonObject.accumulate("radius", "100");
+                json = jsonObject.toString();
+                return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + "driver/showjobs", json,id,token);
             } catch (Exception e) {
-                Log.e("InputStream", "" + e.getLocalizedMessage());
-                jsonStr = "";
-
+                Log.e("InputStream", e.getLocalizedMessage());
             }
-            return jsonStr;
-
+            return null;
         }
+
+
+
+
+
+
+
 
         @Override
         protected void onPostExecute(String jsonStr) {
@@ -210,14 +205,14 @@ public class JobPosting extends Activity {
                             String booking_time = jos.getString("booking_time");
 
                             //2016\/12\/08 T 18:12
-
-                            String[] parts = booking_time.split("T");
+                            Log.e("tag","0212st "+booking_time);
+                            String[] parts = booking_time.trim().split("T");
                             String part1 = parts[0]; // 004
-                            String part2 = parts[1]; // 034556
+                            //String part2 = parts[1]; // 034556
 
-                            Log.e("tag","1st"+part1);
-                            Log.e("tag","2st"+part2);
-                            Log.e("tag","2stasd"+goods_type);
+                            Log.e("tag",parts.length+" 1st "+part1);
+                            Log.e("tag","2st "+part1);
+                            Log.e("tag","2stasd "+goods_type);
 
                             mv_datas.setBooking_id(booking_id);
                             mv_datas.setCustomer_id(customer_id);
@@ -226,7 +221,7 @@ public class JobPosting extends Activity {
                             mv_datas.setGoods_type(goods_type);
                             mv_datas.setDesc(description);
                             mv_datas.setDate(part1);
-                            mv_datas.setTime(part2);
+                            mv_datas.setTime(part1);
 
                             ar_job_data.add(mv_datas);
 
