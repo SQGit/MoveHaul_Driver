@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
 import com.sloop.fonts.FontsManager;
@@ -48,7 +49,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
     ProgressDialog mProgressDialog;
     Typeface tf;
     private View view;
-    String str_otppin, str_for, str_data,str_URL;
+    String str_otppin, str_for, str_data,str_URL,fcm_id;
 
     private LoginOtpActivity(View view) {
         this.view = view;
@@ -75,6 +76,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         str_for = getIntent.getStringExtra("for");
         str_data = getIntent.getStringExtra("data");
 
+
         Log.e("tag","data:"+str_for);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginOtpActivity.this);
@@ -83,6 +85,11 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
         //str_phone = getIntent.getStringExtra("phone");
 
+        //fcm_id = sharedPreferences.getString("fcm_id","");
+
+        fcm_id = FirebaseInstanceId.getInstance().getToken();
+
+        Log.e("tag",fcm_id);
 
         mProgressDialog = new ProgressDialog(LoginOtpActivity.this);
         mProgressDialog.setTitle("Loading..");
@@ -384,6 +391,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
                     jsonObject.accumulate("driver_mobile", "+91"+str_data);
                     jsonObject.accumulate("driver_otp", str_otppin);
+                    jsonObject.accumulate("fcm_id", fcm_id);
                     url ="driver/mobilelogin";
                 } else {
 

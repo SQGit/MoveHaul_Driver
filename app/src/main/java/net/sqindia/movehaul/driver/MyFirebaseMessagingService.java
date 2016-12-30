@@ -78,12 +78,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * @param messageBody FCM message body received.
      */
     private void sendNotification(String messageBody) {
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
-
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         //String title = null,message=null;
 
@@ -102,16 +96,36 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.e(TAG, "Exception: " + e.getMessage());
         }*/
 
+        String name = null,title = null,body = null;
+        try {
+            JSONObject jsonObject = new JSONObject(messageBody);
 
+             name = jsonObject.getString("customer_name");
+             title = jsonObject.getString("title");
+             body = jsonObject.getString("body");
+
+
+        } catch (Exception e) {
+            Log.e("InputStream", e.getLocalizedMessage());
+        }
+
+
+        Intent intent = new Intent(this, Dialog_bidding_confirm.class);
+        intent.putExtra("name",name);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+                PendingIntent.FLAG_ONE_SHOT);
+
+        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
 
 
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.truck_icon,3)
-                .setContentTitle("Message From Movehaul")
-                .setContentText(messageBody)
-                .setAutoCancel(true)
+                .setContentTitle("Bidding Confirmation")
+                .setContentText(title +" by "+name)
+                .setAutoCancel(false)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
 

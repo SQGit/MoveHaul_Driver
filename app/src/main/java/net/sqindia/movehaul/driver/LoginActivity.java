@@ -5,11 +5,13 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.SyncStateContract;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -56,6 +58,8 @@ public class LoginActivity extends Activity {
     Button btn_ok,d2_btn_ok;
     TextView tv_dialog1,tv_dialog2,tv_dialog3,tv_dialog4,d2_tv_dialog1,d2_tv_dialog2,d2_tv_dialog3,d2_tv_dialog4;
     ImageView btn_close,iv_driver_lic;
+  //  SharedPreferences sharedPreferences;
+   //  SharedPreferences.Editor editor;
 
 
     @Override
@@ -81,6 +85,9 @@ public class LoginActivity extends Activity {
         mProgressDialog.setMessage("Please wait");
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
+
+      //  sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+       // editor = sharedPreferences.edit();
 
 
 
@@ -202,7 +209,7 @@ public class LoginActivity extends Activity {
         //Creating a firebase object
 
 
-        Log.e("tag","register");
+        Log.e("tagee","register");
 
         Firebase firebase = new Firebase("https://movehaul-driver.firebaseio.com/");
 
@@ -220,7 +227,7 @@ public class LoginActivity extends Activity {
 
         //Getting the unique id generated at firebase
         String uniqueId = newFirebase.getKey();
-        Log.e("tag","undd:: "+uniqueId);
+        Log.e("tagee","undd:: "+uniqueId);
 
         //Finally we need to implement a method to store this unique id to our server
         sendIdToServer(uniqueId);
@@ -228,7 +235,10 @@ public class LoginActivity extends Activity {
 
     private void sendIdToServer(String uniqueId) {
         String unie = FirebaseInstanceId.getInstance().getToken();
-        Log.e("tag","id: "+unie);
+        Log.e("tagee","id: "+unie);
+       // editor.putString("fcm_id",FirebaseInstanceId.getInstance().getToken());
+       // editor.commit();
+
     }
 
 
