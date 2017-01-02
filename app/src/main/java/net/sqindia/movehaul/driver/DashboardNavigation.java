@@ -387,6 +387,8 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         tv_txt1.setTypeface(tf);
         tv_txt2.setTypeface(tf);
         tv_txt3.setTypeface(tf);
+        btn_yes.setTypeface(tf);
+        btn_no.setTypeface(tf);
 
         btn_yes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -544,7 +546,14 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
                 if (sharedPreferences.getString("profile", "").equals("")) {
                     snackbart.show();
-                } else {
+                }
+                else if(str_active.equals("inactive")){
+                    snackbar.show();
+                    tv_snack.setText("Please be active to find Jobs");
+
+                }
+                else {
+
 
                     editor.putString("latitude",str_lati);
                     editor.putString("longitude",str_longi);
