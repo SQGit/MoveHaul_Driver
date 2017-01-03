@@ -9,6 +9,7 @@ public class MV_Datas {
     String driver_id;
     String booking_id;
     String job_id;
+    String job_cost;
     String customer_id;
     String pickup;
     String drop;
@@ -16,7 +17,42 @@ public class MV_Datas {
     String time;
     String date;
     String desc;
+    String cusotmer_name;
+    String customer_number;
+    String delivery;
 
+
+    public String getJob_cost() {
+        return job_cost;
+    }
+
+    public void setJob_cost(String job_cost) {
+        this.job_cost = job_cost;
+    }
+
+    public String getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(String delivery) {
+        this.delivery = delivery;
+    }
+
+    public String getCusotmer_name() {
+        return cusotmer_name;
+    }
+
+    public String getCustomer_number() {
+        return customer_number;
+    }
+
+    public void setCusotmer_name(String cusotmer_name) {
+        this.cusotmer_name = cusotmer_name;
+    }
+
+    public void setCustomer_number(String customer_number) {
+        this.customer_number = customer_number;
+    }
 
 
     public void setCustomer_id(String customer_id) {

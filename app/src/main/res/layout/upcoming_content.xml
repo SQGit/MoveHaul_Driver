@@ -6,7 +6,9 @@
     android:descendantFocusability="blocksDescendants"
     android:orientation="vertical"
     android:paddingBottom="@dimen/_5sdp"
-    android:visibility="gone">
+    android:visibility="gone"
+
+>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,7 +52,7 @@
             android:layout_marginRight="-15dp"
             android:background="@drawable/white_bg"
             android:orientation="vertical"
-            android:paddingTop="@dimen/_5sdp"
+            android:paddingTop="@dimen/_1sdp"
             android:paddingBottom="@dimen/_5sdp"
             android:paddingLeft="@dimen/_5sdp"
             android:paddingRight="@dimen/_20sdp">
@@ -65,7 +67,7 @@
 
 
                 <com.rey.material.widget.TextView
-                    android:id="@+id/textview_book_id"
+                    android:id="@+id/textview_content_booking_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
@@ -76,7 +78,7 @@
                     android:textSize="@dimen/_14sdp" />
 
                 <com.rey.material.widget.TextView
-                    android:id="@+id/textview_cost"
+                    android:id="@+id/textview_content_cost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
@@ -102,7 +104,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginTop="@dimen/_1sdp"
                 android:focusable="false">
 
                 <ImageView
@@ -133,7 +135,7 @@
                         android:textSize="@dimen/_10sdp" />
 
                     <com.rey.material.widget.TextView
-                        android:id="@+id/textview_book_from"
+                        android:id="@+id/textview_content_pickup"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:focusable="false"
@@ -184,7 +186,7 @@
                         android:textSize="@dimen/_10sdp" />
 
                     <com.rey.material.widget.TextView
-                        android:id="@+id/textview_book_to"
+                        android:id="@+id/textview_content_drop"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:focusable="false"
@@ -205,10 +207,10 @@
                 android:layout_marginTop="@dimen/_2sdp"
                 android:focusable="false">
 
-                <ImageView
-                    android:id="@+id/imagsdesdView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageview_content_profile"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
                     android:layout_gravity="center"
                     android:focusable="false"
                     android:padding="@dimen/_2sdp"
@@ -224,7 +226,7 @@
 
 
                     <com.rey.material.widget.TextView
-                        android:id="@+id/textviewsds_book_date_txt"
+                        android:id="@+id/textview_content_customer_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:focusable="false"
@@ -233,7 +235,7 @@
                         android:textSize="@dimen/_13sdp" />
 
                     <com.rey.material.widget.TextView
-                        android:id="@+id/textview_dasadfte"
+                        android:id="@+id/textview_content_customer_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:focusable="false"
@@ -286,7 +288,7 @@
                             android:textSize="@dimen/_10sdp" />
 
                         <com.rey.material.widget.TextView
-                            android:id="@+id/textview_date"
+                            android:id="@+id/textview_content_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/_1sdp"
@@ -329,7 +331,7 @@
                             android:textSize="@dimen/_10sdp" />
 
                         <com.rey.material.widget.TextView
-                            android:id="@+id/textview_time"
+                            android:id="@+id/textview_content_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="@dimen/_1sdp"
@@ -378,7 +380,7 @@
                         android:textSize="@dimen/_10sdp" />
 
                     <com.rey.material.widget.TextView
-                        android:id="@+id/textview_book_t"
+                        android:id="@+id/textview_content_goods"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:focusable="false"

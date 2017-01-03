@@ -7,13 +7,14 @@
     android:paddingTop="@dimen/_5sdp">
 
     <ScrollView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fadeScrollbars="false"
+        android:layout_weight="1"
         android:paddingBottom="@dimen/_15sdp">
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -55,6 +56,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
+                            android:id="@+id/cr_date"
                             android:text="07-10-2016"
                             android:textColor="@color/textColor"
                             android:textSize="@dimen/_14sdp" />
@@ -102,6 +104,7 @@
                             android:layout_height="wrap_content"
                             android:maxLines="2"
                             android:text="12:30 PM"
+                            android:id="@+id/cr_time"
                             android:textColor="@color/textColor"
                             android:textSize="@dimen/_14sdp" />
                     </LinearLayout>
@@ -142,10 +145,11 @@
                         android:textSize="@dimen/_12sdp" />
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/cr_pickup"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/_5sdp"
+
                         android:text="#6, North Avenue, Abuja, Nigeria"
                         android:textColor="@color/textColor"
                         android:textSize="@dimen/_14sdp" />
@@ -187,7 +191,7 @@
                         android:textSize="@dimen/_12sdp" />
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/cr_drop"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/_5sdp"
@@ -237,6 +241,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/_5sdp"
                         android:maxLines="2"
+                        android:id="@+id/cr_delivery"
                         android:text="#970,Mk Constructions, West Boage, Dekina, Nigeria"
                         android:textColor="@color/textColor"
                         android:textSize="@dimen/_14sdp" />
@@ -283,6 +288,7 @@
                         android:layout_marginBottom="@dimen/_5sdp"
                         android:maxLines="2"
                         android:text="Tom"
+                        android:id="@+id/cr_cu_name"
                         android:textColor="@color/textColor"
                         android:textSize="@dimen/_14sdp" />
                 </LinearLayout>
@@ -329,7 +335,8 @@
                         android:maxLines="2"
                         android:text="+140 555 8965"
                         android:textColor="@color/textColor"
-                        android:textSize="@dimen/_14sdp" />
+                        android:textSize="@dimen/_14sdp"
+                        android:id="@+id/cr_cu_phone" />
                 </LinearLayout>
 
                 <ImageView

@@ -14,24 +14,22 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ramotion.foldingcell.FoldingCell;
 import com.rey.material.widget.Button;
 import com.sloop.fonts.FontsManager;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
 /**
  * Simple example of ListAdapter for using with Folding Cell
  * Adapter holds indexes of unfolded elements for correct work with default reusable views behavior
  */
-public class UpcomingAdapter extends ArrayAdapter<String> {
+public class UpcomingAdapter extends ArrayAdapter<MV_Datas> {
 
-    private HashSet<Integer> unfoldedIndexes = new HashSet<>();
-    private View.OnClickListener defaultRequestBtnClickListener;
     Context context;
-    ArrayList<String> up_lists;
+    ArrayList<MV_Datas> up_lists;
     Activity act;
     FoldingCell cell;
     TextView tv_dialog1, tv_dialog2, tv_dialog3, tv_dialog4;
@@ -39,16 +37,23 @@ public class UpcomingAdapter extends ArrayAdapter<String> {
     Button btn_confirm;
     ImageView btn_close;
     Typeface type;
+    MV_Datas mv_datas;
+    com.rey.material.widget.TextView tv_title_date, tv_title_booking_id, tv_title_pickup, tv_title_drop;
+    com.rey.material.widget.TextView tv_content_booking_id, tv_content_cost, tv_content_pickup, tv_content_drop, tv_content_cus_name, tv_content_cus_phone, tv_content_date, tv_content_time,tv_content_goods;
+    ImageView iv_content_prof;
+    private HashSet<Integer> unfoldedIndexes = new HashSet<>();
+    private View.OnClickListener defaultRequestBtnClickListener;
 
-    public UpcomingAdapter(Context context,Activity acti, List<String> objects) {
+    public UpcomingAdapter(Context context, Activity acti, ArrayList<MV_Datas> objects) {
         super(context, 0, objects);
         this.act = acti;
+        this.up_lists = objects;
 
     }
 
     @Override
     public int getCount() {
-        return 10;
+        return up_lists.size() - 1;
     }
 
     @Override
@@ -56,18 +61,40 @@ public class UpcomingAdapter extends ArrayAdapter<String> {
         // get item for selected view
         //Item item = getItem(position);
         // if cell is exists - reuse it, if not - create the new one from resource
-         cell = (FoldingCell) convertView;
+        cell = (FoldingCell) convertView;
         ViewHolder viewHolder;
 
-       FontsManager.initFormAssets(act, "fonts/lato.ttf");       //initialization
-       FontsManager.changeFonts(act);
+        FontsManager.initFormAssets(act, "fonts/lato.ttf");       //initialization
+        FontsManager.changeFonts(act);
         type = Typeface.createFromAsset(getContext().getAssets(), "fonts/lato.ttf");
+
+        mv_datas = up_lists.get(position + 1);
+
         if (cell == null) {
             viewHolder = new ViewHolder();
             LayoutInflater vi = LayoutInflater.from(getContext());
             cell = (FoldingCell) vi.inflate(R.layout.upcoming_trip_adapter, parent, false);
 
             viewHolder.btn_cancel = (Button) cell.findViewById(R.id.button_cancel);
+
+
+            tv_title_date = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_title_date);
+            tv_title_booking_id = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_title_booking_id);
+            tv_title_pickup = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_title_pickup);
+            tv_title_drop = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_title_drop);
+
+
+            tv_content_booking_id = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_booking_id);
+            tv_content_cost = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_cost);
+            tv_content_pickup = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_pickup);
+            tv_content_drop = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_drop);
+            tv_content_cus_name = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_customer_name);
+            tv_content_cus_phone = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_customer_phone);
+            tv_content_date = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_date);
+            tv_content_time = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_time);
+            tv_content_goods = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_goods);
+            iv_content_prof = (ImageView) cell.findViewById(R.id.imageview_content_profile);
+
 
             cell.setTag(viewHolder);
         } else {
@@ -87,15 +114,34 @@ public class UpcomingAdapter extends ArrayAdapter<String> {
         }
 
 
-
         viewHolder.btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("tag","buttonclick");
+                Log.e("tag", "buttonclick");
                 cell.unfold((true));
                 dialog1.show();
             }
         });
+
+
+        tv_title_date.setText(mv_datas.getDate());
+        tv_title_booking_id.setText(mv_datas.getBooking_id());
+        tv_title_pickup.setText(mv_datas.getPickup());
+        tv_title_drop.setText(mv_datas.getDrop());
+
+
+        tv_content_booking_id.setText(mv_datas.getBooking_id());
+        tv_content_cost.setText(mv_datas.getJob_cost());
+        tv_content_pickup.setText(mv_datas.getPickup());
+        tv_content_drop.setText(mv_datas.getDrop());
+        tv_content_goods.setText(mv_datas.getGoods_type());
+        tv_content_cus_name.setText(mv_datas.getCusotmer_name());
+        tv_content_cus_phone.setText(mv_datas.getCustomer_number());
+        tv_content_date.setText(mv_datas.getDate());
+        tv_content_time.setText(mv_datas.getTime());
+
+
+        //Glide.with(act).load(Config.WEB_URL + "customer_details/" + mv_datas.getDriver_image()).into(iv_content_prof);
 
 
         dialog1 = new Dialog(UpcomingAdapter.this.getContext());

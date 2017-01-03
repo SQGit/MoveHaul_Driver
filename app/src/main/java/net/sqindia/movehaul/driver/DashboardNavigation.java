@@ -253,7 +253,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
         snackbart = Snackbar
                 .make(findViewById(R.id.drawer_layout), "Please Complete Your Profile First", Snackbar.LENGTH_LONG);
-        View sbView1 = snackbar.getView();
+        View sbView1 = snackbart.getView();
         snackbart.setAction("Profile", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -548,8 +548,9 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     snackbart.show();
                 }
                 else if(str_active.equals("inactive")){
-                    snackbar.show();
+                    snackbart.show();
                     tv_snack.setText("Please be active to find Jobs");
+
 
                 }
                 else {
