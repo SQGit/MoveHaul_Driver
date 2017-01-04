@@ -110,7 +110,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
 
-        Intent intent = new Intent(this, Dialog_bidding_confirm.class);
+        Intent intent = new Intent(this, MyTrips.class);
         intent.putExtra("name",name);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP

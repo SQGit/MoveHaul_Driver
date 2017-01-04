@@ -222,13 +222,13 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         Log.e("tag","hi mvd"+dr_id+dr_ph);
 
 
-        tv_driver_id.setText(sharedPreferences.getString("fake_id",""));
+        tv_driver_id.setText(sharedPreferences.getString("driver_id",""));
 
 
 
 
         snackbar = Snackbar
-                .make(findViewById(R.id.drawer_layout), "Switch On GPS First!", Snackbar.LENGTH_INDEFINITE)
+                .make(findViewById(R.id.drawer_layout), "Location Not Enabled", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Open Settings", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -543,10 +543,12 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.e("tag","ac:"+str_active);
 
                 if (sharedPreferences.getString("profile", "").equals("")) {
                     snackbart.show();
                 }
+
                 else if(str_active.equals("inactive")){
                     snackbart.show();
                     tv_snack.setText("Please be active to find Jobs");

@@ -286,7 +286,7 @@ public class LoginActivity extends Activity {
                     if(jo.has("message")) {
                         msg = jo.getString("message");
                     }
-                    Log.d("tag", "<-----Status----->" + status);
+                    Log.e("tag", "<-----Status----->" + status);
                     if (status.equals("true")) {
 
 
@@ -303,11 +303,18 @@ public class LoginActivity extends Activity {
 
                     } else if (status.equals("false")) {
 
-                        if (msg.contains("Register with Movehaul first to Generate OTP")) {
+                        if(jo.has("message")) {
+                            msg = jo.getString("message");
+                        }
+                        //msg = jo.getString("message");
+                        Log.e("tag","ms:"+msg);
+
+                        if (msg.contains("Register with MoveHaul first to Generate OTP")) {
 
                            // Toast.makeText(getApplicationContext(),"Mobile Number Not Registered",Toast.LENGTH_LONG).show();
-                            snackbar.show();
+
                             tv_snack.setText("Mobile Number Not Registered");
+                            snackbar.show();
 
 
                         }

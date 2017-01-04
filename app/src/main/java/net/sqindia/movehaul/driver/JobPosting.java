@@ -208,11 +208,11 @@ public class JobPosting extends Activity {
                             Log.e("tag","0212st "+booking_time);
                             String[] parts = booking_time.trim().split("T");
                             String part1 = parts[0]; // 004
-                            //String part2 = parts[1]; // 034556
+                            String part2 = parts[1]; // 034556
 
                             Log.e("tag",parts.length+" 1st "+part1);
                             Log.e("tag","2st "+part1);
-                            Log.e("tag","2stasd "+goods_type);
+                            Log.e("tag","2stasd "+part2);
 
                             mv_datas.setBooking_id(booking_id);
                             mv_datas.setCustomer_id(customer_id);
@@ -221,7 +221,7 @@ public class JobPosting extends Activity {
                             mv_datas.setGoods_type(goods_type);
                             mv_datas.setDesc(description);
                             mv_datas.setDate(part1);
-                            mv_datas.setTime(part1);
+                            mv_datas.setTime(part2);
 
                             ar_job_data.add(mv_datas);
 

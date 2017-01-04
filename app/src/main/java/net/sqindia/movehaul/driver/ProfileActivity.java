@@ -128,11 +128,15 @@ public class ProfileActivity extends Activity {
 
 
         str_contact = sharedPreferences.getString("driver_mobile", "");
-        str_secondary = sharedPreferences.getString("driver_mobile", "");
+        str_secondary = sharedPreferences.getString("driver_mobile2", "");
 
         et_contact.setText(str_contact.substring(3, str_contact.length()));
         tv_profile_name.setText(sharedPreferences.getString("driver_name",""));
         et_secondary.setText(str_contact.substring(3, str_contact.length()));
+
+        if(!(sharedPreferences.getString("driver_address","").equals(""))){
+            et_address.setText(sharedPreferences.getString("driver_address", ""));
+        }
 
         et_address.requestFocus();
 
@@ -155,10 +159,10 @@ public class ProfileActivity extends Activity {
 
         Log.e("tag", "id:" + id + token);
 
-
+/*
         if(!sharedPreferences.getString("truck_front","").equals("")){
             et_address.setText(sharedPreferences.getString("truck_front",""));
-        }
+        }*/
 
 
 
@@ -296,7 +300,12 @@ public class ProfileActivity extends Activity {
                                                                                       new profile_update().execute();
                                                                                   }
                                                                                   else{
-                                                                                      new vechile_update().execute();
+                                                                                      if(!(sharedPreferences.getString("driver_address","").equals(et_address.getText().toString()))){
+                                                                                          new profile_update().execute();
+                                                                                      }
+                                                                                      else {
+                                                                                          new vechile_update().execute();
+                                                                                      }
                                                                                   }
 
                                                                               } else {
@@ -545,19 +554,27 @@ public class ProfileActivity extends Activity {
                 try {
                     JSONObject jo = new JSONObject(s);
                     String status = jo.getString("status");
-                    String msg = jo.getString("driverimage");
+
                     Log.d("tag", "<-----Status----->" + status);
 
                     if (status.equals("true")) {
 
+
                         /*Intent i = new Intent(ProfileActivity.this,DashboardNavigation.class);
                         startActivity(i);*/
 
+                        String msg = jo.getString("driverimage");
+                        String mobile = jo.getString("driver_mobile_pri");
+                        String mobile2 = jo.getString("driver_mobile_sec");
+                        String address = jo.getString("driver_address");
+
                         editor.putString("driver_image", msg);
+                        editor.putString("driver_mobile",mobile);
+                        editor.putString("driver_mobile",mobile2);
+                        editor.putString("driver_address",address);
                         editor.commit();
 
-                       new vechile_update().execute();
-
+                        new vechile_update().execute();
 
                     } else {
                         // Toast.makeText(getApplicationContext(), "Network Errror", Toast.LENGTH_LONG).show();

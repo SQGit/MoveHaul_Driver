@@ -431,6 +431,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
                         String id = jo.getString("driver_id");
                         String driver_mobile = jo.getString("driver_mobile");
+                        String driver_mobile_sec = jo.getString("driver_mobile_sec");
                         String driver_email = jo.getString("driver_email");
                         String driver_name = jo.getString("driver_name");
                         String driver_image = jo.getString("driver_image");
@@ -447,13 +448,13 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                         editor.putString("login", "success");
                         editor.putString("driver_name", driver_name);
                         editor.putString("driver_mobile", driver_mobile);
-                        editor.putString("driver_mobile2", driver_mobile);
+                        editor.putString("driver_mobile2", driver_mobile_sec);
                         editor.putString("driver_email", driver_email);
                         editor.putString("driver_verification", driver_verification);
                         editor.putString("driver_status", driver_status);
                         editor.putString("account_status", account_status);
                         editor.putString("driver_licence_image", driver_licence);
-                        editor.putString("fake_id", fake_id);
+                        editor.putString("driver_id", fake_id);
                         // editor.putString("driver_image",driver_image);
                         //  editor.putString("driver_licence_image",driver_licence);
                         editor.commit();

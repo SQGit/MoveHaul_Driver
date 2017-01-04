@@ -180,7 +180,7 @@ public class Forgot_Mobile extends Activity {
                            // Toast.makeText(getApplicationContext(),"Mobile Number Not Registered",Toast.LENGTH_LONG).show();
 
                             snackbar.show();
-                            tv_snack.setText("Mobile Number Not Registered");
+                            tv_snack.setText("No Number Associated with this Email");
 
                         }
                         else if (msg.contains("Error Occured[object Object]")) {

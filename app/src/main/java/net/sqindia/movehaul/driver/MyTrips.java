@@ -236,7 +236,17 @@ public class MyTrips extends AppCompatActivity {
                 btn_start.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        btn_start.setText("End");
+
+                        Log.e("tag",btn_start.getText().toString());
+                        if(btn_start.getText().toString().equals("Start")) {
+                            btn_start.setText("End");
+
+                            btn_cancel.setVisibility(View.GONE);
+
+                        }
+                        else if(btn_start.getText().toString().equals("End")){
+                            finish();
+                        }
                     }
                 });
 

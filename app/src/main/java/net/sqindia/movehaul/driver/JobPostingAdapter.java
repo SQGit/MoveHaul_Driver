@@ -240,7 +240,9 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
                 if (!(et_bidding.getText().toString().trim().isEmpty())){
                     if(!(et_driver_id.getText().toString().trim().isEmpty())){
 
-                        if(et_driver_id.getText().toString().trim().equals(sharedPreferences.getString("id",""))){
+                        Log.e("tag","id:"+sharedPreferences.getString("driver_id",""));
+
+                        if(et_driver_id.getText().toString().trim().equals(sharedPreferences.getString("driver_id",""))){
 
                             Log.e("tag","id: "+mv_datas.getBooking_id());
 
