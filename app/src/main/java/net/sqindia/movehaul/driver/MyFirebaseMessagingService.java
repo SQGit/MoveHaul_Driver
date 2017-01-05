@@ -110,8 +110,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
 
-        Intent intent = new Intent(this, MyTrips.class);
-        intent.putExtra("name",name);
+        Intent intent = new Intent(this, DashboardNavigation.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                 | Intent.FLAG_ACTIVITY_SINGLE_TOP);
