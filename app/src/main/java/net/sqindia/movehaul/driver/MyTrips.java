@@ -67,6 +67,7 @@ public class MyTrips extends AppCompatActivity {
     ProgressDialog mProgressDialog;
     TextView tv_cr_date,tv_cr_time,tv_cr_pickup,tv_cr_drop,tv_cr_delivery,tv_cr_cu_name,tv_cr_cu_phone;
     MV_Datas mv_datas;
+    DashboardNavigation nssl;
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
 
         @Override
@@ -131,6 +132,7 @@ public class MyTrips extends AppCompatActivity {
                /* R.layout.history_trips,*/
                 R.layout.upcoming_trips,};
 
+        nssl = new DashboardNavigation();
 
         snackbar = Snackbar
                 .make(findViewById(R.id.top), "Network Error! Please Try Again Later.", Snackbar.LENGTH_LONG);
@@ -440,8 +442,11 @@ public class MyTrips extends AppCompatActivity {
 
                         }
                         else{
-
+                            nssl.stss = 25;
+                            editor.putString("mytrips","nil");
+                            editor.commit();
                             finish();
+
 
 
                         }

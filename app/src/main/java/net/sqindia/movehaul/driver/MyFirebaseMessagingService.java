@@ -1,5 +1,6 @@
 package net.sqindia.movehaul.driver;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -65,7 +66,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 Log.e(TAG, "Exception: " + e.getMessage());
             }
         }*/
-        sendNotification(remoteMessage.getNotification().getBody());
+       // sendNotification(remoteMessage.getNotification().getBody());
+
+        send_notification(remoteMessage.getNotification().getBody());
 
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
@@ -135,4 +138,55 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
+
+
+
+
+
+    private void send_notification(String data) {
+
+        String name = null,title = null,body = null;
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+
+            name = jsonObject.getString("customer_name");
+            title = jsonObject.getString("title");
+            body = jsonObject.getString("body");
+
+
+        } catch (Exception e) {
+            Log.e("InputStream", e.getLocalizedMessage());
+        }
+
+
+        Intent resultIntent = new Intent(this, MyTrips.class);
+        resultIntent.setAction(Intent.ACTION_MAIN);
+        resultIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0,
+                resultIntent, PendingIntent.FLAG_ONE_SHOT);
+        NotificationCompat.Builder mNotifyBuilder;
+        NotificationManager mNotificationManager;
+        mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotifyBuilder = new NotificationCompat.Builder(this)
+                .setContentTitle("Bidding Confirmation")
+                .setContentText(title +" by "+name)
+                .setSmallIcon(R.drawable.truck_icon);
+        mNotifyBuilder.setContentIntent(resultPendingIntent);
+        int defaults = 0;
+        defaults = defaults | Notification.DEFAULT_LIGHTS;
+        defaults = defaults | Notification.DEFAULT_VIBRATE;
+        defaults = defaults | Notification.DEFAULT_SOUND;
+        mNotifyBuilder.setDefaults(defaults);
+        mNotifyBuilder.setAutoCancel(true);
+        mNotificationManager.notify(0, mNotifyBuilder.build());
+    }
+
+
+
+
+
+
+
+
+
 }

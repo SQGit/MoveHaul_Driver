@@ -135,7 +135,7 @@ public class SplashActivity extends Activity {
             public void run() {
                 new check_internet().execute();
             }
-        }, 1300);
+        }, 1300);//1300
 
         snackbar = Snackbar
                 .make(findViewById(R.id.top), "No internet connection!", Snackbar.LENGTH_INDEFINITE)

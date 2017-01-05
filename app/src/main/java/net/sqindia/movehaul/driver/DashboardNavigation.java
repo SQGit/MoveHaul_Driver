@@ -47,6 +47,7 @@ import com.rey.material.widget.Button;
 import com.rey.material.widget.Switch;
 import com.rey.material.widget.TextView;
 import com.sloop.fonts.FontsManager;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -84,10 +85,23 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     Snackbar snackbar2;
     TextView tv_driver_id;
     Typeface tf;
+    int stss;
     Geocoder geocoder;
     List<Address> addresses;
     double dl_latitude, dl_longitude;
     String str_lati, str_longi, str_locality, str_address, str_active = "inactive";
+    Switch sw_active;
+    Snackbar snackbar, snackbart;
+    android.widget.TextView sb_text;
+    LocationManager manager;
+    ImageView iv_nav_profile;
+    String service_id, service_token, str_driver_email, str_driver_phone, str_driver_name;
+    TextView tv_driver_name, tv_driver_email;
+    android.widget.TextView tv_snack;
+    private ViewFlipper mViewFlipper;
+
+
+
     public BroadcastReceiver getLocation_Receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -128,15 +142,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
         }
     };
-    Switch sw_active;
-    Snackbar snackbar, snackbart;
-    android.widget.TextView sb_text;
-    LocationManager manager;
-    ImageView iv_nav_profile;
-    String service_id, service_token, str_driver_email, str_driver_phone, str_driver_name;
-    TextView tv_driver_name, tv_driver_email;
-    android.widget.TextView tv_snack;
-    private ViewFlipper mViewFlipper;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -503,6 +509,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                 if (sharedPreferences.getString("profile", "").equals("")) {
                     snackbart.show();
                 } else {
+                    //stss = 0;
                     Intent goProfile = new Intent(getApplicationContext(), MyTrips.class);
                     startActivity(goProfile);
                 }
@@ -682,6 +689,16 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     protected void onRestart() {
         super.onRestart();
 
+        Log.e("tag","ss: "+stss);
+        Log.e("tag","sO:"+sharedPreferences.getString("mytrips",""));
+        if(sharedPreferences.getString("mytrips","").equals("nil")){
+
+            editor.putString("mytrips","notnil");
+            editor.commit();
+
+            snackbar2.show();
+            tv_snack2.setText("You Dont Have Any Trips to Show.!");
+        }
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             snackbar.show();
         } else {
@@ -734,7 +751,9 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
                 String img = sharedPreferences.getString("driver_image","");
                 Log.e("tag","dr:"+img);
-                Glide.with(DashboardNavigation.this).load(Config.WEB_URL+"driver_details/"+img).into(iv_nav_profile);
+              //  Glide.with(DashboardNavigation.this).load(Config.WEB_URL+"driver_details/"+img).into(iv_nav_profile);
+
+                Picasso.with(DashboardNavigation.this).load(Config.WEB_URL+"driver_details/"+img).into(iv_nav_profile);
 
             }
 
