@@ -80,7 +80,8 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     int exit_status;
-    android.widget.TextView tv_txt1, tv_txt2, tv_txt3;
+    android.widget.TextView tv_txt1, tv_txt2, tv_txt3,tv_snack2;
+    Snackbar snackbar2;
     TextView tv_driver_id;
     Typeface tf;
     Geocoder geocoder;
@@ -267,6 +268,19 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         tv_snack = (android.widget.TextView) sbView1.findViewById(android.support.design.R.id.snackbar_text);
         tv_snack.setTextColor(Color.WHITE);
         tv_snack.setTypeface(tf);
+
+
+
+
+        snackbar2 = Snackbar
+                .make(findViewById(R.id.top), "Please Be Active to find Jobs.!", Snackbar.LENGTH_LONG);
+        View sbView2 = snackbar2.getView();
+        tv_snack2 = (android.widget.TextView) sbView2.findViewById(android.support.design.R.id.snackbar_text);
+        tv_snack2.setTextColor(Color.WHITE);
+        tv_snack2.setTypeface(tf);
+
+
+
 
 
         if (sharedPreferences.getString("profile", "").equals("")) {
@@ -550,8 +564,8 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                 }
 
                 else if(str_active.equals("inactive")){
-                    snackbart.show();
-                    tv_snack.setText("Please be active to find Jobs");
+                    snackbar2.show();
+                   // tv_snack.setText("Please be active to find Jobs");
 
 
                 }

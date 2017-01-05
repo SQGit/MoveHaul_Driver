@@ -132,7 +132,7 @@ public class ProfileActivity extends Activity {
 
         et_contact.setText(str_contact.substring(3, str_contact.length()));
         tv_profile_name.setText(sharedPreferences.getString("driver_name",""));
-        et_secondary.setText(str_contact.substring(3, str_contact.length()));
+        et_secondary.setText(str_secondary.substring(3, str_secondary.length()));
 
         if(!(sharedPreferences.getString("driver_address","").equals(""))){
             et_address.setText(sharedPreferences.getString("driver_address", ""));
