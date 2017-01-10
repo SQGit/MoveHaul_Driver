@@ -242,6 +242,30 @@ public class LoginActivity extends Activity {
     }
 
 
+
+    public class login_ss extends AsyncTask<String,Void,String>{
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
+    }
+
+
+
+
     public class login_customer extends AsyncTask<String, Void, String> {
 
 
@@ -260,6 +284,7 @@ public class LoginActivity extends Activity {
             try {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.accumulate("driver_mobile", "+91"+str_mobile);
+
                 json = jsonObject.toString();
                 return jsonStr = HttpUtils.makeRequest(Config.WEB_URL + "drivermobileotp", json);
 

@@ -751,9 +751,9 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
                 String img = sharedPreferences.getString("driver_image","");
                 Log.e("tag","dr:"+img);
-              //  Glide.with(DashboardNavigation.this).load(Config.WEB_URL+"driver_details/"+img).into(iv_nav_profile);
+                Glide.with(DashboardNavigation.this).load(Config.WEB_URL+"driver_details/"+img).into(iv_nav_profile);
 
-                Picasso.with(DashboardNavigation.this).load(Config.WEB_URL+"driver_details/"+img).into(iv_nav_profile);
+               /// Picasso.with(DashboardNavigation.this).load(Config.WEB_URL+"driver_details/"+img).into(iv_nav_profile);
 
             }
 

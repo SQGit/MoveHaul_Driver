@@ -84,25 +84,25 @@
             android:gravity="center"
             android:layout_marginTop="@dimen/_15sdp">
 
-        <EditText
-            android:id="@+id/edittext_driver_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:inputType="text"
-            android:maxLines="1"
-            android:maxLength="10"
-            android:imeOptions="actionDone"
-            android:lines="1"
-            android:hint="Enter your Driver ID"
-            android:paddingLeft="@dimen/_5sdp"
-            android:paddingRight="@dimen/_5sdp"
-            android:textColor="@color/dialog_text"
-            android:textSize="@dimen/_14sdp" />
+            <EditText
+                android:id="@+id/edittext_driver_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:inputType="textCapCharacters"
+                android:maxLines="1"
+                android:maxLength="10"
+                android:imeOptions="actionDone"
+                android:lines="1"
+                android:hint="Enter your Driver ID"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:textColor="@color/dialog_text"
+                android:textSize="@dimen/_14sdp" />
 
-        <View
+            <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1sdp"
             android:background="#E1E1E1" />

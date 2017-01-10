@@ -29,6 +29,7 @@ public class MV_Datas {
     public void setJob_cost(String job_cost) {
         this.job_cost = job_cost;
     }
+    //
 
     public String getDelivery() {
         return delivery;
