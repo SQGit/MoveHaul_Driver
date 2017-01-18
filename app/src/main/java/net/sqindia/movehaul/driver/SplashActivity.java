@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.sloop.fonts.FontsManager;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -67,6 +68,8 @@ public class SplashActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.splash_screen);
+
+        FirebaseCrash.report(new Exception("Successfully Installed..."));
 
         Log.e("tag", "In the onCreate() event");
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);

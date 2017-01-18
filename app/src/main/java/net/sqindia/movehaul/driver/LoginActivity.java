@@ -80,9 +80,10 @@ public class LoginActivity extends Activity {
         Firebase.setAndroidContext(getApplicationContext());
         registerDevice();
 
-        mProgressDialog = new ProgressDialog(LoginActivity.this);
+        mProgressDialog = new ProgressDialog(LoginActivity.this,R.style.AppCompatAlertDialogStyle);
         mProgressDialog.setTitle("Loading..");
         mProgressDialog.setMessage("Please wait");
+        mProgressDialog.setInverseBackgroundForced(true);
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
 
@@ -280,6 +281,7 @@ public class LoginActivity extends Activity {
         protected String doInBackground(String... strings) {
 
             String json = "", jsonStr = "";
+            Log.e("tag","web: "+Config.WEB_URL+"drivermobileotp");
 
             try {
                 JSONObject jsonObject = new JSONObject();

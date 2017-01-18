@@ -137,6 +137,16 @@ public class GpsTracker extends Service implements LocationListener {
         return location;
     }
 
+
+
+
+
+
+
+
+
+
+
     /**
      * Stop using GPS listener
      * Calling this function will stop using GPS in your app

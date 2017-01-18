@@ -46,5 +46,10 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/oror</item>
+        <item name="android:textColorPrimary">@color/or2</item>
+    </style>
+
 
 </resources>
