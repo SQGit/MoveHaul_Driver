@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
+import com.rey.material.widget.Spinner;
 import com.sloop.fonts.FontsManager;
 
 import org.apache.http.HttpEntity;
@@ -300,6 +301,7 @@ public class RegisterActivity extends Activity {
                 str_lic_no = et_lic_no.getText().toString().trim();
                 str_lic_mobile = et_lic_mobile.getText().toString().trim();
                 str_lic_exp = et_lic_exp.getText().toString().trim();
+
 
 
                 if (!(str_lic_name.isEmpty())) {

@@ -30,22 +30,24 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.sloop.fonts.FontsManager;
-import com.wang.avi.AVLoadingIndicatorView;
 
 public class SplashActivity extends Activity {
     Button btn_register, btn_login;
+    Button btn_register1;
     ImageView truck_icon, logo_icon, bg_icon;
     LinearLayout lt_bottom;
+    LinearLayout lt_bottom1;
     boolean isBottom = true;
     int is = 0;
+    ImageView iv_truck, iv_bus;
     Config config;
-    AVLoadingIndicatorView av_loader;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     Snackbar snackbar;
     Typeface tf;
-    TranslateAnimation anim_btn_b2t, anim_btn_t2b, anim_truck_c2r;
+    TranslateAnimation anim_btn_b2t, anim_btn_t2b, anim_truck_c2r,anim_new;
     Animation fadeIn, fadeOut;
+    LinearLayout lt_filter_dialog;
     private FirebaseAnalytics mFirebaseAnalytics;
 
     public static int getDeviceWidth(Context context) {
@@ -90,11 +92,24 @@ public class SplashActivity extends Activity {
 
         btn_register = (Button) findViewById(R.id.btn_register);
         btn_login = (Button) findViewById(R.id.btn_login);
+        btn_register1 = (Button) findViewById(R.id.btn_login1);
         truck_icon = (ImageView) findViewById(R.id.truck_icon);
         bg_icon = (ImageView) findViewById(R.id.bg_icon);
         logo_icon = (ImageView) findViewById(R.id.logo_ico);
         lt_bottom = (LinearLayout) findViewById(R.id.layout_bottom);
-        av_loader = (AVLoadingIndicatorView) findViewById(R.id.loader);
+        lt_bottom1 = (LinearLayout) findViewById(R.id.layout_bottom1);
+
+
+        // lt_bottom1.setVisibility(View.GONE);
+
+
+        lt_filter_dialog = (LinearLayout) findViewById(R.id.filter_dialog);
+        lt_filter_dialog.setVisibility(View.GONE);
+
+        iv_truck = (ImageView) findViewById(R.id.image_truck);
+        iv_bus = (ImageView) findViewById(R.id.image_bus);
+
+
 
 
         if (sharedPreferences.getString("login", "").equals("success")) {
@@ -103,9 +118,74 @@ public class SplashActivity extends Activity {
 
         if (!config.isConnected(SplashActivity.this)) {
             lt_bottom.setVisibility(View.GONE);
+            anim_btn_b2t = new TranslateAnimation(0, 0, height + lt_bottom.getHeight(), lt_bottom.getHeight());
+            anim_btn_b2t.setDuration(1400);
+            anim_btn_b2t.setFillAfter(false);
+            lt_bottom.setAnimation(anim_btn_b2t);
         }
 
-        av_loader.setVisibility(View.GONE);
+
+        if (sharedPreferences.getString("type", "").equals("")) {
+            lt_bottom.setVisibility(View.GONE);
+            lt_bottom1.setVisibility(View.VISIBLE);
+        }
+
+        btn_register1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TranslateAnimation anim_btn_b2t = new TranslateAnimation(0, 0, height, 0);
+                anim_btn_b2t.setDuration(500);
+                lt_filter_dialog.setAnimation(anim_btn_b2t);
+                lt_filter_dialog.setVisibility(View.VISIBLE);
+                lt_bottom1.setVisibility(View.GONE);
+            }
+        });
+
+
+        iv_bus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                lt_bottom.setVisibility(View.VISIBLE);
+                anim_btn_b2t = new TranslateAnimation(0, 0, height + lt_bottom.getHeight(), lt_bottom.getHeight());
+                anim_btn_b2t.setDuration(1000);
+                anim_btn_b2t.setFillAfter(false);
+                lt_bottom.setAnimation(anim_btn_b2t);
+
+                iv_truck.setVisibility(View.GONE);
+                lt_bottom1.setVisibility(View.GONE);
+
+                anim_new = new TranslateAnimation(width/3,width/10,0,0);
+                anim_new.setDuration(800);
+                anim_new.setFillAfter(true);
+                iv_bus.setAnimation(anim_new);
+
+            }
+        });
+
+
+        iv_truck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                lt_bottom.setVisibility(View.VISIBLE);
+                anim_btn_b2t = new TranslateAnimation(0, 0, height + lt_bottom.getHeight(), lt_bottom.getHeight());
+                anim_btn_b2t.setDuration(1000);
+                anim_btn_b2t.setFillAfter(false);
+                lt_bottom.setAnimation(anim_btn_b2t);
+
+                iv_bus.setVisibility(View.GONE);
+                lt_bottom1.setVisibility(View.GONE);
+
+                anim_new = new TranslateAnimation(0,width/4.7f,0,0);
+                anim_new.setDuration(800);
+                anim_new.setFillAfter(true);
+                iv_truck.setAnimation(anim_new);
+
+            }
+        });
+
+
         truck_icon.animate().translationX(width / (float) 1.65).setDuration(1700).withLayer();
         fadeIn = new AlphaAnimation(0, 1);
         fadeIn.setDuration(1500);
@@ -116,12 +196,6 @@ public class SplashActivity extends Activity {
         animation.addAnimation(fadeOut);
         bg_icon.setAnimation(fadeIn);
         logo_icon.setAnimation(fadeIn);
-
-
-        anim_btn_b2t = new TranslateAnimation(0, 0, height + lt_bottom.getHeight(), lt_bottom.getHeight());
-        anim_btn_b2t.setDuration(1400);
-        anim_btn_b2t.setFillAfter(false);
-        lt_bottom.setAnimation(anim_btn_b2t);
 
 
         anim_btn_t2b = new TranslateAnimation(0, 0, lt_bottom.getHeight(), height + lt_bottom.getHeight());
@@ -205,7 +279,6 @@ public class SplashActivity extends Activity {
     }
 
 
-
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -228,45 +301,23 @@ public class SplashActivity extends Activity {
 
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
         Log.e("tag", "In the onStart() event");
     }
 
 
-
     @Override
-    public void onStop()
-    {
+    public void onStop() {
         super.onStop();
         Log.e("tag", "In the onStop() event");
     }
 
     @Override
-    public void onDestroy()
-    {
+    public void onDestroy() {
         super.onDestroy();
         Log.e("tag", "In the onDestroy() event");
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     @Override
@@ -274,6 +325,7 @@ public class SplashActivity extends Activity {
         super.onBackPressed();
         finishAffinity();
     }
+
     public class check_internet extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {
