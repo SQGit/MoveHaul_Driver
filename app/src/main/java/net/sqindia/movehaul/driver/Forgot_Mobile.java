@@ -33,7 +33,7 @@ import org.json.JSONObject;
 public class Forgot_Mobile extends Activity {
     LinearLayout btn_back;
     EditText edtxt_email;
-    String str_email;
+    String str_email,str_type;
     TextInputLayout flt_email;
     Button btn_submit;
     ProgressBar progresss;
@@ -49,6 +49,10 @@ public class Forgot_Mobile extends Activity {
         setContentView(R.layout.forgot_phone);
         FontsManager.initFormAssets(this, "fonts/lato.ttf");       //initialization
         FontsManager.changeFonts(this);
+
+        Intent idg  =getIntent();
+
+        str_type = idg.getStringExtra("vec_type");
 
         flt_email = (TextInputLayout) findViewById(R.id.float_email);
         btn_back = (LinearLayout) findViewById(R.id.layout_back);
@@ -134,7 +138,8 @@ public class Forgot_Mobile extends Activity {
 
             try {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("customer_email", str_email);
+                jsonObject.accumulate("driver_email", str_email);
+                jsonObject.accumulate("vehicle_type", str_type);
                 json = jsonObject.toString();
                 return jsonStr = HttpUtils.makeRequest(Config.WEB_URL + "driveremailotp", json);
 

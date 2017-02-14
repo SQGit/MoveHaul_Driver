@@ -83,6 +83,7 @@ public class RegisterActivity extends Activity {
     View view_lic;
     Config config;
     ProgressDialog mProgressDialog;
+    String str_type;
 
     public static int getDeviceHeight(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -106,6 +107,11 @@ public class RegisterActivity extends Activity {
 
         tf = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
         config = new Config();
+
+        Intent idg  =getIntent();
+
+        str_type = idg.getStringExtra("vec_type");
+        Log.e("tag","t:"+str_type);
 
 
         mProgressDialog = new ProgressDialog(RegisterActivity.this);
@@ -486,6 +492,7 @@ public class RegisterActivity extends Activity {
                 httppost.setHeader("driver_mobile_pri", "+91" + str_mobile);
                 httppost.setHeader("driver_email", str_email);
                 httppost.setHeader("driver_licence_name", str_lic_name);
+                httppost.setHeader("vehicle_type", str_type);
                 httppost.setHeader("driver_mobile_sec", "+91" + str_lic_mobile);
                 httppost.setHeader("driver_licence_number", str_lic_no);
                 httppost.setHeader("driver_experience", str_lic_exp);

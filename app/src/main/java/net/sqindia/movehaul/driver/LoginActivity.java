@@ -55,6 +55,7 @@ public class LoginActivity extends Activity {
     Snackbar snackbar, snack_wifi;
     ProgressDialog mProgressDialog;
     Dialog dialog2;
+    String str_type;
     Button btn_ok,d2_btn_ok;
     TextView tv_dialog1,tv_dialog2,tv_dialog3,tv_dialog4,d2_tv_dialog1,d2_tv_dialog2,d2_tv_dialog3,d2_tv_dialog4;
     ImageView btn_close,iv_driver_lic;
@@ -79,6 +80,12 @@ public class LoginActivity extends Activity {
 
         Firebase.setAndroidContext(getApplicationContext());
         registerDevice();
+
+        Intent idg  =getIntent();
+
+        str_type = idg.getStringExtra("vec_type");
+
+
 
         mProgressDialog = new ProgressDialog(LoginActivity.this,R.style.AppCompatAlertDialogStyle);
         mProgressDialog.setTitle("Loading..");
@@ -163,6 +170,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(LoginActivity.this, Forgot_Mobile.class);
+                i.putExtra("vec_type",str_type);
                 startActivity(i);
                 finish();
             }
@@ -286,6 +294,7 @@ public class LoginActivity extends Activity {
             try {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.accumulate("driver_mobile", "+91"+str_mobile);
+                jsonObject.accumulate("vehicle_type", str_type);
 
                 json = jsonObject.toString();
                 return jsonStr = HttpUtils.makeRequest(Config.WEB_URL + "drivermobileotp", json);

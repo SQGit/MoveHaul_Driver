@@ -129,16 +129,10 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="bottom"
-            android:id="@+id/layout_bottom1"
-            android:orientation="horizontal"
-            android:weightSum="2">
+
 
             <com.rey.material.widget.Button
-                android:id="@+id/btn_login1"
+                android:id="@+id/btn_enter"
                 style="@style/Material.Drawable.Ripple.Touch"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -153,8 +147,6 @@
                 android:textStyle="bold" />
 
 
-
-        </LinearLayout>
         </FrameLayout>
         </LinearLayout>
 
@@ -164,6 +156,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#ffffff"
+                android:visibility="gone"
                 android:layout_marginBottom="@dimen/_70sdp"
                 android:orientation="vertical">
 

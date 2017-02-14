@@ -474,7 +474,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
                     dialog1.dismiss();
 
-                    Intent i = new Intent(DashboardNavigation.this, LoginActivity.class);
+                    Intent i = new Intent(DashboardNavigation.this, SplashActivity.class);
                     startActivity(i);
                     finishAffinity();
 
