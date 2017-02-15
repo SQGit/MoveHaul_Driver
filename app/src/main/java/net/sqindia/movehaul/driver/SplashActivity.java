@@ -120,6 +120,7 @@ public class SplashActivity extends Activity {
         }*/
 
 
+        lt_bottom.setVisibility(View.GONE);
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -252,7 +253,6 @@ public class SplashActivity extends Activity {
                     }, 1000);
                 } else {*/
                 Intent isd = new Intent(SplashActivity.this, LoginActivity.class);
-                isd.putExtra("vec_type", str_type);
                 Bundle bndlanimation =
                         ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.anim1, R.anim.anim2).toBundle();
                 startActivity(isd, bndlanimation);

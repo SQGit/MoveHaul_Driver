@@ -96,7 +96,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     String str_lati, str_longi, str_locality, str_address, str_active = "inactive";
     Switch sw_active;
     Snackbar snackbar, snackbart;
-    android.widget.TextView sb_text;
+    android.widget.TextView sb_text,tv_snack_act;
     LocationManager manager;
     ImageView iv_nav_profile;
     String service_id, service_token, str_driver_email, str_driver_phone, str_driver_name;
@@ -324,8 +324,10 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         });
         snackbart.setActionTextColor(getResources().getColor(R.color.redColor));
         tv_snack = (android.widget.TextView) sbView1.findViewById(android.support.design.R.id.snackbar_text);
+        tv_snack_act = (android.widget.TextView) sbView1.findViewById(android.support.design.R.id.snackbar_action);
         tv_snack.setTextColor(Color.WHITE);
         tv_snack.setTypeface(tf);
+        tv_snack_act.setTypeface(tf);
 
 
 
@@ -474,7 +476,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
                     dialog1.dismiss();
 
-                    Intent i = new Intent(DashboardNavigation.this, SplashActivity.class);
+                    Intent i = new Intent(DashboardNavigation.this, LoginActivity.class);
                     startActivity(i);
                     finishAffinity();
 

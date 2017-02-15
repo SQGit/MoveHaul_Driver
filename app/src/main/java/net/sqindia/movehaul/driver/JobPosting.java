@@ -234,6 +234,8 @@ public class JobPosting extends Activity {
 
                     }
 
+
+
                     drv_adapter = new JobPostingAdapter(JobPosting.this,JobPosting.this, ar_job_data);
                     lv_jobposting.setAdapter(drv_adapter);
 
