@@ -109,37 +109,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_20sdp"
                             android:orientation="vertical">
 
                             <de.hdodenhof.circleimageview.CircleImageView
-                                android:id="@+id/imageview_vechile_inside"
-                                android:layout_width="@dimen/_45sdp"
-                                android:layout_height="@dimen/_45sdp"
-                                android:src="@drawable/truck_back_ico" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="Back"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/_9sdp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="@dimen/_10sdp"
-
-                            android:orientation="vertical">
-
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                android:id="@+id/imageview_vechile_inside"
-                                android:layout_width="@dimen/_45sdp"
-                                android:layout_height="@dimen/_45sdp"
-                                android:src="@drawable/truck_front_ico" />
+                                android:id="@+id/imageview_vechile_front"
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_height="@dimen/_50sdp"
+                                android:src="@drawable/bus_front" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -154,23 +131,27 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/_10sdp"
+
                             android:orientation="vertical">
 
                             <de.hdodenhof.circleimageview.CircleImageView
-                                android:id="@+id/imageview_vechile_side"
-                                android:layout_width="@dimen/_45sdp"
-                                android:layout_height="@dimen/_45sdp"
-                                android:src="@drawable/truck_side_ico" />
+                                android:id="@+id/imageview_vechile_inside"
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_height="@dimen/_50sdp"
+                                android:src="@drawable/bus_inside" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:text="Side"
+                                android:text="Inside"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/_9sdp" />
 
                         </LinearLayout>
+
+
 
 
                     </LinearLayout>

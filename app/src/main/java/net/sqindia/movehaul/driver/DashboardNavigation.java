@@ -103,6 +103,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     TextView tv_driver_name, tv_driver_email;
     android.widget.TextView tv_snack;
     private ViewFlipper mViewFlipper;
+    String vec_type;
 
     private int STORAGE_PERMISSION_CODE = 23;
 
@@ -203,9 +204,11 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
         service_id = sharedPreferences.getString("id", "");
         service_token = sharedPreferences.getString("token", "");
+        vec_type = sharedPreferences.getString("vec_type","");
 
-        Log.e("tag","id: "+service_id);
-        Log.e("tag","token: "+service_token);
+      //  Log.e("tag","id: "+service_id);
+      //  Log.e("tag","token: "+service_token);
+        Log.e("tag","token: "+vec_type);
 
 
         str_driver_name = sharedPreferences.getString("driver_name", "");
@@ -317,8 +320,15 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
             @Override
             public void onClick(View view) {
 
-                Intent i = new Intent(DashboardNavigation.this, ProfileActivity.class);
-                startActivity(i);
+                if(vec_type.equals("Bus")){
+                    Intent i = new Intent(DashboardNavigation.this, ProfileActivityBus.class);
+                    startActivity(i);
+                }
+                else{
+                    Intent i = new Intent(DashboardNavigation.this, ProfileActivity.class);
+                    startActivity(i);
+                }
+
 
             }
         });
@@ -574,8 +584,14 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
             @Override
             public void onClick(View view) {
 
-                Intent goProfile = new Intent(getApplicationContext(), ProfileActivity.class);
-                startActivity(goProfile);
+                if(vec_type.equals("Bus")){
+                    Intent i = new Intent(DashboardNavigation.this, ProfileActivityBus.class);
+                    startActivity(i);
+                }
+                else{
+                    Intent i = new Intent(DashboardNavigation.this, ProfileActivity.class);
+                    startActivity(i);
+                }
 
                 drawer.closeDrawer(Gravity.LEFT);
             }
@@ -639,6 +655,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
 
                     Intent goPostings = new Intent(getApplicationContext(), JobPosting.class);
+                    goPostings.putExtra("vec_type",vec_type);
                     startActivity(goPostings);
                 }
             }

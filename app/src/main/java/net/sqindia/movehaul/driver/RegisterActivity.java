@@ -1,6 +1,6 @@
 package net.sqindia.movehaul.driver;
 
-import android.*;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
@@ -11,12 +11,10 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcelable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.util.Log;
@@ -35,7 +33,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
-import com.rey.material.widget.Spinner;
 import com.sloop.fonts.FontsManager;
 
 import org.apache.http.HttpEntity;
@@ -60,12 +57,8 @@ import java.util.Map;
 
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
-import nl.changer.polypicker.ImagePickerActivity;
 
 
-/**
- * Created by sqindia on 21-10-2016.
- */
 
 public class RegisterActivity extends Activity {
 
@@ -81,15 +74,15 @@ public class RegisterActivity extends Activity {
     ArrayList<String> selectedPhotos = new ArrayList<>();
     ImageView iv_close;
     Dialog dialog2;
-    Button btn_ok,d2_btn_ok;
-    TextView tv_dialog1,tv_dialog2,tv_dialog3,tv_dialog4,d2_tv_dialog1,d2_tv_dialog2,d2_tv_dialog3,d2_tv_dialog4;
+    Button d2_btn_ok;
+    TextView d2_tv_dialog1,d2_tv_dialog2,d2_tv_dialog3,d2_tv_dialog4;
     ImageView btn_close,iv_driver_lic;
     Snackbar snackbar;
     Typeface tf;
     View view_lic;
     Config config;
     ProgressDialog mProgressDialog;
-    String str_type;
+    String vec_type;
     final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
 
     public static int getDeviceHeight(Context context) {
@@ -101,7 +94,6 @@ public class RegisterActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
         finish();
     }
 
@@ -109,7 +101,7 @@ public class RegisterActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        FontsManager.initFormAssets(this, "fonts/lato.ttf");       //initialization
+        FontsManager.initFormAssets(this, "fonts/lato.ttf");
         FontsManager.changeFonts(this);
 
         tf = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
@@ -117,8 +109,8 @@ public class RegisterActivity extends Activity {
 
         Intent idg  =getIntent();
 
-        str_type = idg.getStringExtra("vec_type");
-        Log.e("tag","t:"+str_type);
+        vec_type = idg.getStringExtra("vec_type");
+        Log.e("tag","t:"+ vec_type);
 
         insertDummyContactWrapper();
 
@@ -184,15 +176,6 @@ public class RegisterActivity extends Activity {
         }
 
 
-
-       /* snackbar = Snackbar
-                .make(findViewById(R.id.top), "Please Attach Driving Licence", Snackbar.LENGTH_LONG);
-
-        View sbView = snackbar.getView();
-        tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-        tv_snack.setTextColor(Color.WHITE);
-        tv_snack.setTypeface(tf);*/
-
         dialog2 = new Dialog(RegisterActivity.this);
         dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -221,7 +204,6 @@ public class RegisterActivity extends Activity {
             @Override
             public void onClick(View view) {
                 dialog2.dismiss();
-
                 Intent i = new Intent(RegisterActivity.this,LoginActivity.class);
                 startActivity(i);
                 finish();
@@ -242,17 +224,11 @@ public class RegisterActivity extends Activity {
                     if (!(str_email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(str_email).matches())) {
                         if (!(str_mobile.isEmpty() || str_mobile.length() < 9)) {
 
-                            /*Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
-                            startActivity(i);
-                            finish();*/
-
                             TranslateAnimation anim_btn_b2t = new TranslateAnimation(0, 0, height, 0);
                             anim_btn_b2t.setDuration(500);
 
                             lt_second.setAnimation(anim_btn_b2t);
-
                             lt_second.setVisibility(View.VISIBLE);
-
 
                             final Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
@@ -262,45 +238,25 @@ public class RegisterActivity extends Activity {
                                 }
                             }, 600);
 
-
-
-
-
                             str_email = et_email.getText().toString().trim();
                             str_mobile = et_mobile.getText().toString().trim();
                             str_name = et_name.getText().toString().trim();
 
-
                         } else {
-                           // et_mobile.setError("Enter valid phone number");
-
-
                             snackbar.show();
                             tv_snack.setText("Enter valid phone Number");
-
                             et_mobile.requestFocus();
                         }
                     } else {
-                        //et_email.setError("Enter a valid email address!");
                         snackbar.show();
                         tv_snack.setText("Enter valid email address!");
                         et_email.requestFocus();
                     }
                 } else {
-                 //   et_name.setError("Enter a Name!");
                     snackbar.show();
                     tv_snack.setText("Enter UserName!");
                     et_name.requestFocus();
                 }
-
-
-
-
-
-               /* *//*Creating for testing screen*//*
-                Intent i = new Intent(RegisterActivity.this,DashboardNavigation.class);
-                startActivity(i);
-                finish();*/
 
             }
         });
@@ -329,7 +285,6 @@ public class RegisterActivity extends Activity {
                                 str_lic_mobile = et_lic_mobile.getText().toString().trim();
                                 str_lic_exp = et_lic_exp.getText().toString().trim();
 
-                                //dialog2.show();
 
                                new register_driver().execute();
                             } else {
@@ -481,7 +436,7 @@ public class RegisterActivity extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Log.e("tag", "reg_preexe");
+            Log.e("tag", "driver_register");
             mProgressDialog.show();
         }
 
@@ -500,7 +455,7 @@ public class RegisterActivity extends Activity {
                 httppost.setHeader("driver_mobile_pri", "+91" + str_mobile);
                 httppost.setHeader("driver_email", str_email);
                 httppost.setHeader("driver_licence_name", str_lic_name);
-                httppost.setHeader("vehicle_type", str_type);
+                httppost.setHeader("vehicle_type", vec_type);
                 httppost.setHeader("driver_mobile_sec", "+91" + str_lic_mobile);
                 httppost.setHeader("driver_licence_number", str_lic_no);
                 httppost.setHeader("driver_experience", str_lic_exp);
@@ -575,7 +530,6 @@ public class RegisterActivity extends Activity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e("tag", "tagnt: " + e.toString());
-                   // Toast.makeText(getApplicationContext(), "Network Errror0", Toast.LENGTH_LONG).show();
 
                     snackbar.show();
                     tv_snack.setText("Network Error! Please Try Again Later.");

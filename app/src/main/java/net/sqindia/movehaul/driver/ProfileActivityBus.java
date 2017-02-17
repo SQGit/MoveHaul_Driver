@@ -49,18 +49,18 @@ import me.iwf.photopicker.utils.PhotoPickerIntent;
 /**
  * Created by SQINDIA on 11/8/2016.
  */
-public class ProfileActivity extends Activity {
+public class ProfileActivityBus extends Activity {
 
     public final static int REQUEST_PROFILE = 1;
     public final static int REQUEST_VEC_BACK = 2;
     public final static int REQUEST_VEC_FRONT = 3;
-    public final static int REQUEST_VEC_SIDE = 4;
+
     public final static int REQUEST_VEC_RC = 5;
     public final static int REQUEST_VEC_INS = 6;
     LinearLayout btn_back, lt_vec_rc, lt_vec_ins;
-    ImageView iv_profile, iv_vec_back, iv_vec_front, iv_vec_side, iv_vec_rc, iv_vec_ins;
+    ImageView iv_profile, iv_vec_back, iv_vec_front,iv_vec_rc, iv_vec_ins;
     ArrayList<String> selectedPhotos = new ArrayList<>();
-    String str_profile_img, str_vec_back, str_vec_front, str_vec_side, str_vec_rc, str_vec_ins, str_contact, str_secondary, str_address;
+    String str_profile_img, str_vec_back, str_vec_front, str_vec_rc, str_vec_ins, str_contact, str_secondary, str_address;
     View view_rc, view_ins;
     TextInputLayout til_contact, til_secondary, til_address;
     EditText et_contact, et_secondary, et_address;
@@ -77,7 +77,7 @@ public class ProfileActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_profile_bus);
 
         FontsManager.initFormAssets(this, "fonts/lato.ttf");
         FontsManager.changeFonts(this);
@@ -85,13 +85,13 @@ public class ProfileActivity extends Activity {
 
         config = new Config();
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ProfileActivityBus.this);
         editor = sharedPreferences.edit();
 
         btn_update = (Button) findViewById(R.id.button_update);
 
 
-        mProgressDialog = new ProgressDialog(ProfileActivity.this);
+        mProgressDialog = new ProgressDialog(ProfileActivityBus.this);
         mProgressDialog.setTitle("Loading..");
         mProgressDialog.setMessage("Please wait");
         mProgressDialog.setIndeterminate(false);
@@ -99,9 +99,9 @@ public class ProfileActivity extends Activity {
 
 
         iv_profile = (ImageView) findViewById(R.id.imageview_profile);
+
+        iv_vec_front = (ImageView) findViewById(R.id.imageview_vechile_front);
         iv_vec_back = (ImageView) findViewById(R.id.imageview_vechile_inside);
-        iv_vec_front = (ImageView) findViewById(R.id.imageview_vechile_inside);
-        iv_vec_side = (ImageView) findViewById(R.id.imageview_vechile_side);
         iv_vec_rc = (ImageView) findViewById(R.id.imageview_vechile_rc);
         iv_vec_ins = (ImageView) findViewById(R.id.imageview_vechile_ins);
         tv_profile_name = (TextView) findViewById(R.id.textview_profile_name);
@@ -139,7 +139,7 @@ public class ProfileActivity extends Activity {
 
         et_address.requestFocus();
 
-        if (!config.isConnected(ProfileActivity.this)) {
+        if (!config.isConnected(ProfileActivityBus.this)) {
             snackbar.show();
             tv_snack.setText("Please Connect Internet and Try again");
         }
@@ -149,7 +149,7 @@ public class ProfileActivity extends Activity {
         snackbar.setActionTextColor(Color.RED);
 
         View sbView = snackbar.getView();
-        tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        tv_snack = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
         tv_snack.setTextColor(Color.WHITE);
         tv_snack.setTypeface(tf);
 
@@ -170,17 +170,15 @@ public class ProfileActivity extends Activity {
             Log.e("tag","truckrond");
 
             String img = sharedPreferences.getString("truck_front","");
-            String img1 = sharedPreferences.getString("truck_side","");
             String img2 = sharedPreferences.getString("truck_back","");
             String img3 = sharedPreferences.getString("truck_rc","");
             String img4 = sharedPreferences.getString("truck_ins","");
 
 
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicle_details/"+img).error(R.drawable.truck_front_ico).into(iv_vec_front);
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicle_details/"+img1).error(R.drawable.truck_side_ico).into(iv_vec_side);
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicle_details/"+img2).error(R.drawable.truck_back_ico).into(iv_vec_back);
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicle_details/"+img3).into(iv_vec_rc);
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicle_details/"+img4).into(iv_vec_ins);
+            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL+"vehicle_details/"+img).error(R.drawable.truck_front_ico).into(iv_vec_front);
+            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL+"vehicle_details/"+img2).error(R.drawable.truck_back_ico).into(iv_vec_back);
+            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL+"vehicle_details/"+img3).into(iv_vec_rc);
+            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL+"vehicle_details/"+img4).into(iv_vec_ins);
 
         }
 
@@ -189,7 +187,7 @@ public class ProfileActivity extends Activity {
 
             String img = sharedPreferences.getString("driver_image","");
 
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"driver_details/"+img).into(iv_profile);
+            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL+"driver_details/"+img).into(iv_profile);
 
         }
 
@@ -199,7 +197,7 @@ public class ProfileActivity extends Activity {
         iv_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivity.this);
+                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivityBus.this);
                 intent.setPhotoCount(1);
                 intent.setColumn(4);
                 intent.setShowCamera(true);
@@ -210,7 +208,7 @@ public class ProfileActivity extends Activity {
         iv_vec_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivity.this);
+                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivityBus.this);
                 intent.setPhotoCount(1);
                 intent.setColumn(4);
                 intent.setShowCamera(true);
@@ -221,7 +219,7 @@ public class ProfileActivity extends Activity {
         iv_vec_front.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivity.this);
+                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivityBus.this);
                 intent.setPhotoCount(1);
                 intent.setColumn(4);
                 intent.setShowCamera(true);
@@ -229,22 +227,13 @@ public class ProfileActivity extends Activity {
             }
         });
 
-        iv_vec_side.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivity.this);
-                intent.setPhotoCount(1);
-                intent.setColumn(4);
-                intent.setShowCamera(true);
-                startActivityForResult(intent, REQUEST_VEC_SIDE);
-            }
-        });
+
 
         lt_vec_rc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivity.this);
+                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivityBus.this);
                 intent.setPhotoCount(1);
                 intent.setColumn(3);
                 intent.setShowCamera(true);
@@ -256,7 +245,7 @@ public class ProfileActivity extends Activity {
             @Override
             public void onClick(View view) {
 
-                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivity.this);
+                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivityBus.this);
                 intent.setPhotoCount(1);
                 intent.setColumn(3);
                 intent.setShowCamera(true);
@@ -288,7 +277,7 @@ public class ProfileActivity extends Activity {
                                                           if (str_profile_img != null || !(sharedPreferences.getString("driver_image","").equals(""))) {
                                                               if (str_vec_back != null || !(sharedPreferences.getString("truck_back","").equals(""))) {
                                                                   if (str_vec_front != null || !(sharedPreferences.getString("truck_front","").equals(""))) {
-                                                                      if (str_vec_side != null || !(sharedPreferences.getString("truck_side","").equals(""))) {
+
                                                                           if (str_vec_rc != null || !(sharedPreferences.getString("truck_rc","").equals(""))) {
                                                                               if (str_vec_ins != null || !(sharedPreferences.getString("truck_ins","").equals(""))) {
 
@@ -315,10 +304,7 @@ public class ProfileActivity extends Activity {
                                                                               snackbar.show();
                                                                               tv_snack.setText("Upload Vechile RC");
                                                                           }
-                                                                      } else {
-                                                                          snackbar.show();
-                                                                          tv_snack.setText("Upload Vechile Side Image");
-                                                                      }
+
 
                                                                   } else {
                                                                       snackbar.show();
@@ -397,7 +383,7 @@ public class ProfileActivity extends Activity {
             Log.d("tag", "img: " + selectedPhotos.get(0));
             str_profile_img = selectedPhotos.get(0);
             //Picasso.with(ProfileActivity.this).load(new File(str_profile_img)).into(iv_profile);
-            Glide.with(ProfileActivity.this).load(new File(str_profile_img)).into(iv_profile);
+            Glide.with(ProfileActivityBus.this).load(new File(str_profile_img)).into(iv_profile);
         }
         if (resultCode == RESULT_OK && requestCode == REQUEST_VEC_BACK) {
             if (data != null) {
@@ -409,7 +395,7 @@ public class ProfileActivity extends Activity {
             }
             Log.d("tag", "img: " + selectedPhotos.get(0));
             str_vec_back = selectedPhotos.get(0);
-            Glide.with(ProfileActivity.this).load(new File(str_vec_back)).into(iv_vec_back);
+            Glide.with(ProfileActivityBus.this).load(new File(str_vec_back)).into(iv_vec_back);
         }
         if (resultCode == RESULT_OK && requestCode == REQUEST_VEC_FRONT) {
             if (data != null) {
@@ -421,20 +407,9 @@ public class ProfileActivity extends Activity {
             }
             Log.d("tag", "img: " + selectedPhotos.get(0));
             str_vec_front = selectedPhotos.get(0);
-            Glide.with(ProfileActivity.this).load(new File(str_vec_front)).into(iv_vec_front);
+            Glide.with(ProfileActivityBus.this).load(new File(str_vec_front)).into(iv_vec_front);
         }
-        if (resultCode == RESULT_OK && requestCode == REQUEST_VEC_SIDE) {
-            if (data != null) {
-                photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
-            }
-            selectedPhotos.clear();
-            if (photos != null) {
-                selectedPhotos.addAll(photos);
-            }
-            Log.d("tag", "img: " + selectedPhotos.get(0));
-            str_vec_side = selectedPhotos.get(0);
-            Glide.with(ProfileActivity.this).load(new File(str_vec_side)).into(iv_vec_side);
-        }
+
         if (resultCode == RESULT_OK && requestCode == REQUEST_VEC_RC) {
             if (data != null) {
                 photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
@@ -445,7 +420,7 @@ public class ProfileActivity extends Activity {
             }
             Log.d("tag", "img: " + selectedPhotos.get(0));
             str_vec_rc = selectedPhotos.get(0);
-            Glide.with(ProfileActivity.this).load(new File(str_vec_rc)).centerCrop().into(iv_vec_rc);
+            Glide.with(ProfileActivityBus.this).load(new File(str_vec_rc)).centerCrop().into(iv_vec_rc);
             view_rc.setVisibility(View.GONE);
         }
 
@@ -459,7 +434,7 @@ public class ProfileActivity extends Activity {
             }
             Log.d("tag", "img: " + selectedPhotos.get(0));
             str_vec_ins = selectedPhotos.get(0);
-            Glide.with(ProfileActivity.this).load(new File(str_vec_ins)).centerCrop().into(iv_vec_ins);
+            Glide.with(ProfileActivityBus.this).load(new File(str_vec_ins)).centerCrop().into(iv_vec_ins);
             view_ins.setVisibility(View.GONE);
         }
     }
@@ -485,7 +460,7 @@ public class ProfileActivity extends Activity {
                 //driver/driverupdate
                 String responseString = null;
                 HttpClient httpclient = new DefaultHttpClient();
-                HttpPost httppost = new HttpPost(Config.WEB_URL + "driver/driverupdate");
+                HttpPost httppost = new HttpPost(Config.WEB_URL + "busdriver/driverupdate");
 
                 httppost.setHeader("driver_mobile_pri", "+91" + str_contact);
                 httppost.setHeader("driver_mobile_sec", "+91" + str_secondary);
@@ -620,7 +595,7 @@ public class ProfileActivity extends Activity {
                 //driver/driverupdate
                 String responseString = null;
                 HttpClient httpclient = new DefaultHttpClient();
-                HttpPost httppost = new HttpPost(Config.WEB_URL + "driver/vehicleupdate");
+                HttpPost httppost = new HttpPost(Config.WEB_URL + "busdriver/vehicleupdate");
 
 
                 httppost.setHeader("id", id);
@@ -637,12 +612,7 @@ public class ProfileActivity extends Activity {
                     if(str_vec_back!= null){
                         entity.addPart("vehicleback", new FileBody(new File(str_vec_back), "image/jpeg"));
                     }
-                    if(str_vec_side!= null){
-                        entity.addPart("vehicleside", new FileBody(new File(str_vec_side), "image/jpeg"));
-                    }
-                    else{
-                        Log.e("tag","img:"+str_vec_side);
-                    }
+
                     if(str_vec_rc!= null){
                         entity.addPart("vehicletitle", new FileBody(new File(str_vec_rc), "image/jpeg"));
                     }
@@ -701,13 +671,11 @@ public class ProfileActivity extends Activity {
 
                     if (status.equals("true")) {
 
-                        /*Intent i = new Intent(ProfileActivity.this,DashboardNavigation.class);
-                        startActivity(i);*/
+
 
                         editor.putString("profile", "success");
                         editor.putString("truck_front", jo.getString("vehiclefront"));
                         editor.putString("truck_back", jo.getString("vehicleback"));
-                        editor.putString("truck_side", jo.getString("vehicleside"));
                         editor.putString("truck_rc",jo.getString("vehicletitle1"));
                       //  editor.putString("vehicletitle2", jo.getString("vehiclefront"));
                         editor.putString("truck_ins",jo.getString("vehicleinsurance1"));

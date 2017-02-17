@@ -118,6 +118,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/layout_goods_type"
                 android:layout_marginTop="@dimen/_3sdp">
 
                 <ImageView
@@ -294,7 +295,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="@dimen/_2sdp"
-                    android:src="@drawable/select_truck_type" />
+                    android:src="@drawable/delivery_addr_job_rvw" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -309,7 +310,7 @@
                         android:id="@+id/textview_book_to_txt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Goods Description"
+                        android:text="Nearby Landmark"
                         android:textColor="@color/redColor"
                         android:textSize="@dimen/_12sdp" />
 

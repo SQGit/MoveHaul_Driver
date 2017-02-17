@@ -58,6 +58,10 @@
             android:name=".ProfileActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
+        <activity
+            android:name=".ProfileActivityBus"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
 
         <activity
             android:name=".JobPosting"

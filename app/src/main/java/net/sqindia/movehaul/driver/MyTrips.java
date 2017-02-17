@@ -65,9 +65,11 @@ public class MyTrips extends AppCompatActivity {
     String id, token;
     ArrayList<MV_Datas> ar_job_history;
     ProgressDialog mProgressDialog;
-    TextView tv_cr_date,tv_cr_time,tv_cr_pickup,tv_cr_drop,tv_cr_delivery,tv_cr_cu_name,tv_cr_cu_phone;
+    TextView tv_cr_date,tv_cr_time,tv_cr_pickup,tv_cr_drop,tv_cr_delivery,tv_cr_cu_name,tv_cr_cu_phone,tv_cr_delivery_txt;
     MV_Datas mv_datas;
+    String vec_type;
     DashboardNavigation nssl;
+    String url_service;
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
 
         @Override
@@ -149,6 +151,15 @@ public class MyTrips extends AppCompatActivity {
 
         id = sharedPreferences.getString("id", "");
         token = sharedPreferences.getString("token", "");
+        vec_type = sharedPreferences.getString("vec_type", "");
+
+
+        if(vec_type.equals("Bus")){
+            url_service="busdriver/jobhistory";
+        }
+        else{
+            url_service="driver/jobhistory";
+        }
 
         mProgressDialog = new ProgressDialog(MyTrips.this);
         mProgressDialog.setTitle("Loading..");
@@ -260,6 +271,7 @@ public class MyTrips extends AppCompatActivity {
                 tv_cr_pickup = (android.widget.TextView) view.findViewById(R.id.cr_pickup);
                 tv_cr_drop = (android.widget.TextView) view.findViewById(R.id.cr_drop);
                 tv_cr_delivery = (android.widget.TextView) view.findViewById(R.id.cr_delivery);
+                tv_cr_delivery_txt = (android.widget.TextView) view.findViewById(R.id.cr_delivery_txt);
                 tv_cr_cu_name = (android.widget.TextView) view.findViewById(R.id.cr_cu_name);
                 tv_cr_cu_phone = (android.widget.TextView) view.findViewById(R.id.cr_cu_phone);
 
@@ -269,6 +281,12 @@ public class MyTrips extends AppCompatActivity {
                 tv_cr_pickup.setText(mv_datas.getPickup());
                 tv_cr_drop.setText(mv_datas.getDrop());
                 tv_cr_delivery.setText(mv_datas.getDelivery());
+                if(vec_type.equals("Bus")){
+                    tv_cr_delivery_txt.setText("Nearby Landmark");
+                }
+                else{
+                    tv_cr_delivery_txt.setText("Nearby Landmark");
+                }
                 tv_cr_cu_name.setText(mv_datas.getCusotmer_name());
                 tv_cr_cu_phone.setText(mv_datas.getCustomer_number());
 
@@ -359,7 +377,7 @@ public class MyTrips extends AppCompatActivity {
             try {
                 JSONObject jsonObject = new JSONObject();
                 json = jsonObject.toString();
-                return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + "driver/jobhistory", json, id, token);
+                return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + url_service, json, id, token);
 
             } catch (Exception e) {
                 Log.e("InputStream", e.getLocalizedMessage());

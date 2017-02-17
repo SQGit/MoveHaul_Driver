@@ -20,7 +20,16 @@ public class MV_Datas {
     String cusotmer_name;
     String customer_number;
     String delivery;
+    String vec_type;
 
+
+    public String getVec_type() {
+        return vec_type;
+    }
+
+    public void setVec_type(String vec_type) {
+        this.vec_type = vec_type;
+    }
 
     public String getJob_cost() {
         return job_cost;

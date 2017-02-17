@@ -18,6 +18,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ramotion.foldingcell.FoldingCell;
@@ -48,19 +49,24 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
     Typeface type;
     MV_Datas mv_datas;
     ProgressDialog mProgressDialog;
-    com.rey.material.widget.TextView tv_title_pickup, tv_title_drop, tv_title_date;
+    com.rey.material.widget.TextView tv_title_pickup, tv_title_drop, tv_title_date,tv_content_desc_txt;
     com.rey.material.widget.TextView tv_content_pickup, tv_content_drop, tv_content_date, tv_content_goodstype, tv_content_time, tv_content_desc;
     private HashSet<Integer> unfoldedIndexes = new HashSet<>();
     private View.OnClickListener defaultRequestBtnClickListener;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     String id,token,str_bidding, str_booking_id;
+    String vec_type;
+    LinearLayout lt_goods_type;
+    String service_url;
+    String vec;
 
-    public JobPostingAdapter(Context context, Activity acti, ArrayList<MV_Datas> objects) {
+    public JobPostingAdapter(Context context, Activity acti, ArrayList<MV_Datas> objects,String vec) {
         super(context, 0, objects);
         this.act = acti;
         this.context = context;
         this.ar_mv_datas = objects;
+        this.vec =vec;
     }
 
     @Override
@@ -96,6 +102,15 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         mProgressDialog.setMessage("Please wait");
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
+
+        Log.e("tag","ss:"+vec);
+
+        if(vec.equals("Bus")){
+            service_url ="busdriver/jobbidding";
+        }
+        else{
+            service_url ="driver/jobbidding";
+        }
 
 
 
@@ -138,6 +153,9 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
             }
         });
 
+        vec_type = mv_datas.getVec_type();
+        Log.e("tag","type:"+vec_type);
+
 
 
 
@@ -152,6 +170,8 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         tv_content_date = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_date);
         tv_content_time = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_time);
         tv_content_desc = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_desc);
+        tv_content_desc_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_book_to_txt);
+        lt_goods_type = (LinearLayout) cell.findViewById(R.id.layout_goods_type);
 
 
         tv_title_pickup.setText(mv_datas.getPickup());
@@ -164,7 +184,18 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         tv_content_goodstype.setText(mv_datas.getGoods_type());
         tv_content_date.setText(mv_datas.getDate());
         tv_content_time.setText(mv_datas.getTime());
-        tv_content_desc.setText(mv_datas.getDesc());
+
+        if(vec_type.equals("Bus")){
+            tv_content_desc_txt.setText("Nearby Landmark");
+            tv_content_desc.setText(mv_datas.getDelivery());
+            lt_goods_type.setVisibility(View.GONE);
+        }
+        else{
+            tv_content_desc_txt.setText("Nearby Landmark");
+            tv_content_desc.setText(mv_datas.getDelivery());
+            lt_goods_type.setVisibility(View.VISIBLE);
+        }
+
 
 
         dg_bidding = new Dialog(JobPostingAdapter.this.getContext());
@@ -240,9 +271,12 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
                 if (!(et_bidding.getText().toString().trim().isEmpty())){
                     if(!(et_driver_id.getText().toString().trim().isEmpty())){
 
-                        Log.e("tag","id:"+sharedPreferences.getString("driver_id",""));
+                        Log.e("tag","id:"+sharedPreferences.getString("driver_mobile",""));
 
-                        if(et_driver_id.getText().toString().trim().equals(sharedPreferences.getString("driver_id",""))){
+                        String number = sharedPreferences.getString("driver_mobile","");
+                        number = number.substring(3, number.length());
+
+                        if(et_driver_id.getText().toString().trim().equals(number)){
 
                             Log.e("tag","id: "+mv_datas.getBooking_id());
 
@@ -356,7 +390,7 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
                 jsonObject.accumulate("bidding_cost", str_bidding);
                 jsonObject.accumulate("booking_id", str_booking_id);
                 json = jsonObject.toString();
-                return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + "driver/jobbidding", json, id, token);
+                return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + service_url, json, id, token);
             } catch (Exception e) {
                 Log.e("InputStream", e.getLocalizedMessage());
             }
