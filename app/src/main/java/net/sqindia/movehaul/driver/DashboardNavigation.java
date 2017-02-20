@@ -779,7 +779,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                 jsonObject.accumulate("driver_locality1", str_locality);
                 jsonObject.accumulate("driver_locality2", str_address);
                 json = jsonObject.toString();
-                return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + "driver/location", json, service_id, service_token);
+                return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + "truckdriver/location", json, service_id, service_token);
             } catch (Exception e) {
                 Log.e("InputStream", e.getLocalizedMessage());
             }

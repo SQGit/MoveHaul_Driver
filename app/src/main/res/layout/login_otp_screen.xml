@@ -86,7 +86,7 @@
             android:layout_width="@dimen/_55sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/_13sdp"
+            android:layout_margin="@dimen/_10sdp"
             android:gravity="center"
             android:imeOptions="actionNext"
             android:inputType="number"
@@ -100,7 +100,7 @@
             android:layout_width="@dimen/_55sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/_13sdp"
+            android:layout_margin="@dimen/_8sdp"
             android:gravity="center"
             android:inputType="number"
             android:imeOptions="actionNext"
@@ -114,13 +114,13 @@
             android:layout_width="@dimen/_55sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/_13sdp"
+            android:layout_margin="@dimen/_8sdp"
             android:gravity="center"
             android:inputType="number"
             android:imeOptions="actionNext"
+            android:focusableInTouchMode="true"
             android:maxLength="1"
             android:maxLines="1"
-            android:nextFocusDown="@+id/edt_otp4"
             android:textSize="@dimen/_21sdp" />
 
         <EditText
@@ -128,7 +128,7 @@
             android:layout_width="@dimen/_55sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/_13sdp"
+            android:layout_margin="@dimen/_10sdp"
             android:gravity="center"
             android:imeOptions="actionDone"
             android:inputType="number"
@@ -140,7 +140,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:gravity="center"
         android:orientation="vertical">
 

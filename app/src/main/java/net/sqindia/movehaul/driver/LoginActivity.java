@@ -313,6 +313,7 @@ public class LoginActivity extends Activity {
                 try {
                     JSONObject jo = new JSONObject(s);
                     String status = jo.getString("status");
+                    String type = jo.getString("vehicle_type");
                     String msg = "Please Try Again Later.";
                     if(jo.has("message")) {
                         msg = jo.getString("message");
@@ -327,6 +328,7 @@ public class LoginActivity extends Activity {
 
                         Intent i = new Intent(LoginActivity.this, LoginOtpActivity.class);
                         i.putExtra("for","phone");
+                        i.putExtra("vec_type",type);
                         i.putExtra("data",str_mobile);
                         startActivity(i);
                         finish();
@@ -353,6 +355,7 @@ public class LoginActivity extends Activity {
 
                             Intent i = new Intent(LoginActivity.this, LoginOtpActivity.class);
                             i.putExtra("for","phone");
+                            i.putExtra("vec_type",type);
                             i.putExtra("data",str_mobile);
                             startActivity(i);
                             finish();
