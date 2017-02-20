@@ -159,8 +159,11 @@ public class MyTrips extends AppCompatActivity {
         if(vec_type.equals("Bus")){
             url_service="busdriver/jobhistory";
         }
-        else{
+        else if(vec_type.equals("Truck")){
             url_service="truckdriver/jobhistory";
+        }
+        else{
+            url_service="assistance/jobhistory";
         }
 
         mProgressDialog = new ProgressDialog(MyTrips.this);

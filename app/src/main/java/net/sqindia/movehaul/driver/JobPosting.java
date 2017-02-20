@@ -68,9 +68,11 @@ public class JobPosting extends Activity {
         if(vec_type.equals("Bus")){
             url_service="busdriver/showjobs";
         }
-        else{
+        else if(vec_type.equals("Truck")){
             url_service="truckdriver/showjobs";
-
+        }
+        else{
+            url_service="assistance/showjobs";
         }
 
 

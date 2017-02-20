@@ -121,6 +121,8 @@ public class RegisterActivity extends Activity {
         mProgressDialog.setCancelable(false);
 
 
+
+
         btn_back = (LinearLayout) findViewById(R.id.layout_back);
         btn_submit = (Button) findViewById(R.id.btn_submit);
         tv_register = (TextView) findViewById(R.id.text_register);
@@ -168,6 +170,11 @@ public class RegisterActivity extends Activity {
         iv_bus = (ImageView) findViewById(R.id.image_bus);
         iv_road_assit = (ImageView) findViewById(R.id.image_roadside_assistance);
 
+        et_name.setEnabled(false);
+        et_email.setEnabled(false);
+        et_mobile.setEnabled(false);
+        btn_submit.setEnabled(false);
+
         iv_bus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -176,6 +183,11 @@ public class RegisterActivity extends Activity {
                 vec_type = "Bus";
                 lt_filter_dialog.setAnimation(anim_btn_t2b);
                 lt_filter_dialog.setVisibility(View.GONE);
+
+                et_name.setEnabled(true);
+                et_email.setEnabled(true);
+                et_mobile.setEnabled(true);
+                btn_submit.setEnabled(true);
 
             }
         });
@@ -190,6 +202,11 @@ public class RegisterActivity extends Activity {
                 lt_filter_dialog.setAnimation(anim_btn_t2b);
                 lt_filter_dialog.setVisibility(View.GONE);
 
+                et_name.setEnabled(true);
+                et_email.setEnabled(true);
+                et_mobile.setEnabled(true);
+                btn_submit.setEnabled(true);
+
             }
         });
 
@@ -202,6 +219,11 @@ public class RegisterActivity extends Activity {
                 vec_type = "Road";
                 lt_filter_dialog.setAnimation(anim_btn_t2b);
                 lt_filter_dialog.setVisibility(View.GONE);
+
+                et_name.setEnabled(true);
+                et_email.setEnabled(true);
+                et_mobile.setEnabled(true);
+                btn_submit.setEnabled(true);
 
             }
         });
