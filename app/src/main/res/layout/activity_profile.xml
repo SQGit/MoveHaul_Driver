@@ -113,7 +113,7 @@
                             android:orientation="vertical">
 
                             <de.hdodenhof.circleimageview.CircleImageView
-                                android:id="@+id/imageview_vechile_inside"
+                                android:id="@+id/imageview_vechile_back"
                                 android:layout_width="@dimen/_45sdp"
                                 android:layout_height="@dimen/_45sdp"
                                 android:src="@drawable/truck_back_ico" />
@@ -136,7 +136,7 @@
                             android:orientation="vertical">
 
                             <de.hdodenhof.circleimageview.CircleImageView
-                                android:id="@+id/imageview_vechile_inside"
+                                android:id="@+id/imageview_vechile_front"
                                 android:layout_width="@dimen/_45sdp"
                                 android:layout_height="@dimen/_45sdp"
                                 android:src="@drawable/truck_front_ico" />

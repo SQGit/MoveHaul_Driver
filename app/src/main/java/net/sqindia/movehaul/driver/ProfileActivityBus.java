@@ -52,13 +52,12 @@ import me.iwf.photopicker.utils.PhotoPickerIntent;
 public class ProfileActivityBus extends Activity {
 
     public final static int REQUEST_PROFILE = 1;
-    public final static int REQUEST_VEC_BACK = 2;
+    public final static int REQUEST_VEC_INSIDE = 2;
     public final static int REQUEST_VEC_FRONT = 3;
-
     public final static int REQUEST_VEC_RC = 5;
     public final static int REQUEST_VEC_INS = 6;
     LinearLayout btn_back, lt_vec_rc, lt_vec_ins;
-    ImageView iv_profile, iv_vec_back, iv_vec_front,iv_vec_rc, iv_vec_ins;
+    ImageView iv_profile, iv_vec_inside, iv_vec_front,iv_vec_rc, iv_vec_ins;
     ArrayList<String> selectedPhotos = new ArrayList<>();
     String str_profile_img, str_vec_back, str_vec_front, str_vec_rc, str_vec_ins, str_contact, str_secondary, str_address;
     View view_rc, view_ins;
@@ -101,7 +100,7 @@ public class ProfileActivityBus extends Activity {
         iv_profile = (ImageView) findViewById(R.id.imageview_profile);
 
         iv_vec_front = (ImageView) findViewById(R.id.imageview_vechile_front);
-        iv_vec_back = (ImageView) findViewById(R.id.imageview_vechile_inside);
+        iv_vec_inside = (ImageView) findViewById(R.id.imageview_vechile_inside);
         iv_vec_rc = (ImageView) findViewById(R.id.imageview_vechile_rc);
         iv_vec_ins = (ImageView) findViewById(R.id.imageview_vechile_ins);
         tv_profile_name = (TextView) findViewById(R.id.textview_profile_name);
@@ -159,24 +158,24 @@ public class ProfileActivityBus extends Activity {
         Log.e("tag", "id:" + id + token);
 
 /*
-        if(!sharedPreferences.getString("truck_front","").equals("")){
-            et_address.setText(sharedPreferences.getString("truck_front",""));
+        if(!sharedPreferences.getString("bus_front","").equals("")){
+            et_address.setText(sharedPreferences.getString("bus_front",""));
         }*/
 
 
 
-        if(!sharedPreferences.getString("truck_front","").equals("")){
+        if(!sharedPreferences.getString("bus_front","").equals("")){
 
-            Log.e("tag","truckrond");
+            Log.e("tag","busrond");
 
-            String img = sharedPreferences.getString("truck_front","");
-            String img2 = sharedPreferences.getString("truck_back","");
-            String img3 = sharedPreferences.getString("truck_rc","");
-            String img4 = sharedPreferences.getString("truck_ins","");
+            String img = sharedPreferences.getString("bus_front","");
+            String img2 = sharedPreferences.getString("bus_inside","");
+            String img3 = sharedPreferences.getString("bus_rc","");
+            String img4 = sharedPreferences.getString("bus_ins","");
 
 
-            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL+"vehicle_details/"+img).error(R.drawable.truck_front_ico).into(iv_vec_front);
-            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL+"vehicle_details/"+img2).error(R.drawable.truck_back_ico).into(iv_vec_back);
+            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL+"vehicle_details/"+img).error(R.drawable.bus_front).into(iv_vec_front);
+            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL+"vehicle_details/"+img2).error(R.drawable.bus_inside).into(iv_vec_inside);
             Glide.with(ProfileActivityBus.this).load(Config.WEB_URL+"vehicle_details/"+img3).into(iv_vec_rc);
             Glide.with(ProfileActivityBus.this).load(Config.WEB_URL+"vehicle_details/"+img4).into(iv_vec_ins);
 
@@ -205,14 +204,14 @@ public class ProfileActivityBus extends Activity {
             }
         });
 
-        iv_vec_back.setOnClickListener(new View.OnClickListener() {
+        iv_vec_inside.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivityBus.this);
                 intent.setPhotoCount(1);
                 intent.setColumn(4);
                 intent.setShowCamera(true);
-                startActivityForResult(intent, REQUEST_VEC_BACK);
+                startActivityForResult(intent, REQUEST_VEC_INSIDE);
             }
         });
 
@@ -257,7 +256,6 @@ public class ProfileActivityBus extends Activity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /* tag{"status":true};*/
                 finish();
             }
         });
@@ -278,8 +276,8 @@ public class ProfileActivityBus extends Activity {
                                                               if (str_vec_back != null || !(sharedPreferences.getString("truck_back","").equals(""))) {
                                                                   if (str_vec_front != null || !(sharedPreferences.getString("truck_front","").equals(""))) {
 
-                                                                          if (str_vec_rc != null || !(sharedPreferences.getString("truck_rc","").equals(""))) {
-                                                                              if (str_vec_ins != null || !(sharedPreferences.getString("truck_ins","").equals(""))) {
+                                                                          if (str_vec_rc != null || !(sharedPreferences.getString("bus_rc","").equals(""))) {
+                                                                              if (str_vec_ins != null || !(sharedPreferences.getString("bus_ins","").equals(""))) {
 
 
                                                                                   if(str_profile_img != null)
@@ -314,7 +312,7 @@ public class ProfileActivityBus extends Activity {
 
                                                               } else {
                                                                   snackbar.show();
-                                                                  tv_snack.setText("Upload Vechile Back Image");
+                                                                  tv_snack.setText("Upload Vechile Inside Image");
                                                               }
                                                           } else {
                                                               snackbar.show();
@@ -352,9 +350,6 @@ public class ProfileActivityBus extends Activity {
 
     @Override
     public void onBackPressed() {
-        /*super.onBackPressed();
-        Intent i = new Intent(Payment.this,DashboardNavigation.class);
-        startActivity(i);*/
         finish();
     }
 
@@ -385,7 +380,7 @@ public class ProfileActivityBus extends Activity {
             //Picasso.with(ProfileActivity.this).load(new File(str_profile_img)).into(iv_profile);
             Glide.with(ProfileActivityBus.this).load(new File(str_profile_img)).into(iv_profile);
         }
-        if (resultCode == RESULT_OK && requestCode == REQUEST_VEC_BACK) {
+        if (resultCode == RESULT_OK && requestCode == REQUEST_VEC_INSIDE) {
             if (data != null) {
                 photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
             }
@@ -395,7 +390,7 @@ public class ProfileActivityBus extends Activity {
             }
             Log.d("tag", "img: " + selectedPhotos.get(0));
             str_vec_back = selectedPhotos.get(0);
-            Glide.with(ProfileActivityBus.this).load(new File(str_vec_back)).into(iv_vec_back);
+            Glide.with(ProfileActivityBus.this).load(new File(str_vec_back)).into(iv_vec_inside);
         }
         if (resultCode == RESULT_OK && requestCode == REQUEST_VEC_FRONT) {
             if (data != null) {
@@ -521,7 +516,6 @@ public class ProfileActivityBus extends Activity {
 
             mProgressDialog.dismiss();
 
-            // tag{"status":true}
 
 
             if (s != null) {
@@ -534,8 +528,6 @@ public class ProfileActivityBus extends Activity {
                     if (status.equals("true")) {
 
 
-                        /*Intent i = new Intent(ProfileActivity.this,DashboardNavigation.class);
-                        startActivity(i);*/
 
                         String msg = jo.getString("driverimage");
                         String mobile = jo.getString("driver_mobile_pri");
@@ -551,7 +543,6 @@ public class ProfileActivityBus extends Activity {
                         new vechile_update().execute();
 
                     } else {
-                        // Toast.makeText(getApplicationContext(), "Network Errror", Toast.LENGTH_LONG).show();
                         snackbar.show();
                         tv_snack.setText("Network Error! Please Try Again Later.");
                     }
@@ -560,12 +551,10 @@ public class ProfileActivityBus extends Activity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e("tag", "nt" + e.toString());
-                    //Toast.makeText(getApplicationContext(), "Network Errror0", Toast.LENGTH_LONG).show();
                     snackbar.show();
                     tv_snack.setText("Network Error! Please Try Again Later.");
                 }
             } else {
-                //Toast.makeText(getApplicationContext(), "Network Errror1", Toast.LENGTH_LONG).show();
                 snackbar.show();
                 tv_snack.setText("Network Error! Please Try Again Later.");
             }
@@ -621,8 +610,6 @@ public class ProfileActivityBus extends Activity {
                     }
 
 
-                   // entity.addPart("vehicletitle", new FileBody(new File(str_vec_rc), "image/jpeg"));
-                   // entity.addPart("vehicleinsurance", new FileBody(new File(str_vec_ins), "image/jpeg"));
 
 
                     httppost.setEntity(entity);
@@ -659,14 +646,12 @@ public class ProfileActivityBus extends Activity {
 
             mProgressDialog.dismiss();
 
-            // tag{"status":true}
 
 
             if (s != null) {
                 try {
                     JSONObject jo = new JSONObject(s);
                     String status = jo.getString("status");
-                    // String msg = jo.getString("message");
                     Log.d("tag", "<-----Status----->" + status);
 
                     if (status.equals("true")) {
@@ -674,17 +659,14 @@ public class ProfileActivityBus extends Activity {
 
 
                         editor.putString("profile", "success");
-                        editor.putString("truck_front", jo.getString("vehiclefront"));
-                        editor.putString("truck_back", jo.getString("vehicleback"));
-                        editor.putString("truck_rc",jo.getString("vehicletitle1"));
-                      //  editor.putString("vehicletitle2", jo.getString("vehiclefront"));
-                        editor.putString("truck_ins",jo.getString("vehicleinsurance1"));
-                       // editor.putString("vehicleinsurance2", jo.getString("vehiclefront"));
+                        editor.putString("bus_front", jo.getString("vehiclefront"));
+                        editor.putString("bus_inside", jo.getString("vehicleback"));
+                        editor.putString("bus_rc",jo.getString("vehicletitle1"));
+                        editor.putString("bus_ins",jo.getString("vehicleinsurance1"));
                         editor.commit();
 
                         finish();
                     } else {
-                        // Toast.makeText(getApplicationContext(), "Network Errror", Toast.LENGTH_LONG).show();
                         snackbar.show();
                         tv_snack.setText("Network Error! Please Try Again Later.");
                     }
@@ -693,12 +675,10 @@ public class ProfileActivityBus extends Activity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e("tag", "nt" + e.toString());
-                    //Toast.makeText(getApplicationContext(), "Network Errror0", Toast.LENGTH_LONG).show();
                     snackbar.show();
                     tv_snack.setText("Network Error! Please Try Again Later.");
                 }
             } else {
-                //Toast.makeText(getApplicationContext(), "Network Errror1", Toast.LENGTH_LONG).show();
                 snackbar.show();
                 tv_snack.setText("Network Error! Please Try Again Later.");
             }

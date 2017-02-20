@@ -131,41 +131,11 @@
 
 
 
-            <com.rey.material.widget.Button
-                android:id="@+id/btn_enter"
-                style="@style/Material.Drawable.Ripple.Touch"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/btn"
-                android:gravity="center"
-                android:padding="@dimen/_7sdp"
-                android:text="Enter"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                android:textSize="@dimen/_19sdp"
-                android:textStyle="bold" />
-
 
         </FrameLayout>
         </LinearLayout>
 
 
-            <LinearLayout
-                android:id="@+id/filter_dialog"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#ffffff"
-                android:visibility="gone"
-                android:layout_marginBottom="@dimen/_70sdp"
-                android:orientation="vertical">
-
-
-                <include
-
-                    layout="@layout/choose_type" />
-
-            </LinearLayout>
         </FrameLayout>
 
     </LinearLayout>

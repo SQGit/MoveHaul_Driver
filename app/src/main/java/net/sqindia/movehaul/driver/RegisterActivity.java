@@ -84,6 +84,8 @@ public class RegisterActivity extends Activity {
     ProgressDialog mProgressDialog;
     String vec_type;
     final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
+    ImageView iv_truck, iv_bus,iv_road_assit;
+    android.widget.LinearLayout lt_filter_dialog;
 
     public static int getDeviceHeight(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -109,8 +111,6 @@ public class RegisterActivity extends Activity {
 
         Intent idg  =getIntent();
 
-        vec_type = idg.getStringExtra("vec_type");
-        Log.e("tag","t:"+ vec_type);
 
         insertDummyContactWrapper();
 
@@ -124,8 +124,6 @@ public class RegisterActivity extends Activity {
         btn_back = (LinearLayout) findViewById(R.id.layout_back);
         btn_submit = (Button) findViewById(R.id.btn_submit);
         tv_register = (TextView) findViewById(R.id.text_register);
-
-
         et_name = (EditText) findViewById(R.id.edittext_name);
         et_email = (EditText) findViewById(R.id.edittext_mail);
         et_mobile = (EditText) findViewById(R.id.edittext_phone);
@@ -161,6 +159,53 @@ public class RegisterActivity extends Activity {
         til_name.setTypeface(type);
 
         final int height = getDeviceHeight(RegisterActivity.this);
+
+
+        lt_filter_dialog = (android.widget.LinearLayout) findViewById(R.id.filter_dialog);
+        lt_filter_dialog.setVisibility(View.VISIBLE);
+
+        iv_truck = (ImageView) findViewById(R.id.image_truck);
+        iv_bus = (ImageView) findViewById(R.id.image_bus);
+        iv_road_assit = (ImageView) findViewById(R.id.image_roadside_assistance);
+
+        iv_bus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TranslateAnimation anim_btn_t2b = new TranslateAnimation(0, 0, 0, height);
+                anim_btn_t2b.setDuration(500);
+                vec_type = "Bus";
+                lt_filter_dialog.setAnimation(anim_btn_t2b);
+                lt_filter_dialog.setVisibility(View.GONE);
+
+            }
+        });
+
+
+        iv_truck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TranslateAnimation anim_btn_t2b = new TranslateAnimation(0, 0, 0, height);
+                anim_btn_t2b.setDuration(500);
+                vec_type = "Truck";
+                lt_filter_dialog.setAnimation(anim_btn_t2b);
+                lt_filter_dialog.setVisibility(View.GONE);
+
+            }
+        });
+
+
+        iv_road_assit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TranslateAnimation anim_btn_t2b = new TranslateAnimation(0, 0, 0, height);
+                anim_btn_t2b.setDuration(500);
+                vec_type = "Road";
+                lt_filter_dialog.setAnimation(anim_btn_t2b);
+                lt_filter_dialog.setVisibility(View.GONE);
+
+            }
+        });
+
 
 
         snackbar = Snackbar

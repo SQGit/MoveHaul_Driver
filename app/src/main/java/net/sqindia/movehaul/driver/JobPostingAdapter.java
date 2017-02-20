@@ -109,7 +109,7 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
             service_url ="busdriver/jobbidding";
         }
         else{
-            service_url ="driver/jobbidding";
+            service_url ="truckdriver/jobbidding";
         }
 
 

@@ -17,11 +17,9 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.rey.material.widget.Button;
@@ -39,7 +37,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
     static EditText et_otp1, et_otp2, et_otp3, et_otp4;
     private static LoginOtpActivity inst;
     LinearLayout btn_back;
-    String  str_phone;
+    String str_phone;
     Button btn_submit;
     TextView tv_resendotp, tv_snack;
     SharedPreferences sharedPreferences;
@@ -48,8 +46,8 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
     Config config;
     ProgressDialog mProgressDialog;
     Typeface tf;
+    String str_otppin, str_for, str_data, str_URL, fcm_id;
     private View view;
-    String str_otppin, str_for, str_data,str_URL,fcm_id;
 
     private LoginOtpActivity(View view) {
         this.view = view;
@@ -77,7 +75,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         str_data = getIntent.getStringExtra("data");
 
 
-        Log.e("tag","data:"+str_for);
+        Log.e("tag", "data:" + str_for);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginOtpActivity.this);
         editor = sharedPreferences.edit();
@@ -89,7 +87,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
         fcm_id = FirebaseInstanceId.getInstance().getToken();
 
-        Log.e("tag",fcm_id);
+        Log.e("tag", fcm_id);
 
         mProgressDialog = new ProgressDialog(LoginOtpActivity.this);
         mProgressDialog.setTitle("Loading..");
@@ -247,7 +245,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
     public void receiveSms(String message) {
         Log.e("tag", "msgd4" + message);
 
-       // Toast.makeText(getApplicationContext(), "toast::" + message, Toast.LENGTH_LONG).show();
+        // Toast.makeText(getApplicationContext(), "toast::" + message, Toast.LENGTH_LONG).show();
 
         try {
 
@@ -379,27 +377,26 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         @Override
         protected String doInBackground(String... strings) {
 
-            String json = "", jsonStr = "",url ;
+            String json = "", jsonStr = "", url;
 
             try {
                 JSONObject jsonObject = new JSONObject();
 
 
-                Log.e("tag",str_for+ " dd: "+str_data+str_otppin);
+                Log.e("tag", str_for + " dd: " + str_data + str_otppin);
 
                 if (str_for.equals("phone")) {
 
-                    jsonObject.accumulate("driver_mobile", "+91"+str_data);
+                    jsonObject.accumulate("driver_mobile", "+91" + str_data);
                     jsonObject.accumulate("driver_otp", str_otppin);
                     jsonObject.accumulate("fcm_id", fcm_id);
-                    url ="driver/mobilelogin";
+                    url = "driver/mobilelogin";
                 } else {
 
                     jsonObject.accumulate("driver_email", str_data);
                     jsonObject.accumulate("driver_otp", str_otppin);
                     url = "driver/emaillogin";
                 }
-
 
 
                 json = jsonObject.toString();
@@ -427,70 +424,59 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                     Log.d("tag", "<-----Status----->" + status);
                     if (status.equals("true")) {
 
-                        // JSONObject data = new JSONObject(msg);
-
-                        String id = jo.getString("driver_id");
-                        String driver_mobile = jo.getString("driver_mobile");
-                        String driver_mobile_sec = jo.getString("driver_mobile_sec");
-                        String driver_email = jo.getString("driver_email");
-                        String driver_name = jo.getString("driver_name");
-                        String driver_image = jo.getString("driver_image");
-                        String driver_licence = jo.getString("driver_licence_image");
-                        String driver_verification = jo.getString("driver_verification");
-                        String driver_status = jo.getString("driver_status");
-                        String account_status = jo.getString("account_status");
-                        String token = jo.getString("token");
-                        String fake_id = jo.getString("fake_id");
-                        String vec_type = jo.getString("vehicle_type");
-
-//
-                        editor.putString("id", id);
-                        editor.putString("token", token);
+                        editor.putString("id", jo.getString("driver_id"));
+                        editor.putString("token", jo.getString("token"));
+                        editor.putString("driver_name", jo.getString("driver_name"));
+                        editor.putString("driver_mobile", jo.getString("driver_mobile"));
+                        editor.putString("driver_mobile2", jo.getString("driver_mobile_sec"));
+                        editor.putString("driver_email", jo.getString("driver_email"));
+                        editor.putString("driver_verification", jo.getString("driver_verification"));
+                        editor.putString("driver_status", jo.getString("driver_status"));
+                        editor.putString("account_status", jo.getString("account_status"));
+                        editor.putString("driver_licence_image", jo.getString("driver_licence_image"));
+                        editor.putString("driver_id", jo.getString("fake_id"));
+                        editor.putString("vec_type", jo.getString("vehicle_type"));
                         editor.putString("login", "success");
-                        editor.putString("driver_name", driver_name);
-                        editor.putString("driver_mobile", driver_mobile);
-                        editor.putString("driver_mobile2", driver_mobile_sec);
-                        editor.putString("driver_email", driver_email);
-                        editor.putString("driver_verification", driver_verification);
-                        editor.putString("driver_status", driver_status);
-                        editor.putString("account_status", account_status);
-                        editor.putString("driver_licence_image", driver_licence);
-                        editor.putString("driver_id", fake_id);
-                        editor.putString("vec_type", vec_type);
                         editor.commit();
 
-
-                        if(jo.getString("driver_image") != "null"){
-                            Log.e("tag","null string");
-                            editor.putString("driver_image", driver_image);
-                            editor.commit();
-                        }
-
-                        if(jo.has("truck_image_front")){
-                            Log.e("tag","has value");
-
-                            editor.putString("truck_front", jo.getString("truck_image_front"));
-                            editor.putString("truck_back", jo.getString("truck_image_back"));
-                            editor.putString("truck_side", jo.getString("truck_image_side"));
-                            editor.putString("truck_rc", jo.getString("truck_title_image1"));
-                            editor.putString("truck_ins", jo.getString("truck_insurance_image1"));
-                            editor.putString("profile","success");
-
-
-                            if(jo.getString("truck_title_image2") != "null"){
-                                editor.putString("truck_rc1", jo.getString("truck_title_image2"));
+                        if (jo.getString("vehicle_type").equals("Truck")) {
+                            if (jo.getString("driver_image") != "null") {
+                                editor.putString("driver_image", jo.getString("driver_image"));
+                                editor.commit();
                             }
-                            if(jo.getString("truck_insurance_image2") != "null"){
-                                editor.putString("truck_ins1", jo.getString("truck_insurance_image2"));
+                            if (jo.has("truck_image_front")) {
+                                editor.putString("truck_front", jo.getString("truck_image_front"));
+                                editor.putString("truck_back", jo.getString("truck_image_back"));
+                                editor.putString("truck_side", jo.getString("truck_image_side"));
+                                editor.putString("truck_rc", jo.getString("truck_title_image1"));
+                                editor.putString("truck_ins", jo.getString("truck_insurance_image1"));
+                                editor.putString("driver_address", jo.getString("driver_address"));
+                                editor.putString("profile", "success");
+                                if (jo.getString("truck_title_image2") != "null")
+                                    editor.putString("truck_rc1", jo.getString("truck_title_image2"));
+                                if (jo.getString("truck_insurance_image2") != "null")
+                                    editor.putString("truck_ins1", jo.getString("truck_insurance_image2"));
+                                editor.commit();
                             }
-
-
-                            editor.commit();
-
-
                         }
-                        else{
-                            Log.e("tag","no value");
+                        else if (jo.getString("vehicle_type").equals("Bus")) {
+                            if (jo.getString("driver_image") != "null") {
+                                editor.putString("driver_image", jo.getString("driver_image"));
+                                editor.commit();
+                            }
+                            if (jo.has("bus_image_front")) {
+                                editor.putString("bus_front", jo.getString("bus_image_front"));
+                                editor.putString("bus_inside", jo.getString("bus_image_back"));
+                                editor.putString("bus_rc", jo.getString("bus_title_image1"));
+                                editor.putString("bus_ins", jo.getString("bus_insurance_image1"));
+                                editor.putString("driver_address", jo.getString("driver_address"));
+                                editor.putString("profile", "success");
+                                if (jo.getString("bus_title_image2") != "null")
+                                    editor.putString("bus_rc1", jo.getString("bus_title_image2"));
+                                if (jo.getString("bus_insurance_image2") != "null")
+                                    editor.putString("bus_ins1", jo.getString("bus_insurance_image2"));
+                                editor.commit();
+                            }
                         }
 
 
@@ -501,8 +487,6 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
                     } else if (status.equals("false")) {
 
-
-                        //Toast.makeText(getApplicationContext(),"Otp Failed",Toast.LENGTH_LONG).show();
 
                         if (msg.contains("Authentication failed.Wrong Password")) {
 
@@ -531,32 +515,30 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
     }
 
 
-
     public class resend_otp extends AsyncTask<String, Void, String> {
 
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Log.e("tag","reg_preexe");
+            Log.e("tag", "reg_preexe");
             mProgressDialog.show();
         }
 
         @Override
         protected String doInBackground(String... strings) {
 
-            String json = "", jsonStr = "",url;
+            String json = "", jsonStr = "", url;
 
             try {
                 JSONObject jsonObject = new JSONObject();
 
 
-
                 if (str_for.equals("phone")) {
 
-                    jsonObject.accumulate("driver_mobile", "+91"+str_data);
+                    jsonObject.accumulate("driver_mobile", "+91" + str_data);
                     jsonObject.accumulate("driver_otp", str_otppin);
-                    url ="drivermobileotp";
+                    url = "drivermobileotp";
                 } else {
 
                     jsonObject.accumulate("driver_email", str_data);
@@ -578,7 +560,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.e("tag","tag"+s);
+            Log.e("tag", "tag" + s);
             mProgressDialog.dismiss();
 
 
@@ -604,15 +586,13 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                         if (msg.contains("Error Occured[object Object]")) {
 
 
-
                         }
-
 
 
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.e("tag","nt"+e.toString());
+                    Log.e("tag", "nt" + e.toString());
                     // Toast.makeText(getApplicationContext(),"Network Errror0",Toast.LENGTH_LONG).show();
                     snackbar.show();
                 }

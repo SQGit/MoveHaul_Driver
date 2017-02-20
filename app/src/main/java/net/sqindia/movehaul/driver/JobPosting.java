@@ -69,7 +69,7 @@ public class JobPosting extends Activity {
             url_service="busdriver/showjobs";
         }
         else{
-            url_service="driver/showjobs";
+            url_service="truckdriver/showjobs";
 
         }
 

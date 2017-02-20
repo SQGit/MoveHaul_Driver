@@ -19,9 +19,18 @@ public class MV_Datas {
     String desc;
     String cusotmer_name;
     String customer_number;
+    String customer_img;
     String delivery;
     String vec_type;
 
+
+    public String getCustomer_img() {
+        return customer_img;
+    }
+
+    public void setCustomer_img(String customer_img) {
+        this.customer_img = customer_img;
+    }
 
     public String getVec_type() {
         return vec_type;

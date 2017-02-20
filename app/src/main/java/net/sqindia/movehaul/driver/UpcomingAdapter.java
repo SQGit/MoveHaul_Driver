@@ -43,6 +43,7 @@ public class UpcomingAdapter extends ArrayAdapter<MV_Datas> {
     ImageView iv_content_prof;
     private HashSet<Integer> unfoldedIndexes = new HashSet<>();
     private View.OnClickListener defaultRequestBtnClickListener;
+    ImageView iv_cus_img;
 
     public UpcomingAdapter(Context context, Activity acti, ArrayList<MV_Datas> objects) {
         super(context, 0, objects);
@@ -141,7 +142,8 @@ public class UpcomingAdapter extends ArrayAdapter<MV_Datas> {
         tv_content_time.setText(mv_datas.getTime());
 
 
-        //Glide.with(act).load(Config.WEB_URL + "customer_details/" + mv_datas.getDriver_image()).into(iv_content_prof);
+
+        Glide.with(act.getApplicationContext()).load(Config.WEB_URL + "customer_details/" + mv_datas.getCustomer_img()).into(iv_content_prof);
 
 
         dialog1 = new Dialog(UpcomingAdapter.this.getContext());

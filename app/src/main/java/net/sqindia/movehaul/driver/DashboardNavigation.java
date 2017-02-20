@@ -60,9 +60,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by SQINDIA on 10/26/2016.
- */
+
 
 public class DashboardNavigation extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -72,41 +70,26 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     Toolbar toolbar;
     DrawerLayout drawer;
     NavigationView navigationView;
-    Button btn_submit, btn_book_later;
-    TextView tv_name, tv_email, nav_tv_mytrips, nav_tv_profile, nav_tv_reviews, tv_tracking, nav_tv_payments, nav_tv_Bankdetails;
-    AutoCompleteTextView starting, destination;
-    TextInputLayout flt_pickup, flt_droplocation;
-    FloatingActionButton fab_truck;
-    ImageView pickup_close, btn_menu, rightmenu;
-    android.widget.LinearLayout droplv, pickuplv;
+    TextView nav_tv_mytrips, nav_tv_profile, nav_tv_reviews, tv_tracking, nav_tv_payments, nav_tv_Bankdetails, tv_driver_id, tv_driver_name, tv_driver_email;
+    ImageView  btn_menu, rightmenu,iv_nav_profile;
     Dialog dialog1;
     GpsTracker gps;
-    Button btn_yes, btn_no;
+    Button btn_yes, btn_no, btn_submit;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     int exit_status;
-    android.widget.TextView tv_txt1, tv_txt2, tv_txt3,tv_snack2;
-    Snackbar snackbar2;
-    TextView tv_driver_id;
+    android.widget.TextView tv_txt1, tv_txt2, tv_txt3,tv_snack2,sb_text,tv_snack_act,tv_snack;
+    Snackbar snackbar2, snackbar, snackbart;
     Typeface tf;
     int stss;
     Geocoder geocoder;
     List<Address> addresses;
     double dl_latitude, dl_longitude;
-    String str_lati, str_longi, str_locality, str_address, str_active = "inactive";
     Switch sw_active;
-    Snackbar snackbar, snackbart;
-    android.widget.TextView sb_text,tv_snack_act;
     LocationManager manager;
-    ImageView iv_nav_profile;
-    String service_id, service_token, str_driver_email, str_driver_phone, str_driver_name;
-    TextView tv_driver_name, tv_driver_email;
-    android.widget.TextView tv_snack;
+    String service_id, service_token, str_driver_email, str_driver_phone, str_driver_name,vec_type,str_lati, str_longi, str_locality, str_address, str_active = "inactive";
     private ViewFlipper mViewFlipper;
-    String vec_type;
-
     private int STORAGE_PERMISSION_CODE = 23;
-
 
 
     public BroadcastReceiver getLocation_Receiver = new BroadcastReceiver() {
@@ -118,12 +101,6 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
             str_lati = b.getString("latitude");
             str_longi = b.getString("longitude");
-            // str_address = b.getString("address");
-            // str_locality = b.getString("city");
-            // String state = b.getString("state");
-            // String country =b.getString("country");
-            // String postalCode = b.getString("postalCode");
-            //String knownName = b.getString("knownName");
 
 
             geocoder = new Geocoder(DashboardNavigation.this, Locale.getDefault());
@@ -140,7 +117,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     + addresses.get(0).getSubLocality() + "\n subadmin: " + addresses.get(0).getSubAdminArea()
                     + "\n premisis: " + addresses.get(0).getPremises() + "\n postal " + addresses.get(0).getPostalCode());
 
-            Log.e("tag", "as:" + str_lati + str_longi + "adr:" + str_address + "loc:" + str_locality);
+            Log.e("tag_broad_0", "as: " + str_lati + str_longi + "adr:" + str_address + "loc:" + str_locality);
 
             new updateLocation().execute();
 
@@ -149,8 +126,6 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
         }
     };
-
-
 
     private void requestStoragePermission(){
 
@@ -163,8 +138,6 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         //And finally ask for the permission
         ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},STORAGE_PERMISSION_CODE);
     }
-
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
@@ -195,33 +168,23 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         editor = sharedPreferences.edit();
 
         tf = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
-
         gps = new GpsTracker(DashboardNavigation.this);
-
         geocoder = new Geocoder(DashboardNavigation.this, Locale.getDefault());
-
         manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         service_id = sharedPreferences.getString("id", "");
         service_token = sharedPreferences.getString("token", "");
         vec_type = sharedPreferences.getString("vec_type","");
-
-      //  Log.e("tag","id: "+service_id);
-      //  Log.e("tag","token: "+service_token);
-        Log.e("tag","token: "+vec_type);
-
-
         str_driver_name = sharedPreferences.getString("driver_name", "");
         str_driver_phone = sharedPreferences.getString("driver_mobile", "");
         str_driver_email = sharedPreferences.getString("driver_email", "");
+
+        Log.e("tag","type:: "+vec_type);
 
 
         mContext = this;
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-        // tv_name = (TextView) findViewById(R.id.textView_name);
-        //  tv_email = (TextView) findViewById(R.id.textView_email);
-        // tv_myTrips = (TextView) findViewById(R.id.textView_mytrips);
         nav_tv_profile = (TextView) findViewById(R.id.textview_profile);
         nav_tv_mytrips = (TextView) findViewById(R.id.textview_mytrips);
         nav_tv_reviews = (TextView) findViewById(R.id.textview_reviews);
@@ -231,13 +194,9 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         btn_menu = (ImageView) findViewById(R.id.img_menu);
         rightmenu = (ImageView) findViewById(R.id.right_menu);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         sw_active = (Switch) findViewById(R.id.switch_active);
-
         btn_submit = (Button) findViewById(R.id.button_submit);
-
         mViewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
-
         tv_driver_id = (TextView) findViewById(R.id.textview_driverid);
         tv_driver_name = (TextView) findViewById(R.id.textview_drivername);
         tv_driver_email = (TextView) findViewById(R.id.textview_email);
@@ -257,37 +216,9 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         mViewFlipper.setInAnimation(this, R.anim.anim1);
         mViewFlipper.setOutAnimation(this, R.anim.anim2);
 
-
-
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            //  return TODO;
-
             requestStoragePermission();
         }
-
-
-
-        String  dr_id = Character.toString(str_driver_name.charAt(1))+Character.toString(str_driver_name.charAt(0))+Character.toString(str_driver_name.charAt(str_driver_name.length()-1));
-
-        String dr_ph =Character.toString(str_driver_phone.charAt(5))+Character.toString(str_driver_phone.charAt(0))+Character.toString(str_driver_phone.charAt(str_driver_phone.length()-1));
-
-
-        Log.e("tag","ch"+str_driver_name);
-
-        Log.e("tag","hi mvd"+dr_id+dr_ph);
-
-
-        tv_driver_id.setText(sharedPreferences.getString("driver_id",""));
-
-
-
 
         snackbar = Snackbar
                 .make(findViewById(R.id.drawer_layout), "Location Not Enabled", Snackbar.LENGTH_INDEFINITE)
@@ -296,14 +227,9 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     public void onClick(View view) {
                         snackbar.dismiss();
                         startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-
                     }
                 });
-
-// Changing message text color
         snackbar.setActionTextColor(Color.RED);
-
-
         View sbView = snackbar.getView();
         sb_text = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
         android.widget.TextView textView1 = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_action);
@@ -319,7 +245,6 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         snackbart.setAction("Profile", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if(vec_type.equals("Bus")){
                     Intent i = new Intent(DashboardNavigation.this, ProfileActivityBus.class);
                     startActivity(i);
@@ -328,8 +253,6 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     Intent i = new Intent(DashboardNavigation.this, ProfileActivity.class);
                     startActivity(i);
                 }
-
-
             }
         });
         snackbart.setActionTextColor(getResources().getColor(R.color.redColor));
@@ -339,9 +262,6 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         tv_snack.setTypeface(tf);
         tv_snack_act.setTypeface(tf);
 
-
-
-
         snackbar2 = Snackbar
                 .make(findViewById(R.id.top), "Please Be Active to find Jobs.!", Snackbar.LENGTH_LONG);
         View sbView2 = snackbar2.getView();
@@ -350,7 +270,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         tv_snack2.setTypeface(tf);
 
 
-
+        tv_driver_id.setText(sharedPreferences.getString("driver_id",""));
 
 
         if (sharedPreferences.getString("profile", "").equals("")) {
@@ -358,7 +278,6 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         }
 
 
-        // Add all the images to the ViewFlipper
         for (int i = 0; i < resources.length; i++) {
             ImageView imageView = new ImageView(this);
             imageView.setImageDrawable(getResources().getDrawable(resources[i]));
@@ -383,8 +302,6 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                 dl_latitude = gps.getLatitude();
                 dl_longitude = gps.getLongitude();
 
-                //  str_locality = gps.getlocality();
-                //  str_address = gps.getaddress();
                 str_lati = String.valueOf(dl_latitude);
                 str_longi = String.valueOf(dl_longitude);
 
@@ -413,13 +330,11 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
 
                 Log.e("tag", "ee:" + str_lati + "aa:" + str_longi + "bb:" + str_locality + "cc:" + str_address);
-                // snackbar.dismiss();
 
                 if (!(sharedPreferences.getString("driver_status", "").equals(""))) {
                     str_active = sharedPreferences.getString("driver_status", "");
                     if (str_active.equals("active")) {
                         sw_active.setChecked(true);
-                        // new updateLocation().execute();
                         isRegistered = true;
                         try {
                             DashboardNavigation.this.registerReceiver(DashboardNavigation.this.getLocation_Receiver, new IntentFilter("appendGetLocation"));
@@ -436,22 +351,10 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     str_active = "inactive";
                     editor.putString(" ", str_active);
                     editor.commit();
-                   /* try {
-                        DashboardNavigation.this.unregisterReceiver(DashboardNavigation.this.getLocation_Receiver);                    }
-                    catch (Exception e){
-                        Log.e("tag","er1:"+e.toString());
-                    }*/
-
-                    // new updateLocation().execute();
                 }
 
-                // \n is for new line
-                // Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
             } else {
-                // can't get location
-                // GPS or Network is not enabled
-                // Ask user to enable GPS/network in settings
-                //gps.showSettingsAlert();
+
             }
         }
 
@@ -642,7 +545,6 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
                 else if(str_active.equals("inactive")){
                     snackbar2.show();
-                   // tv_snack.setText("Please be active to find Jobs");
 
 
                 }
@@ -781,8 +683,6 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     dl_latitude = gps.getLatitude();
                     dl_longitude = gps.getLongitude();
 
-                    // str_locality = gps.getlocality();
-                    // str_address = gps.getaddress();
                     str_lati = String.valueOf(dl_latitude);
                     str_longi = String.valueOf(dl_longitude);
 
@@ -807,11 +707,8 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                         Log.e("tag", "er:" + e.toString());
                     }
 
-                    // snackbar.dismiss();
 
                     new updateLocation().execute();
-                    // \n is for new line
-                    // Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
                 }
 
             } else {
@@ -823,8 +720,6 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                 String img = sharedPreferences.getString("driver_image","");
                 Log.e("tag","dr:"+img);
                 Glide.with(DashboardNavigation.this).load(Config.WEB_URL+"driver_details/"+img).into(iv_nav_profile);
-
-               /// Picasso.with(DashboardNavigation.this).load(Config.WEB_URL+"driver_details/"+img).into(iv_nav_profile);
 
             }
 
@@ -905,15 +800,12 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                         Log.e("tag", "Location Updated");
                     } else if (status.equals("false")) {
                         Log.e("tag", "Location not updated");
-                        //has to check internet and location...
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e("tag", "nt" + e.toString());
-                    // Toast.makeText(getApplicationContext(),"Network Errror0",Toast.LENGTH_LONG).show();
                 }
             } else {
-                // Toast.makeText(getApplicationContext(),"Network Errror1",Toast.LENGTH_LONG).show();
             }
         }
     }

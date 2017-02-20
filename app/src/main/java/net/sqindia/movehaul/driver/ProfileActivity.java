@@ -99,8 +99,8 @@ public class ProfileActivity extends Activity {
 
 
         iv_profile = (ImageView) findViewById(R.id.imageview_profile);
-        iv_vec_back = (ImageView) findViewById(R.id.imageview_vechile_inside);
-        iv_vec_front = (ImageView) findViewById(R.id.imageview_vechile_inside);
+        iv_vec_back = (ImageView) findViewById(R.id.imageview_vechile_back);
+        iv_vec_front = (ImageView) findViewById(R.id.imageview_vechile_front);
         iv_vec_side = (ImageView) findViewById(R.id.imageview_vechile_side);
         iv_vec_rc = (ImageView) findViewById(R.id.imageview_vechile_rc);
         iv_vec_ins = (ImageView) findViewById(R.id.imageview_vechile_ins);
@@ -366,9 +366,6 @@ public class ProfileActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        /*super.onBackPressed();
-        Intent i = new Intent(Payment.this,DashboardNavigation.class);
-        startActivity(i);*/
         finish();
     }
 
@@ -396,7 +393,6 @@ public class ProfileActivity extends Activity {
             }
             Log.d("tag", "img: " + selectedPhotos.get(0));
             str_profile_img = selectedPhotos.get(0);
-            //Picasso.with(ProfileActivity.this).load(new File(str_profile_img)).into(iv_profile);
             Glide.with(ProfileActivity.this).load(new File(str_profile_img)).into(iv_profile);
         }
         if (resultCode == RESULT_OK && requestCode == REQUEST_VEC_BACK) {
@@ -485,12 +481,11 @@ public class ProfileActivity extends Activity {
                 //driver/driverupdate
                 String responseString = null;
                 HttpClient httpclient = new DefaultHttpClient();
-                HttpPost httppost = new HttpPost(Config.WEB_URL + "driver/driverupdate");
+                HttpPost httppost = new HttpPost(Config.WEB_URL + "truckdriver/driverupdate");
 
                 httppost.setHeader("driver_mobile_pri", "+91" + str_contact);
                 httppost.setHeader("driver_mobile_sec", "+91" + str_secondary);
                 httppost.setHeader("driver_address", str_address);
-                //{"id":"10000","sessiontoken":"fkjdshfjdsfhkjdfkgdgfdgfuau"
 
                 httppost.setHeader("id", id);
                 httppost.setHeader("sessiontoken", token);
@@ -546,7 +541,6 @@ public class ProfileActivity extends Activity {
 
             mProgressDialog.dismiss();
 
-            // tag{"status":true}
 
 
             if (s != null) {
@@ -558,9 +552,6 @@ public class ProfileActivity extends Activity {
 
                     if (status.equals("true")) {
 
-
-                        /*Intent i = new Intent(ProfileActivity.this,DashboardNavigation.class);
-                        startActivity(i);*/
 
                         String msg = jo.getString("driverimage");
                         String mobile = jo.getString("driver_mobile_pri");
@@ -576,7 +567,6 @@ public class ProfileActivity extends Activity {
                         new vechile_update().execute();
 
                     } else {
-                        // Toast.makeText(getApplicationContext(), "Network Errror", Toast.LENGTH_LONG).show();
                         snackbar.show();
                         tv_snack.setText("Network Error! Please Try Again Later.");
                     }
@@ -585,12 +575,10 @@ public class ProfileActivity extends Activity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e("tag", "nt" + e.toString());
-                    //Toast.makeText(getApplicationContext(), "Network Errror0", Toast.LENGTH_LONG).show();
                     snackbar.show();
                     tv_snack.setText("Network Error! Please Try Again Later.");
                 }
             } else {
-                //Toast.makeText(getApplicationContext(), "Network Errror1", Toast.LENGTH_LONG).show();
                 snackbar.show();
                 tv_snack.setText("Network Error! Please Try Again Later.");
             }
@@ -620,7 +608,7 @@ public class ProfileActivity extends Activity {
                 //driver/driverupdate
                 String responseString = null;
                 HttpClient httpclient = new DefaultHttpClient();
-                HttpPost httppost = new HttpPost(Config.WEB_URL + "driver/vehicleupdate");
+                HttpPost httppost = new HttpPost(Config.WEB_URL + "truckdriver/vehicleupdate");
 
 
                 httppost.setHeader("id", id);
@@ -649,10 +637,6 @@ public class ProfileActivity extends Activity {
                     if(str_vec_ins!= null){
                         entity.addPart("vehicleinsurance", new FileBody(new File(str_vec_ins), "image/jpeg"));
                     }
-
-
-                   // entity.addPart("vehicletitle", new FileBody(new File(str_vec_rc), "image/jpeg"));
-                   // entity.addPart("vehicleinsurance", new FileBody(new File(str_vec_ins), "image/jpeg"));
 
 
                     httppost.setEntity(entity);
@@ -686,37 +670,29 @@ public class ProfileActivity extends Activity {
             super.onPostExecute(s);
             Log.e("tag", "tag" + s);
 
-
             mProgressDialog.dismiss();
 
-            // tag{"status":true}
 
 
             if (s != null) {
                 try {
                     JSONObject jo = new JSONObject(s);
                     String status = jo.getString("status");
-                    // String msg = jo.getString("message");
                     Log.d("tag", "<-----Status----->" + status);
 
                     if (status.equals("true")) {
 
-                        /*Intent i = new Intent(ProfileActivity.this,DashboardNavigation.class);
-                        startActivity(i);*/
 
                         editor.putString("profile", "success");
                         editor.putString("truck_front", jo.getString("vehiclefront"));
                         editor.putString("truck_back", jo.getString("vehicleback"));
                         editor.putString("truck_side", jo.getString("vehicleside"));
                         editor.putString("truck_rc",jo.getString("vehicletitle1"));
-                      //  editor.putString("vehicletitle2", jo.getString("vehiclefront"));
                         editor.putString("truck_ins",jo.getString("vehicleinsurance1"));
-                       // editor.putString("vehicleinsurance2", jo.getString("vehiclefront"));
                         editor.commit();
 
                         finish();
                     } else {
-                        // Toast.makeText(getApplicationContext(), "Network Errror", Toast.LENGTH_LONG).show();
                         snackbar.show();
                         tv_snack.setText("Network Error! Please Try Again Later.");
                     }
@@ -725,12 +701,10 @@ public class ProfileActivity extends Activity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e("tag", "nt" + e.toString());
-                    //Toast.makeText(getApplicationContext(), "Network Errror0", Toast.LENGTH_LONG).show();
                     snackbar.show();
                     tv_snack.setText("Network Error! Please Try Again Later.");
                 }
             } else {
-                //Toast.makeText(getApplicationContext(), "Network Errror1", Toast.LENGTH_LONG).show();
                 snackbar.show();
                 tv_snack.setText("Network Error! Please Try Again Later.");
             }

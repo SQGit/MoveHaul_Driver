@@ -21,7 +21,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/first_layout"
@@ -423,40 +423,58 @@
         </LinearLayout>
 
 
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <include
+                layout="@layout/down_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></include>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="By signing up you agree to the terms &amp; conditions"
+                    android:textSize="@dimen/_10sdp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="and privacy policy of Movehaul"
+                    android:textSize="@dimen/_10sdp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/filter_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+
+            <include
+
+                layout="@layout/choose_type" />
+
+        </LinearLayout>
     </FrameLayout>
 
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="bottom"
-        android:gravity="bottom"
-        android:orientation="horizontal">
-
-        <include
-            layout="@layout/down_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></include>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_5sdp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="By signing up you agree to the terms &amp; conditions"
-                android:textSize="@dimen/_10sdp" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="and privacy policy of Movehaul"
-                android:textSize="@dimen/_10sdp" />
-        </LinearLayout>
-    </LinearLayout>
 </LinearLayout>

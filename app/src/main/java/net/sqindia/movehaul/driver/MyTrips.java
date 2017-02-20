@@ -158,7 +158,7 @@ public class MyTrips extends AppCompatActivity {
             url_service="busdriver/jobhistory";
         }
         else{
-            url_service="driver/jobhistory";
+            url_service="truckdriver/jobhistory";
         }
 
         mProgressDialog = new ProgressDialog(MyTrips.this);
@@ -418,6 +418,7 @@ public class MyTrips extends AppCompatActivity {
                                 String delivery_address = jos.getString("delivery_address");
                                 String customer_name = jos.getString("customer_name");
                                 String customer_phone = jos.getString("customer_mobile");
+                                String customer_image = jos.getString("customer_image");
                                 String booking_id = jos.getString("bidding_id");
                                 String job_cost = jos.getString("job_cost");
                                 String goods_type = jos.getString("goods_type");
@@ -442,6 +443,7 @@ public class MyTrips extends AppCompatActivity {
                                 mv_datas.setBooking_id(booking_id);
                                 mv_datas.setJob_cost(job_cost);
                                 mv_datas.setGoods_type(goods_type);
+                                mv_datas.setCustomer_img(customer_image);
 
                                 ar_job_history.add(mv_datas);
 

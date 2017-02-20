@@ -33,13 +33,9 @@ import com.sloop.fonts.FontsManager;
 
 public class SplashActivity extends Activity {
     Button btn_register, btn_login;
-    Button btn_enter;
     ImageView truck_icon, logo_icon, bg_icon;
     LinearLayout lt_bottom;
-
-    boolean isBottom = true;
     int is = 0;
-    ImageView iv_truck, iv_bus;
     Config config;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -47,8 +43,6 @@ public class SplashActivity extends Activity {
     Typeface tf;
     TranslateAnimation anim_btn_b2t, anim_btn_t2b, anim_truck_c2r, anim_new;
     Animation fadeIn, fadeOut;
-    LinearLayout lt_filter_dialog;
-    String str_type;
     private FirebaseAnalytics mFirebaseAnalytics;
 
     public static int getDeviceWidth(Context context) {
@@ -93,106 +87,14 @@ public class SplashActivity extends Activity {
 
         btn_register = (Button) findViewById(R.id.btn_register);
         btn_login = (Button) findViewById(R.id.btn_login);
-        btn_enter = (Button) findViewById(R.id.btn_enter);
         truck_icon = (ImageView) findViewById(R.id.truck_icon);
         bg_icon = (ImageView) findViewById(R.id.bg_icon);
         logo_icon = (ImageView) findViewById(R.id.logo_ico);
         lt_bottom = (LinearLayout) findViewById(R.id.layout_bottom);
 
-
-        // lt_bottom1.setVisibility(View.GONE);
-
-
-        lt_filter_dialog = (LinearLayout) findViewById(R.id.filter_dialog);
-        lt_filter_dialog.setVisibility(View.GONE);
-
-        iv_truck = (ImageView) findViewById(R.id.image_truck);
-        iv_bus = (ImageView) findViewById(R.id.image_bus);
-
-
-/*
-        if (!config.isConnected(SplashActivity.this)) {
-            lt_bottom.setVisibility(View.GONE);
-            anim_btn_b2t = new TranslateAnimation(0, 0, height + lt_bottom.getHeight(), lt_bottom.getHeight());
-            anim_btn_b2t.setDuration(1400);
-            anim_btn_b2t.setFillAfter(false);
-            lt_bottom.setAnimation(anim_btn_b2t);
-        }*/
-
-
-        lt_bottom.setVisibility(View.GONE);
-
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                new check_internet().execute();
-            }
-        }, 1300);
-
-
         if (sharedPreferences.getString("login", "").equals("success")) {
             lt_bottom.setVisibility(View.GONE);
-            btn_enter.setVisibility(View.GONE);
         }
-
-
-        btn_enter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TranslateAnimation anim_btn_b2t = new TranslateAnimation(0, 0, height, 0);
-                anim_btn_b2t.setDuration(500);
-                lt_filter_dialog.setAnimation(anim_btn_b2t);
-                lt_filter_dialog.setVisibility(View.VISIBLE);
-                btn_enter.setVisibility(View.GONE);
-            }
-        });
-
-
-        iv_bus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                lt_bottom.setVisibility(View.VISIBLE);
-                anim_btn_b2t = new TranslateAnimation(0, 0, height + lt_bottom.getHeight(), lt_bottom.getHeight());
-                anim_btn_b2t.setDuration(1000);
-                anim_btn_b2t.setFillAfter(false);
-                lt_bottom.setAnimation(anim_btn_b2t);
-
-                iv_truck.setVisibility(View.GONE);
-
-                anim_new = new TranslateAnimation(width / 3, width / 10, 0, 0);
-                anim_new.setDuration(800);
-                anim_new.setFillAfter(true);
-                iv_bus.setAnimation(anim_new);
-
-                str_type = "Bus";
-
-            }
-        });
-
-
-        iv_truck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                lt_bottom.setVisibility(View.VISIBLE);
-                anim_btn_b2t = new TranslateAnimation(0, 0, height + lt_bottom.getHeight(), lt_bottom.getHeight());
-                anim_btn_b2t.setDuration(1000);
-                anim_btn_b2t.setFillAfter(false);
-                lt_bottom.setAnimation(anim_btn_b2t);
-
-                iv_bus.setVisibility(View.GONE);
-
-                anim_new = new TranslateAnimation(0, width / 4.7f, 0, 0);
-                anim_new.setDuration(800);
-                anim_new.setFillAfter(true);
-                iv_truck.setAnimation(anim_new);
-
-                str_type = "Truck";
-
-            }
-        });
 
 
         truck_icon.animate().translationX(width / (float) 1.65).setDuration(1700).withLayer();
@@ -200,11 +102,18 @@ public class SplashActivity extends Activity {
         fadeIn.setDuration(1500);
         fadeOut = new AlphaAnimation(1, 0);
         fadeOut.setDuration(1700);
+
         AnimationSet animation = new AnimationSet(true);
         animation.addAnimation(fadeIn);
         animation.addAnimation(fadeOut);
         bg_icon.setAnimation(fadeIn);
         logo_icon.setAnimation(fadeIn);
+
+
+        anim_btn_b2t = new TranslateAnimation(0, 0, height + lt_bottom.getHeight(), lt_bottom.getHeight());
+        anim_btn_b2t.setDuration(1400);
+        anim_btn_b2t.setFillAfter(false);
+        lt_bottom.setAnimation(anim_btn_b2t);
 
 
         anim_btn_t2b = new TranslateAnimation(0, 0, lt_bottom.getHeight(), height + lt_bottom.getHeight());
@@ -214,6 +123,15 @@ public class SplashActivity extends Activity {
         anim_truck_c2r = new TranslateAnimation(0, width, 0, 0);
         anim_truck_c2r.setDuration(2000);
         anim_truck_c2r.setFillAfter(false);
+
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                new check_internet().execute();
+            }
+        }, 1300);
 
 
         snackbar = Snackbar
@@ -236,55 +154,46 @@ public class SplashActivity extends Activity {
             @Override
             public void onClick(View view) {
 
-                /*if (sharedPreferences.getString("login", "").equals("success")) {
+                lt_bottom.startAnimation(anim_btn_t2b);
+                truck_icon.startAnimation(anim_truck_c2r);
+                bg_icon.setAnimation(fadeOut);
 
-                    lt_bottom.startAnimation(anim_btn_t2b);
-                    truck_icon.startAnimation(anim_truck_c2r);
-                    bg_icon.setAnimation(fadeOut);
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent isd = new Intent(SplashActivity.this, LoginActivity.class);
-                            Bundle bndlanimation =
-                                    ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.anim1, R.anim.anim2).toBundle();
-                            startActivity(isd, bndlanimation);
-                        }
-                    }, 1000);
-                } else {*/
-                Intent isd = new Intent(SplashActivity.this, LoginActivity.class);
-                Bundle bndlanimation =
-                        ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.anim1, R.anim.anim2).toBundle();
-                startActivity(isd, bndlanimation);
-                //}
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent isd = new Intent(SplashActivity.this, LoginActivity.class);
+                        Bundle bndlanimation =
+                                ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.anim1, R.anim.anim2).toBundle();
+                        startActivity(isd, bndlanimation);
+
+                    }
+                }, 1000);
+
 
             }
         });
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-/*
-                if (sharedPreferences.getString("login", "").equals("success")) {
-                    lt_bottom.startAnimation(anim_btn_t2b);
-                    truck_icon.startAnimation(anim_truck_c2r);
-                    bg_icon.setAnimation(fadeOut);
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent isd = new Intent(SplashActivity.this, RegisterActivity.class);
-                            Bundle bndlanimation =
-                                    ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.anim1, R.anim.anim2).toBundle();
-                            startActivity(isd, bndlanimation);
-                        }
-                    }, 1000);
-                } else {*/
-                Intent isd = new Intent(SplashActivity.this, RegisterActivity.class);
-                isd.putExtra("vec_type", str_type);
-                Bundle bndlanimation =
-                        ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.anim1, R.anim.anim2).toBundle();
-                startActivity(isd, bndlanimation);
-                //}
+
+                lt_bottom.startAnimation(anim_btn_t2b);
+                truck_icon.startAnimation(anim_truck_c2r);
+                bg_icon.setAnimation(fadeOut);
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Intent isd = new Intent(SplashActivity.this, RegisterActivity.class);
+                        Bundle bndlanimation =
+                                ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.anim1, R.anim.anim2).toBundle();
+                        startActivity(isd, bndlanimation);
+
+                    }
+                }, 1000);
             }
         });
     }
@@ -314,8 +223,7 @@ public class SplashActivity extends Activity {
 
                     }
                 }, 1100);
-            }
-            else {
+            } else {
                 lt_bottom.setVisibility(View.VISIBLE);
                 snackbar.dismiss();
             }
