@@ -360,44 +360,44 @@
 
 
 
-            <com.rey.material.widget.Button
-                android:id="@+id/btn_start"
-                style="@style/Material.Drawable.Ripple.Touch"
-                android:layout_width="@dimen/_120sdp"
-                android:layout_height="@dimen/_35sdp"
-                android:layout_weight="1"
-                android:background="@drawable/submit"
-                android:gravity="center"
-                android:layout_marginRight="@dimen/_20sdp"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:layout_gravity="center_horizontal"
-                android:paddingBottom="@dimen/_5sdp"
-                android:paddingRight="@dimen/_3sdp"
-                android:text="Start"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                android:textSize="@dimen/_16sdp" />
+        <com.rey.material.widget.Button
+            android:id="@+id/btn_start"
+            style="@style/Material.Drawable.Ripple.Touch"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_weight="1"
+            android:background="@drawable/submit"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="@dimen/_5sdp"
+            android:paddingRight="@dimen/_3sdp"
+            android:text="Start"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/_16sdp" />
 
 
 
 
-            <com.rey.material.widget.Button
-                android:id="@+id/btn_cancel"
-                style="@style/Material.Drawable.Ripple.Touch"
-                android:layout_width="@dimen/_120sdp"
-                android:layout_height="@dimen/_35sdp"
-                android:background="@drawable/submit"
-                android:gravity="center"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:layout_weight="1"
-                android:layout_marginRight="@dimen/_20sdp"
-                android:paddingBottom="@dimen/_5sdp"
-                android:layout_gravity="center"
-                android:paddingRight="@dimen/_3sdp"
-                android:text="Cancel"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                android:textSize="@dimen/_16sdp" />
+        <com.rey.material.widget.Button
+            android:id="@+id/btn_cancel"
+            style="@style/Material.Drawable.Ripple.Touch"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:background="@drawable/submit"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:paddingBottom="@dimen/_5sdp"
+            android:layout_gravity="center"
+            android:paddingRight="@dimen/_3sdp"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/_16sdp" />
 
     </LinearLayout>
 

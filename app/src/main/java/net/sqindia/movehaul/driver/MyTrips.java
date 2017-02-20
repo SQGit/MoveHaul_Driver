@@ -27,6 +27,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ramotion.foldingcell.FoldingCell;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
@@ -68,6 +69,7 @@ public class MyTrips extends AppCompatActivity {
     TextView tv_cr_date,tv_cr_time,tv_cr_pickup,tv_cr_drop,tv_cr_delivery,tv_cr_cu_name,tv_cr_cu_phone,tv_cr_delivery_txt;
     MV_Datas mv_datas;
     String vec_type;
+    ImageView iv_content_prof;
     DashboardNavigation nssl;
     String url_service;
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
@@ -130,7 +132,7 @@ public class MyTrips extends AppCompatActivity {
         });
 
         layouts = new int[]{
-                R.layout.current_trips,
+                R.layout.current_trips1,
                /* R.layout.history_trips,*/
                 R.layout.upcoming_trips,};
 
@@ -238,7 +240,7 @@ public class MyTrips extends AppCompatActivity {
             FontsManager.changeFonts((Activity) getApplicationContext());*/
 
             if (position == 0) {
-                btn_start = (Button) view.findViewById(R.id.btn_start);
+           /*     btn_start = (Button) view.findViewById(R.id.btn_start);
                 btn_cancel = (Button) view.findViewById(R.id.btn_cancel);
                 btn_cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -261,7 +263,7 @@ public class MyTrips extends AppCompatActivity {
                             finish();
                         }
                     }
-                });
+                });*/
 
 
 
@@ -274,6 +276,9 @@ public class MyTrips extends AppCompatActivity {
                 tv_cr_delivery_txt = (android.widget.TextView) view.findViewById(R.id.cr_delivery_txt);
                 tv_cr_cu_name = (android.widget.TextView) view.findViewById(R.id.cr_cu_name);
                 tv_cr_cu_phone = (android.widget.TextView) view.findViewById(R.id.cr_cu_phone);
+                iv_content_prof = (ImageView) view.findViewById(R.id.imageview_content_profile);
+
+                Glide.with(MyTrips.this).load(Config.WEB_URL + "customer_details/" + mv_datas.getCustomer_img()).into(iv_content_prof);
 
 
                 tv_cr_date.setText(mv_datas.getDate());
