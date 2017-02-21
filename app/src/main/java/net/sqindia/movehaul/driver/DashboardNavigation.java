@@ -17,6 +17,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -57,6 +58,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -90,6 +92,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     String service_id, service_token, str_driver_email, str_driver_phone, str_driver_name,vec_type,str_lati, str_longi, str_locality, str_address, str_active = "inactive";
     private ViewFlipper mViewFlipper;
     private int STORAGE_PERMISSION_CODE = 23;
+    final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
 
 
     public BroadcastReceiver getLocation_Receiver = new BroadcastReceiver() {
@@ -181,6 +184,8 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
         Log.e("tag","type:: "+vec_type);
 
+        insertDummyContactWrapper();
+
 
         mContext = this;
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -249,8 +254,12 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     Intent i = new Intent(DashboardNavigation.this, ProfileActivityBus.class);
                     startActivity(i);
                 }
-                else{
+                else if(vec_type.equals("Truck")){
                     Intent i = new Intent(DashboardNavigation.this, ProfileActivity.class);
+                    startActivity(i);
+                }
+                else{
+                    Intent i = new Intent(DashboardNavigation.this, ProfileActivityBus.class);
                     startActivity(i);
                 }
             }
@@ -491,8 +500,12 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     Intent i = new Intent(DashboardNavigation.this, ProfileActivityBus.class);
                     startActivity(i);
                 }
-                else{
+                else if(vec_type.equals("Truck")){
                     Intent i = new Intent(DashboardNavigation.this, ProfileActivity.class);
+                    startActivity(i);
+                }
+                else{
+                    Intent i = new Intent(DashboardNavigation.this, ProfileActivityBus.class);
                     startActivity(i);
                 }
 
@@ -643,6 +656,54 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
 
     }
+
+
+    private void insertDummyContactWrapper() {
+        List<String> permissionsNeeded = new ArrayList<String>();
+
+        final List<String> permissionsList = new ArrayList<>();
+        if (addPermission(permissionsList, Manifest.permission.ACCESS_FINE_LOCATION))
+            permissionsNeeded.add("GPS");
+        if (addPermission(permissionsList, Manifest.permission.CAMERA))
+            permissionsNeeded.add("Read Contacts");
+        if (addPermission(permissionsList, Manifest.permission.WRITE_EXTERNAL_STORAGE))
+            permissionsNeeded.add("Write Contacts");
+
+        if (permissionsList.size() > 0) {
+            if (permissionsNeeded.size() > 0) {
+                // Need Rationale
+                String message = "You need to grant access to " + permissionsNeeded.get(0);
+                for (int i = 1; i < permissionsNeeded.size(); i++)
+                    message = message + ", " + permissionsNeeded.get(i);
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
+                            REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+                }
+
+
+                return;
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
+                        REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+            }
+        }
+
+    }
+
+    private boolean addPermission(List<String> permissionsList, String permission) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+                permissionsList.add(permission);
+                if (!shouldShowRequestPermissionRationale(permission))
+                    return true;
+            }
+        }
+        return false;
+    }
+
 
     @Override
     protected void onStop() {

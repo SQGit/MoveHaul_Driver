@@ -313,13 +313,14 @@ public class LoginActivity extends Activity {
                 try {
                     JSONObject jo = new JSONObject(s);
                     String status = jo.getString("status");
-                    String type = jo.getString("vehicle_type");
                     String msg = "Please Try Again Later.";
                     if(jo.has("message")) {
                         msg = jo.getString("message");
                     }
                     Log.e("tag", "<-----Status----->" + status);
                     if (status.equals("true")) {
+
+                        String type = jo.getString("vehicle_type");
 
 
                        // String sus_txt = "Thank you for Signing Up MoveHaul.";
@@ -352,6 +353,8 @@ public class LoginActivity extends Activity {
 
                         }
                         else if (msg.contains("Error Occured[object Object]")) {
+
+                            String type = jo.getString("vehicle_type");
 
                             Intent i = new Intent(LoginActivity.this, LoginOtpActivity.class);
                             i.putExtra("for","phone");

@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
     android:orientation="vertical"
+
     android:paddingTop="@dimen/_5sdp">
 
     <ScrollView
@@ -19,6 +20,7 @@
             android:background="@drawable/white_bg"
             android:orientation="vertical"
             android:paddingBottom="@dimen/_5sdp"
+            android:layout_margin="@dimen/_10sdp"
             android:paddingRight="@dimen/_3sdp"
             android:paddingTop="@dimen/_5sdp">
 
@@ -70,7 +72,7 @@
                             android:maxLines="1"
                             android:text="07-10-2016"
                             android:textColor="@color/textColor"
-                            android:textSize="@dimen/_13sdp" />
+                            android:textSize="@dimen/_12sdp" />
 
                     </LinearLayout>
 
@@ -98,7 +100,7 @@
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
                             android:layout_gravity="center"
-                            android:layout_marginRight="@dimen/_2sdp"
+                            android:layout_marginRight="@dimen/_1sdp"
                             android:src="@drawable/time_icon" />
 
                         <TextView
@@ -109,7 +111,7 @@
                             android:maxLines="1"
                             android:text="12:30 PM"
                             android:textColor="@color/textColor"
-                            android:textSize="@dimen/_13sdp" />
+                            android:textSize="@dimen/_12sdp" />
 
                     </LinearLayout>
 
@@ -149,7 +151,7 @@
                             android:layout_height="wrap_content"
                             android:text="Customer Name"
                             android:textColor="@color/redColor"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_11sdp" />
 
                         <TextView
                             android:id="@+id/cr_cu_name"
@@ -157,9 +159,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/_5sdp"
                             android:maxLines="2"
-                            android:text="Tom"
+                            android:text="tom"
+                            android:inputType="textCapCharacters"
                             android:textColor="@color/textColor"
-                            android:textSize="@dimen/_14sdp" />
+                            android:textSize="@dimen/_12sdp" />
                     </LinearLayout>
 
 
@@ -191,7 +194,7 @@
                             android:layout_height="wrap_content"
                             android:text="Customer Ph.No."
                             android:textColor="@color/redColor"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_11sdp" />
 
                         <TextView
                             android:id="@+id/cr_cu_phone"
@@ -201,7 +204,7 @@
                             android:maxLines="2"
                             android:text="+140 555 8965"
                             android:textColor="@color/textColor"
-                            android:textSize="@dimen/_14sdp" />
+                            android:textSize="@dimen/_12sdp" />
                     </LinearLayout>
 
 
@@ -210,12 +213,12 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.75dp"
+                android:layout_height="0.70dp"
                 android:layout_marginBottom="@dimen/_3sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_3sdp"
-                android:background="@color/hintColor" />
+                android:background="@color/mgrey" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -246,7 +249,7 @@
                         android:layout_height="wrap_content"
                         android:text="Pickup"
                         android:textColor="@color/redColor"
-                        android:textSize="@dimen/_12sdp" />
+                        android:textSize="@dimen/_11sdp" />
 
                     <TextView
                         android:id="@+id/cr_pickup"
@@ -256,7 +259,7 @@
                         android:maxLines="1"
                         android:text="#6, North Avenue, Abuja, Nigeria"
                         android:textColor="@color/textColor"
-                        android:textSize="@dimen/_14sdp" />
+                        android:textSize="@dimen/_12sdp" />
                 </LinearLayout>
 
 
@@ -292,7 +295,7 @@
                         android:layout_height="wrap_content"
                         android:text="Drop"
                         android:textColor="@color/redColor"
-                        android:textSize="@dimen/_12sdp" />
+                        android:textSize="@dimen/_11sdp" />
 
                     <TextView
                         android:id="@+id/cr_drop"
@@ -302,7 +305,7 @@
                         android:maxLines="1"
                         android:text="#6, North Avenue, Abuja, Nigeria"
                         android:textColor="@color/textColor"
-                        android:textSize="@dimen/_14sdp" />
+                        android:textSize="@dimen/_12sdp" />
                 </LinearLayout>
 
 
@@ -311,12 +314,12 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.75dp"
+                android:layout_height="0.70dp"
                 android:layout_marginBottom="@dimen/_3sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_3sdp"
-                android:background="@color/hintColor" />
+                android:background="@color/mgrey" />
 
 
             <LinearLayout
@@ -349,7 +352,7 @@
                         android:layout_height="wrap_content"
                         android:text="Nearby Landmark"
                         android:textColor="@color/redColor"
-                        android:textSize="@dimen/_12sdp" />
+                        android:textSize="@dimen/_11sdp" />
 
                     <TextView
                         android:id="@+id/cr_delivery"
@@ -359,7 +362,7 @@
                         android:maxLines="1"
                         android:text="#6, North Avenue, Abuja, Nigeria"
                         android:textColor="@color/textColor"
-                        android:textSize="@dimen/_14sdp" />
+                        android:textSize="@dimen/_12sdp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -380,34 +383,25 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <ImageView
-                android:id="@+id/image_truck"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_gravity="center"
-                android:background="@drawable/round_rd"
-                android:padding="10dp"
-                android:src="@drawable/select_truck_type" />
+            <com.rey.material.widget.Button
+                android:id="@+id/btn_service"
+                style="@style/Material.Drawable.Ripple.Touch"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_1sdp"
+                android:layout_weight="1"
+
+                android:gravity="center"
+                android:padding="@dimen/_7sdp"
+                android:text="Start"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/_19sdp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center">
 
-
-            <ImageView
-                android:id="@+id/image_bus"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_gravity="center"
-                android:background="@drawable/round_rd"
-                android:padding="10dp"
-                android:src="@drawable/x_icon" />
-
-        </LinearLayout>
 
     </LinearLayout>
 

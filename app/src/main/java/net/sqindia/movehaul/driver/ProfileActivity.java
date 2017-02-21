@@ -291,11 +291,8 @@ public class ProfileActivity extends Activity {
                                                                       if (str_vec_side != null || !(sharedPreferences.getString("truck_side","").equals(""))) {
                                                                           if (str_vec_rc != null || !(sharedPreferences.getString("truck_rc","").equals(""))) {
                                                                               if (str_vec_ins != null || !(sharedPreferences.getString("truck_ins","").equals(""))) {
-
-
                                                                                   if(str_profile_img != null)
                                                                                   {
-
                                                                                       new profile_update().execute();
                                                                                   }
                                                                                   else{
@@ -303,7 +300,14 @@ public class ProfileActivity extends Activity {
                                                                                           new profile_update().execute();
                                                                                       }
                                                                                       else {
-                                                                                          new vechile_update().execute();
+
+                                                                                          if (str_vec_back != null  || str_vec_front != null  || str_vec_side != null || str_vec_rc != null || str_vec_ins != null ) {
+                                                                                              new vechile_update().execute();
+                                                                                          }
+                                                                                          else{
+                                                                                              Log.e("tag","ss");
+                                                                                          }
+                                                                                          //new vechile_update().execute();
                                                                                       }
                                                                                   }
 
@@ -483,6 +487,8 @@ public class ProfileActivity extends Activity {
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpPost httppost = new HttpPost(Config.WEB_URL + "truckdriver/driverupdate");
 
+                Log.e("tag","ss:"+Config.WEB_URL+"truckdriver/driverupdate");
+
                 httppost.setHeader("driver_mobile_pri", "+91" + str_contact);
                 httppost.setHeader("driver_mobile_sec", "+91" + str_secondary);
                 httppost.setHeader("driver_address", str_address);
@@ -559,12 +565,21 @@ public class ProfileActivity extends Activity {
                         String address = jo.getString("driver_address");
 
                         editor.putString("driver_image", msg);
-                        editor.putString("driver_mobile",mobile);
-                        editor.putString("driver_mobile",mobile2);
-                        editor.putString("driver_address",address);
+                        editor.putString("driver_mobile", mobile);
+                        editor.putString("driver_mobile", mobile2);
+                        editor.putString("driver_address", address);
                         editor.commit();
 
-                        new vechile_update().execute();
+
+                        if (str_vec_back != null  || str_vec_front != null  || str_vec_side != null || str_vec_rc != null || str_vec_ins != null ) {
+                                                    new vechile_update().execute();
+                        }
+
+                       // new vechile_update().execute();
+
+
+
+
 
                     } else {
                         snackbar.show();
@@ -609,6 +624,7 @@ public class ProfileActivity extends Activity {
                 String responseString = null;
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpPost httppost = new HttpPost(Config.WEB_URL + "truckdriver/vehicleupdate");
+                Log.e("tag","ss:"+Config.WEB_URL+"truckdriver/vehicleupdate");
 
 
                 httppost.setHeader("id", id);

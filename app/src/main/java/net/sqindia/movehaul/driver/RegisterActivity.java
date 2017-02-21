@@ -105,12 +105,8 @@ public class RegisterActivity extends Activity {
         setContentView(R.layout.activity_register);
         FontsManager.initFormAssets(this, "fonts/lato.ttf");
         FontsManager.changeFonts(this);
-
         tf = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
         config = new Config();
-
-        Intent idg  =getIntent();
-
 
         insertDummyContactWrapper();
 
@@ -395,13 +391,7 @@ public class RegisterActivity extends Activity {
                 intent.setShowCamera(true);
                 startActivityForResult(intent, REQUEST_CODE);
 
-               /* Intent intent = new Intent(getApplicationContext(), ImagePickerActivity.class);
-                nl.changer.polypicker.Config config = new nl.changer.polypicker.Config.Builder()
-                        .setTabBackgroundColor(R.color.white)    // set tab background color. Default white.
-                        .setSelectionLimit(1)    // set photo selection limit. Default unlimited selection.
-                        .build();
-                ImagePickerActivity.setConfig(config);
-                startActivityForResult(intent, REQUEST_CODE);*/
+
 
 
             }
@@ -416,7 +406,6 @@ public class RegisterActivity extends Activity {
                 anim_btn_t2b.setDuration(500);
                 lt_first.setVisibility(View.VISIBLE);
                 lt_second.setAnimation(anim_btn_t2b);
-
                 lt_second.setVisibility(View.GONE);
 
 
@@ -427,11 +416,7 @@ public class RegisterActivity extends Activity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent i = new Intent(RegisterActivity.this, Splash_screen.class);
-                startActivity(i);
-                finish();*/
                 onBackPressed();
-                // finish();
             }
         });
     }
@@ -453,33 +438,6 @@ public class RegisterActivity extends Activity {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
 
             Log.d("tag", "worked");
-
-
-           /* Parcelable[] parcelableUris = data.getParcelableArrayExtra(ImagePickerActivity.EXTRA_IMAGE_URIS);
-
-            if (parcelableUris == null) {
-                return;
-            }
-            // Java doesn't allow array casting, this is a little hack
-            Uri[] uris = new Uri[parcelableUris.length];
-            System.arraycopy(parcelableUris, 0, uris, 0, parcelableUris.length);
-            if (uris != null) {
-                for (Uri uri : uris) {
-                    Log.e("tag", " uri: " + uri);
-                    String path = uri.toString();
-
-                    str_lic_photo = path;
-                    Glide.with(RegisterActivity.this).load(new File(str_lic_photo)).centerCrop().into(iv_driver_lic);
-                    snackbar.show();
-                    tv_snack.setText("Driver Licence Added.");
-                    view_lic.setVisibility(View.GONE);
-
-                }
-            }*/
-
-
-
-
 
             if (data != null) {
                 photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);

@@ -46,7 +46,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:alpha="0.78"
+                android:id="@+id/prof_bg"
                 android:background="@drawable/bus_profile_bg" />
 
             <LinearLayout
@@ -58,8 +58,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:orientation="vertical"
-                  >
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:orientation="vertical">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/imageview_profile"
@@ -147,6 +147,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:text="Inside"
+                                android:id="@+id/textview"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/_9sdp" />
 

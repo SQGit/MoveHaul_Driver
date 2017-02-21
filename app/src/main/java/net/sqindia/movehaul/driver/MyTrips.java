@@ -51,7 +51,7 @@ public class MyTrips extends AppCompatActivity {
     TabIndicatorView tiv;
     ListView ht_lview;
     LinearLayout btn_back;
-    Button btn_start, btn_cancel, btn_confirm;
+    Button  btn_cancel, btn_confirm;
     ImageView btn_close;
     ArrayList<String> ht_arlist;
     Dialog dialog1;
@@ -72,6 +72,8 @@ public class MyTrips extends AppCompatActivity {
     ImageView iv_content_prof;
     DashboardNavigation nssl;
     String url_service;
+    Button btn_start;
+    public int i;
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
 
         @Override
@@ -267,6 +269,28 @@ public class MyTrips extends AppCompatActivity {
                         }
                     }
                 });*/
+                 i =0;
+
+                btn_start = (Button) view.findViewById(R.id.btn_service);
+                btn_start.setBackgroundColor(getResources().getColor(R.color.redColor));
+
+                btn_start.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        if(i==0){
+                            btn_start.setText("Finish Job");
+                            btn_start.setBackgroundColor(getResources().getColor(R.color.gold));
+                            i=1;
+                        }
+                        else {
+                            btn_start.setText("Start");
+                            btn_start.setBackgroundColor(getResources().getColor(R.color.redColor));
+                            i = 0;
+                        }
+
+                    }
+                });
 
 
 

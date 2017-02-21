@@ -486,6 +486,31 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                                 editor.commit();
                             }
                         }
+                        else{
+
+                            if (jo.getString("driver_image") != "null") {
+                                editor.putString("driver_image", jo.getString("driver_image"));
+                                editor.commit();
+                            }
+                            if (jo.has("assistance_image_front")) {
+                                editor.putString("bus_front", jo.getString("assistance_image_front"));
+                                editor.putString("bus_inside", jo.getString("assistance_image_back"));
+                                editor.putString("bus_rc", jo.getString("assistance_title_image1"));
+                                editor.putString("bus_ins", jo.getString("assistance_insurance_image1"));
+                                editor.putString("driver_address", jo.getString("driver_address"));
+                                editor.putString("profile", "success");
+                                if (jo.getString("assistance_title_image2") != "null")
+                                    editor.putString("bus_rc1", jo.getString("assistance_title_image2"));
+                                if (jo.getString("assistance_insurance_image2") != "null")
+                                    editor.putString("bus_ins1", jo.getString("bus_insurance_image2"));
+                                editor.commit();
+                            }
+
+
+
+
+
+                        }
 
 
                         Intent i = new Intent(LoginOtpActivity.this, DashboardNavigation.class);
