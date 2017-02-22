@@ -52,7 +52,7 @@ import com.rey.material.widget.Button;
 import com.rey.material.widget.Switch;
 import com.rey.material.widget.TextView;
 import com.sloop.fonts.FontsManager;
-import com.squareup.picasso.Picasso;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;

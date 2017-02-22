@@ -4,4 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="snack_text">@dimen/_8sdp</dimen>
     <dimen name="snack_action">@dimen/_9sdp</dimen>
+    <dimen name="app_camera_height">@dimen/_400sdp</dimen>
+    <dimen name="bottom_height">100dp</dimen>
+    <dimen name="pin_label_margin">15dp</dimen>
 </resources>

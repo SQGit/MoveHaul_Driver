@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.gun0912.tedpicker.ImagePickerActivity;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
 import com.sloop.fonts.FontsManager;
@@ -43,8 +45,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.iwf.photopicker.PhotoPickerActivity;
-import me.iwf.photopicker.utils.PhotoPickerIntent;
 
 /**
  * Created by SQINDIA on 11/8/2016.
@@ -56,6 +56,7 @@ public class ProfileActivityBus extends Activity {
     public final static int REQUEST_VEC_FRONT = 3;
     public final static int REQUEST_VEC_RC = 5;
     public final static int REQUEST_VEC_INS = 6;
+    public com.gun0912.tedpicker.Config img_config;
     LinearLayout btn_back, lt_vec_rc, lt_vec_ins;
     ImageView iv_profile, iv_vec_inside, iv_vec_front, iv_vec_rc, iv_vec_ins;
     ArrayList<String> selectedPhotos = new ArrayList<>();
@@ -75,6 +76,7 @@ public class ProfileActivityBus extends Activity {
     String id, token, url_data;
     TextView tv_bk_txt;
     ImageView iv_prf_bg;
+    ArrayList<Uri> image_uris;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +88,11 @@ public class ProfileActivityBus extends Activity {
         tf = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
 
         config = new Config();
+
+        img_config = new com.gun0912.tedpicker.Config();
+        img_config.setCameraHeight(R.dimen.app_camera_height);
+        img_config.setSelectedBottomHeight(R.dimen.bottom_height);
+        img_config.setCameraBtnBackground(R.drawable.round_rd);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ProfileActivityBus.this);
         editor = sharedPreferences.edit();
@@ -209,10 +216,14 @@ public class ProfileActivityBus extends Activity {
         iv_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivityBus.this);
-                intent.setPhotoCount(1);
-                intent.setColumn(4);
-                intent.setShowCamera(true);
+
+
+                img_config.setSelectionMin(1);
+                img_config.setSelectionLimit(1);
+                img_config.setToolbarTitleRes(R.string.img_profile);
+
+                ImagePickerActivity.setConfig(img_config);
+                Intent intent = new Intent(ProfileActivityBus.this, com.gun0912.tedpicker.ImagePickerActivity.class);
                 startActivityForResult(intent, REQUEST_PROFILE);
             }
         });
@@ -220,21 +231,30 @@ public class ProfileActivityBus extends Activity {
         iv_vec_inside.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivityBus.this);
-                intent.setPhotoCount(1);
-                intent.setColumn(4);
-                intent.setShowCamera(true);
+
+
+                img_config.setSelectionMin(1);
+                img_config.setSelectionLimit(1);
+                img_config.setToolbarTitleRes(R.string.img_vec_back);
+
+                ImagePickerActivity.setConfig(img_config);
+                Intent intent = new Intent(ProfileActivityBus.this, com.gun0912.tedpicker.ImagePickerActivity.class);
                 startActivityForResult(intent, REQUEST_VEC_INSIDE);
+
             }
         });
 
         iv_vec_front.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivityBus.this);
-                intent.setPhotoCount(1);
-                intent.setColumn(4);
-                intent.setShowCamera(true);
+
+
+                img_config.setSelectionMin(1);
+                img_config.setSelectionLimit(1);
+                img_config.setToolbarTitleRes(R.string.img_vec_front);
+
+                ImagePickerActivity.setConfig(img_config);
+                Intent intent = new Intent(ProfileActivityBus.this, com.gun0912.tedpicker.ImagePickerActivity.class);
                 startActivityForResult(intent, REQUEST_VEC_FRONT);
             }
         });
@@ -244,10 +264,13 @@ public class ProfileActivityBus extends Activity {
             @Override
             public void onClick(View view) {
 
-                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivityBus.this);
-                intent.setPhotoCount(1);
-                intent.setColumn(3);
-                intent.setShowCamera(true);
+
+                img_config.setSelectionMin(1);
+                img_config.setSelectionLimit(1);
+                img_config.setToolbarTitleRes(R.string.img_vec_rc);
+
+                ImagePickerActivity.setConfig(img_config);
+                Intent intent = new Intent(ProfileActivityBus.this, com.gun0912.tedpicker.ImagePickerActivity.class);
                 startActivityForResult(intent, REQUEST_VEC_RC);
             }
         });
@@ -256,10 +279,12 @@ public class ProfileActivityBus extends Activity {
             @Override
             public void onClick(View view) {
 
-                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivityBus.this);
-                intent.setPhotoCount(1);
-                intent.setColumn(3);
-                intent.setShowCamera(true);
+                img_config.setSelectionMin(1);
+                img_config.setSelectionLimit(1);
+                img_config.setToolbarTitleRes(R.string.img_vec_ins);
+
+                ImagePickerActivity.setConfig(img_config);
+                Intent intent = new Intent(ProfileActivityBus.this, com.gun0912.tedpicker.ImagePickerActivity.class);
                 startActivityForResult(intent, REQUEST_VEC_INS);
             }
         });
@@ -293,17 +318,21 @@ public class ProfileActivityBus extends Activity {
                                                                               if (str_profile_img != null) {
                                                                                   new profile_update().execute();
                                                                               } else {
-                                                                                  if (!(sharedPreferences.getString("driver_address", "").equals(et_address.getText().toString()))) {
+                                                                                  String str_contactss = (sharedPreferences.getString("driver_mobile", ""));
+                                                                                  str_contactss = str_contactss.substring(3, str_contactss.length());
+
+                                                                                  String seco = sharedPreferences.getString("driver_mobile2", "");
+                                                                                  seco = seco.substring(3, seco.length());
+
+                                                                                  if (!(sharedPreferences.getString("driver_address", "").equals(et_address.getText().toString())) || !(str_contactss.equals(et_contact.getText().toString().trim())) || !(seco.equals(et_secondary.getText().toString().trim()))) {
                                                                                       new profile_update().execute();
                                                                                   } else {
 
                                                                                       if (str_vec_back != null || str_vec_front != null || str_vec_rc != null || str_vec_ins != null) {
                                                                                           new vechile_update().execute();
                                                                                       } else {
-                                                                                          Log.e("tag", "ss");
                                                                                       }
 
-                                                                                      // new vechile_update().execute();
                                                                                   }
                                                                               }
 
@@ -380,71 +409,58 @@ public class ProfileActivityBus extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
 
         List<String> photos = null;
-        if (resultCode == RESULT_OK && requestCode == REQUEST_PROFILE) {
-            if (data != null) {
-                photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
-            }
+        if (requestCode == REQUEST_PROFILE && resultCode == Activity.RESULT_OK) {
+
+            image_uris = data.getParcelableArrayListExtra(com.gun0912.tedpicker.ImagePickerActivity.EXTRA_IMAGE_URIS);
+            Log.e("tag", "12345" + image_uris.get(0).toString());
             selectedPhotos.clear();
-            if (photos != null) {
-                selectedPhotos.addAll(photos);
+            if (image_uris != null) {
+                str_profile_img = image_uris.get(0).toString();
+                Glide.with(ProfileActivityBus.this).load(new File(str_profile_img)).into(iv_profile);
             }
-            Log.d("tag", "img: " + selectedPhotos.get(0));
-            str_profile_img = selectedPhotos.get(0);
-            //Picasso.with(ProfileActivity.this).load(new File(str_profile_img)).into(iv_profile);
-            Glide.with(ProfileActivityBus.this).load(new File(str_profile_img)).into(iv_profile);
         }
-        if (resultCode == RESULT_OK && requestCode == REQUEST_VEC_INSIDE) {
-            if (data != null) {
-                photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
-            }
+        if (requestCode == REQUEST_VEC_INSIDE && resultCode == Activity.RESULT_OK) {
+
+            image_uris = data.getParcelableArrayListExtra(com.gun0912.tedpicker.ImagePickerActivity.EXTRA_IMAGE_URIS);
+            Log.e("tag", "12345" + image_uris.get(0).toString());
             selectedPhotos.clear();
-            if (photos != null) {
-                selectedPhotos.addAll(photos);
+            if (image_uris != null) {
+                str_vec_back = image_uris.get(0).toString();
+                Glide.with(ProfileActivityBus.this).load(new File(str_vec_back)).into(iv_vec_inside);
             }
-            Log.d("tag", "img: " + selectedPhotos.get(0));
-            str_vec_back = selectedPhotos.get(0);
-            Glide.with(ProfileActivityBus.this).load(new File(str_vec_back)).into(iv_vec_inside);
         }
-        if (resultCode == RESULT_OK && requestCode == REQUEST_VEC_FRONT) {
-            if (data != null) {
-                photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
-            }
+        if (requestCode == REQUEST_VEC_FRONT && resultCode == Activity.RESULT_OK) {
+
+            image_uris = data.getParcelableArrayListExtra(com.gun0912.tedpicker.ImagePickerActivity.EXTRA_IMAGE_URIS);
+            Log.e("tag", "12345" + image_uris.get(0).toString());
             selectedPhotos.clear();
-            if (photos != null) {
-                selectedPhotos.addAll(photos);
+            if (image_uris != null) {
+                str_vec_front = image_uris.get(0).toString();
+                Glide.with(ProfileActivityBus.this).load(new File(str_vec_front)).into(iv_vec_front);
             }
-            Log.d("tag", "img: " + selectedPhotos.get(0));
-            str_vec_front = selectedPhotos.get(0);
-            Glide.with(ProfileActivityBus.this).load(new File(str_vec_front)).into(iv_vec_front);
+        }
+        if (requestCode == REQUEST_VEC_RC && resultCode == Activity.RESULT_OK) {
+
+            image_uris = data.getParcelableArrayListExtra(com.gun0912.tedpicker.ImagePickerActivity.EXTRA_IMAGE_URIS);
+            Log.e("tag", "12345" + image_uris.get(0).toString());
+            selectedPhotos.clear();
+            if (image_uris != null) {
+                str_vec_rc = image_uris.get(0).toString();
+                Glide.with(ProfileActivityBus.this).load(new File(str_vec_rc)).into(iv_vec_rc);
+            }
+        }
+        if (requestCode == REQUEST_VEC_INS && resultCode == Activity.RESULT_OK) {
+
+            image_uris = data.getParcelableArrayListExtra(com.gun0912.tedpicker.ImagePickerActivity.EXTRA_IMAGE_URIS);
+            Log.e("tag", "12345" + image_uris.get(0).toString());
+            selectedPhotos.clear();
+            if (image_uris != null) {
+                str_vec_ins = image_uris.get(0).toString();
+                Glide.with(ProfileActivityBus.this).load(new File(str_vec_ins)).into(iv_vec_ins);
+            }
         }
 
-        if (resultCode == RESULT_OK && requestCode == REQUEST_VEC_RC) {
-            if (data != null) {
-                photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
-            }
-            selectedPhotos.clear();
-            if (photos != null) {
-                selectedPhotos.addAll(photos);
-            }
-            Log.d("tag", "img: " + selectedPhotos.get(0));
-            str_vec_rc = selectedPhotos.get(0);
-            Glide.with(ProfileActivityBus.this).load(new File(str_vec_rc)).centerCrop().into(iv_vec_rc);
-            view_rc.setVisibility(View.GONE);
-        }
 
-        if (resultCode == RESULT_OK && requestCode == REQUEST_VEC_INS) {
-            if (data != null) {
-                photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
-            }
-            selectedPhotos.clear();
-            if (photos != null) {
-                selectedPhotos.addAll(photos);
-            }
-            Log.d("tag", "img: " + selectedPhotos.get(0));
-            str_vec_ins = selectedPhotos.get(0);
-            Glide.with(ProfileActivityBus.this).load(new File(str_vec_ins)).centerCrop().into(iv_vec_ins);
-            view_ins.setVisibility(View.GONE);
-        }
     }
 
 
@@ -554,6 +570,8 @@ public class ProfileActivityBus extends Activity {
 
                         if (str_vec_back != null || str_vec_front != null || str_vec_rc != null || str_vec_ins != null) {
                             new vechile_update().execute();
+                        } else {
+                            finish();
                         }
 
 

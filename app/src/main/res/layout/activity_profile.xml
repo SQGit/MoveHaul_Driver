@@ -22,13 +22,15 @@
                 android:layout_height="wrap_content"></include>
 
             <ImageView
+                android:id="@+id/imageview_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|bottom"
-                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_3sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:paddingLeft="@dimen/_10sdp"
                 android:paddingRight="@dimen/_10sdp"
-                android:paddingTop="@dimen/_10sdp"
+                android:paddingTop="@dimen/_15sdp"
                 android:src="@drawable/edit_icon" />
         </FrameLayout>
     </LinearLayout>
@@ -57,8 +59,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:orientation="vertical"
-                  >
+                    android:orientation="vertical">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/imageview_profile"

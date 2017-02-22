@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.gun0912.tedpicker.ImagePickerActivity;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
 import com.sloop.fonts.FontsManager;
@@ -55,8 +57,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import me.iwf.photopicker.PhotoPickerActivity;
-import me.iwf.photopicker.utils.PhotoPickerIntent;
+
 
 
 
@@ -86,6 +87,7 @@ public class RegisterActivity extends Activity {
     final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
     ImageView iv_truck, iv_bus,iv_road_assit;
     android.widget.LinearLayout lt_filter_dialog;
+    ArrayList<Uri> image_uris;
 
     public static int getDeviceHeight(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -384,11 +386,18 @@ public class RegisterActivity extends Activity {
             @Override
             public void onClick(View view) {
 
+                com.gun0912.tedpicker.Config config = new com.gun0912.tedpicker.Config();
+                config.setSelectionMin(1);
+                config.setSelectionLimit(1);
+                config.setCameraHeight(R.dimen.app_camera_height);
 
-               PhotoPickerIntent intent = new PhotoPickerIntent(RegisterActivity.this);
-                intent.setPhotoCount(1);
-                intent.setColumn(4);
-                intent.setShowCamera(true);
+                config.setCameraBtnBackground(R.drawable.round_rd);
+
+                config.setToolbarTitleRes(R.string.img_vec_lic);
+                config.setSelectedBottomHeight(R.dimen.bottom_height);
+
+                ImagePickerActivity.setConfig(config);
+                Intent intent = new Intent(RegisterActivity.this, com.gun0912.tedpicker.ImagePickerActivity.class);
                 startActivityForResult(intent, REQUEST_CODE);
 
 
@@ -437,20 +446,18 @@ public class RegisterActivity extends Activity {
         List<String> photos = null;
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
 
-            Log.d("tag", "worked");
 
-            if (data != null) {
-                photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
-            }
-            selectedPhotos.clear();
-            if (photos != null) {
-                selectedPhotos.addAll(photos);
-            }
-            str_lic_photo = selectedPhotos.get(0);
-            Glide.with(RegisterActivity.this).load(new File(str_lic_photo)).centerCrop().into(iv_driver_lic);
-            snackbar.show();
-            tv_snack.setText("Driver Licence Added.");
-            view_lic.setVisibility(View.GONE);
+
+                image_uris = data.getParcelableArrayListExtra(com.gun0912.tedpicker.ImagePickerActivity.EXTRA_IMAGE_URIS);
+                Log.e("tag", "12345" + image_uris);
+                selectedPhotos.clear();
+                if (image_uris != null) {
+                    str_lic_photo = image_uris.get(0).toString();
+                    Glide.with(RegisterActivity.this).load(new File(str_lic_photo)).centerCrop().into(iv_driver_lic);
+                    snackbar.show();
+                    tv_snack.setText("Driver Licence Added.");
+                    view_lic.setVisibility(View.GONE);
+                }
 
         }
     }

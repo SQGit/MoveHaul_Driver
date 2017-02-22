@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Movehaul\nDriver</string>
+    <string name="custom_title">Click Shipment</string>
+
+    <string name="img_profile">Choose Profile</string>
+    <string name="img_vec_back">Vehicle Back </string>
+    <string name="img_vec_front">Vehicle Front </string>
+    <string name="img_vec_side">Vehicle Side</string>
+    <string name="img_vec_inside">Vehicle Inside</string>
+    <string name="img_vec_rc">Vehicle Registration</string>
+    <string name="img_vec_ins">Vehicle Insurance</string>
+    <string name="img_vec_lic">Vehicle Licence</string>
 </resources>

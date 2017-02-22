@@ -295,14 +295,14 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
                             //dialog2.show();
                         }
                         else{
-                            et_driver_id.setError("Driver Id not match..");
+                            et_driver_id.setError("Phone Number not match..");
                             et_driver_id.requestFocus();
                         }
 
                     }
                     else{
 
-                        et_driver_id.setError("Enter Driver Id");
+                        et_driver_id.setError("Enter Phone Number");
                         et_driver_id.requestFocus();
 
                     }

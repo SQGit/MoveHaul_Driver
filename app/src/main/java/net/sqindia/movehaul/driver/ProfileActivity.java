@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.gun0912.tedpicker.ImagePickerActivity;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
 import com.sloop.fonts.FontsManager;
@@ -43,9 +45,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.iwf.photopicker.PhotoPickerActivity;
-import me.iwf.photopicker.utils.PhotoPickerIntent;
-
 /**
  * Created by SQINDIA on 11/8/2016.
  */
@@ -57,6 +56,8 @@ public class ProfileActivity extends Activity {
     public final static int REQUEST_VEC_SIDE = 4;
     public final static int REQUEST_VEC_RC = 5;
     public final static int REQUEST_VEC_INS = 6;
+    private static final int INTENT_REQUEST_GET_IMAGES = 13;
+    public com.gun0912.tedpicker.Config img_config;
     LinearLayout btn_back, lt_vec_rc, lt_vec_ins;
     ImageView iv_profile, iv_vec_back, iv_vec_front, iv_vec_side, iv_vec_rc, iv_vec_ins;
     ArrayList<String> selectedPhotos = new ArrayList<>();
@@ -67,12 +68,14 @@ public class ProfileActivity extends Activity {
     Button btn_update;
     Typeface tf;
     Snackbar snackbar;
-    TextView tv_snack,tv_profile_name;
+    TextView tv_snack, tv_profile_name;
     Config config;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     ProgressDialog mProgressDialog;
     String id, token;
+    ArrayList<Uri> image_uris;
+    ImageView iv_edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +87,11 @@ public class ProfileActivity extends Activity {
         tf = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
 
         config = new Config();
+        img_config = new com.gun0912.tedpicker.Config();
+        img_config.setCameraHeight(R.dimen.app_camera_height);
+        img_config.setSelectedBottomHeight(R.dimen.bottom_height);
+        img_config.setCameraBtnBackground(R.drawable.round_rd);
+
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this);
         editor = sharedPreferences.edit();
@@ -117,6 +125,9 @@ public class ProfileActivity extends Activity {
         til_secondary = (TextInputLayout) findViewById(R.id.til_secondary);
         til_address = (TextInputLayout) findViewById(R.id.til_deliveryaddress);
 
+        iv_edit = (ImageView) findViewById(R.id.imageview_edit);
+        iv_edit.setVisibility(View.GONE);
+
         til_contact.setTypeface(tf);
         til_secondary.setTypeface(tf);
         til_address.setTypeface(tf);
@@ -129,12 +140,29 @@ public class ProfileActivity extends Activity {
         str_contact = sharedPreferences.getString("driver_mobile", "");
         str_secondary = sharedPreferences.getString("driver_mobile2", "");
 
+
         et_contact.setText(str_contact.substring(3, str_contact.length()));
-        tv_profile_name.setText(sharedPreferences.getString("driver_name",""));
+        tv_profile_name.setText(sharedPreferences.getString("driver_name", ""));
         et_secondary.setText(str_secondary.substring(3, str_secondary.length()));
 
-        if(!(sharedPreferences.getString("driver_address","").equals(""))){
+        if (!(sharedPreferences.getString("driver_address", "").equals(""))) {
             et_address.setText(sharedPreferences.getString("driver_address", ""));
+
+
+            iv_edit.setVisibility(View.VISIBLE);
+            btn_update.setVisibility(View.GONE);
+
+            iv_profile.setEnabled(false);
+            iv_vec_back.setEnabled(false);
+            iv_vec_front.setEnabled(false);
+            iv_vec_side.setEnabled(false);
+            lt_vec_ins.setEnabled(false);
+            lt_vec_rc.setEnabled(false);
+            et_contact.setEnabled(false);
+            et_secondary.setEnabled(false);
+            et_address.setEnabled(false);
+
+
         }
 
         et_address.requestFocus();
@@ -164,45 +192,66 @@ public class ProfileActivity extends Activity {
         }*/
 
 
+        if (!sharedPreferences.getString("truck_front", "").equals("")) {
 
-        if(!sharedPreferences.getString("truck_front","").equals("")){
+            Log.e("tag", "truckrond");
 
-            Log.e("tag","truckrond");
-
-            String img = sharedPreferences.getString("truck_front","");
-            String img1 = sharedPreferences.getString("truck_side","");
-            String img2 = sharedPreferences.getString("truck_back","");
-            String img3 = sharedPreferences.getString("truck_rc","");
-            String img4 = sharedPreferences.getString("truck_ins","");
-
-
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicle_details/"+img).error(R.drawable.truck_front_ico).into(iv_vec_front);
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicle_details/"+img1).error(R.drawable.truck_side_ico).into(iv_vec_side);
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicle_details/"+img2).error(R.drawable.truck_back_ico).into(iv_vec_back);
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicle_details/"+img3).into(iv_vec_rc);
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"vehicle_details/"+img4).into(iv_vec_ins);
-
-        }
+            String img = sharedPreferences.getString("truck_front", "");
+            String img1 = sharedPreferences.getString("truck_side", "");
+            String img2 = sharedPreferences.getString("truck_back", "");
+            String img3 = sharedPreferences.getString("truck_rc", "");
+            String img4 = sharedPreferences.getString("truck_ins", "");
 
 
-        if(!sharedPreferences.getString("driver_image","").equals("")){
-
-            String img = sharedPreferences.getString("driver_image","");
-
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL+"driver_details/"+img).into(iv_profile);
+            Glide.with(ProfileActivity.this).load(Config.WEB_URL + "vehicle_details/" + img).error(R.drawable.truck_front_ico).into(iv_vec_front);
+            Glide.with(ProfileActivity.this).load(Config.WEB_URL + "vehicle_details/" + img1).error(R.drawable.truck_side_ico).into(iv_vec_side);
+            Glide.with(ProfileActivity.this).load(Config.WEB_URL + "vehicle_details/" + img2).error(R.drawable.truck_back_ico).into(iv_vec_back);
+            Glide.with(ProfileActivity.this).load(Config.WEB_URL + "vehicle_details/" + img3).into(iv_vec_rc);
+            Glide.with(ProfileActivity.this).load(Config.WEB_URL + "vehicle_details/" + img4).into(iv_vec_ins);
 
         }
 
 
+        if (!sharedPreferences.getString("driver_image", "").equals("")) {
+
+            String img = sharedPreferences.getString("driver_image", "");
+
+            Glide.with(ProfileActivity.this).load(Config.WEB_URL + "driver_details/" + img).into(iv_profile);
+
+        }
+
+        iv_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                iv_edit.setVisibility(View.GONE);
+                btn_update.setVisibility(View.VISIBLE);
+
+                iv_profile.setEnabled(true);
+                iv_vec_back.setEnabled(true);
+                iv_vec_front.setEnabled(true);
+                iv_vec_side.setEnabled(true);
+                lt_vec_ins.setEnabled(true);
+                lt_vec_ins.setEnabled(true);
+                et_contact.setEnabled(true);
+                et_secondary.setEnabled(true);
+                et_address.setEnabled(true);
+
+            }
+        });
 
 
         iv_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivity.this);
-                intent.setPhotoCount(1);
-                intent.setColumn(4);
-                intent.setShowCamera(true);
+
+
+                img_config.setSelectionMin(1);
+                img_config.setSelectionLimit(1);
+                img_config.setToolbarTitleRes(R.string.img_profile);
+
+                ImagePickerActivity.setConfig(img_config);
+                Intent intent = new Intent(ProfileActivity.this, com.gun0912.tedpicker.ImagePickerActivity.class);
                 startActivityForResult(intent, REQUEST_PROFILE);
             }
         });
@@ -210,21 +259,31 @@ public class ProfileActivity extends Activity {
         iv_vec_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivity.this);
-                intent.setPhotoCount(1);
-                intent.setColumn(4);
-                intent.setShowCamera(true);
+
+
+
+                img_config.setSelectionMin(1);
+                img_config.setSelectionLimit(1);
+                img_config.setToolbarTitleRes(R.string.img_vec_back);
+
+                ImagePickerActivity.setConfig(img_config);
+                Intent intent = new Intent(ProfileActivity.this, com.gun0912.tedpicker.ImagePickerActivity.class);
                 startActivityForResult(intent, REQUEST_VEC_BACK);
+
             }
         });
 
         iv_vec_front.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivity.this);
-                intent.setPhotoCount(1);
-                intent.setColumn(4);
-                intent.setShowCamera(true);
+
+
+                img_config.setSelectionMin(1);
+                img_config.setSelectionLimit(1);
+                img_config.setToolbarTitleRes(R.string.img_vec_front);
+
+                ImagePickerActivity.setConfig(img_config);
+                Intent intent = new Intent(ProfileActivity.this, com.gun0912.tedpicker.ImagePickerActivity.class);
                 startActivityForResult(intent, REQUEST_VEC_FRONT);
             }
         });
@@ -232,10 +291,14 @@ public class ProfileActivity extends Activity {
         iv_vec_side.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivity.this);
-                intent.setPhotoCount(1);
-                intent.setColumn(4);
-                intent.setShowCamera(true);
+
+
+                img_config.setSelectionMin(1);
+                img_config.setSelectionLimit(1);
+                img_config.setToolbarTitleRes(R.string.img_vec_side);
+
+                ImagePickerActivity.setConfig(img_config);
+                Intent intent = new Intent(ProfileActivity.this, com.gun0912.tedpicker.ImagePickerActivity.class);
                 startActivityForResult(intent, REQUEST_VEC_SIDE);
             }
         });
@@ -244,10 +307,13 @@ public class ProfileActivity extends Activity {
             @Override
             public void onClick(View view) {
 
-                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivity.this);
-                intent.setPhotoCount(1);
-                intent.setColumn(3);
-                intent.setShowCamera(true);
+
+                img_config.setSelectionMin(1);
+                img_config.setSelectionLimit(1);
+                img_config.setToolbarTitleRes(R.string.img_vec_rc);
+
+                ImagePickerActivity.setConfig(img_config);
+                Intent intent = new Intent(ProfileActivity.this, com.gun0912.tedpicker.ImagePickerActivity.class);
                 startActivityForResult(intent, REQUEST_VEC_RC);
             }
         });
@@ -256,10 +322,12 @@ public class ProfileActivity extends Activity {
             @Override
             public void onClick(View view) {
 
-                PhotoPickerIntent intent = new PhotoPickerIntent(ProfileActivity.this);
-                intent.setPhotoCount(1);
-                intent.setColumn(3);
-                intent.setShowCamera(true);
+                img_config.setSelectionMin(1);
+                img_config.setSelectionLimit(1);
+                img_config.setToolbarTitleRes(R.string.img_vec_ins);
+
+                ImagePickerActivity.setConfig(img_config);
+                Intent intent = new Intent(ProfileActivity.this, com.gun0912.tedpicker.ImagePickerActivity.class);
                 startActivityForResult(intent, REQUEST_VEC_INS);
             }
         });
@@ -285,27 +353,30 @@ public class ProfileActivity extends Activity {
                                               if (!(str_contact.isEmpty() || str_contact.length() < 9)) {
                                                   if (!(str_secondary.isEmpty() || str_secondary.length() < 9)) {
                                                       if (!(str_address.isEmpty() || str_address.length() < 5)) {
-                                                          if (str_profile_img != null || !(sharedPreferences.getString("driver_image","").equals(""))) {
-                                                              if (str_vec_back != null || !(sharedPreferences.getString("truck_back","").equals(""))) {
-                                                                  if (str_vec_front != null || !(sharedPreferences.getString("truck_front","").equals(""))) {
-                                                                      if (str_vec_side != null || !(sharedPreferences.getString("truck_side","").equals(""))) {
-                                                                          if (str_vec_rc != null || !(sharedPreferences.getString("truck_rc","").equals(""))) {
-                                                                              if (str_vec_ins != null || !(sharedPreferences.getString("truck_ins","").equals(""))) {
-                                                                                  if(str_profile_img != null)
-                                                                                  {
-                                                                                      new profile_update().execute();
-                                                                                  }
-                                                                                  else{
-                                                                                      if(!(sharedPreferences.getString("driver_address","").equals(et_address.getText().toString()))){
-                                                                                          new profile_update().execute();
-                                                                                      }
-                                                                                      else {
+                                                          if (str_profile_img != null || !(sharedPreferences.getString("driver_image", "").equals(""))) {
+                                                              if (str_vec_back != null || !(sharedPreferences.getString("truck_back", "").equals(""))) {
+                                                                  if (str_vec_front != null || !(sharedPreferences.getString("truck_front", "").equals(""))) {
+                                                                      if (str_vec_side != null || !(sharedPreferences.getString("truck_side", "").equals(""))) {
+                                                                          if (str_vec_rc != null || !(sharedPreferences.getString("truck_rc", "").equals(""))) {
+                                                                              if (str_vec_ins != null || !(sharedPreferences.getString("truck_ins", "").equals(""))) {
+                                                                                  if (str_profile_img != null) {
 
-                                                                                          if (str_vec_back != null  || str_vec_front != null  || str_vec_side != null || str_vec_rc != null || str_vec_ins != null ) {
+                                                                                      new profile_update().execute();
+                                                                                  } else {
+
+                                                                                      String str_contactss = (sharedPreferences.getString("driver_mobile", ""));
+                                                                                      str_contactss = str_contactss.substring(3, str_contactss.length());
+
+                                                                                      String seco = sharedPreferences.getString("driver_mobile2", "");
+                                                                                      seco = seco.substring(3, seco.length());
+
+                                                                                      if (!(sharedPreferences.getString("driver_address", "").equals(et_address.getText().toString())) || !(str_contactss.equals(et_contact.getText().toString().trim())) || !(seco.equals(et_secondary.getText().toString().trim()))) {
+                                                                                          new profile_update().execute();
+                                                                                      } else {
+
+                                                                                          if (str_vec_back != null || str_vec_front != null || str_vec_side != null || str_vec_rc != null || str_vec_ins != null) {
                                                                                               new vechile_update().execute();
-                                                                                          }
-                                                                                          else{
-                                                                                              Log.e("tag","ss");
+                                                                                          } else {
                                                                                           }
                                                                                           //new vechile_update().execute();
                                                                                       }
@@ -387,6 +458,63 @@ public class ProfileActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
 
         List<String> photos = null;
+
+
+        if (requestCode == REQUEST_PROFILE && resultCode == Activity.RESULT_OK) {
+
+            image_uris = data.getParcelableArrayListExtra(com.gun0912.tedpicker.ImagePickerActivity.EXTRA_IMAGE_URIS);
+            Log.e("tag", "12345" + image_uris.get(0).toString());
+            selectedPhotos.clear();
+            if (image_uris != null) {
+                str_profile_img = image_uris.get(0).toString();
+                Glide.with(ProfileActivity.this).load(new File(str_profile_img)).into(iv_profile);
+            }
+        }
+        if (requestCode == REQUEST_VEC_BACK && resultCode == Activity.RESULT_OK) {
+
+            image_uris = data.getParcelableArrayListExtra(com.gun0912.tedpicker.ImagePickerActivity.EXTRA_IMAGE_URIS);
+            Log.e("tag", "12345" + image_uris.get(0).toString());
+            selectedPhotos.clear();
+            if (image_uris != null) {
+                str_vec_back = image_uris.get(0).toString();
+                Glide.with(ProfileActivity.this).load(new File(str_vec_back)).into(iv_vec_back);
+            }
+        }
+        if (requestCode == REQUEST_VEC_FRONT && resultCode == Activity.RESULT_OK) {
+
+            image_uris = data.getParcelableArrayListExtra(com.gun0912.tedpicker.ImagePickerActivity.EXTRA_IMAGE_URIS);
+            Log.e("tag", "12345" + image_uris.get(0).toString());
+            selectedPhotos.clear();
+            if (image_uris != null) {
+                str_vec_front = image_uris.get(0).toString();
+                Glide.with(ProfileActivity.this).load(new File(str_vec_front)).into(iv_vec_front);
+            }
+        }
+        if (requestCode == REQUEST_VEC_RC && resultCode == Activity.RESULT_OK) {
+
+            image_uris = data.getParcelableArrayListExtra(com.gun0912.tedpicker.ImagePickerActivity.EXTRA_IMAGE_URIS);
+            Log.e("tag", "12345" + image_uris.get(0).toString());
+            selectedPhotos.clear();
+            if (image_uris != null) {
+                str_vec_rc = image_uris.get(0).toString();
+                Glide.with(ProfileActivity.this).load(new File(str_vec_rc)).into(iv_vec_rc);
+            }
+        }
+        if (requestCode == REQUEST_VEC_INS && resultCode == Activity.RESULT_OK) {
+
+            image_uris = data.getParcelableArrayListExtra(com.gun0912.tedpicker.ImagePickerActivity.EXTRA_IMAGE_URIS);
+            Log.e("tag", "12345" + image_uris.get(0).toString());
+            selectedPhotos.clear();
+            if (image_uris != null) {
+                str_vec_ins = image_uris.get(0).toString();
+                Glide.with(ProfileActivity.this).load(new File(str_vec_ins)).into(iv_vec_ins);
+            }
+        }
+
+
+
+
+/*
         if (resultCode == RESULT_OK && requestCode == REQUEST_PROFILE) {
             if (data != null) {
                 photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
@@ -398,8 +526,8 @@ public class ProfileActivity extends Activity {
             Log.d("tag", "img: " + selectedPhotos.get(0));
             str_profile_img = selectedPhotos.get(0);
             Glide.with(ProfileActivity.this).load(new File(str_profile_img)).into(iv_profile);
-        }
-        if (resultCode == RESULT_OK && requestCode == REQUEST_VEC_BACK) {
+        }*/
+       /* if (resultCode == RESULT_OK && requestCode == REQUEST_VEC_BACK) {
             if (data != null) {
                 photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
             }
@@ -461,7 +589,7 @@ public class ProfileActivity extends Activity {
             str_vec_ins = selectedPhotos.get(0);
             Glide.with(ProfileActivity.this).load(new File(str_vec_ins)).centerCrop().into(iv_vec_ins);
             view_ins.setVisibility(View.GONE);
-        }
+        }*/
     }
 
 
@@ -472,6 +600,11 @@ public class ProfileActivity extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             Log.e("tag", "reg_preexe");
+
+            str_contact = et_contact.getText().toString().trim();
+            str_secondary = et_secondary.getText().toString().trim();
+            str_address = et_address.getText().toString().trim();
+
             mProgressDialog.show();
         }
 
@@ -487,7 +620,7 @@ public class ProfileActivity extends Activity {
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpPost httppost = new HttpPost(Config.WEB_URL + "truckdriver/driverupdate");
 
-                Log.e("tag","ss:"+Config.WEB_URL+"truckdriver/driverupdate");
+                Log.e("tag", "ss:" + Config.WEB_URL + "truckdriver/driverupdate");
 
                 httppost.setHeader("driver_mobile_pri", "+91" + str_contact);
                 httppost.setHeader("driver_mobile_sec", "+91" + str_secondary);
@@ -504,13 +637,12 @@ public class ProfileActivity extends Activity {
 
                     MultipartEntity entity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 
-                    if(str_profile_img != null) {
+                    if (str_profile_img != null) {
                         entity.addPart("driverimage", new FileBody(new File(str_profile_img), "image/jpeg"));
-                        Log.e("tag","img: if ");
+                        Log.e("tag", "img: if ");
                         httppost.setEntity(entity);
-                    }
-                    else{
-                        Log.e("tag","img: else ");
+                    } else {
+                        Log.e("tag", "img: else ");
                     }
 
 
@@ -548,13 +680,12 @@ public class ProfileActivity extends Activity {
             mProgressDialog.dismiss();
 
 
-
             if (s != null) {
                 try {
                     JSONObject jo = new JSONObject(s);
                     String status = jo.getString("status");
 
-                    Log.d("tag", "<-----Status----->" + status);
+                    Log.e("tag", "<-----Status----->" + status);
 
                     if (status.equals("true")) {
 
@@ -564,21 +695,22 @@ public class ProfileActivity extends Activity {
                         String mobile2 = jo.getString("driver_mobile_sec");
                         String address = jo.getString("driver_address");
 
+                        Log.e("tag", "a: " + mobile);
+
                         editor.putString("driver_image", msg);
                         editor.putString("driver_mobile", mobile);
-                        editor.putString("driver_mobile", mobile2);
+                        editor.putString("driver_mobile2", mobile2);
                         editor.putString("driver_address", address);
                         editor.commit();
 
 
-                        if (str_vec_back != null  || str_vec_front != null  || str_vec_side != null || str_vec_rc != null || str_vec_ins != null ) {
-                                                    new vechile_update().execute();
+                        if (str_vec_back != null || str_vec_front != null || str_vec_side != null || str_vec_rc != null || str_vec_ins != null) {
+                            new vechile_update().execute();
+                        } else {
+                            finish();
                         }
 
-                       // new vechile_update().execute();
-
-
-
+                        // new vechile_update().execute();
 
 
                     } else {
@@ -624,7 +756,7 @@ public class ProfileActivity extends Activity {
                 String responseString = null;
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpPost httppost = new HttpPost(Config.WEB_URL + "truckdriver/vehicleupdate");
-                Log.e("tag","ss:"+Config.WEB_URL+"truckdriver/vehicleupdate");
+                Log.e("tag", "ss:" + Config.WEB_URL + "truckdriver/vehicleupdate");
 
 
                 httppost.setHeader("id", id);
@@ -635,22 +767,21 @@ public class ProfileActivity extends Activity {
 
                     MultipartEntity entity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 
-                    if(str_vec_front!= null){
+                    if (str_vec_front != null) {
                         entity.addPart("vehiclefront", new FileBody(new File(str_vec_front), "image/jpeg"));
                     }
-                    if(str_vec_back!= null){
+                    if (str_vec_back != null) {
                         entity.addPart("vehicleback", new FileBody(new File(str_vec_back), "image/jpeg"));
                     }
-                    if(str_vec_side!= null){
+                    if (str_vec_side != null) {
                         entity.addPart("vehicleside", new FileBody(new File(str_vec_side), "image/jpeg"));
+                    } else {
+                        Log.e("tag", "img:" + str_vec_side);
                     }
-                    else{
-                        Log.e("tag","img:"+str_vec_side);
-                    }
-                    if(str_vec_rc!= null){
+                    if (str_vec_rc != null) {
                         entity.addPart("vehicletitle", new FileBody(new File(str_vec_rc), "image/jpeg"));
                     }
-                    if(str_vec_ins!= null){
+                    if (str_vec_ins != null) {
                         entity.addPart("vehicleinsurance", new FileBody(new File(str_vec_ins), "image/jpeg"));
                     }
 
@@ -689,7 +820,6 @@ public class ProfileActivity extends Activity {
             mProgressDialog.dismiss();
 
 
-
             if (s != null) {
                 try {
                     JSONObject jo = new JSONObject(s);
@@ -703,8 +833,8 @@ public class ProfileActivity extends Activity {
                         editor.putString("truck_front", jo.getString("vehiclefront"));
                         editor.putString("truck_back", jo.getString("vehicleback"));
                         editor.putString("truck_side", jo.getString("vehicleside"));
-                        editor.putString("truck_rc",jo.getString("vehicletitle1"));
-                        editor.putString("truck_ins",jo.getString("vehicleinsurance1"));
+                        editor.putString("truck_rc", jo.getString("vehicletitle1"));
+                        editor.putString("truck_ins", jo.getString("vehicleinsurance1"));
                         editor.commit();
 
                         finish();
