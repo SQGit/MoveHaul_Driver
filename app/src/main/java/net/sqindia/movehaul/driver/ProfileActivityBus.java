@@ -77,6 +77,7 @@ public class ProfileActivityBus extends Activity {
     TextView tv_bk_txt;
     ImageView iv_prf_bg;
     ArrayList<Uri> image_uris;
+    ImageView iv_edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +122,9 @@ public class ProfileActivityBus extends Activity {
         lt_vec_rc = (LinearLayout) findViewById(R.id.layout_vechile_rc);
         lt_vec_ins = (LinearLayout) findViewById(R.id.layout_vechile_insurence);
 
+        iv_edit = (ImageView) findViewById(R.id.imageview_edit);
+        iv_edit.setVisibility(View.GONE);
+
         view_rc = findViewById(R.id.view_rc);
         view_ins = findViewById(R.id.view_insurence);
 
@@ -147,6 +151,18 @@ public class ProfileActivityBus extends Activity {
 
         if (!(sharedPreferences.getString("driver_address", "").equals(""))) {
             et_address.setText(sharedPreferences.getString("driver_address", ""));
+
+            iv_edit.setVisibility(View.VISIBLE);
+            btn_update.setVisibility(View.GONE);
+
+            iv_profile.setEnabled(false);
+            iv_vec_inside.setEnabled(false);
+            iv_vec_front.setEnabled(false);
+            lt_vec_ins.setEnabled(false);
+            lt_vec_rc.setEnabled(false);
+            et_contact.setEnabled(false);
+            et_secondary.setEnabled(false);
+            et_address.setEnabled(false);
         }
 
         et_address.requestFocus();
@@ -169,6 +185,26 @@ public class ProfileActivityBus extends Activity {
         token = sharedPreferences.getString("token", "");
 
         Log.e("tag", "id:" + id + token);
+
+
+        iv_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                iv_edit.setVisibility(View.GONE);
+                btn_update.setVisibility(View.VISIBLE);
+
+                iv_profile.setEnabled(true);
+                iv_vec_inside.setEnabled(true);
+                iv_vec_front.setEnabled(true);
+                lt_vec_ins.setEnabled(true);
+                lt_vec_ins.setEnabled(true);
+                et_contact.setEnabled(true);
+                et_secondary.setEnabled(true);
+                et_address.setEnabled(true);
+
+            }
+        });
 
 
         if (!sharedPreferences.getString("bus_front", "").equals("")) {
