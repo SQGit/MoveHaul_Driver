@@ -497,7 +497,7 @@ public class RegisterActivity extends Activity {
 
                     MultipartEntity entity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 
-                    File sourceFile = new File(selectedPhotos.get(0));
+                    File sourceFile = new File(str_lic_photo);
                     Log.e("tagtag3", "" + sourceFile);
                     entity.addPart("driverlicence", new FileBody(sourceFile, "image/jpeg"));
                     httppost.setEntity(entity);

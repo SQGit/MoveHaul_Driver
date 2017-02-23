@@ -490,6 +490,16 @@ public class ProfileActivity extends Activity {
                 Glide.with(ProfileActivity.this).load(new File(str_vec_front)).into(iv_vec_front);
             }
         }
+        if (requestCode == REQUEST_VEC_SIDE && resultCode == Activity.RESULT_OK) {
+
+            image_uris = data.getParcelableArrayListExtra(com.gun0912.tedpicker.ImagePickerActivity.EXTRA_IMAGE_URIS);
+            Log.e("tag", "12345" + image_uris.get(0).toString());
+            selectedPhotos.clear();
+            if (image_uris != null) {
+                str_vec_side = image_uris.get(0).toString();
+                Glide.with(ProfileActivity.this).load(new File(str_vec_side)).into(iv_vec_side);
+            }
+        }
         if (requestCode == REQUEST_VEC_RC && resultCode == Activity.RESULT_OK) {
 
             image_uris = data.getParcelableArrayListExtra(com.gun0912.tedpicker.ImagePickerActivity.EXTRA_IMAGE_URIS);
