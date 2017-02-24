@@ -350,8 +350,8 @@ public class ProfileActivity extends Activity {
                                               str_address = et_address.getText().toString().trim();
 
 
-                                              if (!(str_contact.isEmpty() || str_contact.length() < 9)) {
-                                                  if (!(str_secondary.isEmpty() || str_secondary.length() < 9)) {
+                                              if (!(str_contact.isEmpty() || str_contact.length() < 10)) {
+                                                  if (!(str_secondary.isEmpty() || str_secondary.length() < 10)) {
                                                       if (!(str_address.isEmpty() || str_address.length() < 5)) {
                                                           if (str_profile_img != null || !(sharedPreferences.getString("driver_image", "").equals(""))) {
                                                               if (str_vec_back != null || !(sharedPreferences.getString("truck_back", "").equals(""))) {

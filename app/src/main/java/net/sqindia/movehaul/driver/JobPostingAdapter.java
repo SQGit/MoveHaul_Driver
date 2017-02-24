@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.TranslateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -41,7 +42,7 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
     Activity act;
     FoldingCell cell;
     ImageView btn_confi;
-    Dialog dg_bidding, dialog2;
+    Dialog dg_bidding, dialog2,dg_road_confirm;
     ImageView btn_close1, btn_close2;
     Button btn_bidding_confirm, d2_btn_ok;
     TextView tv_dialog1, tv_dialog2, tv_dialog3, tv_dialog4, d2_tv_dialog1, d2_tv_dialog2, d2_tv_dialog3, d2_tv_dialog4;
@@ -49,24 +50,24 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
     Typeface type;
     MV_Datas mv_datas;
     ProgressDialog mProgressDialog;
-    com.rey.material.widget.TextView tv_title_pickup, tv_title_drop, tv_title_date,tv_content_desc_txt;
+    com.rey.material.widget.TextView tv_title_pickup, tv_title_drop, tv_title_date, tv_content_desc_txt;
     com.rey.material.widget.TextView tv_content_pickup, tv_content_drop, tv_content_date, tv_content_goodstype, tv_content_time, tv_content_desc;
-    private HashSet<Integer> unfoldedIndexes = new HashSet<>();
-    private View.OnClickListener defaultRequestBtnClickListener;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    String id,token,str_bidding, str_booking_id;
+    String id, token, str_bidding_cost, str_booking_id;
     String vec_type;
-    LinearLayout lt_goods_type;
+    LinearLayout lt_goods_type, lt_nearby;
     String service_url;
     String vec;
+    private HashSet<Integer> unfoldedIndexes = new HashSet<>();
+    private View.OnClickListener defaultRequestBtnClickListener;
 
-    public JobPostingAdapter(Context context, Activity acti, ArrayList<MV_Datas> objects,String vec) {
+    public JobPostingAdapter(Context context, Activity acti, ArrayList<MV_Datas> objects, String vec) {
         super(context, 0, objects);
         this.act = acti;
         this.context = context;
         this.ar_mv_datas = objects;
-        this.vec =vec;
+        this.vec = vec;
     }
 
     @Override
@@ -103,15 +104,13 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
 
-        Log.e("tag","ss:"+vec);
+        Log.e("tag", "ss:" + vec);
 
-        if(vec.equals("Bus")){
-            service_url ="busdriver/jobbidding";
+        if (vec.equals("Bus")) {
+            service_url = "busdriver/jobbidding";
+        } else {
+            service_url = "truckdriver/jobbidding";
         }
-        else{
-            service_url ="truckdriver/jobbidding";
-        }
-
 
 
         if (cell == null) {
@@ -135,7 +134,7 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
             cell.unfold(true);
 
             mv_datas = ar_mv_datas.get(position);
-            Log.e("tag00",position+"id: "+mv_datas.getBooking_id()+mv_datas.getGoods_type());
+            Log.e("tag00", position + "id: " + mv_datas.getBooking_id() + mv_datas.getGoods_type());
 
         } else {
             cell.fold(true);
@@ -146,7 +145,7 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
             @Override
             public void onClick(View view) {
                 mv_datas = ar_mv_datas.get(position);
-                Log.e("tag00",position+"id: "+mv_datas.getBooking_id()+mv_datas.getGoods_type());
+                Log.e("tag00", position + "id: " + mv_datas.getBooking_id() + mv_datas.getGoods_type());
 
                 ((FoldingCell) view).toggle(false);
                 registerToggle(position);
@@ -154,9 +153,7 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         });
 
         vec_type = mv_datas.getVec_type();
-        Log.e("tag","type:"+vec_type);
-
-
+        Log.e("tag", "type:" + vec_type);
 
 
         ImageView iv_bidding = (ImageView) cell.findViewById(R.id.imageview_bidding);
@@ -172,6 +169,7 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         tv_content_desc = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_desc);
         tv_content_desc_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_book_to_txt);
         lt_goods_type = (LinearLayout) cell.findViewById(R.id.layout_goods_type);
+        lt_nearby = (LinearLayout) cell.findViewById(R.id.layout_nearby);
 
 
         tv_title_pickup.setText(mv_datas.getPickup());
@@ -185,17 +183,19 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         tv_content_date.setText(mv_datas.getDate());
         tv_content_time.setText(mv_datas.getTime());
 
-        if(vec_type.equals("Bus")){
+        if (vec_type.equals("Bus")) {
             tv_content_desc_txt.setText("Nearby Landmark");
             tv_content_desc.setText(mv_datas.getDelivery());
             lt_goods_type.setVisibility(View.GONE);
-        }
-        else{
+        } else if (vec_type.equals("Truck")) {
             tv_content_desc_txt.setText("Nearby Landmark");
             tv_content_desc.setText(mv_datas.getDelivery());
             lt_goods_type.setVisibility(View.VISIBLE);
-        }
+        } else {
 
+            lt_goods_type.setVisibility(View.GONE);
+            lt_nearby.setVisibility(View.GONE);
+        }
 
 
         dg_bidding = new Dialog(JobPostingAdapter.this.getContext());
@@ -235,7 +235,7 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         d2_tv_dialog4.setTypeface(type);
         d2_btn_ok.setTypeface(type);
 
-        d2_tv_dialog2.setText("You successfully bidded for the job id:"+mv_datas.getBooking_id());
+        d2_tv_dialog2.setText("You successfully bidded for the job id:" + mv_datas.getBooking_id());
         d2_tv_dialog3.setVisibility(View.GONE);
         d2_tv_dialog4.setVisibility(View.GONE);
 
@@ -253,66 +253,45 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
                 dg_bidding.dismiss();
             }
         });
-
         btn_close2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog2.dismiss();
             }
         });
-
         btn_bidding_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-               // mv_datas = ar_mv_datas.get(position);
-                Log.e("tag",position+"id: "+mv_datas.getBooking_id()+mv_datas.getGoods_type());
+                // mv_datas = ar_mv_datas.get(position);
+                Log.e("tag", position + "id: " + mv_datas.getBooking_id() + mv_datas.getGoods_type());
 
-                if (!(et_bidding.getText().toString().trim().isEmpty())){
-                    if(!(et_driver_id.getText().toString().trim().isEmpty())){
-
-                        Log.e("tag","id:"+sharedPreferences.getString("driver_mobile",""));
-
-                        String number = sharedPreferences.getString("driver_mobile","");
-                        number = number.substring(3, number.length());
-
-                        if(et_driver_id.getText().toString().trim().equals(number)){
-
-                            Log.e("tag","id: "+mv_datas.getBooking_id());
-
-                            dg_bidding.dismiss();
-
-                            str_booking_id = mv_datas.getBooking_id();
-                            str_bidding = et_bidding.getText().toString().trim();
-
-                            if (Config.isConnected(act)) {
-                                new bidding_job().execute();
+                    if (!(et_bidding.getText().toString().trim().isEmpty())) {
+                        if (!(et_driver_id.getText().toString().trim().isEmpty())) {
+                            String number = sharedPreferences.getString("driver_mobile", "");
+                            number = number.substring(3, number.length());
+                            if (et_driver_id.getText().toString().trim().equals(number)) {
+                                Log.e("tag", "id: " + mv_datas.getBooking_id());
+                                dg_bidding.dismiss();
+                                str_booking_id = mv_datas.getBooking_id();
+                                str_bidding_cost = et_bidding.getText().toString().trim();
+                                if (Config.isConnected(act)) {
+                                    new bidding_job().execute();
+                                } else {
+                                }
                             } else {
-
+                                et_driver_id.setError("Phone Number not match..");
+                                et_driver_id.requestFocus();
                             }
-
-
-                            //dialog2.show();
-                        }
-                        else{
-                            et_driver_id.setError("Phone Number not match..");
+                        } else {
+                            et_driver_id.setError("Enter Phone Number");
                             et_driver_id.requestFocus();
                         }
-
-                    }
-                    else{
-
-                        et_driver_id.setError("Enter Phone Number");
-                        et_driver_id.requestFocus();
-
+                    } else {
+                        et_bidding.setError("Enter bidding amount");
+                        et_bidding.requestFocus();
                     }
 
-                }
-                else{
-                    et_bidding.setError("Enter bidding amount");
-                    et_bidding.requestFocus();
-
-                }
 
             }
         });
@@ -325,10 +304,49 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
             }
         });
 
+
+
+        dg_road_confirm = new Dialog(context);
+        dg_road_confirm.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dg_road_confirm.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dg_road_confirm.setCancelable(false);
+        dg_road_confirm.setContentView(R.layout.dialog_road_confirm);
+
+        Button btn_yes = (Button) dg_road_confirm.findViewById(R.id.button_yes);
+        TextView tv_txt1 = (android.widget.TextView) dg_road_confirm.findViewById(R.id.textView_1);
+        TextView tv_txt2 = (android.widget.TextView) dg_road_confirm.findViewById(R.id.textView_2);
+
+        tv_txt1.setTypeface(type);
+        tv_txt2.setTypeface(type);
+        btn_yes.setTypeface(type);
+
+        btn_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dg_road_confirm.dismiss();
+                ((Activity) context).finish();
+
+            }
+        });
+
+
+
+
+
+
+
+
         iv_bidding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dg_bidding.show();
+                if (vec_type.equals("Road")) {
+                    str_booking_id = mv_datas.getBooking_id();
+                    new bidding_job().execute();
+                }
+                else{
+                    dg_bidding.show();
+                }
+
             }
         });
 
@@ -367,9 +385,6 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
     }
 
 
-
-
-
     public class bidding_job extends AsyncTask<String, Void, String> {
 
 
@@ -378,6 +393,12 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
             super.onPreExecute();
             Log.e("tag", "reg_preexe");
             mProgressDialog.show();
+
+            if(vec_type.equals("Road"))
+                mProgressDialog.setTitle("Booking..");
+            else
+            mProgressDialog.setTitle("Bidding..");
+
         }
 
         @Override
@@ -387,7 +408,10 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
 
             try {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("bidding_cost", str_bidding);
+
+                if(!vec_type.equals("Road"))
+                jsonObject.accumulate("bidding_cost", str_bidding_cost);
+
                 jsonObject.accumulate("booking_id", str_booking_id);
                 json = jsonObject.toString();
                 return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + service_url, json, id, token);
@@ -410,7 +434,10 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
                     Log.d("tag", "<-----Status----->" + status);
                     if (status.equals("true")) {
                         Log.e("tag", "bidding successful");
-                        dialog2.show();
+                        if(!vec_type.equals("Road"))
+                            dialog2.show();
+                        else
+                            dg_road_confirm.show();
 
                     } else if (status.equals("false")) {
                         Log.e("tag", "fail");
@@ -426,13 +453,6 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
             }
         }
     }
-
-
-
-
-
-
-
 
 
 }
