@@ -10,6 +10,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="asdf"  parent="Base.TextAppearance.AppCompat.Widget.Switch">
+
+
+        <item name="colorAccent">@color/redColor</item>
+        <item name="android:thumb">@color/redColor</item>
+
+    </style>
+
 
 
     <style name="AppThemes" parent="AppTheme">
@@ -29,6 +37,23 @@
         <item name="sw_thumbElevation">2dp</item>
         <item name="sw_animDuration">@android:integer/config_shortAnimTime</item>
         <item name="sw_interpolator">@android:anim/decelerate_interpolator</item>
+    </style>
+
+    <style name="Theme.MyTheme" parent="Theme.AppCompat.Light">
+        <!-- colorPrimary is used for the default action bar background -->
+        <item name="colorPrimary">@color/ColorStatus</item>
+
+        <!-- colorPrimaryDark is used to color the status bar -->
+        <item name="colorPrimaryDark">@color/redColor</item>
+
+        <!--
+             colorAccent is used as the default value for colorControlActivated
+             which is used to color widgets
+        -->
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- You can also set colorControlNormal, colorControlActivated
+             colorControlHighlight & colorSwitchThumbNormal. -->
     </style>
 
 

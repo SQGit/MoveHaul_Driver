@@ -215,8 +215,8 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         navigationView.setNavigationItemSelectedListener(this);
 
         int[] resources = {
-                R.drawable.banner_bg,
-                R.drawable.banner_bg1
+                R.drawable.truck_1,
+                R.drawable.truck_1_hover
         };
 
         mViewFlipper.setInAnimation(this, R.anim.anim1);
@@ -293,16 +293,14 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
          //   imageView.setImageDrawable(getResources().getDrawable(resources[i]));
             //http://104.197.80.225:3030/banner/1.png
 
-            Glide.with(DashboardNavigation.this).load("http://104.197.80.225:3030/banner/"+i+".png").placeholder(R.drawable.banner_bg1).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
-
-
+            Glide.with(DashboardNavigation.this).load("http://104.197.80.225:3030/banner/"+i+".png").diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
 
 
             mViewFlipper.addView(imageView);
 
         }
         mViewFlipper.setAutoStart(true);
-        mViewFlipper.setFlipInterval(25000);
+        mViewFlipper.setFlipInterval(5000);
 
         tv_driver_name.setText(str_driver_name);
         tv_driver_email.setText(str_driver_email);
