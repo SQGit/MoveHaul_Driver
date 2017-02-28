@@ -48,6 +48,7 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.Switch;
 import com.rey.material.widget.TextView;
@@ -287,9 +288,16 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         }
 
 
-        for (int i = 0; i < resources.length; i++) {
+        for (int i = 1; i <= resources.length; i++) {
             ImageView imageView = new ImageView(this);
-            imageView.setImageDrawable(getResources().getDrawable(resources[i]));
+         //   imageView.setImageDrawable(getResources().getDrawable(resources[i]));
+            //http://104.197.80.225:3030/banner/1.png
+
+            Glide.with(DashboardNavigation.this).load("http://104.197.80.225:3030/banner/"+i+".png").placeholder(R.drawable.banner_bg1).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+
+
+
+
             mViewFlipper.addView(imageView);
 
         }

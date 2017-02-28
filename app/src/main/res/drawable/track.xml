@@ -8,7 +8,7 @@
 
     <stroke
         android:width="3dp"
-        android:color="@color/brown" />
+        android:color="@color/redColor" />
 
     <padding android:left="@dimen/_3sdp" android:right="@dimen/_3sdp"/>
 

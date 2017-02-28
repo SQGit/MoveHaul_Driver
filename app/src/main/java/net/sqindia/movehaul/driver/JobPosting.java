@@ -171,6 +171,7 @@ public class JobPosting extends Activity {
                 jsonObject.accumulate("radius", "100");
                 json = jsonObject.toString();
                 Log.e("tag","ss:"+Config.WEB_URL+url_service);
+
                 return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + url_service, json,id,token);
             } catch (Exception e) {
                 Log.e("InputStream", e.getLocalizedMessage());
@@ -263,9 +264,6 @@ public class JobPosting extends Activity {
 
                     drv_adapter = new JobPostingAdapter(JobPosting.this,JobPosting.this, ar_job_data,vec_type);
                     lv_jobposting.setAdapter(drv_adapter);
-
-
-
 
 
 
