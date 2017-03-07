@@ -51,6 +51,7 @@ public class MyTrips extends AppCompatActivity {
     TabIndicatorView tiv;
     ListView ht_lview;
     LinearLayout btn_back;
+    android.widget.LinearLayout lt_nearby;
     Button  btn_cancel, btn_confirm;
     ImageView btn_close;
     ArrayList<String> ht_arlist;
@@ -292,6 +293,7 @@ public class MyTrips extends AppCompatActivity {
                     }
                 });
 
+                lt_nearby = (android.widget.LinearLayout) view.findViewById(R.id.layout_nearby);
 
 
 
@@ -305,8 +307,15 @@ public class MyTrips extends AppCompatActivity {
                 tv_cr_cu_phone = (android.widget.TextView) view.findViewById(R.id.cr_cu_phone);
                 iv_content_prof = (ImageView) view.findViewById(R.id.imageview_content_profile);
 
+                View line_view = view.findViewById(R.id.view_last);
+
+
                 Glide.with(MyTrips.this).load(Config.WEB_URL + "customer_details/" + mv_datas.getCustomer_img()).into(iv_content_prof);
 
+                if(mv_datas.getDelivery().equals("null")){
+                    lt_nearby.setVisibility(View.GONE);
+                    line_view.setVisibility(View.GONE);
+                }
 
                 tv_cr_date.setText(mv_datas.getDate());
                 tv_cr_time.setText(mv_datas.getTime());

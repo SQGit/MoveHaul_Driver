@@ -56,7 +56,7 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
     SharedPreferences.Editor editor;
     String id, token, str_bidding_cost, str_booking_id;
     String vec_type;
-    LinearLayout lt_goods_type, lt_nearby;
+    LinearLayout lt_goods_type, lt_nearby,lt_nearby1;
     String service_url;
     String vec;
     private HashSet<Integer> unfoldedIndexes = new HashSet<>();
@@ -171,6 +171,8 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         lt_goods_type = (LinearLayout) cell.findViewById(R.id.layout_goods_type);
         lt_nearby = (LinearLayout) cell.findViewById(R.id.layout_nearby);
 
+        lt_nearby1 = (LinearLayout) cell.findViewById(R.id.layout_nearby1);
+
 
         tv_title_pickup.setText(mv_datas.getPickup());
         tv_title_drop.setText(mv_datas.getDrop());
@@ -182,6 +184,13 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         tv_content_goodstype.setText(mv_datas.getGoods_type());
         tv_content_date.setText(mv_datas.getDate());
         tv_content_time.setText(mv_datas.getTime());
+
+
+        if(mv_datas.getDelivery().equals("null")){
+            lt_nearby1.setVisibility(View.GONE);
+
+        }
+
 
         if (vec_type.equals("Bus")) {
             tv_content_desc_txt.setText("Nearby Landmark");

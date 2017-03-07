@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     folding-cell:additionalFlipsCount="2"
     folding-cell:animationDuration="1500"
-    folding-cell:backSideColor="@android:color/transparent">
+    folding-cell:backSideColor="@color/light_grey">
 
     <!-- CONTENT (UNFOLDED) LAYOUT (MUST BE AT LEAST 2x times BIGGER than content layout bellow)-->
     <include layout="@layout/upcoming_content" />

@@ -100,6 +100,7 @@ public class ProfileActivityBus extends Activity {
 
 
         vec_type = sharedPreferences.getString("vec_type", "");
+        Log.e("tag","ty:"+vec_type);
 
         mProgressDialog = new ProgressDialog(ProfileActivityBus.this);
         mProgressDialog.setTitle("Loading..");
