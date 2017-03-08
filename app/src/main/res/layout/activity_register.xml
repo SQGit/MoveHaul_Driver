@@ -46,7 +46,7 @@
                         android:id="@+id/text_register"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Register"
+                        android:text="@string/register"
                         android:textColor="#F65F52"
                         android:textSize="@dimen/_19sdp" />
                 </LinearLayout>
@@ -82,7 +82,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:hint="UserName"
+                        android:hint="@string/username"
                         android:inputType="text"
                         android:maxLines="1"
                         android:paddingTop="@dimen/_10sdp"
@@ -109,7 +109,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:hint="Email"
+                        android:hint="@string/email"
                         android:inputType="textWebEmailAddress"
                         android:maxLines="1"
                         android:paddingTop="@dimen/_10sdp"
@@ -136,7 +136,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:hint="Mobile"
+                        android:hint="@string/mobile"
                         android:inputType="phone"
                         android:maxLength="10"
                         android:maxLines="1"
@@ -168,7 +168,7 @@
                     android:gravity="center"
                     android:paddingBottom="@dimen/_5sdp"
                     android:paddingRight="@dimen/_3sdp"
-                    android:text="Submit"
+                    android:text="@string/submit"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textSize="@dimen/_19sdp" />
@@ -202,7 +202,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Register - Verification"
+                        android:text="@string/register_verification"
                         android:textColor="#F65F52"
                         android:textSize="@dimen/_19sdp" />
 
@@ -247,7 +247,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:hint="Name (According to the Licence)"
+                        android:hint="@string/name_according_to_the_licence"
                         android:inputType="text"
                         android:maxLines="1"
                         android:paddingTop="@dimen/_10sdp"
@@ -274,7 +274,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:hint="Licence No"
+                        android:hint="@string/licence_no"
                         android:inputType="number"
                         android:maxLength="15"
                         android:maxLines="1"
@@ -302,7 +302,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:hint="Secondary Contact"
+                        android:hint="@string/secondary_contact"
                         android:imeActionId="@+id/edittext_lic_exp"
                         android:imeOptions="actionNext"
                         android:inputType="phone"
@@ -333,7 +333,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:hint="Years of Experience"
+                        android:hint="@string/years_of_experience"
                         android:imeOptions="actionDone"
                         android:inputType="phone"
                         android:maxLength="2"
@@ -381,7 +381,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:text="Attach Driver Licence"
+                            android:text="@string/attach_driver_licence"
                             android:textColor="#F65F52"
                             android:textSize="@dimen/_12sdp" />
 
@@ -415,7 +415,7 @@
                     android:gravity="center"
                     android:paddingBottom="@dimen/_5sdp"
                     android:paddingRight="@dimen/_3sdp"
-                    android:text="Verify"
+                    android:text="@string/verify"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textSize="@dimen/_19sdp" />
@@ -448,14 +448,14 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="By signing up you agree to the terms &amp; conditions"
+                    android:text="@string/by_signing_up_you_agree_to_the_terms_amp_conditions"
                     android:textSize="@dimen/_10sdp" />
 
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="and privacy policy of Movehaul"
+                    android:text="@string/and_privacy_policy_of_movehaul"
                     android:textSize="@dimen/_10sdp" />
             </LinearLayout>
         </LinearLayout>

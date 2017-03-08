@@ -105,8 +105,8 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         Log.e("tag", fcm_id);
 
         mProgressDialog = new ProgressDialog(LoginOtpActivity.this);
-        mProgressDialog.setTitle("Loading..");
-        mProgressDialog.setMessage("Please wait");
+        mProgressDialog.setTitle(getString(R.string.loading));
+        mProgressDialog.setMessage(getString(R.string.wait));
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
 

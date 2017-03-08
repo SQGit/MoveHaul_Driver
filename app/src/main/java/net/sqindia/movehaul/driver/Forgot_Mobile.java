@@ -64,15 +64,15 @@ public class Forgot_Mobile extends Activity {
         flt_email.setTypeface(tf);
 
         mProgressDialog = new ProgressDialog(Forgot_Mobile.this);
-        mProgressDialog.setTitle("Loading..");
-        mProgressDialog.setMessage("Please wait");
+        mProgressDialog.setTitle(getString(R.string.loading));
+        mProgressDialog.setMessage(getString(R.string.wait));
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
 
 
 
         snackbar = Snackbar
-                .make(findViewById(R.id.top), "Network Error! Please Try Again Later.", Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.top), R.string.network, Snackbar.LENGTH_LONG);
         View sbView = snackbar.getView();
         tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
         tv_snack.setTextColor(Color.WHITE);
@@ -80,7 +80,7 @@ public class Forgot_Mobile extends Activity {
 
         if (!config.isConnected(Forgot_Mobile.this)) {
             snackbar.show();
-            tv_snack.setText("Please Connect Internet and Try again");
+            tv_snack.setText(R.string.connect);
         }
 
 
@@ -102,7 +102,7 @@ public class Forgot_Mobile extends Activity {
                 } else {
                    // edtxt_email.setError("Enter a valid email address!");
                     snackbar.show();
-                    tv_snack.setText("Enter a valid email address!");
+                    tv_snack.setText(R.string.va_em);
                     edtxt_email.requestFocus();
                 }
             }
@@ -183,7 +183,7 @@ public class Forgot_Mobile extends Activity {
                            // Toast.makeText(getApplicationContext(),"Mobile Number Not Registered",Toast.LENGTH_LONG).show();
 
                             snackbar.show();
-                            tv_snack.setText("No Number Associated with this Email");
+                            tv_snack.setText(R.string.no_nm);
 
                         }
                         else if (msg.contains("Error Occured[object Object]")) {

@@ -150,7 +150,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Customer Name"
+                            android:text="@string/customer_name"
                             android:textColor="@color/redColor"
                             android:textSize="@dimen/_11sdp" />
 
@@ -193,7 +193,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Customer Ph.No."
+                            android:text="@string/customer_ph_no"
                             android:textColor="@color/redColor"
                             android:textSize="@dimen/_11sdp" />
 
@@ -248,7 +248,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pickup"
+                        android:text="@string/pickupsa"
                         android:textColor="@color/redColor"
                         android:textSize="@dimen/_11sdp" />
 
@@ -294,7 +294,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Drop"
+                        android:text="@string/dropa"
                         android:textColor="@color/redColor"
                         android:textSize="@dimen/_11sdp" />
 
@@ -353,7 +353,7 @@
                         android:id="@+id/cr_delivery_txt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Nearby Landmark"
+                        android:text="@string/nearby_landmarka"
                         android:textColor="@color/redColor"
                         android:textSize="@dimen/_11sdp" />
 
@@ -396,7 +396,7 @@
 
                 android:gravity="center"
                 android:padding="@dimen/_7sdp"
-                android:text="Start"
+                android:text="@string/start"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:textSize="@dimen/_19sdp"

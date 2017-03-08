@@ -125,7 +125,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
             new updateLocation().execute();
 
-            Toast.makeText(getApplicationContext(), "updated:", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.update, Toast.LENGTH_LONG).show();
 
 
         }
@@ -152,10 +152,10 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
             if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
 
                 //Displaying a toast
-                Toast.makeText(this,"Permission granted now you can read the storage",Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.pev,Toast.LENGTH_LONG).show();
             }else{
                 //Displaying another toast if permission is not granted
-                Toast.makeText(this,"Oops you just denied the permission",Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.deni,Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -227,8 +227,8 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         }
 
         snackbar = Snackbar
-                .make(findViewById(R.id.drawer_layout), "Location Not Enabled", Snackbar.LENGTH_INDEFINITE)
-                .setAction("Open Settings", new View.OnClickListener() {
+                .make(findViewById(R.id.drawer_layout), R.string.lco, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.open_settings, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         snackbar.dismiss();
@@ -246,7 +246,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         textView1.setTextColor(Color.RED);
 
         snackbart = Snackbar
-                .make(findViewById(R.id.drawer_layout), "Please Complete Your Profile First", Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.drawer_layout), R.string.comp_pr, Snackbar.LENGTH_LONG);
         View sbView1 = snackbart.getView();
         snackbart.setAction("Profile", new View.OnClickListener() {
             @Override
@@ -273,7 +273,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         tv_snack_act.setTypeface(tf);
 
         snackbar2 = Snackbar
-                .make(findViewById(R.id.top), "Please Be Active to find Jobs.!", Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.top), R.string.be_activ, Snackbar.LENGTH_LONG);
         View sbView2 = snackbar2.getView();
         tv_snack2 = (android.widget.TextView) sbView2.findViewById(android.support.design.R.id.snackbar_text);
         tv_snack2.setTextColor(Color.WHITE);
@@ -678,7 +678,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         if (permissionsList.size() > 0) {
             if (permissionsNeeded.size() > 0) {
                 // Need Rationale
-                String message = "You need to grant access to " + permissionsNeeded.get(0);
+                String message = getString(R.string.grn_ac) + permissionsNeeded.get(0);
                 for (int i = 1; i < permissionsNeeded.size(); i++)
                     message = message + ", " + permissionsNeeded.get(i);
 
@@ -737,7 +737,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
             editor.commit();
 
             snackbar2.show();
-            tv_snack2.setText("You Dont Have Any Trips to Show.!");
+            tv_snack2.setText(R.string.dont_hav);
         }
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             snackbar.show();
@@ -795,7 +795,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                 if (Integer.valueOf(sharedPreferences.getString("job_size", "")) == 0) {
 
                     snackbart.show();
-                    tv_snack.setText("No Jobs Found");
+                    tv_snack.setText(R.string.no_jb);
 
                 }
             }

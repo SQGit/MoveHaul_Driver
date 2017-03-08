@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:text="Booking id number is"
+            android:text="@string/booking_id_number_is"
             android:textColor="@color/dialog_text"
             android:textSize="@dimen/_17sdp" />
         <TextView
@@ -50,7 +50,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:paddingTop="@dimen/_15sdp"
-            android:text="Do you want to cancel this Trip?"
+            android:text="@string/do_you_want_to_cancel_this_trip"
             android:textColor="@color/dialog_text"
             android:textSize="@dimen/_14sdp" />
 
@@ -65,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Please check bid Cancellation rules"
+                android:text="@string/please_check_bid_cancellation_rules"
                 android:textColor="@color/redColor"
                 android:textSize="@dimen/_14sdp" />
 
@@ -94,7 +94,7 @@
             android:gravity="center"
             android:paddingBottom="@dimen/_5sdp"
             android:paddingRight="@dimen/_3sdp"
-            android:text="Confirm"
+            android:text="@string/confirma"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/_16sdp" />

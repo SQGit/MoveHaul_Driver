@@ -68,7 +68,7 @@
                             android:id="@+id/textview_boogk_from_txt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pickup"
+                            android:text="@string/pickup"
                             android:textColor="@color/redColor"
                             android:textSize="@dimen/_12sdp" />
 
@@ -114,7 +114,7 @@
                             android:id="@+id/textview_book_to_txt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Drop"
+                            android:text="@string/drop"
                             android:textColor="@color/redColor"
                             android:textSize="@dimen/_12sdp" />
 
@@ -172,7 +172,7 @@
                             android:id="@+id/textview_book_from_txt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Date"
+                            android:text="@string/date"
                             android:textColor="@color/redColor"
                             android:textSize="@dimen/_12sdp" />
 
@@ -212,7 +212,7 @@
                         android:id="@+id/textview_book_uto_txt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="See More Details"
+                        android:text="@string/see_more_details"
                         android:layout_gravity="center"
                         android:textColor="@color/redColor"
                         android:textSize="@dimen/_12sdp" />

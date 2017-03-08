@@ -85,8 +85,8 @@ public class LoginActivity extends Activity {
 
 
         mProgressDialog = new ProgressDialog(LoginActivity.this,R.style.AppCompatAlertDialogStyle);
-        mProgressDialog.setTitle("Loading..");
-        mProgressDialog.setMessage("Please wait");
+        mProgressDialog.setTitle(getString(R.string.loading));
+        mProgressDialog.setMessage(getString(R.string.wait));
         mProgressDialog.setInverseBackgroundForced(true);
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);

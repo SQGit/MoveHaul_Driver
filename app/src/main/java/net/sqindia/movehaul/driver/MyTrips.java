@@ -64,7 +64,7 @@ public class MyTrips extends AppCompatActivity {
     TabLayout tl_indicator;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    String id, token;
+    String id, token, booking_id;
     ArrayList<MV_Datas> ar_job_history;
     ProgressDialog mProgressDialog;
     TextView tv_cr_date,tv_cr_time,tv_cr_pickup,tv_cr_drop,tv_cr_delivery,tv_cr_cu_name,tv_cr_cu_phone,tv_cr_delivery_txt;
@@ -170,8 +170,8 @@ public class MyTrips extends AppCompatActivity {
         }
 
         mProgressDialog = new ProgressDialog(MyTrips.this);
-        mProgressDialog.setTitle("Loading..");
-        mProgressDialog.setMessage("Please wait");
+        mProgressDialog.setTitle(getString(R.string.loading));
+        mProgressDialog.setMessage(getString(R.string.wait));
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
 
@@ -179,7 +179,7 @@ public class MyTrips extends AppCompatActivity {
 
         if (!net.sqindia.movehaul.driver.Config.isConnected(MyTrips.this)) {
             snackbar.show();
-            tv_snack.setText("Please Connect Internet and Try again");
+            tv_snack.setText(R.string.coma);
         } else {
             new get_history().execute();
 
@@ -280,12 +280,16 @@ public class MyTrips extends AppCompatActivity {
                     public void onClick(View view) {
 
                         if(i==0){
-                            btn_start.setText("Finish Job");
+                            btn_start.setText(R.string.fea);
                             btn_start.setBackgroundColor(getResources().getColor(R.color.gold));
                             i=1;
                         }
                         else {
-                            btn_start.setText("Start");
+
+                            booking_id = mv_datas.getBooking_id();
+                            Log.e("tag","booking_id: "+ booking_id);
+                            new finish_job().execute();
+                            btn_start.setText(R.string.asde);
                             btn_start.setBackgroundColor(getResources().getColor(R.color.redColor));
                             i = 0;
                         }
@@ -323,10 +327,10 @@ public class MyTrips extends AppCompatActivity {
                 tv_cr_drop.setText(mv_datas.getDrop());
                 tv_cr_delivery.setText(mv_datas.getDelivery());
                 if(vec_type.equals("Bus")){
-                    tv_cr_delivery_txt.setText("Nearby Landmark");
+                    tv_cr_delivery_txt.setText(R.string.asdfew);
                 }
                 else{
-                    tv_cr_delivery_txt.setText("Nearby Landmark");
+                    tv_cr_delivery_txt.setText(R.string.easd);
                 }
                 tv_cr_cu_name.setText(mv_datas.getCusotmer_name());
                 tv_cr_cu_phone.setText(mv_datas.getCustomer_number());
@@ -391,11 +395,11 @@ public class MyTrips extends AppCompatActivity {
             String title;
 
             if (position == 0) {
-                title = "Current";
+                title = getString(R.string.adsf);
             }/* else if (position == 1) {
                 title = "History";
             }*/ else {
-                title = "Upcoming";
+                title = getString(R.string.adv);
             }
 
             return title;
@@ -460,7 +464,7 @@ public class MyTrips extends AppCompatActivity {
                                 String customer_name = jos.getString("customer_name");
                                 String customer_phone = jos.getString("customer_mobile");
                                 String customer_image = jos.getString("customer_image");
-                                String booking_id = jos.getString("bidding_id");
+                                String booking_id = jos.getString("booking_id");
                                 String job_cost = jos.getString("job_cost");
                                 String goods_type = jos.getString("goods_type");
 
@@ -515,6 +519,70 @@ public class MyTrips extends AppCompatActivity {
 
 
 
+
+                    } else if (status.equals("false")) {
+
+                        Log.e("tag", "Location not updated");
+                        //has to check internet and location...
+
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e("tag", "nt" + e.toString());
+                    // Toast.makeText(getApplicationContext(),"Network Errror0",Toast.LENGTH_LONG).show();
+                }
+            } else {
+                // Toast.makeText(getApplicationContext(),"Network Errror1",Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
+
+
+
+    public class finish_job extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressDialog.show();
+            Log.e("tag", "reg_preexe_driv"+ booking_id);
+
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String json = "", jsonStr = "";
+            try {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.accumulate("booking_id", booking_id);
+                json = jsonObject.toString();
+                return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + "truckdriver/finishjob", json, id, token);
+
+            } catch (Exception e) {
+                Log.e("InputStream", e.getLocalizedMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.e("tag", "tag_driver" + s);
+            mProgressDialog.dismiss();
+
+
+            if (s != null) {
+                try {
+                    JSONObject jo = new JSONObject(s);
+                    String status = jo.getString("status");
+                    // String msg = jo.getString("message");
+                    Log.d("tag", "<-----Status----->" + status);
+                    if (status.equals("true")) {
+
+                        finish();
 
                     } else if (status.equals("false")) {
 

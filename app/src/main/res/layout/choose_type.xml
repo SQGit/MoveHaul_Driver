@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_20sdp"
-            android:text="Lets Gets Started!!"
+            android:text="@string/lets_gets_started"
             android:textColor="@color/brown"
             android:textSize="@dimen/_22sdp" />
 
@@ -38,7 +38,7 @@
             android:layout_marginRight="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:gravity="center"
-            android:text="Choose anyone of these vehicle types to apply their services"
+            android:text="@string/choose_anyone_of_these_vehicle_types_to_apply_their_services"
             android:textColor="@color/dialog_text"
             android:textSize="@dimen/_15sdp" />
 
@@ -56,11 +56,6 @@
                 android:layout_weight="1"
                 android:gravity="center">
 
-                <!-- <ImageView
-                     android:id="@+id/image_truck"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:background="@drawable/roundbb1" />-->
 
                 <ImageView
                     android:id="@+id/image_truck"
@@ -79,12 +74,6 @@
                 android:layout_weight="1"
                 android:gravity="center">
 
-                <!--
-                            <ImageView
-                                android:id="@+id/image_bus"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/roundbb" />-->
 
                 <ImageView
                     android:id="@+id/image_bus"
@@ -115,7 +104,7 @@
                     android:id="@+id/iuy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Truck"
+                    android:text="@string/truck"
                     android:textColor="@color/dialog_text"
                     android:textSize="@dimen/_16sdp" />
             </LinearLayout>
@@ -131,7 +120,7 @@
                     android:id="@+id/tyy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bus"
+                    android:text="@string/bus"
                     android:textColor="@color/dialog_text"
                     android:textSize="@dimen/_16sdp" />
 
@@ -177,7 +166,7 @@
                     android:id="@+id/tyys"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Road Side Assistance"
+                    android:text="@string/road_side_assistance"
                     android:textColor="@color/dialog_text"
                     android:textSize="@dimen/_16sdp" />
 

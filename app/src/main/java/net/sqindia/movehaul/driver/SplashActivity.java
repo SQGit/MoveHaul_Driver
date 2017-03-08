@@ -135,8 +135,8 @@ public class SplashActivity extends Activity {
 
 
         snackbar = Snackbar
-                .make(findViewById(R.id.top), "No internet connection!", Snackbar.LENGTH_INDEFINITE)
-                .setAction("Open Settings", new View.OnClickListener() {
+                .make(findViewById(R.id.top), R.string.no_internet, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.open_settings, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));

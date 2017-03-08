@@ -34,7 +34,7 @@
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/_8sdp"
             android:paddingTop="@dimen/_8sdp"
-            android:text="My Trips"
+            android:text="@string/my_trips"
             android:textColor="#313131"
             android:textSize="@dimen/_15sdp" />
 
@@ -55,7 +55,7 @@
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/_8sdp"
             android:paddingTop="@dimen/_8sdp"
-            android:text="Profile"
+            android:text="@string/profile"
             android:textColor="#313131"
             android:textSize="@dimen/_15sdp" />
 
@@ -76,7 +76,7 @@
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/_8sdp"
             android:paddingTop="@dimen/_8sdp"
-            android:text="Reviews"
+            android:text="@string/reviews"
             android:textColor="#313131"
             android:textSize="@dimen/_15sdp" />
 
@@ -98,7 +98,7 @@
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/_8sdp"
             android:paddingTop="@dimen/_8sdp"
-            android:text="Payments"
+            android:text="@string/payments"
             android:textColor="#313131"
             android:textSize="@dimen/_15sdp" />
 
@@ -119,7 +119,7 @@
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/_8sdp"
             android:paddingTop="@dimen/_8sdp"
-            android:text="Bank Details"
+            android:text="@string/bank_details"
             android:textColor="#313131"
             android:textSize="@dimen/_15sdp" />
 

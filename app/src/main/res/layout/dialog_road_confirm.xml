@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
-            android:text="Thanks for Confirming Assistance!!"
+            android:text="@string/thanks_for_confirming_assistance"
             android:textColor="@color/dialog_text"
             android:textSize="@dimen/_17sdp" />
 
@@ -44,7 +44,7 @@
             android:paddingLeft="@dimen/_35sdp"
             android:paddingRight="@dimen/_35sdp"
             android:paddingTop="@dimen/_10sdp"
-            android:text="Our Customer is waiting for your Assistance, Please reach soon.\n Your Details shared to Customer"
+            android:text="@string/our_customer_is_waiting_for_your_assistance_please_reach_soon_n_your_details_shared_to_customer"
             android:textColor="@color/dialog_text"
             android:textSize="@dimen/_14sdp" />
 

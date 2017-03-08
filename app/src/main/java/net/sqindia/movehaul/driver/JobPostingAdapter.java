@@ -193,11 +193,11 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
 
 
         if (vec_type.equals("Bus")) {
-            tv_content_desc_txt.setText("Nearby Landmark");
+            tv_content_desc_txt.setText(R.string.near_lan);
             tv_content_desc.setText(mv_datas.getDelivery());
             lt_goods_type.setVisibility(View.GONE);
         } else if (vec_type.equals("Truck")) {
-            tv_content_desc_txt.setText("Nearby Landmark");
+            tv_content_desc_txt.setText(R.string.near_lan);
             tv_content_desc.setText(mv_datas.getDelivery());
             lt_goods_type.setVisibility(View.VISIBLE);
         } else {
@@ -244,7 +244,7 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         d2_tv_dialog4.setTypeface(type);
         d2_btn_ok.setTypeface(type);
 
-        d2_tv_dialog2.setText("You successfully bidded for the job id:" + mv_datas.getBooking_id());
+        d2_tv_dialog2.setText(context.getString(R.string.ur_succ) + mv_datas.getBooking_id());
         d2_tv_dialog3.setVisibility(View.GONE);
         d2_tv_dialog4.setVisibility(View.GONE);
 
@@ -289,15 +289,15 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
                                 } else {
                                 }
                             } else {
-                                et_driver_id.setError("Phone Number not match..");
+                                et_driver_id.setError(context.getString(R.string.er_num));
                                 et_driver_id.requestFocus();
                             }
                         } else {
-                            et_driver_id.setError("Enter Phone Number");
+                            et_driver_id.setError(context.getString(R.string.er_ph));
                             et_driver_id.requestFocus();
                         }
                     } else {
-                        et_bidding.setError("Enter bidding amount");
+                        et_bidding.setError(context.getString(R.string.er_bid));
                         et_bidding.requestFocus();
                     }
 
@@ -404,9 +404,9 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
             mProgressDialog.show();
 
             if(vec_type.equals("Road"))
-                mProgressDialog.setTitle("Booking..");
+                mProgressDialog.setTitle(context.getString(R.string.booking));
             else
-            mProgressDialog.setTitle("Bidding..");
+            mProgressDialog.setTitle(context.getString(R.string.biddin));
 
         }
 

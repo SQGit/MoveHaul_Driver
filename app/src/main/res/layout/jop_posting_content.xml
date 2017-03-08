@@ -50,7 +50,7 @@
                         android:id="@+id/textview_boogk_from_txt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pickup"
+                        android:text="@string/pickup"
                         android:textColor="@color/redColor"
                         android:textSize="@dimen/_12sdp" />
 
@@ -95,7 +95,7 @@
                         android:id="@+id/textssview_book_to_txt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Drop"
+                        android:text="@string/drop"
                         android:textColor="@color/redColor"
                         android:textSize="@dimen/_12sdp" />
 
@@ -141,7 +141,7 @@
                         android:id="@+id/textviessw_book_to_txt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Goods Type"
+                        android:text="@string/goods_type"
                         android:textColor="@color/redColor"
                         android:textSize="@dimen/_12sdp" />
 
@@ -196,7 +196,7 @@
                             android:id="@+id/textssview_book_from_txt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Time"
+                            android:text="@string/time"
                             android:textColor="@color/redColor"
                             android:textSize="@dimen/_12sdp" />
 
@@ -244,7 +244,7 @@
                             android:id="@+id/textview_book_from_txt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Date"
+                            android:text="@string/date"
                             android:textColor="@color/redColor"
                             android:textSize="@dimen/_12sdp" />
 
@@ -311,7 +311,7 @@
                         android:id="@+id/textview_book_to_txt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Nearby Landmark"
+                        android:text="@string/nearby_landmark"
                         android:textColor="@color/redColor"
                         android:textSize="@dimen/_12sdp" />
 

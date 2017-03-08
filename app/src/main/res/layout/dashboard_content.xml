@@ -106,7 +106,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:requiresFadingEdge="horizontal"
-                        android:text="I'm Active"
+                        android:text="@string/i_m_active"
                         android:textColor="#313131"
                         android:textSize="@dimen/_13sdp" />
 
@@ -160,7 +160,7 @@
                     android:gravity="center"
                     android:paddingBottom="@dimen/_5sdp"
                     android:paddingRight="@dimen/_3sdp"
-                    android:text="Job Postings"
+                    android:text="@string/job_postings"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textSize="@dimen/_16sdp"
@@ -171,7 +171,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="@dimen/_5sdp"
-                    android:text="MoveHaul is better place to move the goods from one place to another in a minute!!"
+                    android:text="@string/movehaul_is_better_place_to_move_the_goods_from_one_place_to_another_in_a_minute"
                     android:textSize="@dimen/_10sdp" />
 
 

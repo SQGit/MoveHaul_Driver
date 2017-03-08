@@ -103,8 +103,8 @@ public class ProfileActivityBus extends Activity {
         Log.e("tag","ty:"+vec_type);
 
         mProgressDialog = new ProgressDialog(ProfileActivityBus.this);
-        mProgressDialog.setTitle("Loading..");
-        mProgressDialog.setMessage("Please wait");
+        mProgressDialog.setTitle(getString(R.string.loading));
+        mProgressDialog.setMessage(getString(R.string.wait));
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
 
@@ -170,11 +170,11 @@ public class ProfileActivityBus extends Activity {
 
         if (!config.isConnected(ProfileActivityBus.this)) {
             snackbar.show();
-            tv_snack.setText("Please Connect Internet and Try again");
+            tv_snack.setText(R.string.connect);
         }
 
         snackbar = Snackbar
-                .make(findViewById(R.id.top), "Network Error! Please Try Again Later.", Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.top), R.string.network, Snackbar.LENGTH_LONG);
         snackbar.setActionTextColor(Color.RED);
 
         View sbView = snackbar.getView();
@@ -375,45 +375,45 @@ public class ProfileActivityBus extends Activity {
 
                                                                           } else {
                                                                               snackbar.show();
-                                                                              tv_snack.setText("Upload Vechile Insurence");
+                                                                              tv_snack.setText(R.string.veaas);
                                                                           }
                                                                       } else {
                                                                           snackbar.show();
-                                                                          tv_snack.setText("Upload Vechile RC");
+                                                                          tv_snack.setText(R.string.adc);
                                                                       }
 
 
                                                                   } else {
                                                                       snackbar.show();
-                                                                      tv_snack.setText("Upload Vechile Front Image");
+                                                                      tv_snack.setText(R.string.aewc);
                                                                   }
 
 
                                                               } else {
                                                                   snackbar.show();
-                                                                  tv_snack.setText("Upload Vechile Inside Image");
+                                                                  tv_snack.setText(R.string.awev);
                                                               }
                                                           } else {
                                                               snackbar.show();
-                                                              tv_snack.setText("Upload Profile Image");
+                                                              tv_snack.setText(R.string.dvea);
                                                           }
                                                       } else {
 
                                                           snackbar.show();
-                                                          tv_snack.setText("Enter Valid Address");
+                                                          tv_snack.setText(R.string.vea);
                                                           et_address.requestFocus();
 
                                                       }
                                                   } else {
                                                       snackbar.show();
-                                                      tv_snack.setText("Enter Valid Secondary Number");
+                                                      tv_snack.setText(R.string.fve);
                                                       et_secondary.requestFocus();
                                                   }
 
                                               } else {
 
                                                   snackbar.show();
-                                                  tv_snack.setText("Enter Valid Contact Number");
+                                                  tv_snack.setText(R.string.adf);
                                                   et_contact.requestFocus();
 
                                               }
@@ -614,7 +614,7 @@ public class ProfileActivityBus extends Activity {
 
                     } else {
                         snackbar.show();
-                        tv_snack.setText("Network Error! Please Try Again Later.");
+                        tv_snack.setText(R.string.network);
                     }
 
 
@@ -622,11 +622,11 @@ public class ProfileActivityBus extends Activity {
                     e.printStackTrace();
                     Log.e("tag", "nt" + e.toString());
                     snackbar.show();
-                    tv_snack.setText("Network Error! Please Try Again Later.");
+                    tv_snack.setText(R.string.network);
                 }
             } else {
                 snackbar.show();
-                tv_snack.setText("Network Error! Please Try Again Later.");
+                tv_snack.setText(R.string.network);
             }
 
         }
@@ -735,7 +735,7 @@ public class ProfileActivityBus extends Activity {
                         finish();
                     } else {
                         snackbar.show();
-                        tv_snack.setText("Network Error! Please Try Again Later.");
+                        tv_snack.setText(R.string.network);
                     }
 
 
@@ -743,11 +743,11 @@ public class ProfileActivityBus extends Activity {
                     e.printStackTrace();
                     Log.e("tag", "nt" + e.toString());
                     snackbar.show();
-                    tv_snack.setText("Network Error! Please Try Again Later.");
+                    tv_snack.setText(R.string.network);
                 }
             } else {
                 snackbar.show();
-                tv_snack.setText("Network Error! Please Try Again Later.");
+                tv_snack.setText(R.string.network);
             }
 
         }

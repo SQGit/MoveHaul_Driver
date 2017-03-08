@@ -113,8 +113,8 @@ public class RegisterActivity extends Activity {
         insertDummyContactWrapper();
 
         mProgressDialog = new ProgressDialog(RegisterActivity.this);
-        mProgressDialog.setTitle("Loading..");
-        mProgressDialog.setMessage("Please wait");
+        mProgressDialog.setTitle(getString(R.string.loading));
+        mProgressDialog.setMessage(getString(R.string.wait));
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
 
@@ -229,7 +229,7 @@ public class RegisterActivity extends Activity {
 
 
         snackbar = Snackbar
-                .make(findViewById(R.id.top), "Network Error! Please Try Again Later.", Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.top), R.string.network, Snackbar.LENGTH_LONG);
         View sbView = snackbar.getView();
         tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
         tv_snack.setTextColor(Color.WHITE);
@@ -237,7 +237,7 @@ public class RegisterActivity extends Activity {
 
         if (!config.isConnected(RegisterActivity.this)) {
             snackbar.show();
-            tv_snack.setText("Please Connect Internet and Try again");
+            tv_snack.setText(R.string.connect);
         }
 
 
@@ -259,9 +259,9 @@ public class RegisterActivity extends Activity {
         d2_tv_dialog4.setTypeface(type);
         d2_btn_ok.setTypeface(type);
 
-        d2_tv_dialog1.setText("SUCCESS");
-        d2_tv_dialog2.setText("Thank you for submitting your details for verification!\nAdmin needs to verify your details.");
-        d2_tv_dialog3.setText("Once verification is completed. You can login to Movehaul.");
+        d2_tv_dialog1.setText(R.string.success);
+        d2_tv_dialog2.setText(R.string.thanks);
+        d2_tv_dialog3.setText(R.string.verf);
         d2_tv_dialog4.setVisibility(View.GONE);
         btn_close.setVisibility(View.GONE);
 
@@ -309,17 +309,17 @@ public class RegisterActivity extends Activity {
 
                         } else {
                             snackbar.show();
-                            tv_snack.setText("Enter valid phone Number");
+                            tv_snack.setText(R.string.va_ph);
                             et_mobile.requestFocus();
                         }
                     } else {
                         snackbar.show();
-                        tv_snack.setText("Enter valid email address!");
+                        tv_snack.setText(R.string.va_ma);
                         et_email.requestFocus();
                     }
                 } else {
                     snackbar.show();
-                    tv_snack.setText("Enter UserName!");
+                    tv_snack.setText(R.string.va_us);
                     et_name.requestFocus();
                 }
 
@@ -355,27 +355,27 @@ public class RegisterActivity extends Activity {
                             } else {
 
                                 snackbar.show();
-                                tv_snack.setText("Upload Licence Image");
+                                tv_snack.setText(R.string.up_lc);
                             }
 
                         } else {
                            // et_lic_mobile.setError("Enter valid phone number");
 
                             snackbar.show();
-                            tv_snack.setText("Enter valid Secondary phone number");
+                            tv_snack.setText(R.string.va_se);
 
                             et_lic_mobile.requestFocus();
                         }
                     } else {
                        // et_lic_no.setError("Enter a valid email address!");
                         snackbar.show();
-                        tv_snack.setText("Enter a valid Licence Number");
+                        tv_snack.setText(R.string.va_lc);
                         et_lic_no.requestFocus();
                     }
                 } else {
                     //et_lic_name.setError("Enter a Name!");
                     snackbar.show();
-                    tv_snack.setText("Enter Full Name!");
+                    tv_snack.setText(R.string.va_fn);
                     et_lic_name.requestFocus();
                 }
             }
@@ -455,7 +455,7 @@ public class RegisterActivity extends Activity {
                     str_lic_photo = image_uris.get(0).toString();
                     Glide.with(RegisterActivity.this).load(new File(str_lic_photo)).centerCrop().into(iv_driver_lic);
                     snackbar.show();
-                    tv_snack.setText("Driver Licence Added.");
+                    tv_snack.setText(R.string.dr);
                     view_lic.setVisibility(View.GONE);
                 }
 
@@ -550,11 +550,11 @@ public class RegisterActivity extends Activity {
                     else{
                         if(msg.contains("Error OccuredError: ER_DUP_ENTRY: Duplicate entry")) {
                             snackbar.show();
-                            tv_snack.setText("User Details already Registered by someone,Please Try again");
+                            tv_snack.setText(R.string.us_al);
                         }
                         else{
                             snackbar.show();
-                            tv_snack.setText("Network Error! Please Try Again Later.");
+                            tv_snack.setText(R.string.network);
                         }
                     }
 
@@ -564,11 +564,11 @@ public class RegisterActivity extends Activity {
                     Log.e("tag", "tagnt: " + e.toString());
 
                     snackbar.show();
-                    tv_snack.setText("Network Error! Please Try Again Later.");
+                         tv_snack.setText(R.string.network);
                 }
             } else {
                 snackbar.show();
-                tv_snack.setText("Network Error! Please Try Again Later.");
+                     tv_snack.setText(R.string.network);
             }
         }
     }
@@ -646,7 +646,7 @@ public class RegisterActivity extends Activity {
 
                 } else {
                     insertDummyContactWrapper();
-                    Toast.makeText(RegisterActivity.this, "Some Permission is Denied", Toast.LENGTH_SHORT)
+                    Toast.makeText(RegisterActivity.this, R.string.perm_de, Toast.LENGTH_SHORT)
                             .show();
                 }
             }

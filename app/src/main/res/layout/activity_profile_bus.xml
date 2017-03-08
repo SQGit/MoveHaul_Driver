@@ -88,7 +88,7 @@
                         android:layout_gravity="center_vertical|center_horizontal"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:gravity="center"
-                        android:text="Profile Pic"
+                        android:text="@string/profile_pic"
                         android:textColor="@color/gold"
                         android:textSize="@dimen/_12sdp" />
 
@@ -126,7 +126,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:text="Front"
+                                android:text="@string/front"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/_9sdp" />
 
@@ -149,7 +149,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:text="Inside"
+                                android:text="@string/inside"
                                 android:id="@+id/textview"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/_9sdp" />
@@ -167,7 +167,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:text="Vechile Pic"
+                        android:text="@string/vechile_pic"
                         android:textColor="@color/gold"
                         android:textSize="@dimen/_12sdp" />
 
@@ -216,7 +216,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:background="@null"
-                            android:hint="Contact Number"
+                            android:hint="@string/contact_number"
                             android:inputType="number"
                             android:maxLength="13"
                             android:maxLines="1"
@@ -243,7 +243,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:background="@null"
-                            android:hint="Secondary Number"
+                            android:hint="@string/secondary_contact"
                             android:inputType="number"
                             android:maxLength="10"
                             android:maxLines="1"
@@ -270,7 +270,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:background="@null"
-                            android:hint="Address"
+                            android:hint="@string/address"
                             android:inputType="text"
                             android:maxLines="1"
                             android:paddingTop="@dimen/_10sdp"
@@ -316,7 +316,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="end"
                                     android:layout_marginTop="@dimen/_5sdp"
-                                    android:text="Attach Vechile Title"
+                                    android:text="@string/attach_vechile_title"
                                     android:textColor="@color/textColor"
                                     android:textSize="@dimen/_10sdp" />
 
@@ -361,7 +361,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="end"
                                     android:layout_marginTop="@dimen/_5sdp"
-                                    android:text="Attach Vechile Insurance"
+                                    android:text="@string/attach_vechile_insurance"
                                     android:textColor="@color/textColor"
                                     android:textSize="@dimen/_10sdp" />
 
@@ -418,7 +418,7 @@
                     android:gravity="center"
                     android:paddingBottom="@dimen/_5sdp"
                     android:paddingRight="@dimen/_3sdp"
-                    android:text="Update"
+                    android:text="@string/updat"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textSize="@dimen/_19sdp" />
@@ -448,7 +448,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Add Bank Details"
+                    android:text="@string/add_bank_details"
                     android:textColor="@color/redColor"
                     android:textSize="@dimen/_10sdp" />
 
