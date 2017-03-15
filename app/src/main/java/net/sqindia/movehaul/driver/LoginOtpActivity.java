@@ -403,6 +403,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
                     jsonObject.accumulate("driver_email", str_data);
                     jsonObject.accumulate("driver_otp", str_otppin);
+                    jsonObject.accumulate("fcm_id", fcm_id);
                     url = url_data+"/emaillogin";
                 }
 
