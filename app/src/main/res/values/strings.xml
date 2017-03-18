@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Movehaul\nDriver</string>
+    <string name="app_name">MovHaul\nDriver</string>
     <string name="custom_title">Click Shipment</string>
 
     <string name="img_profile">Choose Profile</string>
@@ -26,7 +26,7 @@
     <string name="attach_driver_licence">Attach Driver Licence</string>
     <string name="verify">Verify</string>
     <string name="by_signing_up_you_agree_to_the_terms_amp_conditions"><![CDATA[By signing up you agree to the terms & conditions]]></string>
-    <string name="and_privacy_policy_of_movehaul">and privacy policy of Movehaul</string>
+    <string name="and_privacy_policy_of_movehaul">and privacy policy of MovHaul</string>
     <string name="lets_gets_started">Lets Gets Started!!</string>
     <string name="choose_anyone_of_these_vehicle_types_to_apply_their_services">Choose anyone of these vehicle types to apply their services</string>
     <string name="truck">Truck</string>
@@ -38,7 +38,7 @@
     <string name="connect">Please Connect Internet and Try again</string>
     <string name="success">SUCCESS</string>
     <string name="thanks">Thank you for submitting your details for verification! Admin needs to verify your details.</string>
-    <string name="verf">Once verification is completed. You can login to Movehaul.</string>
+    <string name="verf">Once verification is completed. You can login to MovHaul.</string>
     <string name="va_ph">Enter valid phone Number</string>
     <string name="va_ma">Enter valid email address!</string>
     <string name="va_us">Enter UserName!</string>
@@ -51,7 +51,7 @@
     <string name="perm_de">Some Permission is Denied</string>
     <string name="mobile_no">Mobile No</string>
     <string name="forgot_mobile_no">Forgot Mobile No?</string>
-    <string name="by_login_you_agree_to_the_terms_amp_conditions_nand_privacy_policy_of_movehaul"><![CDATA[By Login you agree to the terms & conditions  and privacy policy of Movehaul]]></string>
+    <string name="by_login_you_agree_to_the_terms_amp_conditions_nand_privacy_policy_of_movehaul"><![CDATA[By Login you agree to the terms & conditions  and privacy policy of MovHaul]]></string>
     <string name="forgot_ph_no">Forgot Ph. No</string>
     <string name="type_email">Type Email</string>
     <string name="va_em">Enter a valid email address!</string>
@@ -62,7 +62,7 @@
     <string name="resend_otp">Resend OTP</string>
     <string name="i_m_active">I\'m Active</string>
     <string name="job_postings">Job Postings</string>
-    <string name="movehaul_is_better_place_to_move_the_goods_from_one_place_to_another_in_a_minute">MoveHaul is better place to move the goods from one place to another in a minute!!</string>
+    <string name="movehaul_is_better_place_to_move_the_goods_from_one_place_to_another_in_a_minute">MovHaul is better place to move the goods from one place to another in a minute!!</string>
     <string name="my_trips">My Trips</string>
     <string name="profile">Profile</string>
     <string name="reviews">Reviews</string>

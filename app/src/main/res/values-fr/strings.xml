@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">"Movehaul \ nDriver"</string>
+    <string name="app_name">"MovHaul \ nDriver"</string>
     <string name="custom_title">"Cliquez sur l'expédition"</string>
 
     <string name="img_profile">"Choisissez le profil"</string>
@@ -26,7 +26,7 @@
     <string name="attach_driver_licence">"Joindre permis de conduire"</string>
     <string name="verify">"Vérification"</string>
     <string name="by_signing_up_you_agree_to_the_terms_amp_conditions">"En vous inscrivant, vous acceptez les termes et conditions"</string>
-    <string name="and_privacy_policy_of_movehaul">"et la politique de Movehaul de confidentialité"</string>
+    <string name="and_privacy_policy_of_movehaul">"et la politique de MovHaul de confidentialité"</string>
     <string name="lets_gets_started">"Lets est commencé !!"</string>
     <string name="choose_anyone_of_these_vehicle_types_to_apply_their_services">"Choisissez quelqu'un de ces types de véhicules à appliquer leurs services"</string>
     <string name="truck">"camion"</string>
@@ -38,7 +38,7 @@
     <string name="connect">"S'il vous plaît Connectez Internet et Essayez à nouveau"</string>
     <string name="success">"SUCCÈS"</string>
     <string name="thanks">"Nous vous remercions de soumettre vos coordonnées pour la vérification! Administrateur doit vérifier vos coordonnées."</string>
-    <string name="verf">"Une fois que la vérification est terminée. Vous pouvez vous connecter à Movehaul."</string>
+    <string name="verf">"Une fois que la vérification est terminée. Vous pouvez vous connecter à MovHaul."</string>
     <string name="va_ph">"Entrez le numéro de téléphone valide"</string>
     <string name="va_ma">"Entrez l'adresse e-mail valide!"</string>
     <string name="va_us">"Introduire le nom d'utilisateur"</string>
@@ -51,7 +51,7 @@
     <string name="perm_de">"Certains l'autorisation est refusée"</string>
     <string name="mobile_no">"Numéro de Portable"</string>
     <string name="forgot_mobile_no">"Mot Mobile Pas?"</string>
-    <string name="by_login_you_agree_to_the_terms_amp_conditions_nand_privacy_policy_of_movehaul">"&lt;! [CDATA [Par Login, vous acceptez les termes et conditions et la politique de Movehaul de confidentialité"</string>
+    <string name="by_login_you_agree_to_the_terms_amp_conditions_nand_privacy_policy_of_movehaul">"&lt;! [CDATA [Par Login, vous acceptez les termes et conditions et la politique de MovHaul de confidentialité"</string>
     <string name="forgot_ph_no">"Mot Ph. No"</string>
     <string name="type_email">"Type de Email"</string>
     <string name="va_em">"Entrez une adresse mail valide"</string>
@@ -62,7 +62,7 @@
     <string name="resend_otp">"Renvoyer OTP"</string>
     <string name="i_m_active">"Je suis actif"</string>
     <string name="job_postings">"Offres d'emploi"</string>
-    <string name="movehaul_is_better_place_to_move_the_goods_from_one_place_to_another_in_a_minute">"MoveHaul est meilleur endroit pour déplacer les marchandises d'un endroit à un autre dans une minute !!"</string>
+    <string name="movehaul_is_better_place_to_move_the_goods_from_one_place_to_another_in_a_minute">"MovHaul est meilleur endroit pour déplacer les marchandises d'un endroit à un autre dans une minute !!"</string>
     <string name="my_trips">"Mes voyages"</string>
     <string name="profile">"Profil"</string>
     <string name="reviews">"Avis"</string>

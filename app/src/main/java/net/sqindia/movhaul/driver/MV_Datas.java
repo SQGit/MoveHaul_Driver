@@ -1,4 +1,4 @@
-package net.sqindia.movehaul.driver;
+package net.sqindia.movhaul.driver;
 
 /**
  * Created by SQINDIA on 12/9/2016.

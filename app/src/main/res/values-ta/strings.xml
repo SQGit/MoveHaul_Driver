@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">"Movehaul \ nDriver"</string>
+    <string name="app_name">"MovHaul \ nDriver"</string>
     <string name="custom_title">"கப்பலில் கிளிக் செய்யவும்"</string>
 
     <string name="img_profile">"பதிவு செய்தது தேர்வு"</string>
@@ -26,7 +26,7 @@
     <string name="attach_driver_licence">"டிரைவர் லைசென்ஸ் இணைக்கவும்"</string>
     <string name="verify">"சரிபார்"</string>
     <string name="by_signing_up_you_agree_to_the_terms_amp_conditions">"&lt;! [CDATA [பதிவு பெறுவதன் மூலம் நீங்கள் விதிமுறைகள் &amp; நிபந்தனைகளுக்கு உடன்பட"</string>
-    <string name="and_privacy_policy_of_movehaul">"Movehaul மற்றும் தனியுரிமை கொள்கை"</string>
+    <string name="and_privacy_policy_of_movehaul">"MovHaul மற்றும் தனியுரிமை கொள்கை"</string>
     <string name="lets_gets_started">"Lets தொடங்கியது பெறுகிறார் !!"</string>
     <string name="choose_anyone_of_these_vehicle_types_to_apply_their_services">"தங்கள் சேவைகளை விண்ணப்பிக்க இந்த வாகனம் வகையான யாரையும் தேர்வு"</string>
     <string name="truck">"டிரக்"</string>
@@ -38,7 +38,7 @@
     <string name="connect">"இணைய இணைக்க, மீண்டும் முயற்சிக்கவும்"</string>
     <string name="success">"Sucess/வெற்றி"</string>
     <string name="thanks">"சரிபார்ப்புக்காக உங்கள் விவரங்களை சமர்ப்பிக்க நன்றி! நிர்வாகம் உங்கள் விவரங்களை சரிபார்க்க வேண்டும்."</string>
-    <string name="verf">"ஒருமுறை சரிபார்ப்பு நிறைவு உள்ளது. நீங்கள் Movehaul உள்நுழைய முடியும்."</string>
+    <string name="verf">"ஒருமுறை சரிபார்ப்பு நிறைவு உள்ளது. நீங்கள் MovHaul உள்நுழைய முடியும்."</string>
     <string name="va_ph">"சரியான தொலைபேசி எண்ணை உள்ளிடவும்"</string>
     <string name="va_ma">"சரியான மின்னஞ்சல் முகவரியை உள்ளிடவும்!"</string>
     <string name="va_us">"பாவனை பெயர்"</string>
@@ -51,7 +51,7 @@
     <string name="perm_de">"சில அனுமதி மறுக்கப்பட்டது"</string>
     <string name="mobile_no">"கைப்பேசி:"</string>
     <string name="forgot_mobile_no">"மொபைல் இல்லை மறந்துவிட்டதா?"</string>
-    <string name="by_login_you_agree_to_the_terms_amp_conditions_nand_privacy_policy_of_movehaul">"&lt;! [CDATA [உள்நுழைவு மூலம் நீங்கள் விதிமுறைகளும் நிபந்தனைகளும் மற்றும் Movehaul தனியுரிமை கொள்கையை ஏற்கிறேன்"</string>
+    <string name="by_login_you_agree_to_the_terms_amp_conditions_nand_privacy_policy_of_movehaul">"&lt;! [CDATA [உள்நுழைவு மூலம் நீங்கள் விதிமுறைகளும் நிபந்தனைகளும் மற்றும் MovHaul தனியுரிமை கொள்கையை ஏற்கிறேன்"</string>
     <string name="forgot_ph_no">"பிஎச் மறந்துவிட்டேன். இல்லை"</string>
     <string name="type_email">"வகை மின்னஞ்சல்"</string>
     <string name="va_em">"ஒரு சரியான மின்னஞ்சல் முகவரியை உள்ளிடவும்!"</string>
@@ -62,7 +62,7 @@
     <string name="resend_otp">"OTP மீண்டும் அனுப்பு"</string>
     <string name="i_m_active">"நான் செயலில் இருக்கிறேன்"</string>
     <string name="job_postings">"பணி வாய்ப்புகளை"</string>
-    <string name="movehaul_is_better_place_to_move_the_goods_from_one_place_to_another_in_a_minute">"MoveHaul ஒரு நிமிடம் ஒரு இடத்திலிருந்து மற்றொரு இடத்திற்கு இருந்து பொருட்கள் செல்ல நல்ல இடத்தில் உள்ளது !!"</string>
+    <string name="movehaul_is_better_place_to_move_the_goods_from_one_place_to_another_in_a_minute">"MovHaul ஒரு நிமிடம் ஒரு இடத்திலிருந்து மற்றொரு இடத்திற்கு இருந்து பொருட்கள் செல்ல நல்ல இடத்தில் உள்ளது !!"</string>
     <string name="my_trips">"என் பயணங்கள்"</string>
     <string name="profile">"பதிவு செய்தது"</string>
     <string name="reviews">"a. மதிப்புரைகள்"</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.sqindia.movehaul.driver">
+    package="net.sqindia.movhaul.driver">
 
 
     <uses-feature android:name="android.hardware.camera" />
@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashActivity"
+            android:name="net.sqindia.movhaul.driver.SplashActivity"
             android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,60 +31,60 @@
 
 
         <activity
-            android:name=".RegisterActivity"
+            android:name="net.sqindia.movhaul.driver.RegisterActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
 
         <activity
-            android:name=".LoginActivity"
+            android:name="net.sqindia.movhaul.driver.LoginActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
 
         <activity
-            android:name=".LoginOtpActivity"
+            android:name="net.sqindia.movhaul.driver.LoginOtpActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
         <activity
-            android:name=".Forgot_Mobile"
+            android:name="net.sqindia.movhaul.driver.Forgot_Mobile"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
         <activity
-            android:name=".DashboardNavigation"
+            android:name="net.sqindia.movhaul.driver.DashboardNavigation"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/AppThemes"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
 
         <activity
-            android:name=".ProfileActivity"
+            android:name="net.sqindia.movhaul.driver.ProfileActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
         <activity
-            android:name=".ProfileActivityBus"
-            android:screenOrientation="sensorPortrait"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
-
-        <activity
-            android:name=".JobPosting"
+            android:name="net.sqindia.movhaul.driver.ProfileActivityBus"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
 
         <activity
-            android:name=".MyTrips"
+            android:name="net.sqindia.movhaul.driver.JobPosting"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
 
         <activity
-            android:name=".Payment"
+            android:name="net.sqindia.movhaul.driver.MyTrips"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
 
         <activity
-            android:name=".Reviews"
+            android:name="net.sqindia.movhaul.driver.Payment"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
 
         <activity
-            android:name=".Bank_details"
+            android:name="net.sqindia.movhaul.driver.Reviews"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
+
+        <activity
+            android:name="net.sqindia.movhaul.driver.Bank_details"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
 
@@ -92,14 +92,14 @@
 
 
         <service
-            android:name=".MyFirebaseMessagingService">
+            android:name="net.sqindia.movhaul.driver.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
 
         <service
-            android:name=".MyFirebaseInstanceIDService">
+            android:name="net.sqindia.movhaul.driver.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>

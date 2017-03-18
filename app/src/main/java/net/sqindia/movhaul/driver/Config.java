@@ -1,4 +1,4 @@
-package net.sqindia.movehaul.driver;
+package net.sqindia.movhaul.driver;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

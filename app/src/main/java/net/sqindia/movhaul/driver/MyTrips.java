@@ -1,4 +1,4 @@
-package net.sqindia.movehaul.driver;
+package net.sqindia.movhaul.driver;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -177,7 +177,7 @@ public class MyTrips extends AppCompatActivity {
 
         ar_job_history = new ArrayList<>();
 
-        if (!net.sqindia.movehaul.driver.Config.isConnected(MyTrips.this)) {
+        if (!net.sqindia.movhaul.driver.Config.isConnected(MyTrips.this)) {
             snackbar.show();
             tv_snack.setText(R.string.coma);
         } else {

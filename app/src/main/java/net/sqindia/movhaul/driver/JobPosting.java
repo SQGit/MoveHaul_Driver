@@ -1,4 +1,4 @@
-package net.sqindia.movehaul.driver;
+package net.sqindia.movhaul.driver;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -15,11 +15,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.ramotion.foldingcell.FoldingCell;
 import com.rey.material.widget.LinearLayout;
 import com.rey.material.widget.ListView;
 import com.sloop.fonts.FontsManager;
@@ -113,7 +110,7 @@ public class JobPosting extends Activity {
 
 
 
-        if (!net.sqindia.movehaul.driver.Config.isConnected(JobPosting.this)) {
+        if (!net.sqindia.movhaul.driver.Config.isConnected(JobPosting.this)) {
             snackbar.show();
             tv_snack.setText(R.string.connect);
         }
