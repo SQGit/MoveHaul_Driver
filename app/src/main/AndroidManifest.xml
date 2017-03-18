@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.sqindia.movhaul.driver">
+    package="com.vineture.movhaul.driver">
 
 
     <uses-feature android:name="android.hardware.camera" />
@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="net.sqindia.movhaul.driver.SplashActivity"
+            android:name="com.vineture.movhaul.driver.SplashActivity"
             android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,60 +31,60 @@
 
 
         <activity
-            android:name="net.sqindia.movhaul.driver.RegisterActivity"
+            android:name="com.vineture.movhaul.driver.RegisterActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
 
         <activity
-            android:name="net.sqindia.movhaul.driver.LoginActivity"
+            android:name="com.vineture.movhaul.driver.LoginActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
 
         <activity
-            android:name="net.sqindia.movhaul.driver.LoginOtpActivity"
+            android:name="com.vineture.movhaul.driver.LoginOtpActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
         <activity
-            android:name="net.sqindia.movhaul.driver.Forgot_Mobile"
+            android:name="com.vineture.movhaul.driver.Forgot_Mobile"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
         <activity
-            android:name="net.sqindia.movhaul.driver.DashboardNavigation"
+            android:name="com.vineture.movhaul.driver.DashboardNavigation"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/AppThemes"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
 
         <activity
-            android:name="net.sqindia.movhaul.driver.ProfileActivity"
+            android:name="com.vineture.movhaul.driver.ProfileActivity"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
         <activity
-            android:name="net.sqindia.movhaul.driver.ProfileActivityBus"
-            android:screenOrientation="sensorPortrait"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
-
-        <activity
-            android:name="net.sqindia.movhaul.driver.JobPosting"
+            android:name="com.vineture.movhaul.driver.ProfileActivityBus"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
 
         <activity
-            android:name="net.sqindia.movhaul.driver.MyTrips"
+            android:name="com.vineture.movhaul.driver.JobPosting"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
 
         <activity
-            android:name="net.sqindia.movhaul.driver.Payment"
+            android:name="com.vineture.movhaul.driver.MyTrips"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
 
         <activity
-            android:name="net.sqindia.movhaul.driver.Reviews"
+            android:name="com.vineture.movhaul.driver.Payment"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
 
         <activity
-            android:name="net.sqindia.movhaul.driver.Bank_details"
+            android:name="com.vineture.movhaul.driver.Reviews"
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
+
+        <activity
+            android:name="com.vineture.movhaul.driver.Bank_details"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"></activity>
 
@@ -92,14 +92,14 @@
 
 
         <service
-            android:name="net.sqindia.movhaul.driver.MyFirebaseMessagingService">
+            android:name="com.vineture.movhaul.driver.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
 
         <service
-            android:name="net.sqindia.movhaul.driver.MyFirebaseInstanceIDService">
+            android:name="com.vineture.movhaul.driver.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
