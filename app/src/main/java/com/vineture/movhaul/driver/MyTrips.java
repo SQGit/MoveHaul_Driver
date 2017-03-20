@@ -275,6 +275,8 @@ public class MyTrips extends AppCompatActivity {
                 btn_start = (Button) view.findViewById(com.vineture.movhaul.driver.R.id.btn_service);
                 btn_start.setBackgroundColor(getResources().getColor(com.vineture.movhaul.driver.R.color.redColor));
 
+                btn_start.setTypeface(tf);
+
                 btn_start.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

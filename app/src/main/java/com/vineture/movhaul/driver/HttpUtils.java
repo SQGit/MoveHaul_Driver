@@ -346,7 +346,7 @@ public class HttpUtils {
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(url);
             httppost.setHeader("Accept", "application/json");
-            httppost.setHeader("Content-type", "application/json");
+            httppost.setHeader("Content-tf", "application/json");
             httppost.setHeader("apikey", "1eo7u4tig9704k2humvdywwnb4hnl2xa1jbrh7go");
             httppost.setEntity(new StringEntity(json));
             HttpResponse response = httpclient.execute(httppost);
@@ -401,7 +401,7 @@ public class HttpUtils {
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(url);
             httppost.setHeader("Accept", "application/json");
-            httppost.setHeader("Content-type", "application/json");
+            httppost.setHeader("Content-tf", "application/json");
             httppost.setHeader("apikey", "1eo7u4tig9704k2humvdywwnb4hnl2xa1jbrh7go");
             httppost.setEntity(new StringEntity(json));
             HttpResponse response = httpclient.execute(httppost);
@@ -449,7 +449,7 @@ public class HttpUtils {
             HttpPost httpPost = new HttpPost(url);
             httpPost.setEntity(new StringEntity(json));
             httpPost.setHeader("Accept", "application/json");
-            httpPost.setHeader("Content-type", "application/json");
+            httpPost.setHeader("Content-tf", "application/json");
             httpPost.setHeader("session_id", session);
 
             HttpResponse httpResponse = new DefaultHttpClient().execute(httpPost);
@@ -617,7 +617,7 @@ public class HttpUtils {
 
             HttpPost httpPost = new HttpPost(url);
             httpPost.setEntity(new StringEntity(json));
-            httpPost.setHeader("Content-type", "application/json");
+            httpPost.setHeader("Content-tf", "application/json");
             httpPost.setHeader("session_id",session);
 
 
@@ -762,7 +762,7 @@ public class HttpUtils {
             HttpPost httpPost = new HttpPost(url);
             httpPost.setEntity(new StringEntity(json));
             httpPost.setHeader("Accept", "application/json");
-            httpPost.setHeader("Content-type", "application/json");
+            httpPost.setHeader("Content-tf", "application/json");
             httpPost.setHeader("sessionToken", token);
             //text/html
             HttpResponse httpResponse = new DefaultHttpClient().execute(httpPost);

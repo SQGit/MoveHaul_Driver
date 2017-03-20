@@ -15,7 +15,7 @@
     <string name="no_internet">"Pas de réseau"</string>
     <string name="open_settings">"Ouvrir les paramètres"</string>
     <string name="username">"Nom d'Utilisateur"</string>
-    <string name="email">"E-mail"</string>
+    <string name="email">"E-mail "</string>
     <string name="mobile">"Portable"</string>
     <string name="submit">"Soumettre"</string>
     <string name="register_verification">"Inscription - Vérification"</string>
@@ -32,7 +32,7 @@
     <string name="truck">"camion"</string>
     <string name="bus">"bus"</string>
     <string name="road_side_assistance">"Assistance routière"</string>
-    <string name="loading">"Chargement ..."</string>
+    <string name="loading">"Loading .."</string>
     <string name="wait">"Veuillez attendre"</string>
     <string name="network">"Erreur de réseau, veuillez réessayer plus tard."</string>
     <string name="connect">"S'il vous plaît Connectez Internet et Essayez à nouveau"</string>
@@ -54,7 +54,7 @@
     <string name="by_login_you_agree_to_the_terms_amp_conditions_nand_privacy_policy_of_movehaul">"&lt;! [CDATA [Par Login, vous acceptez les termes et conditions et la politique de MovHaul de confidentialité"</string>
     <string name="forgot_ph_no">"Mot Ph. No"</string>
     <string name="type_email">"Type de Email"</string>
-    <string name="va_em">"Entrez une adresse mail valide"</string>
+    <string name="va_em">"Veuillez saisir une adresse e-mail valide"</string>
     <string name="no_nm">"Non numéro associé à cette e-mail"</string>
     <string name="login_otp">"Connectez-OTP"</string>
     <string name="check_your_message_or">"Vérifiez votre message (ou)"</string>
@@ -80,7 +80,7 @@
     <string name="job_posting">"Offres d'emploi"</string>
     <string name="pickup">"CAMIONNETTE"</string>
     <string name="drop">"abandonner"</string>
-    <string name="date">"date"</string>
+    <string name="date">"date "</string>
     <string name="see_more_details">"Voir Plus de détails"</string>
     <string name="goods_type">"Les marchandises de type"</string>
     <string name="time">"Temps"</string>
@@ -90,14 +90,14 @@
     <string name="er_num">"Numéro de téléphone ne correspond .."</string>
     <string name="er_ph">"Entrez le numéro de téléphone"</string>
     <string name="er_bid">"Entrez le montant d'appel d'offres"</string>
-    <string name="booking">"réservation"</string>
+    <string name="booking">"Réservation"</string>
     <string name="biddin">"Enchère.."</string>
     <string name="from_location">"De Localisation"</string>
     <string name="to_location">"Pour Localisation"</string>
     <string name="cancel_job">"Annuler le travail"</string>
     <string name="support">"Soutien"</string>
     <string name="feedback">"Retour d'information"</string>
-    <string name="logout">"Déconnexion"</string>
+    <string name="logout">"Se déconnecter"</string>
     <string name="coma">"S'il vous plaît Connectez Internet et Essayez à nouveau"</string>
     <string name="fea">"Terminer Travail"</string>
     <string name="asde">"Début"</string>
@@ -107,7 +107,7 @@
     <string name="adv">"prochain"</string>
     <string name="asd">"Erreur de réseau, veuillez réessayer plus tard."</string>
     <string name="asfe">"S'il vous plaît Connectez Internet et Essayez à nouveau"</string>
-    <string name="adew">"Télécharger Vechile insurence"</string>
+    <string name="adew">"Télécharger Vehicle insurence"</string>
     <string name="adfe">"Télécharger Vehicle RC"</string>
     <string name="cvd">"Télécharger Vehicle Side image"</string>
     <string name="adfw">"Upload avant Image du véhicule"</string>
@@ -120,12 +120,12 @@
     <string name="back">"Retour"</string>
     <string name="front">"Avant"</string>
     <string name="side">"Côté"</string>
-    <string name="vechile_pic">"vechile Pic"</string>
+    <string name="vechile_pic">"Pic véhicule"</string>
     <string name="contact_number">"Téléphone"</string>
     <string name="secondary_number">"Téléphone secondaire"</string>
     <string name="address">"Adresse"</string>
-    <string name="attach_vechile_title">"Joindre Vechile Titre"</string>
-    <string name="attach_vechile_insurance">"Attachez Vechile Assurance"</string>
+    <string name="attach_vechile_title">"Joindre Véhicule Titre"</string>
+    <string name="attach_vechile_insurance">"Joindre l'assurance des véhicules"</string>
     <string name="updat">"Mettre à jour "</string>
     <string name="add_bank_details">"Ajouter Détails Bank"</string>
     <string name="adf">"Entrez valide Nombre de contact"</string>
@@ -143,8 +143,8 @@
     <string name="please_check_bid_rules">"S'il vous plaît vérifier les règles de soumission"</string>
     <string name="confirm">"Confirmer"</string>
     <string name="are_you_sure_want_to">"Êtes-vous sûr de vouloir"</string>
-    <string name="logouts">"Déconnexion"</string>
-    <string name="yes">"Oui "</string>
+    <string name="logouts">"CONNECTEZ - OUT"</string>
+    <string name="yes">"Oui"</string>
     <string name="no">"Non"</string>
     <string name="thanks_for_confirming_assistance">"Merci pour réservation !!"</string>
     <string name="our_customer_is_waiting_for_your_assistance_please_reach_soon_n_your_details_shared_to_customer">"Notre clientèle attend votre aide, S'il vous plaît arriver bientôt. Vos détails partagés au Client"</string>
@@ -158,4 +158,13 @@
     <string name="dropa">"abandonner"</string>
     <string name="nearby_landmarka">"Lieu connu à proximité"</string>
     <string name="start">"Début"</string>
+    <string name="ad">"Compte non activé"</string>
+    <string name="asdf">"Vos données pour la vérification !!"</string>
+    <string name="cea">"Une fois que la vérification est terminée, vous pouvez vous connecter à Movehaul."</string>
+    <string name="adsfe">"S'il vous plaît Connectez Internet et Essayez à nouveau"</string>
+    <string name="aveas">"Entrez le numéro de téléphone valide"</string>
+    <string name="veas">"Mobile Number Pas encore inscrit"</string>
+    <string name="avca">"Erreur de réseau, veuillez réessayer plus tard."</string>
+    <string name="avva">"S'il vous plaît Connectez Internet et Essayez à nouveau"</string>
+    <string name="vae">"S'il vous plaît réessayez plus tard"</string>
 </resources>

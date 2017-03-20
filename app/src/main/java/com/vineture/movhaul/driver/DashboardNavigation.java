@@ -178,7 +178,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         str_driver_phone = sharedPreferences.getString("driver_mobile", "");
         str_driver_email = sharedPreferences.getString("driver_email", "");
 
-        Log.e("tag","type:: "+vec_type);
+        Log.e("tag","tf:: "+vec_type);
 
         insertDummyContactWrapper();
 

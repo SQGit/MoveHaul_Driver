@@ -46,11 +46,12 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
     Button btn_bidding_confirm, d2_btn_ok;
     TextView tv_dialog1, tv_dialog2, tv_dialog3, tv_dialog4, d2_tv_dialog1, d2_tv_dialog2, d2_tv_dialog3, d2_tv_dialog4;
     EditText et_bidding, et_driver_id;
-    Typeface type;
+    Typeface tf;
     MV_Datas mv_datas;
     ProgressDialog mProgressDialog;
-    com.rey.material.widget.TextView tv_title_pickup, tv_title_drop, tv_title_date, tv_content_desc_txt;
+    com.rey.material.widget.TextView tv_title_pickup, tv_title_drop, tv_title_date, tv_content_desc_txt,tv_title_pick_txt,tv_title_drop_txt,tv_title_date_txt,tv_title_more;
     com.rey.material.widget.TextView tv_content_pickup, tv_content_drop, tv_content_date, tv_content_goodstype, tv_content_time, tv_content_desc;
+    com.rey.material.widget.TextView tv_content_pickup_txt,tv_content_drop_txt,tv_content_goods_txt,tv_content_time_txt,tv_content_date_txt,tv_content_land_txt;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     String id, token, str_bidding_cost, str_booking_id;
@@ -91,7 +92,7 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         FontsManager.initFormAssets(act, "fonts/lato.ttf");       //initialization
         FontsManager.changeFonts(act);
 
-        type = Typeface.createFromAsset(getContext().getAssets(), "fonts/lato.ttf");
+        tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/lato.ttf");
 
 
         id = sharedPreferences.getString("id", "");
@@ -152,13 +153,22 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         });
 
         vec_type = mv_datas.getVec_type();
-        Log.e("tag", "type:" + vec_type);
+        Log.e("tag", "tf:" + vec_type);
+
+
 
 
         ImageView iv_bidding = (ImageView) cell.findViewById(com.vineture.movhaul.driver.R.id.imageview_bidding);
         tv_title_pickup = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_title_pickup);
         tv_title_drop = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_title_drop);
         tv_title_date = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_title_date);
+        tv_title_pick_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_title_date);
+        tv_title_date = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_title_date);
+
+        tv_title_pick_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_book_from_txt);
+        tv_title_drop_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_book_to_txt);
+        tv_title_date_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_title_date);
+        tv_title_more = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_seemore);
 
         tv_content_pickup = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_pickup);
         tv_content_drop = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_drop);
@@ -166,11 +176,45 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         tv_content_date = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_date);
         tv_content_time = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_time);
         tv_content_desc = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_desc);
-        tv_content_desc_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_book_to_txt);
+
         lt_goods_type = (LinearLayout) cell.findViewById(com.vineture.movhaul.driver.R.id.layout_goods_type);
         lt_nearby = (LinearLayout) cell.findViewById(com.vineture.movhaul.driver.R.id.layout_nearby);
 
         lt_nearby1 = (LinearLayout) cell.findViewById(com.vineture.movhaul.driver.R.id.layout_nearby1);
+
+        tv_content_desc_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_nearby_txt);
+        tv_content_pickup_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_pickup_txt);
+        tv_content_drop_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_drop_txt);
+        tv_content_goods_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_goods_txt);
+        tv_content_time_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_time_txt);
+        tv_content_date_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_book_date_txt);
+
+
+
+        tv_title_pickup.setTypeface(tf);
+        tv_title_drop.setTypeface(tf);
+        tv_title_date.setTypeface(tf);
+        tv_title_date_txt.setTypeface(tf);
+        tv_title_drop_txt.setTypeface(tf);
+        tv_title_pick_txt.setTypeface(tf);
+        tv_title_more.setTypeface(tf);
+
+
+
+        tv_content_pickup.setTypeface(tf);
+        tv_content_drop.setTypeface(tf);
+        tv_content_goodstype.setTypeface(tf);
+        tv_content_date.setTypeface(tf);
+        tv_content_time.setTypeface(tf);
+        tv_content_desc.setTypeface(tf);
+
+        tv_content_desc_txt.setTypeface(tf);
+        tv_content_pickup_txt.setTypeface(tf);
+        tv_content_drop_txt.setTypeface(tf);
+        tv_content_goods_txt.setTypeface(tf);
+        tv_content_time_txt.setTypeface(tf);
+        tv_content_date_txt.setTypeface(tf);
+
 
 
         tv_title_pickup.setText(mv_datas.getPickup());
@@ -218,11 +262,11 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         tv_dialog4 = (TextView) dg_bidding.findViewById(com.vineture.movhaul.driver.R.id.textView_4);
         et_driver_id = (EditText) dg_bidding.findViewById(com.vineture.movhaul.driver.R.id.edittext_driver_id);
 
-        tv_dialog1.setTypeface(type);
-        et_bidding.setTypeface(type);
-        et_driver_id.setTypeface(type);
-        tv_dialog4.setTypeface(type);
-        btn_bidding_confirm.setTypeface(type);
+        tv_dialog1.setTypeface(tf);
+        et_bidding.setTypeface(tf);
+        et_driver_id.setTypeface(tf);
+        tv_dialog4.setTypeface(tf);
+        btn_bidding_confirm.setTypeface(tf);
 
 
         dialog2 = new Dialog(JobPostingAdapter.this.getContext());
@@ -237,11 +281,11 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         d2_tv_dialog3 = (TextView) dialog2.findViewById(com.vineture.movhaul.driver.R.id.textView_3);
         d2_tv_dialog4 = (TextView) dialog2.findViewById(com.vineture.movhaul.driver.R.id.textView_4);
 
-        d2_tv_dialog1.setTypeface(type);
-        d2_tv_dialog2.setTypeface(type);
-        d2_tv_dialog3.setTypeface(type);
-        d2_tv_dialog4.setTypeface(type);
-        d2_btn_ok.setTypeface(type);
+        d2_tv_dialog1.setTypeface(tf);
+        d2_tv_dialog2.setTypeface(tf);
+        d2_tv_dialog3.setTypeface(tf);
+        d2_tv_dialog4.setTypeface(tf);
+        d2_btn_ok.setTypeface(tf);
 
         d2_tv_dialog2.setText(context.getString(com.vineture.movhaul.driver.R.string.ur_succ) + mv_datas.getBooking_id());
         d2_tv_dialog3.setVisibility(View.GONE);
@@ -324,9 +368,9 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         TextView tv_txt1 = (android.widget.TextView) dg_road_confirm.findViewById(com.vineture.movhaul.driver.R.id.textView_1);
         TextView tv_txt2 = (android.widget.TextView) dg_road_confirm.findViewById(com.vineture.movhaul.driver.R.id.textView_2);
 
-        tv_txt1.setTypeface(type);
-        tv_txt2.setTypeface(type);
-        btn_yes.setTypeface(type);
+        tv_txt1.setTypeface(tf);
+        tv_txt2.setTypeface(tf);
+        btn_yes.setTypeface(tf);
 
         btn_yes.setOnClickListener(new View.OnClickListener() {
             @Override

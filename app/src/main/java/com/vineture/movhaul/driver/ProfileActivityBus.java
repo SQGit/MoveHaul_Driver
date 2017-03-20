@@ -234,7 +234,7 @@ public class ProfileActivityBus extends Activity {
 
         }
 
-        Log.e("tag", "type:" + vec_type);
+        Log.e("tag", "tf:" + vec_type);
 
         if (vec_type.equals("Bus")) {
             tv_bk_txt.setText("Inside");

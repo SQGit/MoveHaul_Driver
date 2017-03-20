@@ -92,7 +92,7 @@ public class LoginActivity extends Activity {
 
 
         snackbar = Snackbar
-                .make(findViewById(com.vineture.movhaul.driver.R.id.top), "Network Error! Please Try Again Later.", Snackbar.LENGTH_LONG);
+                .make(findViewById(com.vineture.movhaul.driver.R.id.top), R.string.avca, Snackbar.LENGTH_LONG);
         View sbView = snackbar.getView();
         tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
         tv_snack.setTextColor(Color.WHITE);
@@ -100,7 +100,7 @@ public class LoginActivity extends Activity {
 
         if (!config.isConnected(LoginActivity.this)) {
             snackbar.show();
-            tv_snack.setText("Please Connect Internet and Try again");
+            tv_snack.setText(R.string.avva);
         }
 
 
@@ -134,9 +134,9 @@ public class LoginActivity extends Activity {
         d2_tv_dialog4.setTypeface(type);
         d2_btn_ok.setTypeface(type);
 
-        d2_tv_dialog1.setText("Account Not Activated");
-        d2_tv_dialog2.setText("Your details for Verification!!");
-        d2_tv_dialog3.setText("Once Verificationis completed, You can login to Movehaul.");
+        d2_tv_dialog1.setText(R.string.ad);
+        d2_tv_dialog2.setText(R.string.asdf);
+        d2_tv_dialog3.setText(R.string.cea);
         d2_tv_dialog4.setVisibility(View.GONE);
         btn_close.setVisibility(View.GONE);
 
@@ -186,7 +186,7 @@ public class LoginActivity extends Activity {
                        new login_customer().execute();
                    } else {
                        snackbar.show();
-                       tv_snack.setText("Please Connect Internet and Try again");
+                       tv_snack.setText(R.string.adsfe);
                    }
 
 
@@ -195,7 +195,7 @@ public class LoginActivity extends Activity {
                     //et_mobile_no.setError("Enter valid phone number");
 
                    snackbar.show();
-                   tv_snack.setText("Enter valid phone Number");
+                   tv_snack.setText(R.string.aveas);
                     et_mobile_no.requestFocus();
                 }
 
@@ -308,7 +308,7 @@ public class LoginActivity extends Activity {
                 try {
                     JSONObject jo = new JSONObject(s);
                     String status = jo.getString("status");
-                    String msg = "Please Try Again Later.";
+                    String msg = getString(R.string.vae);
                     if(jo.has("message")) {
                         msg = jo.getString("message");
                     }
@@ -342,7 +342,7 @@ public class LoginActivity extends Activity {
 
                            // Toast.makeText(getApplicationContext(),"Mobile Number Not Registered",Toast.LENGTH_LONG).show();
 
-                            tv_snack.setText("Mobile Number Not Registered");
+                            tv_snack.setText(R.string.veas);
                             snackbar.show();
 
 

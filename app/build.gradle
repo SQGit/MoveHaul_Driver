@@ -2,10 +2,17 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'movhaul_driver'
+            keyPassword 'mvhldriver'
+            storeFile file('F:/movhaul driver/keystore_driver.jks')
+            storePassword 'mvhldriver'
+        }
+    }
     compileSdkVersion 24
     buildToolsVersion '25.0.0'
     useLibrary 'org.apache.http.legacy'
-
     defaultConfig {
         applicationId "com.vineture.movhaul.driver"
         minSdkVersion 17
@@ -13,21 +20,25 @@ android {
         versionCode 3
         versionName "1.3"
         multiDexEnabled true
+        signingConfig signingConfigs.config
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+            zipAlignEnabled true
         }
     }
-    packagingOptions{
+    packagingOptions {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE-FIREBASE.txt'
         exclude 'META-INF/NOTICE'
     }
-
     dexOptions {
         javaMaxHeapSize "4g"
+    }
+    productFlavors {
     }
 }
 
@@ -38,15 +49,13 @@ repositories {
 
 }
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:24.2.1'
     testCompile 'junit:junit:4.12'
-
     compile 'com.intuit.sdp:sdp-android:1.0.3'
     compile 'com.github.rey5137:material:1.2.4'
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:cardview-v7:24.2.1'
-
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.github.GcsSloop:FontsManager:v1.0.0'
     compile 'com.ramotion.foldingcell:folding-cell:1.0.1'
@@ -57,10 +66,4 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:9.0.2'
     compile 'com.firebase:firebase-client-android:2.5.1+'
     compile 'com.google.firebase:firebase-crash:9.0.2'
-
-
-
-
-
-
 }

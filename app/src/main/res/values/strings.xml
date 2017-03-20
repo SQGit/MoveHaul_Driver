@@ -107,7 +107,7 @@
     <string name="adv">Upcoming</string>
     <string name="asd">Network Error! Please Try Again Later.</string>
     <string name="asfe">Please Connect Internet and Try again</string>
-    <string name="adew">Upload Vechile Insurence</string>
+    <string name="adew">Upload Vehicle Insurence</string>
     <string name="adfe">Upload Vehicle RC</string>
     <string name="cvd">Upload Vehicle Side Image</string>
     <string name="adfw">Upload Vehicle Front Image</string>
@@ -120,12 +120,12 @@
     <string name="back">Back</string>
     <string name="front">Front</string>
     <string name="side">Side</string>
-    <string name="vechile_pic">Vechile Pic</string>
+    <string name="vechile_pic">Vehicle Pic</string>
     <string name="contact_number">Contact Number</string>
     <string name="secondary_number">Secondary Number</string>
     <string name="address">Address</string>
-    <string name="attach_vechile_title">Attach Vechile Title</string>
-    <string name="attach_vechile_insurance">Attach Vechile Insurance</string>
+    <string name="attach_vechile_title">Attach Vehicle Title</string>
+    <string name="attach_vechile_insurance">Attach Vehicle Insurance</string>
     <string name="updat">Update</string>
     <string name="add_bank_details">Add Bank Details</string>
     <string name="adf">Enter Valid Contact Number</string>
@@ -158,4 +158,13 @@
     <string name="dropa">Drop</string>
     <string name="nearby_landmarka">Nearby Landmark</string>
     <string name="start">Start</string>
+    <string name="ad">Account Not Activated</string>
+    <string name="asdf">Your details for Verification!!</string>
+    <string name="cea">Once Verification is completed, You can login to Movehaul.</string>
+    <string name="adsfe">Please Connect Internet and Try again</string>
+    <string name="aveas">Enter valid phone Number</string>
+    <string name="veas">Mobile Number Not Registered</string>
+    <string name="avca">Network Error! Please Try Again Later.</string>
+    <string name="avva">Please Connect Internet and Try again</string>
+    <string name="vae">Please Try Again Later.</string>
 </resources>
