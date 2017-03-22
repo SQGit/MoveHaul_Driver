@@ -316,7 +316,7 @@ public class MyTrips extends AppCompatActivity {
                 View line_view = view.findViewById(com.vineture.movhaul.driver.R.id.view_last);
 
 
-                Glide.with(MyTrips.this).load(Config.WEB_URL + "customer_details/" + mv_datas.getCustomer_img()).into(iv_content_prof);
+                Glide.with(MyTrips.this).load(Config.WEB_URL_IMG + "customer_details/" + mv_datas.getCustomer_img()).into(iv_content_prof);
 
                 if(mv_datas.getDelivery().equals("null")){
                     lt_nearby.setVisibility(View.GONE);

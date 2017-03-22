@@ -218,10 +218,10 @@ public class ProfileActivityBus extends Activity {
             String img4 = sharedPreferences.getString("bus_ins", "");
 
 
-            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL + "vehicle_details/" + img).error(com.vineture.movhaul.driver.R.drawable.bus_front).into(iv_vec_front);
-            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL + "vehicle_details/" + img2).error(com.vineture.movhaul.driver.R.drawable.bus_inside).into(iv_vec_inside);
-            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL + "vehicle_details/" + img3).into(iv_vec_rc);
-            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL + "vehicle_details/" + img4).into(iv_vec_ins);
+            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL_IMG + "vehicle_details/" + img).error(com.vineture.movhaul.driver.R.drawable.bus_front).into(iv_vec_front);
+            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL_IMG + "vehicle_details/" + img2).error(com.vineture.movhaul.driver.R.drawable.bus_inside).into(iv_vec_inside);
+            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL_IMG + "vehicle_details/" + img3).into(iv_vec_rc);
+            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL_IMG + "vehicle_details/" + img4).into(iv_vec_ins);
 
         }
 
@@ -230,7 +230,7 @@ public class ProfileActivityBus extends Activity {
 
             String img = sharedPreferences.getString("driver_image", "");
 
-            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL + "driver_details/" + img).into(iv_profile);
+            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL_IMG + "driver_details/" + img).into(iv_profile);
 
         }
 

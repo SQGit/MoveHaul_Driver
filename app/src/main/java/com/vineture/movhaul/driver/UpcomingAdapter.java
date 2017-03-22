@@ -143,7 +143,7 @@ public class UpcomingAdapter extends ArrayAdapter<MV_Datas> {
 
 
 
-        Glide.with(act.getApplicationContext()).load(Config.WEB_URL + "customer_details/" + mv_datas.getCustomer_img()).into(iv_content_prof);
+        Glide.with(act.getApplicationContext()).load(Config.WEB_URL_IMG + "customer_details/" + mv_datas.getCustomer_img()).into(iv_content_prof);
 
 
         dialog1 = new Dialog(UpcomingAdapter.this.getContext());

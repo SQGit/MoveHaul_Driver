@@ -17,6 +17,7 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.List;
@@ -285,6 +286,7 @@ public class GpsTracker extends Service implements LocationListener {
 
 
         geocoder = new Geocoder(mContext, Locale.getDefault());
+        Toast.makeText(mContext,"Location Changed",Toast.LENGTH_SHORT).show();
 
         try {
             addresses = geocoder.getFromLocation(latitude, longitude, 1);
@@ -292,28 +294,28 @@ public class GpsTracker extends Service implements LocationListener {
             e.printStackTrace();
         }
 
-        String address = addresses.get(0).getAddressLine(0);
-        String city = addresses.get(0).getLocality();
-        String state = addresses.get(0).getAdminArea();
-        String country = addresses.get(0).getCountryName();
-        String postalCode = addresses.get(0).getPostalCode();
-        String knownName = addresses.get(0).getFeatureName();
-
+       // String address = addresses.get(0).getAddressLine(0);
+       // String city = addresses.get(0).getLocality();
+       // String state = addresses.get(0).getAdminArea();
+      //  String country = addresses.get(0).getCountryName();
+      //  String postalCode = addresses.get(0).getPostalCode();
+      //  String knownName = addresses.get(0).getFeatureName();
+//
 
 
       //  Toast.makeText(mContext,"location Changed",Toast.LENGTH_LONG).show();
 
-       /* Intent i = new Intent();//fafafadf
+        Intent i = new Intent();//fafafadf
         i.setAction("appendGetLocation");
         i.putExtra("latitude", String.valueOf(latitude));
         i.putExtra("longitude", String.valueOf(longitude));
-        i.putExtra("address", address);
-        i.putExtra("city", city);
-        i.putExtra("state", state);
-        i.putExtra("country", country);
-        i.putExtra("postalCode", postalCode);
-        i.putExtra("knownName", knownName);
-        mContext.sendBroadcast(i);*/
+        //i.putExtra("address", address);
+       // i.putExtra("city", city);
+      //  i.putExtra("state", state);
+       // i.putExtra("country", country);
+        //i.putExtra("postalCode", postalCode);
+       // i.putExtra("knownName", knownName);
+        mContext.sendBroadcast(i);
 
 
     }

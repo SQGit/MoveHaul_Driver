@@ -68,7 +68,7 @@
     <string name="reviews">Reviews</string>
     <string name="payments">Payments</string>
     <string name="bank_details">Bank Details</string>
-    <string name="update">updated</string>
+    <string name="update">broadcast received</string>
     <string name="pev">Permission granted now you can read the storage</string>
     <string name="deni">Oops you just denied the permission</string>
     <string name="lco">Location Not Enabled</string>

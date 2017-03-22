@@ -781,7 +781,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
                 String img = sharedPreferences.getString("driver_image","");
                 Log.e("tag","dr:"+img);
-                Glide.with(DashboardNavigation.this).load(Config.WEB_URL+"driver_details/"+img).into(iv_nav_profile);
+                Glide.with(DashboardNavigation.this).load(Config.WEB_URL_IMG+"driver_details/"+img).into(iv_nav_profile);
 
             }
 
@@ -860,6 +860,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     Log.d("tag", "<-----Status----->" + status);
                     if (status.equals("true")) {
                         Log.e("tag", "Location Updated");
+                        Toast.makeText(getApplicationContext(),"Location Updated "+str_lati,Toast.LENGTH_SHORT).show();
                     } else if (status.equals("false")) {
                         Log.e("tag", "Location not updated");
                     }

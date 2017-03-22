@@ -180,7 +180,7 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         lt_goods_type = (LinearLayout) cell.findViewById(com.vineture.movhaul.driver.R.id.layout_goods_type);
         lt_nearby = (LinearLayout) cell.findViewById(com.vineture.movhaul.driver.R.id.layout_nearby);
 
-        lt_nearby1 = (LinearLayout) cell.findViewById(com.vineture.movhaul.driver.R.id.layout_nearby1);
+       // lt_nearby1 = (LinearLayout) cell.findViewById(com.vineture.movhaul.driver.R.id.layout_nearby1);
 
         tv_content_desc_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_nearby_txt);
         tv_content_pickup_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_pickup_txt);
@@ -230,7 +230,7 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
 
 
         if(mv_datas.getDelivery().equals("null")){
-            lt_nearby1.setVisibility(View.GONE);
+            lt_nearby.setVisibility(View.GONE);
 
         }
 

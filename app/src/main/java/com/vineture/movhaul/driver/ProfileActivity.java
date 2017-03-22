@@ -203,11 +203,11 @@ public class ProfileActivity extends Activity {
             String img4 = sharedPreferences.getString("truck_ins", "");
 
 
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL + "vehicle_details/" + img).error(com.vineture.movhaul.driver.R.drawable.truck_front_ico).into(iv_vec_front);
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL + "vehicle_details/" + img1).error(com.vineture.movhaul.driver.R.drawable.truck_side_ico).into(iv_vec_side);
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL + "vehicle_details/" + img2).error(com.vineture.movhaul.driver.R.drawable.truck_back_ico).into(iv_vec_back);
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL + "vehicle_details/" + img3).into(iv_vec_rc);
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL + "vehicle_details/" + img4).into(iv_vec_ins);
+            Glide.with(ProfileActivity.this).load(Config.WEB_URL_IMG + "vehicle_details/" + img).error(com.vineture.movhaul.driver.R.drawable.truck_front_ico).into(iv_vec_front);
+            Glide.with(ProfileActivity.this).load(Config.WEB_URL_IMG + "vehicle_details/" + img1).error(com.vineture.movhaul.driver.R.drawable.truck_side_ico).into(iv_vec_side);
+            Glide.with(ProfileActivity.this).load(Config.WEB_URL_IMG + "vehicle_details/" + img2).error(com.vineture.movhaul.driver.R.drawable.truck_back_ico).into(iv_vec_back);
+            Glide.with(ProfileActivity.this).load(Config.WEB_URL_IMG + "vehicle_details/" + img3).into(iv_vec_rc);
+            Glide.with(ProfileActivity.this).load(Config.WEB_URL_IMG + "vehicle_details/" + img4).into(iv_vec_ins);
 
         }
 
@@ -216,7 +216,7 @@ public class ProfileActivity extends Activity {
 
             String img = sharedPreferences.getString("driver_image", "");
 
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL + "driver_details/" + img).into(iv_profile);
+            Glide.with(ProfileActivity.this).load(Config.WEB_URL_IMG + "driver_details/" + img).into(iv_profile);
 
         }
 
