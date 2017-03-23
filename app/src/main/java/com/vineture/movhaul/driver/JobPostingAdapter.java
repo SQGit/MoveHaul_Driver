@@ -165,10 +165,10 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         tv_title_pick_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_title_date);
         tv_title_date = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_title_date);
 
-        tv_title_pick_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_book_from_txt);
-        tv_title_drop_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_book_to_txt);
-        tv_title_date_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_title_date);
-        tv_title_more = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_seemore);
+        tv_title_pick_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_book_from_txt);
+        tv_title_drop_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_book_to_txt);
+        tv_title_date_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_title_date);
+        tv_title_more = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_seemore);
 
         tv_content_pickup = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_pickup);
         tv_content_drop = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_drop);
@@ -180,14 +180,14 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         lt_goods_type = (LinearLayout) cell.findViewById(com.vineture.movhaul.driver.R.id.layout_goods_type);
         lt_nearby = (LinearLayout) cell.findViewById(com.vineture.movhaul.driver.R.id.layout_nearby);
 
-       // lt_nearby1 = (LinearLayout) cell.findViewById(com.vineture.movhaul.driver.R.id.layout_nearby1);
+       // lt_nearby1 = (LinearLayout) cell.findViewById(R.id.layout_nearby1);
 
         tv_content_desc_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_nearby_txt);
-        tv_content_pickup_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_pickup_txt);
-        tv_content_drop_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_drop_txt);
-        tv_content_goods_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_goods_txt);
-        tv_content_time_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_time_txt);
-        tv_content_date_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_book_date_txt);
+        tv_content_pickup_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_pickup_txt);
+        tv_content_drop_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_drop_txt);
+        tv_content_goods_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_goods_txt);
+        tv_content_time_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_time_txt);
+        tv_content_date_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_book_date_txt);
 
 
 

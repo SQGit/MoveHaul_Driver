@@ -120,7 +120,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
             new updateLocation().execute();
 
-            Toast.makeText(getApplicationContext(), com.vineture.movhaul.driver.R.string.update, Toast.LENGTH_LONG).show();
+           // Toast.makeText(getApplicationContext(), R.string.update, Toast.LENGTH_LONG).show();
 
 
         }
@@ -860,7 +860,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     Log.d("tag", "<-----Status----->" + status);
                     if (status.equals("true")) {
                         Log.e("tag", "Location Updated");
-                        Toast.makeText(getApplicationContext(),"Location Updated "+str_lati,Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getApplicationContext(),"Location Updated "+str_lati,Toast.LENGTH_SHORT).show();
                     } else if (status.equals("false")) {
                         Log.e("tag", "Location not updated");
                     }

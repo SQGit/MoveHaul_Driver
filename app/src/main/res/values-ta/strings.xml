@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">"MovHaul \ nDriver"</string>
     <string name="custom_title">"கப்பலில் கிளிக் செய்யவும்"</string>
-
     <string name="img_profile">"பதிவு செய்தது தேர்வு"</string>
     <string name="img_vec_back">"வாகன மீண்டும் "</string>
     <string name="img_vec_front">"வாகன முன்னணி "</string>

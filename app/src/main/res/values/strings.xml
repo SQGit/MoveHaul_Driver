@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">MovHaul\nDriver</string>
     <string name="custom_title">Click Shipment</string>
-
     <string name="img_profile">Choose Profile</string>
     <string name="img_vec_back">Vehicle Back </string>
     <string name="img_vec_front">Vehicle Front </string>

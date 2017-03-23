@@ -110,7 +110,7 @@ public class JobPosting extends Activity {
 
 
 
-        if (!com.vineture.movhaul.driver.Config.isConnected(JobPosting.this)) {
+        if (!Config.isConnected(JobPosting.this)) {
             snackbar.show();
             tv_snack.setText(com.vineture.movhaul.driver.R.string.connect);
         }

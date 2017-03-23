@@ -17,7 +17,6 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.List;
@@ -286,7 +285,7 @@ public class GpsTracker extends Service implements LocationListener {
 
 
         geocoder = new Geocoder(mContext, Locale.getDefault());
-        Toast.makeText(mContext,"Location Changed",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(mContext,"Location Changed",Toast.LENGTH_SHORT).show();
 
         try {
             addresses = geocoder.getFromLocation(latitude, longitude, 1);

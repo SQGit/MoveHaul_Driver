@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">"MovHaul \ nDriver"</string>
     <string name="custom_title">"Cliquez sur l'expédition"</string>
-
     <string name="img_profile">"Choisissez le profil"</string>
     <string name="img_vec_back">"véhicule arrière "</string>
     <string name="img_vec_front">"avant du véhicule "</string>

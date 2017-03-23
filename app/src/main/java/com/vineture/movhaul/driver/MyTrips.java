@@ -177,7 +177,7 @@ public class MyTrips extends AppCompatActivity {
 
         ar_job_history = new ArrayList<>();
 
-        if (!com.vineture.movhaul.driver.Config.isConnected(MyTrips.this)) {
+        if (!Config.isConnected(MyTrips.this)) {
             snackbar.show();
             tv_snack.setText(com.vineture.movhaul.driver.R.string.coma);
         } else {
