@@ -1,4 +1,4 @@
-package com.vineture.movhaul.driver;
+package com.movhaul.driver;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

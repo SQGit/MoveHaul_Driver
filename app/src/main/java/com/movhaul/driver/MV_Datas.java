@@ -1,4 +1,4 @@
-package com.vineture.movhaul.driver;
+package com.movhaul.driver;
 
 /**
  * Created by SQINDIA on 12/9/2016.

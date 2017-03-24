@@ -1,4 +1,4 @@
-package com.vineture.movhaul.driver;
+package com.movhaul.driver;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.movhaul.driver.R;
 import com.ramotion.foldingcell.FoldingCell;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
@@ -115,15 +116,15 @@ public class MyTrips extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.vineture.movhaul.driver.R.layout.mytrips);
+        setContentView(R.layout.mytrips);
         FontsManager.initFormAssets(this, "fonts/lato.ttf");
         FontsManager.changeFonts(this);
 
         type = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/lato.ttf");
 
-        btn_back = (LinearLayout) findViewById(com.vineture.movhaul.driver.R.id.layout_back);
+        btn_back = (LinearLayout) findViewById(R.id.layout_back);
         // tpi_ic = (TabPageIndicator) findViewById(R.id.tabpage);
-        tl_indicator = (TabLayout) findViewById(com.vineture.movhaul.driver.R.id.tabs);
+        tl_indicator = (TabLayout) findViewById(R.id.tabs);
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,14 +136,14 @@ public class MyTrips extends AppCompatActivity {
         });
 
         layouts = new int[]{
-                com.vineture.movhaul.driver.R.layout.current_trips1,
+                R.layout.current_trips1,
                /* R.layout.history_trips,*/
-                com.vineture.movhaul.driver.R.layout.upcoming_trips,};
+                R.layout.upcoming_trips,};
 
         nssl = new DashboardNavigation();
 
         snackbar = Snackbar
-                .make(findViewById(com.vineture.movhaul.driver.R.id.top), "Network Error! Please Try Again Later.", Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.top), "Network Error! Please Try Again Later.", Snackbar.LENGTH_LONG);
         View sbView = snackbar.getView();
         tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
         tv_snack.setTextColor(Color.WHITE);
@@ -170,8 +171,8 @@ public class MyTrips extends AppCompatActivity {
         }
 
         mProgressDialog = new ProgressDialog(MyTrips.this);
-        mProgressDialog.setTitle(getString(com.vineture.movhaul.driver.R.string.loading));
-        mProgressDialog.setMessage(getString(com.vineture.movhaul.driver.R.string.wait));
+        mProgressDialog.setTitle(getString(R.string.loading));
+        mProgressDialog.setMessage(getString(R.string.wait));
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
 
@@ -179,14 +180,14 @@ public class MyTrips extends AppCompatActivity {
 
         if (!Config.isConnected(MyTrips.this)) {
             snackbar.show();
-            tv_snack.setText(com.vineture.movhaul.driver.R.string.coma);
+            tv_snack.setText(R.string.coma);
         } else {
             new get_history().execute();
 
         }
 
 
-        viewPager = (ViewPager) findViewById(com.vineture.movhaul.driver.R.id.view_pager);
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
         myViewPagerAdapter = new MyViewPagerAdapter();
 
 
@@ -196,13 +197,13 @@ public class MyTrips extends AppCompatActivity {
         dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog1.setCancelable(false);
-        dialog1.setContentView(com.vineture.movhaul.driver.R.layout.dialog_cancel);
-        tv_dialog1 = (TextView) dialog1.findViewById(com.vineture.movhaul.driver.R.id.textView_1);
-        tv_dialog2 = (TextView) dialog1.findViewById(com.vineture.movhaul.driver.R.id.textView_2);
-        tv_dialog3 = (TextView) dialog1.findViewById(com.vineture.movhaul.driver.R.id.textView_3);
-        tv_dialog4 = (TextView) dialog1.findViewById(com.vineture.movhaul.driver.R.id.textView_4);
-        btn_confirm = (Button) dialog1.findViewById(com.vineture.movhaul.driver.R.id.button_confirm);
-        btn_close = (ImageView) dialog1.findViewById(com.vineture.movhaul.driver.R.id.button_close);
+        dialog1.setContentView(R.layout.dialog_cancel);
+        tv_dialog1 = (TextView) dialog1.findViewById(R.id.textView_1);
+        tv_dialog2 = (TextView) dialog1.findViewById(R.id.textView_2);
+        tv_dialog3 = (TextView) dialog1.findViewById(R.id.textView_3);
+        tv_dialog4 = (TextView) dialog1.findViewById(R.id.textView_4);
+        btn_confirm = (Button) dialog1.findViewById(R.id.button_confirm);
+        btn_close = (ImageView) dialog1.findViewById(R.id.button_close);
         tv_dialog1.setTypeface(type);
         tv_dialog2.setTypeface(type);
         tv_dialog3.setTypeface(type);
@@ -272,8 +273,8 @@ public class MyTrips extends AppCompatActivity {
                 });*/
                  i =0;
 
-                btn_start = (Button) view.findViewById(com.vineture.movhaul.driver.R.id.btn_service);
-                btn_start.setBackgroundColor(getResources().getColor(com.vineture.movhaul.driver.R.color.redColor));
+                btn_start = (Button) view.findViewById(R.id.btn_service);
+                btn_start.setBackgroundColor(getResources().getColor(R.color.redColor));
 
                 btn_start.setTypeface(tf);
 
@@ -282,8 +283,8 @@ public class MyTrips extends AppCompatActivity {
                     public void onClick(View view) {
 
                         if(i==0){
-                            btn_start.setText(com.vineture.movhaul.driver.R.string.fea);
-                            btn_start.setBackgroundColor(getResources().getColor(com.vineture.movhaul.driver.R.color.gold));
+                            btn_start.setText(R.string.fea);
+                            btn_start.setBackgroundColor(getResources().getColor(R.color.gold));
                             i=1;
                         }
                         else {
@@ -291,29 +292,29 @@ public class MyTrips extends AppCompatActivity {
                             booking_id = mv_datas.getBooking_id();
                             Log.e("tag","booking_id: "+ booking_id);
                             new finish_job().execute();
-                            btn_start.setText(com.vineture.movhaul.driver.R.string.asde);
-                            btn_start.setBackgroundColor(getResources().getColor(com.vineture.movhaul.driver.R.color.redColor));
+                            btn_start.setText(R.string.asde);
+                            btn_start.setBackgroundColor(getResources().getColor(R.color.redColor));
                             i = 0;
                         }
 
                     }
                 });
 
-                lt_nearby = (android.widget.LinearLayout) view.findViewById(com.vineture.movhaul.driver.R.id.layout_nearby);
+                lt_nearby = (android.widget.LinearLayout) view.findViewById(R.id.layout_nearby);
 
 
 
-                tv_cr_date = (android.widget.TextView) view.findViewById(com.vineture.movhaul.driver.R.id.cr_date);
-                tv_cr_time = (android.widget.TextView) view.findViewById(com.vineture.movhaul.driver.R.id.cr_time);
-                tv_cr_pickup = (android.widget.TextView) view.findViewById(com.vineture.movhaul.driver.R.id.cr_pickup);
-                tv_cr_drop = (android.widget.TextView) view.findViewById(com.vineture.movhaul.driver.R.id.cr_drop);
-                tv_cr_delivery = (android.widget.TextView) view.findViewById(com.vineture.movhaul.driver.R.id.cr_delivery);
-                tv_cr_delivery_txt = (android.widget.TextView) view.findViewById(com.vineture.movhaul.driver.R.id.cr_delivery_txt);
-                tv_cr_cu_name = (android.widget.TextView) view.findViewById(com.vineture.movhaul.driver.R.id.cr_cu_name);
-                tv_cr_cu_phone = (android.widget.TextView) view.findViewById(com.vineture.movhaul.driver.R.id.cr_cu_phone);
-                iv_content_prof = (ImageView) view.findViewById(com.vineture.movhaul.driver.R.id.imageview_content_profile);
+                tv_cr_date = (android.widget.TextView) view.findViewById(R.id.cr_date);
+                tv_cr_time = (android.widget.TextView) view.findViewById(R.id.cr_time);
+                tv_cr_pickup = (android.widget.TextView) view.findViewById(R.id.cr_pickup);
+                tv_cr_drop = (android.widget.TextView) view.findViewById(R.id.cr_drop);
+                tv_cr_delivery = (android.widget.TextView) view.findViewById(R.id.cr_delivery);
+                tv_cr_delivery_txt = (android.widget.TextView) view.findViewById(R.id.cr_delivery_txt);
+                tv_cr_cu_name = (android.widget.TextView) view.findViewById(R.id.cr_cu_name);
+                tv_cr_cu_phone = (android.widget.TextView) view.findViewById(R.id.cr_cu_phone);
+                iv_content_prof = (ImageView) view.findViewById(R.id.imageview_content_profile);
 
-                View line_view = view.findViewById(com.vineture.movhaul.driver.R.id.view_last);
+                View line_view = view.findViewById(R.id.view_last);
 
 
                 Glide.with(MyTrips.this).load(Config.WEB_URL_IMG + "customer_details/" + mv_datas.getCustomer_img()).into(iv_content_prof);
@@ -329,10 +330,10 @@ public class MyTrips extends AppCompatActivity {
                 tv_cr_drop.setText(mv_datas.getDrop());
                 tv_cr_delivery.setText(mv_datas.getDelivery());
                 if(vec_type.equals("Bus")){
-                    tv_cr_delivery_txt.setText(com.vineture.movhaul.driver.R.string.asdfew);
+                    tv_cr_delivery_txt.setText(R.string.asdfew);
                 }
                 else{
-                    tv_cr_delivery_txt.setText(com.vineture.movhaul.driver.R.string.easd);
+                    tv_cr_delivery_txt.setText(R.string.easd);
                 }
                 tv_cr_cu_name.setText(mv_datas.getCusotmer_name());
                 tv_cr_cu_phone.setText(mv_datas.getCustomer_number());
@@ -351,7 +352,7 @@ public class MyTrips extends AppCompatActivity {
 
 
                 android.widget.ListView up_lview;
-                up_lview = (android.widget.ListView) view.findViewById(com.vineture.movhaul.driver.R.id.lview);
+                up_lview = (android.widget.ListView) view.findViewById(R.id.lview);
                 final ArrayList<String> up_arlist = new ArrayList<>();
                 final UpcomingAdapter up_adapter = new UpcomingAdapter(MyTrips.this, MyTrips.this, ar_job_history);
                 up_lview.setAdapter(up_adapter);
@@ -397,11 +398,11 @@ public class MyTrips extends AppCompatActivity {
             String title;
 
             if (position == 0) {
-                title = getString(com.vineture.movhaul.driver.R.string.adsf);
+                title = getString(R.string.adsf);
             }/* else if (position == 1) {
                 title = "History";
             }*/ else {
-                title = getString(com.vineture.movhaul.driver.R.string.adv);
+                title = getString(R.string.adv);
             }
 
             return title;

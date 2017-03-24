@@ -1,4 +1,4 @@
-package com.vineture.movhaul.driver;
+package com.movhaul.driver;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.movhaul.driver.R;
 
 import org.json.JSONObject;
 
@@ -124,7 +125,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(com.vineture.movhaul.driver.R.drawable.truck_icon,3)
+                .setSmallIcon(R.drawable.truck_icon,3)
                 .setContentTitle("Bidding Confirmation")
                 .setContentText(title +" by "+name)
                 .setAutoCancel(false)
@@ -168,7 +169,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         mNotifyBuilder = new NotificationCompat.Builder(this)
                 .setContentTitle("Bidding Confirmation")
                 .setContentText(title +" by "+name)
-                .setSmallIcon(com.vineture.movhaul.driver.R.drawable.truck_icon);
+                .setSmallIcon(R.drawable.truck_icon);
         mNotifyBuilder.setContentIntent(resultPendingIntent);
         int defaults = 0;
         defaults = defaults | Notification.DEFAULT_LIGHTS;

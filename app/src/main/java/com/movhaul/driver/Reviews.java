@@ -1,4 +1,4 @@
-package com.vineture.movhaul.driver;
+package com.movhaul.driver;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+
 
 import com.rey.material.widget.LinearLayout;
 import com.rey.material.widget.ListView;
@@ -23,12 +24,12 @@ public class Reviews extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.vineture.movhaul.driver.R.layout.customer_review);
+        setContentView(R.layout.customer_review);
         FontsManager.initFormAssets(this, "fonts/lato.ttf");       //initialization
         FontsManager.changeFonts(this);
 
-        lv_payment_list = (ListView) findViewById(com.vineture.movhaul.driver.R.id.listview_payment);
-        btn_back = (LinearLayout) findViewById(com.vineture.movhaul.driver.R.id.layout_back);
+        lv_payment_list = (ListView) findViewById(R.id.listview_payment);
+        btn_back = (LinearLayout) findViewById(R.id.layout_back);
 
         final ArrayList<String> payment_arlist = new ArrayList<>();
        // ht_arlist = new ArrayList<>();

@@ -1,4 +1,4 @@
-package com.vineture.movhaul.driver;
+package com.movhaul.driver;
 
 
 import android.Manifest;
@@ -45,6 +45,7 @@ import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.movhaul.driver.R;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.Switch;
 import com.rey.material.widget.TextView;
@@ -147,10 +148,10 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
             if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
 
                 //Displaying a toast
-                Toast.makeText(this, com.vineture.movhaul.driver.R.string.pev,Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.pev,Toast.LENGTH_LONG).show();
             }else{
                 //Displaying another toast if permission is not granted
-                Toast.makeText(this, com.vineture.movhaul.driver.R.string.deni,Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.deni,Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -159,7 +160,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.vineture.movhaul.driver.R.layout.activity_dashboard);
+        setContentView(R.layout.activity_dashboard);
         FontsManager.initFormAssets(this, "fonts/lato.ttf");
         FontsManager.changeFonts(this);
 
@@ -184,46 +185,46 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
 
         mContext = this;
-        drawer = (DrawerLayout) findViewById(com.vineture.movhaul.driver.R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(com.vineture.movhaul.driver.R.id.nav_view);
-        nav_tv_profile = (TextView) findViewById(com.vineture.movhaul.driver.R.id.textview_profile);
-        nav_tv_mytrips = (TextView) findViewById(com.vineture.movhaul.driver.R.id.textview_mytrips);
-        nav_tv_reviews = (TextView) findViewById(com.vineture.movhaul.driver.R.id.textview_reviews);
-        nav_tv_payments = (TextView) findViewById(com.vineture.movhaul.driver.R.id.textview_payments);
-        nav_tv_Bankdetails = (TextView) findViewById(com.vineture.movhaul.driver.R.id.textView_bankdetails);
-        iv_nav_profile = (ImageView) findViewById(com.vineture.movhaul.driver.R.id.imageview_profile);
-        btn_menu = (ImageView) findViewById(com.vineture.movhaul.driver.R.id.img_menu);
-        rightmenu = (ImageView) findViewById(com.vineture.movhaul.driver.R.id.right_menu);
-        toolbar = (Toolbar) findViewById(com.vineture.movhaul.driver.R.id.toolbar);
-        sw_active = (Switch) findViewById(com.vineture.movhaul.driver.R.id.switch_active);
-        btn_submit = (Button) findViewById(com.vineture.movhaul.driver.R.id.button_submit);
-        mViewFlipper = (ViewFlipper) findViewById(com.vineture.movhaul.driver.R.id.viewFlipper);
-        tv_driver_id = (TextView) findViewById(com.vineture.movhaul.driver.R.id.textview_driverid);
-        tv_driver_name = (TextView) findViewById(com.vineture.movhaul.driver.R.id.textview_drivername);
-        tv_driver_email = (TextView) findViewById(com.vineture.movhaul.driver.R.id.textview_email);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        nav_tv_profile = (TextView) findViewById(R.id.textview_profile);
+        nav_tv_mytrips = (TextView) findViewById(R.id.textview_mytrips);
+        nav_tv_reviews = (TextView) findViewById(R.id.textview_reviews);
+        nav_tv_payments = (TextView) findViewById(R.id.textview_payments);
+        nav_tv_Bankdetails = (TextView) findViewById(R.id.textView_bankdetails);
+        iv_nav_profile = (ImageView) findViewById(R.id.imageview_profile);
+        btn_menu = (ImageView) findViewById(R.id.img_menu);
+        rightmenu = (ImageView) findViewById(R.id.right_menu);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        sw_active = (Switch) findViewById(R.id.switch_active);
+        btn_submit = (Button) findViewById(R.id.button_submit);
+        mViewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
+        tv_driver_id = (TextView) findViewById(R.id.textview_driverid);
+        tv_driver_name = (TextView) findViewById(R.id.textview_drivername);
+        tv_driver_email = (TextView) findViewById(R.id.textview_email);
 
 
         final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, com.vineture.movhaul.driver.R.string.app_name, com.vineture.movhaul.driver.R.string.app_name);
+                this, drawer, toolbar, R.string.app_name, R.string.app_name);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
         int[] resources = {
-                com.vineture.movhaul.driver.R.drawable.truck_1,
-                com.vineture.movhaul.driver.R.drawable.truck_1_hover
+                R.drawable.truck_1,
+                R.drawable.truck_1_hover
         };
 
-        mViewFlipper.setInAnimation(this, com.vineture.movhaul.driver.R.anim.anim1);
-        mViewFlipper.setOutAnimation(this, com.vineture.movhaul.driver.R.anim.anim2);
+        mViewFlipper.setInAnimation(this, R.anim.anim1);
+        mViewFlipper.setOutAnimation(this, R.anim.anim2);
 
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestStoragePermission();
         }
 
         snackbar = Snackbar
-                .make(findViewById(com.vineture.movhaul.driver.R.id.drawer_layout), com.vineture.movhaul.driver.R.string.lco, Snackbar.LENGTH_INDEFINITE)
-                .setAction(com.vineture.movhaul.driver.R.string.open_settings, new View.OnClickListener() {
+                .make(findViewById(R.id.drawer_layout), R.string.lco, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.open_settings, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         snackbar.dismiss();
@@ -241,7 +242,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         textView1.setTextColor(Color.RED);
 
         snackbart = Snackbar
-                .make(findViewById(com.vineture.movhaul.driver.R.id.drawer_layout), com.vineture.movhaul.driver.R.string.comp_pr, Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.drawer_layout), R.string.comp_pr, Snackbar.LENGTH_LONG);
         View sbView1 = snackbart.getView();
         snackbart.setAction("Profile", new View.OnClickListener() {
             @Override
@@ -260,7 +261,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                 }
             }
         });
-        snackbart.setActionTextColor(getResources().getColor(com.vineture.movhaul.driver.R.color.redColor));
+        snackbart.setActionTextColor(getResources().getColor(R.color.redColor));
         tv_snack = (android.widget.TextView) sbView1.findViewById(android.support.design.R.id.snackbar_text);
         tv_snack_act = (android.widget.TextView) sbView1.findViewById(android.support.design.R.id.snackbar_action);
         tv_snack.setTextColor(Color.WHITE);
@@ -268,7 +269,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         tv_snack_act.setTypeface(tf);
 
         snackbar2 = Snackbar
-                .make(findViewById(com.vineture.movhaul.driver.R.id.top), com.vineture.movhaul.driver.R.string.be_activ, Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.top), R.string.be_activ, Snackbar.LENGTH_LONG);
         View sbView2 = snackbar2.getView();
         tv_snack2 = (android.widget.TextView) sbView2.findViewById(android.support.design.R.id.snackbar_text);
         tv_snack2.setTextColor(Color.WHITE);
@@ -373,13 +374,13 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog1.setCancelable(false);
-        dialog1.setContentView(com.vineture.movhaul.driver.R.layout.dialog_yes_no);
-        btn_yes = (Button) dialog1.findViewById(com.vineture.movhaul.driver.R.id.button_yes);
-        btn_no = (Button) dialog1.findViewById(com.vineture.movhaul.driver.R.id.button_no);
+        dialog1.setContentView(R.layout.dialog_yes_no);
+        btn_yes = (Button) dialog1.findViewById(R.id.button_yes);
+        btn_no = (Button) dialog1.findViewById(R.id.button_no);
 
-        tv_txt1 = (android.widget.TextView) dialog1.findViewById(com.vineture.movhaul.driver.R.id.textView_1);
-        tv_txt2 = (android.widget.TextView) dialog1.findViewById(com.vineture.movhaul.driver.R.id.textView_2);
-        tv_txt3 = (android.widget.TextView) dialog1.findViewById(com.vineture.movhaul.driver.R.id.textView_3);
+        tv_txt1 = (android.widget.TextView) dialog1.findViewById(R.id.textView_1);
+        tv_txt2 = (android.widget.TextView) dialog1.findViewById(R.id.textView_2);
+        tv_txt3 = (android.widget.TextView) dialog1.findViewById(R.id.textView_3);
 
         tv_txt1.setTypeface(tf);
         tv_txt2.setTypeface(tf);
@@ -593,7 +594,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
                 PopupMenu popup = new PopupMenu(DashboardNavigation.this, rightmenu);
 
-                popup.getMenuInflater().inflate(com.vineture.movhaul.driver.R.menu.menu, popup.getMenu());
+                popup.getMenuInflater().inflate(R.menu.menu, popup.getMenu());
 
 
                 Menu m = popup.getMenu();
@@ -621,15 +622,15 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
                         switch (item.getItemId()) {
 
-                            case com.vineture.movhaul.driver.R.id.support: {
+                            case R.id.support: {
 
                                 return true;
                             }
-                            case com.vineture.movhaul.driver.R.id.feedback: {
+                            case R.id.feedback: {
 
                                 return true;
                             }
-                            case com.vineture.movhaul.driver.R.id.logout: {
+                            case R.id.logout: {
 
 
                                 dialog1.show();
@@ -673,7 +674,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         if (permissionsList.size() > 0) {
             if (permissionsNeeded.size() > 0) {
                 // Need Rationale
-                String message = getString(com.vineture.movhaul.driver.R.string.grn_ac) + permissionsNeeded.get(0);
+                String message = getString(R.string.grn_ac) + permissionsNeeded.get(0);
                 for (int i = 1; i < permissionsNeeded.size(); i++)
                     message = message + ", " + permissionsNeeded.get(i);
 
@@ -732,7 +733,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
             editor.commit();
 
             snackbar2.show();
-            tv_snack2.setText(com.vineture.movhaul.driver.R.string.dont_hav);
+            tv_snack2.setText(R.string.dont_hav);
         }
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             snackbar.show();
@@ -790,7 +791,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                 if (Integer.valueOf(sharedPreferences.getString("job_size", "")) == 0) {
 
                     snackbart.show();
-                    tv_snack.setText(com.vineture.movhaul.driver.R.string.no_jb);
+                    tv_snack.setText(R.string.no_jb);
 
                 }
             }

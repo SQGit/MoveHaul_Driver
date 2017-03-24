@@ -1,4 +1,4 @@
-package com.vineture.movhaul.driver;
+package com.movhaul.driver;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
@@ -29,6 +29,7 @@ import android.widget.LinearLayout;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.movhaul.driver.R;
 import com.sloop.fonts.FontsManager;
 
 public class SplashActivity extends Activity {
@@ -64,7 +65,7 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(com.vineture.movhaul.driver.R.layout.splash_screen);
+        setContentView(R.layout.splash_screen);
 
         FirebaseCrash.report(new Exception("Successfully Installed..."));
 
@@ -85,12 +86,12 @@ public class SplashActivity extends Activity {
         final float width = getDeviceWidth(this);
         final float height = getDeviceHeight(this);
 
-        btn_register = (Button) findViewById(com.vineture.movhaul.driver.R.id.btn_register);
-        btn_login = (Button) findViewById(com.vineture.movhaul.driver.R.id.btn_login);
-        truck_icon = (ImageView) findViewById(com.vineture.movhaul.driver.R.id.truck_icon);
-        bg_icon = (ImageView) findViewById(com.vineture.movhaul.driver.R.id.bg_icon);
-        logo_icon = (ImageView) findViewById(com.vineture.movhaul.driver.R.id.logo_ico);
-        lt_bottom = (LinearLayout) findViewById(com.vineture.movhaul.driver.R.id.layout_bottom);
+        btn_register = (Button) findViewById(R.id.btn_register);
+        btn_login = (Button) findViewById(R.id.btn_login);
+        truck_icon = (ImageView) findViewById(R.id.truck_icon);
+        bg_icon = (ImageView) findViewById(R.id.bg_icon);
+        logo_icon = (ImageView) findViewById(R.id.logo_ico);
+        lt_bottom = (LinearLayout) findViewById(R.id.layout_bottom);
 
         if (sharedPreferences.getString("login", "").equals("success")) {
             lt_bottom.setVisibility(View.GONE);
@@ -135,8 +136,8 @@ public class SplashActivity extends Activity {
 
 
         snackbar = Snackbar
-                .make(findViewById(com.vineture.movhaul.driver.R.id.top), com.vineture.movhaul.driver.R.string.no_internet, Snackbar.LENGTH_INDEFINITE)
-                .setAction(com.vineture.movhaul.driver.R.string.open_settings, new View.OnClickListener() {
+                .make(findViewById(R.id.top), R.string.no_internet, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.open_settings, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
@@ -165,7 +166,7 @@ public class SplashActivity extends Activity {
                     public void run() {
                         Intent isd = new Intent(SplashActivity.this, LoginActivity.class);
                         Bundle bndlanimation =
-                                ActivityOptions.makeCustomAnimation(getApplicationContext(), com.vineture.movhaul.driver.R.anim.anim1, com.vineture.movhaul.driver.R.anim.anim2).toBundle();
+                                ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.anim1, R.anim.anim2).toBundle();
                         startActivity(isd, bndlanimation);
 
                     }
@@ -189,7 +190,7 @@ public class SplashActivity extends Activity {
 
                         Intent isd = new Intent(SplashActivity.this, RegisterActivity.class);
                         Bundle bndlanimation =
-                                ActivityOptions.makeCustomAnimation(getApplicationContext(), com.vineture.movhaul.driver.R.anim.anim1, com.vineture.movhaul.driver.R.anim.anim2).toBundle();
+                                ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.anim1, R.anim.anim2).toBundle();
                         startActivity(isd, bndlanimation);
 
                     }
@@ -218,7 +219,7 @@ public class SplashActivity extends Activity {
                     public void run() {
                         Intent isd = new Intent(SplashActivity.this, DashboardNavigation.class);
                         Bundle bndlanimation =
-                                ActivityOptions.makeCustomAnimation(getApplicationContext(), com.vineture.movhaul.driver.R.anim.anim1, com.vineture.movhaul.driver.R.anim.anim2).toBundle();
+                                ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.anim1, R.anim.anim2).toBundle();
                         startActivity(isd, bndlanimation);
 
                     }
@@ -273,7 +274,7 @@ public class SplashActivity extends Activity {
                         public void run() {
                             Intent isd = new Intent(SplashActivity.this, DashboardNavigation.class);
                             Bundle bndlanimation =
-                                    ActivityOptions.makeCustomAnimation(getApplicationContext(), com.vineture.movhaul.driver.R.anim.anim1, com.vineture.movhaul.driver.R.anim.anim2).toBundle();
+                                    ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.anim1, R.anim.anim2).toBundle();
                             startActivity(isd, bndlanimation);
 
                         }

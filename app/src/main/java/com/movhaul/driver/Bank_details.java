@@ -1,9 +1,10 @@
-package com.vineture.movhaul.driver;
+package com.movhaul.driver;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
 
 import com.rey.material.widget.LinearLayout;
 import com.sloop.fonts.FontsManager;
@@ -17,11 +18,11 @@ public class Bank_details extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.vineture.movhaul.driver.R.layout.bank_details);
+        setContentView(R.layout.bank_details);
         FontsManager.initFormAssets(this, "fonts/lato.ttf");       //initialization
         FontsManager.changeFonts(this);
 
-        btn_back = (LinearLayout) findViewById(com.vineture.movhaul.driver.R.id.layout_back);
+        btn_back = (LinearLayout) findViewById(R.id.layout_back);
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override

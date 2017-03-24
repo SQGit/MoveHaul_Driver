@@ -1,4 +1,4 @@
-package com.vineture.movhaul.driver;
+package com.movhaul.driver;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
+import com.movhaul.driver.R;
 import com.rey.material.widget.LinearLayout;
 import com.rey.material.widget.ListView;
 import com.sloop.fonts.FontsManager;
@@ -53,7 +54,7 @@ public class JobPosting extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.vineture.movhaul.driver.R.layout.job_postings);
+        setContentView(R.layout.job_postings);
 
         FontsManager.initFormAssets(JobPosting.this, "fonts/lato.ttf");       //initialization
         FontsManager.changeFonts(JobPosting.this);
@@ -83,8 +84,8 @@ public class JobPosting extends Activity {
         dr_lati = sharedPreferences.getString("latitude","");
         dr_long = sharedPreferences.getString("longitude","");
 
-        btn_back = (LinearLayout) findViewById(com.vineture.movhaul.driver.R.id.layout_back);
-        lv_jobposting = (ListView) findViewById(com.vineture.movhaul.driver.R.id.listview_jobposting);
+        btn_back = (LinearLayout) findViewById(R.id.layout_back);
+        lv_jobposting = (ListView) findViewById(R.id.listview_jobposting);
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,15 +97,15 @@ public class JobPosting extends Activity {
         });
 
         snackbar = Snackbar
-                .make(findViewById(com.vineture.movhaul.driver.R.id.top), com.vineture.movhaul.driver.R.string.network, Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.top), R.string.network, Snackbar.LENGTH_LONG);
         View sbView = snackbar.getView();
         tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
         tv_snack.setTextColor(Color.WHITE);
         tv_snack.setTypeface(tf);
 
         mProgressDialog = new ProgressDialog(JobPosting.this);
-        mProgressDialog.setTitle(getString(com.vineture.movhaul.driver.R.string.loading));
-        mProgressDialog.setMessage(getString(com.vineture.movhaul.driver.R.string.wait));
+        mProgressDialog.setTitle(getString(R.string.loading));
+        mProgressDialog.setMessage(getString(R.string.wait));
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
 
@@ -112,7 +113,7 @@ public class JobPosting extends Activity {
 
         if (!Config.isConnected(JobPosting.this)) {
             snackbar.show();
-            tv_snack.setText(com.vineture.movhaul.driver.R.string.connect);
+            tv_snack.setText(R.string.connect);
         }
         else{
             new show_jobs_task().execute();

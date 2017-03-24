@@ -1,4 +1,4 @@
-package com.vineture.movhaul.driver;
+package com.movhaul.driver;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,6 +13,7 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.movhaul.driver.R;
 import com.sloop.fonts.FontsManager;
 
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class CustomerReviewsAdapter extends BaseAdapter {
         FontsManager.changeFonts(act);
 
         if (convertView == null) {
-            convertView = inflater.inflate(com.vineture.movhaul.driver.R.layout.customer_review_adapter, viewGroup, false);
+            convertView = inflater.inflate(R.layout.customer_review_adapter, viewGroup, false);
             mViewHolder = new MyViewHolder(convertView);
 
            // tv_vin_no = (TextView) convertView.findViewById(R.id.textview_vin_no);
@@ -80,14 +81,14 @@ public class CustomerReviewsAdapter extends BaseAdapter {
             tv_vin_make = mViewHolder.tv_vin_make;
 
         }
-        RatingBar ratingBar1 = (RatingBar) convertView.findViewById(com.vineture.movhaul.driver.R.id.ratingbar);
+        RatingBar ratingBar1 = (RatingBar) convertView.findViewById(R.id.ratingbar);
         LayerDrawable layerDrawable1 = (LayerDrawable) ratingBar1.getProgressDrawable();
         DrawableCompat.setTint(DrawableCompat.wrap(layerDrawable1.getDrawable(0)),
-                context.getResources().getColor(com.vineture.movhaul.driver.R.color.light_grey));  // Empty star
+                context.getResources().getColor(R.color.light_grey));  // Empty star
         DrawableCompat.setTint(DrawableCompat.wrap(layerDrawable1.getDrawable(1)),
-                context.getResources().getColor(com.vineture.movhaul.driver.R.color.gold)); // Partial star
+                context.getResources().getColor(R.color.gold)); // Partial star
         DrawableCompat.setTint(DrawableCompat.wrap(layerDrawable1.getDrawable(2)),
-                context.getResources().getColor(com.vineture.movhaul.driver.R.color.gold));
+                context.getResources().getColor(R.color.gold));
 
 
         return convertView;

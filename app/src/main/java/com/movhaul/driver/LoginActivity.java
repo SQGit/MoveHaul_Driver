@@ -1,4 +1,4 @@
-package com.vineture.movhaul.driver;
+package com.movhaul.driver;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.firebase.client.Firebase;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.movhaul.driver.R;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
 import com.sloop.fonts.FontsManager;
@@ -66,7 +67,7 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.vineture.movhaul.driver.R.layout.activity_login);
+        setContentView(R.layout.activity_login);
         FontsManager.initFormAssets(this, "fonts/lato.ttf");       //initialization
         FontsManager.changeFonts(this);
         Typeface tf = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/lato.ttf");
@@ -79,9 +80,9 @@ public class LoginActivity extends Activity {
 
 
 
-        mProgressDialog = new ProgressDialog(LoginActivity.this, com.vineture.movhaul.driver.R.style.AppCompatAlertDialogStyle);
-        mProgressDialog.setTitle(getString(com.vineture.movhaul.driver.R.string.loading));
-        mProgressDialog.setMessage(getString(com.vineture.movhaul.driver.R.string.wait));
+        mProgressDialog = new ProgressDialog(LoginActivity.this, R.style.AppCompatAlertDialogStyle);
+        mProgressDialog.setTitle(getString(R.string.loading));
+        mProgressDialog.setMessage(getString(R.string.wait));
         mProgressDialog.setInverseBackgroundForced(true);
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
@@ -92,7 +93,7 @@ public class LoginActivity extends Activity {
 
 
         snackbar = Snackbar
-                .make(findViewById(com.vineture.movhaul.driver.R.id.top), com.vineture.movhaul.driver.R.string.avca, Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.top), R.string.avca, Snackbar.LENGTH_LONG);
         View sbView = snackbar.getView();
         tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
         tv_snack.setTextColor(Color.WHITE);
@@ -100,15 +101,15 @@ public class LoginActivity extends Activity {
 
         if (!config.isConnected(LoginActivity.this)) {
             snackbar.show();
-            tv_snack.setText(com.vineture.movhaul.driver.R.string.avva);
+            tv_snack.setText(R.string.avva);
         }
 
 
-        btn_submit = (Button) findViewById(com.vineture.movhaul.driver.R.id.btn_submit);
-        btn_back = (LinearLayout) findViewById(com.vineture.movhaul.driver.R.id.layout_back);
-        tv_forgot_mobile = (TextView) findViewById(com.vineture.movhaul.driver.R.id.text_forgot_no);
-        et_mobile_no = (EditText) findViewById(com.vineture.movhaul.driver.R.id.editTextMobileNo);
-        flt_mobile_no = (TextInputLayout) findViewById(com.vineture.movhaul.driver.R.id.float_mobile);
+        btn_submit = (Button) findViewById(R.id.btn_submit);
+        btn_back = (LinearLayout) findViewById(R.id.layout_back);
+        tv_forgot_mobile = (TextView) findViewById(R.id.text_forgot_no);
+        et_mobile_no = (EditText) findViewById(R.id.editTextMobileNo);
+        flt_mobile_no = (TextInputLayout) findViewById(R.id.float_mobile);
 
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
         et_mobile_no.setTypeface(tf);
@@ -120,13 +121,13 @@ public class LoginActivity extends Activity {
         dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog2.setCancelable(false);
-        dialog2.setContentView(com.vineture.movhaul.driver.R.layout.driver_bidding_confirm);
-        d2_btn_ok = (Button) dialog2.findViewById(com.vineture.movhaul.driver.R.id.button_ok);
-        btn_close = (ImageView) dialog2.findViewById(com.vineture.movhaul.driver.R.id.button_close);
-        d2_tv_dialog1 = (TextView) dialog2.findViewById(com.vineture.movhaul.driver.R.id.textView_1);
-        d2_tv_dialog2 = (TextView) dialog2.findViewById(com.vineture.movhaul.driver.R.id.textView_2);
-        d2_tv_dialog3 = (TextView) dialog2.findViewById(com.vineture.movhaul.driver.R.id.textView_3);
-        d2_tv_dialog4 = (TextView) dialog2.findViewById(com.vineture.movhaul.driver.R.id.textView_4);
+        dialog2.setContentView(R.layout.driver_bidding_confirm);
+        d2_btn_ok = (Button) dialog2.findViewById(R.id.button_ok);
+        btn_close = (ImageView) dialog2.findViewById(R.id.button_close);
+        d2_tv_dialog1 = (TextView) dialog2.findViewById(R.id.textView_1);
+        d2_tv_dialog2 = (TextView) dialog2.findViewById(R.id.textView_2);
+        d2_tv_dialog3 = (TextView) dialog2.findViewById(R.id.textView_3);
+        d2_tv_dialog4 = (TextView) dialog2.findViewById(R.id.textView_4);
 
         d2_tv_dialog1.setTypeface(type);
         d2_tv_dialog2.setTypeface(type);
@@ -134,9 +135,9 @@ public class LoginActivity extends Activity {
         d2_tv_dialog4.setTypeface(type);
         d2_btn_ok.setTypeface(type);
 
-        d2_tv_dialog1.setText(com.vineture.movhaul.driver.R.string.ad);
-        d2_tv_dialog2.setText(com.vineture.movhaul.driver.R.string.asdf);
-        d2_tv_dialog3.setText(com.vineture.movhaul.driver.R.string.cea);
+        d2_tv_dialog1.setText(R.string.ad);
+        d2_tv_dialog2.setText(R.string.asdf);
+        d2_tv_dialog3.setText(R.string.cea);
         d2_tv_dialog4.setVisibility(View.GONE);
         btn_close.setVisibility(View.GONE);
 
@@ -186,7 +187,7 @@ public class LoginActivity extends Activity {
                        new login_customer().execute();
                    } else {
                        snackbar.show();
-                       tv_snack.setText(com.vineture.movhaul.driver.R.string.adsfe);
+                       tv_snack.setText(R.string.adsfe);
                    }
 
 
@@ -195,7 +196,7 @@ public class LoginActivity extends Activity {
                     //et_mobile_no.setError("Enter valid phone number");
 
                    snackbar.show();
-                   tv_snack.setText(com.vineture.movhaul.driver.R.string.aveas);
+                   tv_snack.setText(R.string.aveas);
                     et_mobile_no.requestFocus();
                 }
 
@@ -308,7 +309,7 @@ public class LoginActivity extends Activity {
                 try {
                     JSONObject jo = new JSONObject(s);
                     String status = jo.getString("status");
-                    String msg = getString(com.vineture.movhaul.driver.R.string.vae);
+                    String msg = getString(R.string.vae);
                     if(jo.has("message")) {
                         msg = jo.getString("message");
                     }
@@ -342,7 +343,7 @@ public class LoginActivity extends Activity {
 
                            // Toast.makeText(getApplicationContext(),"Mobile Number Not Registered",Toast.LENGTH_LONG).show();
 
-                            tv_snack.setText(com.vineture.movhaul.driver.R.string.veas);
+                            tv_snack.setText(R.string.veas);
                             snackbar.show();
 
 

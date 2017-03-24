@@ -1,4 +1,4 @@
-package com.vineture.movhaul.driver;
+package com.movhaul.driver;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.movhaul.driver.R;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
 import com.sloop.fonts.FontsManager;
@@ -66,7 +67,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.vineture.movhaul.driver.R.layout.login_otp_screen);
+        setContentView(R.layout.login_otp_screen);
         FontsManager.initFormAssets(this, "fonts/lato.ttf");       //initialization
         FontsManager.changeFonts(this);
         config = new Config();
@@ -104,14 +105,14 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         Log.e("tag", fcm_id);
 
         mProgressDialog = new ProgressDialog(LoginOtpActivity.this);
-        mProgressDialog.setTitle(getString(com.vineture.movhaul.driver.R.string.loading));
-        mProgressDialog.setMessage(getString(com.vineture.movhaul.driver.R.string.wait));
+        mProgressDialog.setTitle(getString(R.string.loading));
+        mProgressDialog.setMessage(getString(R.string.wait));
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
 
 
         snackbar = Snackbar
-                .make(findViewById(com.vineture.movhaul.driver.R.id.top), "Network Error! Please Try Again Later.", Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.top), "Network Error! Please Try Again Later.", Snackbar.LENGTH_LONG);
         View sbView = snackbar.getView();
         tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
         tv_snack.setTextColor(Color.WHITE);
@@ -123,15 +124,15 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         }
 
 
-        btn_back = (LinearLayout) findViewById(com.vineture.movhaul.driver.R.id.layout_back);
+        btn_back = (LinearLayout) findViewById(R.id.layout_back);
 
-        et_otp1 = (EditText) findViewById(com.vineture.movhaul.driver.R.id.editext_otp1);
-        et_otp2 = (EditText) findViewById(com.vineture.movhaul.driver.R.id.editext_otp2);
-        et_otp3 = (EditText) findViewById(com.vineture.movhaul.driver.R.id.editext_otp3);
-        et_otp4 = (EditText) findViewById(com.vineture.movhaul.driver.R.id.editext_otp4);
+        et_otp1 = (EditText) findViewById(R.id.editext_otp1);
+        et_otp2 = (EditText) findViewById(R.id.editext_otp2);
+        et_otp3 = (EditText) findViewById(R.id.editext_otp3);
+        et_otp4 = (EditText) findViewById(R.id.editext_otp4);
 
-        btn_submit = (Button) findViewById(com.vineture.movhaul.driver.R.id.button_submit);
-        tv_resendotp = (TextView) findViewById(com.vineture.movhaul.driver.R.id.textview_resendotp);
+        btn_submit = (Button) findViewById(R.id.button_submit);
+        tv_resendotp = (TextView) findViewById(R.id.textview_resendotp);
 
 
     /*    ReceiveSmsBroadcastReceiver.bindListener(new SmsListener() {
@@ -306,7 +307,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
 
         switch (view.getId()) {
-            case com.vineture.movhaul.driver.R.id.editext_otp1:
+            case R.id.editext_otp1:
 
                 if (editable.length() == 0) {
                     et_otp1.requestFocus();
@@ -315,7 +316,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                 }
 
                 break;
-            case com.vineture.movhaul.driver.R.id.editext_otp2:
+            case R.id.editext_otp2:
 
                 if (editable.length() == 0) {
                     et_otp1.requestFocus();
@@ -324,7 +325,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                 }
 
                 break;
-            case com.vineture.movhaul.driver.R.id.editext_otp3:
+            case R.id.editext_otp3:
 
                 if (editable.length() == 0) {
                     et_otp2.requestFocus();
@@ -334,7 +335,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                     et_otp4.requestFocus();
                 }
                 break;
-            case com.vineture.movhaul.driver.R.id.editext_otp4:
+            case R.id.editext_otp4:
 
                 //et_otp3.requestFocus();
 

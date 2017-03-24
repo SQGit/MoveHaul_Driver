@@ -1,4 +1,4 @@
-package com.vineture.movhaul.driver;
+package com.movhaul.driver;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.movhaul.driver.R;
 import com.sloop.fonts.FontsManager;
 
 import java.util.ArrayList;
@@ -61,11 +62,11 @@ public class HistoryAdapter extends BaseAdapter {
         FontsManager.changeFonts(act);
         Typeface tf = Typeface.createFromAsset(act.getAssets(), "fonts/lato.ttf");
         if (convertView == null) {
-            convertView = inflater.inflate(com.vineture.movhaul.driver.R.layout.history_adapter, viewGroup, false);
+            convertView = inflater.inflate(R.layout.history_adapter, viewGroup, false);
             mViewHolder = new MyViewHolder(convertView);
 
-           id = (com.rey.material.widget.TextView) convertView.findViewById(com.vineture.movhaul.driver.R.id.textview_book_id);
-           date = (com.rey.material.widget.TextView) convertView.findViewById(com.vineture.movhaul.driver.R.id.textview_date);
+           id = (com.rey.material.widget.TextView) convertView.findViewById(R.id.textview_book_id);
+           date = (com.rey.material.widget.TextView) convertView.findViewById(R.id.textview_date);
             id.setTypeface(tf);
             date.setTypeface(tf);
 

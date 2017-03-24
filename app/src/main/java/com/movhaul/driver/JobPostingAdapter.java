@@ -1,4 +1,4 @@
-package com.vineture.movhaul.driver;
+package com.movhaul.driver;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.movhaul.driver.R;
 import com.ramotion.foldingcell.FoldingCell;
 import com.rey.material.widget.Button;
 import com.sloop.fonts.FontsManager;
@@ -116,7 +117,7 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         if (cell == null) {
             viewHolder = new ViewHolder();
             LayoutInflater vi = LayoutInflater.from(getContext());
-            cell = (FoldingCell) vi.inflate(com.vineture.movhaul.driver.R.layout.jop_post_adapter, parent, false);
+            cell = (FoldingCell) vi.inflate(R.layout.jop_post_adapter, parent, false);
 
 
             cell.setTag(viewHolder);
@@ -158,36 +159,36 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
 
 
 
-        ImageView iv_bidding = (ImageView) cell.findViewById(com.vineture.movhaul.driver.R.id.imageview_bidding);
-        tv_title_pickup = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_title_pickup);
-        tv_title_drop = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_title_drop);
-        tv_title_date = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_title_date);
-        tv_title_pick_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_title_date);
-        tv_title_date = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_title_date);
+        ImageView iv_bidding = (ImageView) cell.findViewById(R.id.imageview_bidding);
+        tv_title_pickup = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_title_pickup);
+        tv_title_drop = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_title_drop);
+        tv_title_date = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_title_date);
+        tv_title_pick_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_title_date);
+        tv_title_date = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_title_date);
 
-        tv_title_pick_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_book_from_txt);
-        tv_title_drop_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_book_to_txt);
-        tv_title_date_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_title_date);
-        tv_title_more = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_seemore);
+        tv_title_pick_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_book_from_txt);
+        tv_title_drop_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_book_to_txt);
+        tv_title_date_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_title_date);
+        tv_title_more = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_seemore);
 
-        tv_content_pickup = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_pickup);
-        tv_content_drop = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_drop);
-        tv_content_goodstype = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_goodstype);
-        tv_content_date = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_date);
-        tv_content_time = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_time);
-        tv_content_desc = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_desc);
+        tv_content_pickup = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_pickup);
+        tv_content_drop = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_drop);
+        tv_content_goodstype = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_goodstype);
+        tv_content_date = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_date);
+        tv_content_time = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_time);
+        tv_content_desc = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_desc);
 
-        lt_goods_type = (LinearLayout) cell.findViewById(com.vineture.movhaul.driver.R.id.layout_goods_type);
-        lt_nearby = (LinearLayout) cell.findViewById(com.vineture.movhaul.driver.R.id.layout_nearby);
+        lt_goods_type = (LinearLayout) cell.findViewById(R.id.layout_goods_type);
+        lt_nearby = (LinearLayout) cell.findViewById(R.id.layout_nearby);
 
        // lt_nearby1 = (LinearLayout) cell.findViewById(R.id.layout_nearby1);
 
-        tv_content_desc_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_nearby_txt);
-        tv_content_pickup_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_pickup_txt);
-        tv_content_drop_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_drop_txt);
-        tv_content_goods_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_goods_txt);
-        tv_content_time_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_time_txt);
-        tv_content_date_txt = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_book_date_txt);
+        tv_content_desc_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_nearby_txt);
+        tv_content_pickup_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_pickup_txt);
+        tv_content_drop_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_drop_txt);
+        tv_content_goods_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_goods_txt);
+        tv_content_time_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_time_txt);
+        tv_content_date_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_book_date_txt);
 
 
 
@@ -236,11 +237,11 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
 
 
         if (vec_type.equals("Bus")) {
-            tv_content_desc_txt.setText(com.vineture.movhaul.driver.R.string.near_lan);
+            tv_content_desc_txt.setText(R.string.near_lan);
             tv_content_desc.setText(mv_datas.getDelivery());
             lt_goods_type.setVisibility(View.GONE);
         } else if (vec_type.equals("Truck")) {
-            tv_content_desc_txt.setText(com.vineture.movhaul.driver.R.string.near_lan);
+            tv_content_desc_txt.setText(R.string.near_lan);
             tv_content_desc.setText(mv_datas.getDelivery());
             lt_goods_type.setVisibility(View.VISIBLE);
         } else {
@@ -254,13 +255,13 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         dg_bidding.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dg_bidding.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dg_bidding.setCancelable(false);
-        dg_bidding.setContentView(com.vineture.movhaul.driver.R.layout.driver_bidding);
-        btn_bidding_confirm = (Button) dg_bidding.findViewById(com.vineture.movhaul.driver.R.id.button_confirm);
-        btn_close1 = (ImageView) dg_bidding.findViewById(com.vineture.movhaul.driver.R.id.button_close);
-        tv_dialog1 = (TextView) dg_bidding.findViewById(com.vineture.movhaul.driver.R.id.textView_1);
-        et_bidding = (EditText) dg_bidding.findViewById(com.vineture.movhaul.driver.R.id.edittext_bidding);
-        tv_dialog4 = (TextView) dg_bidding.findViewById(com.vineture.movhaul.driver.R.id.textView_4);
-        et_driver_id = (EditText) dg_bidding.findViewById(com.vineture.movhaul.driver.R.id.edittext_driver_id);
+        dg_bidding.setContentView(R.layout.driver_bidding);
+        btn_bidding_confirm = (Button) dg_bidding.findViewById(R.id.button_confirm);
+        btn_close1 = (ImageView) dg_bidding.findViewById(R.id.button_close);
+        tv_dialog1 = (TextView) dg_bidding.findViewById(R.id.textView_1);
+        et_bidding = (EditText) dg_bidding.findViewById(R.id.edittext_bidding);
+        tv_dialog4 = (TextView) dg_bidding.findViewById(R.id.textView_4);
+        et_driver_id = (EditText) dg_bidding.findViewById(R.id.edittext_driver_id);
 
         tv_dialog1.setTypeface(tf);
         et_bidding.setTypeface(tf);
@@ -273,13 +274,13 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog2.setCancelable(false);
-        dialog2.setContentView(com.vineture.movhaul.driver.R.layout.driver_bidding_confirm);
-        d2_btn_ok = (Button) dialog2.findViewById(com.vineture.movhaul.driver.R.id.button_ok);
-        btn_close2 = (ImageView) dialog2.findViewById(com.vineture.movhaul.driver.R.id.button_close);
-        d2_tv_dialog1 = (TextView) dialog2.findViewById(com.vineture.movhaul.driver.R.id.textView_1);
-        d2_tv_dialog2 = (TextView) dialog2.findViewById(com.vineture.movhaul.driver.R.id.textView_2);
-        d2_tv_dialog3 = (TextView) dialog2.findViewById(com.vineture.movhaul.driver.R.id.textView_3);
-        d2_tv_dialog4 = (TextView) dialog2.findViewById(com.vineture.movhaul.driver.R.id.textView_4);
+        dialog2.setContentView(R.layout.driver_bidding_confirm);
+        d2_btn_ok = (Button) dialog2.findViewById(R.id.button_ok);
+        btn_close2 = (ImageView) dialog2.findViewById(R.id.button_close);
+        d2_tv_dialog1 = (TextView) dialog2.findViewById(R.id.textView_1);
+        d2_tv_dialog2 = (TextView) dialog2.findViewById(R.id.textView_2);
+        d2_tv_dialog3 = (TextView) dialog2.findViewById(R.id.textView_3);
+        d2_tv_dialog4 = (TextView) dialog2.findViewById(R.id.textView_4);
 
         d2_tv_dialog1.setTypeface(tf);
         d2_tv_dialog2.setTypeface(tf);
@@ -287,7 +288,7 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         d2_tv_dialog4.setTypeface(tf);
         d2_btn_ok.setTypeface(tf);
 
-        d2_tv_dialog2.setText(context.getString(com.vineture.movhaul.driver.R.string.ur_succ) + mv_datas.getBooking_id());
+        d2_tv_dialog2.setText(context.getString(R.string.ur_succ) + mv_datas.getBooking_id());
         d2_tv_dialog3.setVisibility(View.GONE);
         d2_tv_dialog4.setVisibility(View.GONE);
 
@@ -332,15 +333,15 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
                                 } else {
                                 }
                             } else {
-                                et_driver_id.setError(context.getString(com.vineture.movhaul.driver.R.string.er_num));
+                                et_driver_id.setError(context.getString(R.string.er_num));
                                 et_driver_id.requestFocus();
                             }
                         } else {
-                            et_driver_id.setError(context.getString(com.vineture.movhaul.driver.R.string.er_ph));
+                            et_driver_id.setError(context.getString(R.string.er_ph));
                             et_driver_id.requestFocus();
                         }
                     } else {
-                        et_bidding.setError(context.getString(com.vineture.movhaul.driver.R.string.er_bid));
+                        et_bidding.setError(context.getString(R.string.er_bid));
                         et_bidding.requestFocus();
                     }
 
@@ -362,11 +363,11 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         dg_road_confirm.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dg_road_confirm.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dg_road_confirm.setCancelable(false);
-        dg_road_confirm.setContentView(com.vineture.movhaul.driver.R.layout.dialog_road_confirm);
+        dg_road_confirm.setContentView(R.layout.dialog_road_confirm);
 
-        Button btn_yes = (Button) dg_road_confirm.findViewById(com.vineture.movhaul.driver.R.id.button_yes);
-        TextView tv_txt1 = (android.widget.TextView) dg_road_confirm.findViewById(com.vineture.movhaul.driver.R.id.textView_1);
-        TextView tv_txt2 = (android.widget.TextView) dg_road_confirm.findViewById(com.vineture.movhaul.driver.R.id.textView_2);
+        Button btn_yes = (Button) dg_road_confirm.findViewById(R.id.button_yes);
+        TextView tv_txt1 = (android.widget.TextView) dg_road_confirm.findViewById(R.id.textView_1);
+        TextView tv_txt2 = (android.widget.TextView) dg_road_confirm.findViewById(R.id.textView_2);
 
         tv_txt1.setTypeface(tf);
         tv_txt2.setTypeface(tf);
@@ -447,9 +448,9 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
             mProgressDialog.show();
 
             if(vec_type.equals("Road"))
-                mProgressDialog.setTitle(context.getString(com.vineture.movhaul.driver.R.string.booking));
+                mProgressDialog.setTitle(context.getString(R.string.booking));
             else
-            mProgressDialog.setTitle(context.getString(com.vineture.movhaul.driver.R.string.biddin));
+            mProgressDialog.setTitle(context.getString(R.string.biddin));
 
         }
 

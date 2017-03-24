@@ -1,4 +1,4 @@
-package com.vineture.movhaul.driver;
+package com.movhaul.driver;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.movhaul.driver.R;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
 import com.sloop.fonts.FontsManager;
@@ -45,17 +46,17 @@ public class Forgot_Mobile extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.vineture.movhaul.driver.R.layout.forgot_phone);
+        setContentView(R.layout.forgot_phone);
         FontsManager.initFormAssets(this, "fonts/lato.ttf");       //initialization
         FontsManager.changeFonts(this);
 
         Intent idg  =getIntent();
 
 
-        flt_email = (TextInputLayout) findViewById(com.vineture.movhaul.driver.R.id.float_email);
-        btn_back = (LinearLayout) findViewById(com.vineture.movhaul.driver.R.id.layout_back);
-        edtxt_email = (EditText) findViewById(com.vineture.movhaul.driver.R.id.editTextEmail);
-        btn_submit = (Button) findViewById(com.vineture.movhaul.driver.R.id.btn_submit);
+        flt_email = (TextInputLayout) findViewById(R.id.float_email);
+        btn_back = (LinearLayout) findViewById(R.id.layout_back);
+        edtxt_email = (EditText) findViewById(R.id.editTextEmail);
+        btn_submit = (Button) findViewById(R.id.btn_submit);
 
 
         config = new Config();
@@ -63,15 +64,15 @@ public class Forgot_Mobile extends Activity {
         flt_email.setTypeface(tf);
 
         mProgressDialog = new ProgressDialog(Forgot_Mobile.this);
-        mProgressDialog.setTitle(getString(com.vineture.movhaul.driver.R.string.loading));
-        mProgressDialog.setMessage(getString(com.vineture.movhaul.driver.R.string.wait));
+        mProgressDialog.setTitle(getString(R.string.loading));
+        mProgressDialog.setMessage(getString(R.string.wait));
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
 
 
 
         snackbar = Snackbar
-                .make(findViewById(com.vineture.movhaul.driver.R.id.top), com.vineture.movhaul.driver.R.string.network, Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.top), R.string.network, Snackbar.LENGTH_LONG);
         View sbView = snackbar.getView();
         tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
         tv_snack.setTextColor(Color.WHITE);
@@ -79,7 +80,7 @@ public class Forgot_Mobile extends Activity {
 
         if (!config.isConnected(Forgot_Mobile.this)) {
             snackbar.show();
-            tv_snack.setText(com.vineture.movhaul.driver.R.string.connect);
+            tv_snack.setText(R.string.connect);
         }
 
 
@@ -101,7 +102,7 @@ public class Forgot_Mobile extends Activity {
                 } else {
                    // edtxt_email.setError("Enter a valid email address!");
                     snackbar.show();
-                    tv_snack.setText(com.vineture.movhaul.driver.R.string.va_em);
+                    tv_snack.setText(R.string.va_em);
                     edtxt_email.requestFocus();
                 }
             }
@@ -182,7 +183,7 @@ public class Forgot_Mobile extends Activity {
                            // Toast.makeText(getApplicationContext(),"Mobile Number Not Registered",Toast.LENGTH_LONG).show();
 
                             snackbar.show();
-                            tv_snack.setText(com.vineture.movhaul.driver.R.string.no_nm);
+                            tv_snack.setText(R.string.no_nm);
 
                         }
                         else if (msg.contains("Error Occured[object Object]")) {

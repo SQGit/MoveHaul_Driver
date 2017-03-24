@@ -1,4 +1,4 @@
-package com.vineture.movhaul.driver;
+package com.movhaul.driver;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.movhaul.driver.R;
 import com.sloop.fonts.FontsManager;
 
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class Payment_Adapter extends BaseAdapter {
         FontsManager.changeFonts(act);
 
         if (convertView == null) {
-            convertView = inflater.inflate(com.vineture.movhaul.driver.R.layout.payment_adapter, viewGroup, false);
+            convertView = inflater.inflate(R.layout.payment_adapter, viewGroup, false);
             mViewHolder = new MyViewHolder(convertView);
 
            // tv_vin_no = (TextView) convertView.findViewById(R.id.textview_vin_no);

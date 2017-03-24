@@ -1,4 +1,4 @@
-package com.vineture.movhaul.driver;
+package com.movhaul.driver;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.gun0912.tedpicker.ImagePickerActivity;
+import com.movhaul.driver.R;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
 import com.sloop.fonts.FontsManager;
@@ -45,23 +46,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Created by SQINDIA on 11/8/2016.
  */
-public class ProfileActivity extends Activity {
+public class ProfileActivityBus extends Activity {
 
     public final static int REQUEST_PROFILE = 1;
-    public final static int REQUEST_VEC_BACK = 2;
+    public final static int REQUEST_VEC_INSIDE = 2;
     public final static int REQUEST_VEC_FRONT = 3;
-    public final static int REQUEST_VEC_SIDE = 4;
     public final static int REQUEST_VEC_RC = 5;
     public final static int REQUEST_VEC_INS = 6;
-    private static final int INTENT_REQUEST_GET_IMAGES = 13;
     public com.gun0912.tedpicker.Config img_config;
     LinearLayout btn_back, lt_vec_rc, lt_vec_ins;
-    ImageView iv_profile, iv_vec_back, iv_vec_front, iv_vec_side, iv_vec_rc, iv_vec_ins;
+    ImageView iv_profile, iv_vec_inside, iv_vec_front, iv_vec_rc, iv_vec_ins;
     ArrayList<String> selectedPhotos = new ArrayList<>();
-    String str_profile_img, str_vec_back, str_vec_front, str_vec_side, str_vec_rc, str_vec_ins, str_contact, str_secondary, str_address;
+    String str_profile_img, str_vec_back, str_vec_front, str_vec_rc, str_vec_ins, str_contact, str_secondary, str_address;
     View view_rc, view_ins;
     TextInputLayout til_contact, til_secondary, til_address;
     EditText et_contact, et_secondary, et_address;
@@ -70,76 +70,82 @@ public class ProfileActivity extends Activity {
     Snackbar snackbar;
     TextView tv_snack, tv_profile_name;
     Config config;
+    String vec_type;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     ProgressDialog mProgressDialog;
-    String id, token;
+    String id, token, url_data;
+    TextView tv_bk_txt;
+    ImageView iv_prf_bg;
     ArrayList<Uri> image_uris;
     ImageView iv_edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.vineture.movhaul.driver.R.layout.activity_profile);
+        setContentView(R.layout.activity_profile_bus);
 
         FontsManager.initFormAssets(this, "fonts/lato.ttf");
         FontsManager.changeFonts(this);
         tf = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
 
         config = new Config();
+
         img_config = new com.gun0912.tedpicker.Config();
-        img_config.setCameraHeight(com.vineture.movhaul.driver.R.dimen.app_camera_height);
-        img_config.setSelectedBottomHeight(com.vineture.movhaul.driver.R.dimen.bottom_height);
-        img_config.setCameraBtnBackground(com.vineture.movhaul.driver.R.drawable.round_rd);
+        img_config.setCameraHeight(R.dimen.app_camera_height);
+        img_config.setSelectedBottomHeight(R.dimen.bottom_height);
+        img_config.setCameraBtnBackground(R.drawable.round_rd);
 
-
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ProfileActivityBus.this);
         editor = sharedPreferences.edit();
 
-        btn_update = (Button) findViewById(com.vineture.movhaul.driver.R.id.button_update);
 
+        vec_type = sharedPreferences.getString("vec_type", "");
+        Log.e("tag","ty:"+vec_type);
 
-        mProgressDialog = new ProgressDialog(ProfileActivity.this);
-        mProgressDialog.setTitle(getString(com.vineture.movhaul.driver.R.string.loading));
-        mProgressDialog.setMessage(getString(com.vineture.movhaul.driver.R.string.wait));
+        mProgressDialog = new ProgressDialog(ProfileActivityBus.this);
+        mProgressDialog.setTitle(getString(R.string.loading));
+        mProgressDialog.setMessage(getString(R.string.wait));
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
 
+        tv_bk_txt = (TextView) findViewById(R.id.textview);
 
-        iv_profile = (ImageView) findViewById(com.vineture.movhaul.driver.R.id.imageview_profile);
-        iv_vec_back = (ImageView) findViewById(com.vineture.movhaul.driver.R.id.imageview_vechile_back);
-        iv_vec_front = (ImageView) findViewById(com.vineture.movhaul.driver.R.id.imageview_vechile_front);
-        iv_vec_side = (ImageView) findViewById(com.vineture.movhaul.driver.R.id.imageview_vechile_side);
-        iv_vec_rc = (ImageView) findViewById(com.vineture.movhaul.driver.R.id.imageview_vechile_rc);
-        iv_vec_ins = (ImageView) findViewById(com.vineture.movhaul.driver.R.id.imageview_vechile_ins);
-        tv_profile_name = (TextView) findViewById(com.vineture.movhaul.driver.R.id.textview_profile_name);
+        btn_update = (Button) findViewById(R.id.button_update);
+        iv_profile = (ImageView) findViewById(R.id.imageview_profile);
 
-        btn_back = (LinearLayout) findViewById(com.vineture.movhaul.driver.R.id.layout_back);
-        lt_vec_rc = (LinearLayout) findViewById(com.vineture.movhaul.driver.R.id.layout_vechile_rc);
-        lt_vec_ins = (LinearLayout) findViewById(com.vineture.movhaul.driver.R.id.layout_vechile_insurence);
+        iv_vec_front = (ImageView) findViewById(R.id.imageview_vechile_front);
+        iv_vec_inside = (ImageView) findViewById(R.id.imageview_vechile_inside);
+        iv_vec_rc = (ImageView) findViewById(R.id.imageview_vechile_rc);
+        iv_vec_ins = (ImageView) findViewById(R.id.imageview_vechile_ins);
+        tv_profile_name = (TextView) findViewById(R.id.textview_profile_name);
 
-        view_rc = findViewById(com.vineture.movhaul.driver.R.id.view_rc);
-        view_ins = findViewById(com.vineture.movhaul.driver.R.id.view_insurence);
+        btn_back = (LinearLayout) findViewById(R.id.layout_back);
+        lt_vec_rc = (LinearLayout) findViewById(R.id.layout_vechile_rc);
+        lt_vec_ins = (LinearLayout) findViewById(R.id.layout_vechile_insurence);
 
-        til_contact = (TextInputLayout) findViewById(com.vineture.movhaul.driver.R.id.til_contactnumber);
-        til_secondary = (TextInputLayout) findViewById(com.vineture.movhaul.driver.R.id.til_secondary);
-        til_address = (TextInputLayout) findViewById(com.vineture.movhaul.driver.R.id.til_deliveryaddress);
-
-        iv_edit = (ImageView) findViewById(com.vineture.movhaul.driver.R.id.imageview_edit);
+        iv_edit = (ImageView) findViewById(R.id.imageview_edit);
         iv_edit.setVisibility(View.GONE);
+
+        view_rc = findViewById(R.id.view_rc);
+        view_ins = findViewById(R.id.view_insurence);
+
+        til_contact = (TextInputLayout) findViewById(R.id.til_contactnumber);
+        til_secondary = (TextInputLayout) findViewById(R.id.til_secondary);
+        til_address = (TextInputLayout) findViewById(R.id.til_deliveryaddress);
 
         til_contact.setTypeface(tf);
         til_secondary.setTypeface(tf);
         til_address.setTypeface(tf);
 
-        et_contact = (EditText) findViewById(com.vineture.movhaul.driver.R.id.edittext_contact);
-        et_secondary = (EditText) findViewById(com.vineture.movhaul.driver.R.id.edittext_secondary);
-        et_address = (EditText) findViewById(com.vineture.movhaul.driver.R.id.edittext_deliveryaddress);
+        et_contact = (EditText) findViewById(R.id.edittext_contact);
+        et_secondary = (EditText) findViewById(R.id.edittext_secondary);
+        et_address = (EditText) findViewById(R.id.edittext_deliveryaddress);
+        iv_prf_bg = (ImageView) findViewById(R.id.prof_bg);
 
 
         str_contact = sharedPreferences.getString("driver_mobile", "");
         str_secondary = sharedPreferences.getString("driver_mobile2", "");
-
 
         et_contact.setText(str_contact.substring(3, str_contact.length()));
         tv_profile_name.setText(sharedPreferences.getString("driver_name", ""));
@@ -148,36 +154,32 @@ public class ProfileActivity extends Activity {
         if (!(sharedPreferences.getString("driver_address", "").equals(""))) {
             et_address.setText(sharedPreferences.getString("driver_address", ""));
 
-
             iv_edit.setVisibility(View.VISIBLE);
             btn_update.setVisibility(View.GONE);
 
             iv_profile.setEnabled(false);
-            iv_vec_back.setEnabled(false);
+            iv_vec_inside.setEnabled(false);
             iv_vec_front.setEnabled(false);
-            iv_vec_side.setEnabled(false);
             lt_vec_ins.setEnabled(false);
             lt_vec_rc.setEnabled(false);
             et_contact.setEnabled(false);
             et_secondary.setEnabled(false);
             et_address.setEnabled(false);
-
-
         }
 
         et_address.requestFocus();
 
-        if (!config.isConnected(ProfileActivity.this)) {
+        if (!config.isConnected(ProfileActivityBus.this)) {
             snackbar.show();
-            tv_snack.setText(com.vineture.movhaul.driver.R.string.asfe);
+            tv_snack.setText(R.string.connect);
         }
 
         snackbar = Snackbar
-                .make(findViewById(com.vineture.movhaul.driver.R.id.top), com.vineture.movhaul.driver.R.string.asd, Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.top), R.string.network, Snackbar.LENGTH_LONG);
         snackbar.setActionTextColor(Color.RED);
 
         View sbView = snackbar.getView();
-        tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        tv_snack = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
         tv_snack.setTextColor(Color.WHITE);
         tv_snack.setTypeface(tf);
 
@@ -186,39 +188,6 @@ public class ProfileActivity extends Activity {
 
         Log.e("tag", "id:" + id + token);
 
-/*
-        if(!sharedPreferences.getString("truck_front","").equals("")){
-            et_address.setText(sharedPreferences.getString("truck_front",""));
-        }*/
-
-
-        if (!sharedPreferences.getString("truck_front", "").equals("")) {
-
-            Log.e("tag", "truckrond");
-
-            String img = sharedPreferences.getString("truck_front", "");
-            String img1 = sharedPreferences.getString("truck_side", "");
-            String img2 = sharedPreferences.getString("truck_back", "");
-            String img3 = sharedPreferences.getString("truck_rc", "");
-            String img4 = sharedPreferences.getString("truck_ins", "");
-
-
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL_IMG + "vehicle_details/" + img).error(com.vineture.movhaul.driver.R.drawable.truck_front_ico).into(iv_vec_front);
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL_IMG + "vehicle_details/" + img1).error(com.vineture.movhaul.driver.R.drawable.truck_side_ico).into(iv_vec_side);
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL_IMG + "vehicle_details/" + img2).error(com.vineture.movhaul.driver.R.drawable.truck_back_ico).into(iv_vec_back);
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL_IMG + "vehicle_details/" + img3).into(iv_vec_rc);
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL_IMG + "vehicle_details/" + img4).into(iv_vec_ins);
-
-        }
-
-
-        if (!sharedPreferences.getString("driver_image", "").equals("")) {
-
-            String img = sharedPreferences.getString("driver_image", "");
-
-            Glide.with(ProfileActivity.this).load(Config.WEB_URL_IMG + "driver_details/" + img).into(iv_profile);
-
-        }
 
         iv_edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,9 +197,8 @@ public class ProfileActivity extends Activity {
                 btn_update.setVisibility(View.VISIBLE);
 
                 iv_profile.setEnabled(true);
-                iv_vec_back.setEnabled(true);
+                iv_vec_inside.setEnabled(true);
                 iv_vec_front.setEnabled(true);
-                iv_vec_side.setEnabled(true);
                 lt_vec_ins.setEnabled(true);
                 lt_vec_ins.setEnabled(true);
                 et_contact.setEnabled(true);
@@ -241,6 +209,48 @@ public class ProfileActivity extends Activity {
         });
 
 
+        if (!sharedPreferences.getString("bus_front", "").equals("")) {
+
+            Log.e("tag", "busrond");
+
+            String img = sharedPreferences.getString("bus_front", "");
+            String img2 = sharedPreferences.getString("bus_inside", "");
+            String img3 = sharedPreferences.getString("bus_rc", "");
+            String img4 = sharedPreferences.getString("bus_ins", "");
+
+
+            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL_IMG + "vehicle_details/" + img).error(R.drawable.bus_front).into(iv_vec_front);
+            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL_IMG + "vehicle_details/" + img2).error(R.drawable.bus_inside).into(iv_vec_inside);
+            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL_IMG + "vehicle_details/" + img3).into(iv_vec_rc);
+            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL_IMG + "vehicle_details/" + img4).into(iv_vec_ins);
+
+        }
+
+
+        if (!sharedPreferences.getString("driver_image", "").equals("")) {
+
+            String img = sharedPreferences.getString("driver_image", "");
+
+            Glide.with(ProfileActivityBus.this).load(Config.WEB_URL_IMG + "driver_details/" + img).into(iv_profile);
+
+        }
+
+        Log.e("tag", "tf:" + vec_type);
+
+        if (vec_type.equals("Bus")) {
+            tv_bk_txt.setText("Inside");
+            iv_vec_inside.setImageResource(R.drawable.bus_inside);
+            iv_prf_bg.setBackgroundResource(R.drawable.bus_profile_bg);
+            url_data = "busdriver";
+
+        } else if (vec_type.equals("Road")) {
+            tv_bk_txt.setText("Side");
+            iv_vec_inside.setImageResource(R.drawable.road_side);
+            iv_prf_bg.setBackgroundResource(R.drawable.road_assis_bg);
+            url_data = "assistance";
+        }
+
+
         iv_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -248,27 +258,26 @@ public class ProfileActivity extends Activity {
 
                 img_config.setSelectionMin(1);
                 img_config.setSelectionLimit(1);
-                img_config.setToolbarTitleRes(com.vineture.movhaul.driver.R.string.img_profile);
+                img_config.setToolbarTitleRes(R.string.img_profile);
 
                 ImagePickerActivity.setConfig(img_config);
-                Intent intent = new Intent(ProfileActivity.this, com.gun0912.tedpicker.ImagePickerActivity.class);
+                Intent intent = new Intent(ProfileActivityBus.this, com.gun0912.tedpicker.ImagePickerActivity.class);
                 startActivityForResult(intent, REQUEST_PROFILE);
             }
         });
 
-        iv_vec_back.setOnClickListener(new View.OnClickListener() {
+        iv_vec_inside.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
-
                 img_config.setSelectionMin(1);
                 img_config.setSelectionLimit(1);
-                img_config.setToolbarTitleRes(com.vineture.movhaul.driver.R.string.img_vec_back);
+                img_config.setToolbarTitleRes(R.string.img_vec_back);
 
                 ImagePickerActivity.setConfig(img_config);
-                Intent intent = new Intent(ProfileActivity.this, com.gun0912.tedpicker.ImagePickerActivity.class);
-                startActivityForResult(intent, REQUEST_VEC_BACK);
+                Intent intent = new Intent(ProfileActivityBus.this, com.gun0912.tedpicker.ImagePickerActivity.class);
+                startActivityForResult(intent, REQUEST_VEC_INSIDE);
 
             }
         });
@@ -280,28 +289,14 @@ public class ProfileActivity extends Activity {
 
                 img_config.setSelectionMin(1);
                 img_config.setSelectionLimit(1);
-                img_config.setToolbarTitleRes(com.vineture.movhaul.driver.R.string.img_vec_front);
+                img_config.setToolbarTitleRes(R.string.img_vec_front);
 
                 ImagePickerActivity.setConfig(img_config);
-                Intent intent = new Intent(ProfileActivity.this, com.gun0912.tedpicker.ImagePickerActivity.class);
+                Intent intent = new Intent(ProfileActivityBus.this, com.gun0912.tedpicker.ImagePickerActivity.class);
                 startActivityForResult(intent, REQUEST_VEC_FRONT);
             }
         });
 
-        iv_vec_side.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                img_config.setSelectionMin(1);
-                img_config.setSelectionLimit(1);
-                img_config.setToolbarTitleRes(com.vineture.movhaul.driver.R.string.img_vec_side);
-
-                ImagePickerActivity.setConfig(img_config);
-                Intent intent = new Intent(ProfileActivity.this, com.gun0912.tedpicker.ImagePickerActivity.class);
-                startActivityForResult(intent, REQUEST_VEC_SIDE);
-            }
-        });
 
         lt_vec_rc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -310,10 +305,10 @@ public class ProfileActivity extends Activity {
 
                 img_config.setSelectionMin(1);
                 img_config.setSelectionLimit(1);
-                img_config.setToolbarTitleRes(com.vineture.movhaul.driver.R.string.img_vec_rc);
+                img_config.setToolbarTitleRes(R.string.img_vec_rc);
 
                 ImagePickerActivity.setConfig(img_config);
-                Intent intent = new Intent(ProfileActivity.this, com.gun0912.tedpicker.ImagePickerActivity.class);
+                Intent intent = new Intent(ProfileActivityBus.this, com.gun0912.tedpicker.ImagePickerActivity.class);
                 startActivityForResult(intent, REQUEST_VEC_RC);
             }
         });
@@ -324,10 +319,10 @@ public class ProfileActivity extends Activity {
 
                 img_config.setSelectionMin(1);
                 img_config.setSelectionLimit(1);
-                img_config.setToolbarTitleRes(com.vineture.movhaul.driver.R.string.img_vec_ins);
+                img_config.setToolbarTitleRes(R.string.img_vec_ins);
 
                 ImagePickerActivity.setConfig(img_config);
-                Intent intent = new Intent(ProfileActivity.this, com.gun0912.tedpicker.ImagePickerActivity.class);
+                Intent intent = new Intent(ProfileActivityBus.this, com.gun0912.tedpicker.ImagePickerActivity.class);
                 startActivityForResult(intent, REQUEST_VEC_INS);
             }
         });
@@ -336,7 +331,6 @@ public class ProfileActivity extends Activity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /* tag{"status":true};*/
                 finish();
             }
         });
@@ -356,76 +350,71 @@ public class ProfileActivity extends Activity {
                                                           if (str_profile_img != null || !(sharedPreferences.getString("driver_image", "").equals(""))) {
                                                               if (str_vec_back != null || !(sharedPreferences.getString("truck_back", "").equals(""))) {
                                                                   if (str_vec_front != null || !(sharedPreferences.getString("truck_front", "").equals(""))) {
-                                                                      if (str_vec_side != null || !(sharedPreferences.getString("truck_side", "").equals(""))) {
-                                                                          if (str_vec_rc != null || !(sharedPreferences.getString("truck_rc", "").equals(""))) {
-                                                                              if (str_vec_ins != null || !(sharedPreferences.getString("truck_ins", "").equals(""))) {
-                                                                                  if (str_profile_img != null) {
+                                                                      if (str_vec_rc != null || !(sharedPreferences.getString("bus_rc", "").equals(""))) {
+                                                                          if (str_vec_ins != null || !(sharedPreferences.getString("bus_ins", "").equals(""))) {
 
+                                                                              if (str_profile_img != null) {
+                                                                                  new profile_update().execute();
+                                                                              } else {
+                                                                                  String str_contactss = (sharedPreferences.getString("driver_mobile", ""));
+                                                                                  str_contactss = str_contactss.substring(3, str_contactss.length());
+
+                                                                                  String seco = sharedPreferences.getString("driver_mobile2", "");
+                                                                                  seco = seco.substring(3, seco.length());
+
+                                                                                  if (!(sharedPreferences.getString("driver_address", "").equals(et_address.getText().toString())) || !(str_contactss.equals(et_contact.getText().toString().trim())) || !(seco.equals(et_secondary.getText().toString().trim()))) {
                                                                                       new profile_update().execute();
                                                                                   } else {
 
-                                                                                      String str_contactss = (sharedPreferences.getString("driver_mobile", ""));
-                                                                                      str_contactss = str_contactss.substring(3, str_contactss.length());
-
-                                                                                      String seco = sharedPreferences.getString("driver_mobile2", "");
-                                                                                      seco = seco.substring(3, seco.length());
-
-                                                                                      if (!(sharedPreferences.getString("driver_address", "").equals(et_address.getText().toString())) || !(str_contactss.equals(et_contact.getText().toString().trim())) || !(seco.equals(et_secondary.getText().toString().trim()))) {
-                                                                                          new profile_update().execute();
+                                                                                      if (str_vec_back != null || str_vec_front != null || str_vec_rc != null || str_vec_ins != null) {
+                                                                                          new vechile_update().execute();
                                                                                       } else {
-
-                                                                                          if (str_vec_back != null || str_vec_front != null || str_vec_side != null || str_vec_rc != null || str_vec_ins != null) {
-                                                                                              new vechile_update().execute();
-                                                                                          } else {
-                                                                                          }
-                                                                                          //new vechile_update().execute();
                                                                                       }
-                                                                                  }
 
-                                                                              } else {
-                                                                                  snackbar.show();
-                                                                                  tv_snack.setText(com.vineture.movhaul.driver.R.string.adew);
+                                                                                  }
                                                                               }
+
                                                                           } else {
                                                                               snackbar.show();
-                                                                              tv_snack.setText(com.vineture.movhaul.driver.R.string.adfe);
+                                                                              tv_snack.setText(R.string.veaas);
                                                                           }
                                                                       } else {
                                                                           snackbar.show();
-                                                                          tv_snack.setText(com.vineture.movhaul.driver.R.string.cvd);
+                                                                          tv_snack.setText(R.string.adc);
                                                                       }
+
 
                                                                   } else {
                                                                       snackbar.show();
-                                                                      tv_snack.setText(com.vineture.movhaul.driver.R.string.adfw);
+                                                                      tv_snack.setText(R.string.aewc);
                                                                   }
 
 
                                                               } else {
                                                                   snackbar.show();
-                                                                  tv_snack.setText(com.vineture.movhaul.driver.R.string.ave);
+                                                                  tv_snack.setText(R.string.awev);
                                                               }
                                                           } else {
                                                               snackbar.show();
-                                                              tv_snack.setText(com.vineture.movhaul.driver.R.string.ade);
+                                                              tv_snack.setText(R.string.dvea);
                                                           }
                                                       } else {
 
                                                           snackbar.show();
-                                                          tv_snack.setText(com.vineture.movhaul.driver.R.string.aveasd);
+                                                          tv_snack.setText(R.string.vea);
                                                           et_address.requestFocus();
 
                                                       }
                                                   } else {
                                                       snackbar.show();
-                                                      tv_snack.setText(com.vineture.movhaul.driver.R.string.aew);
+                                                      tv_snack.setText(R.string.fve);
                                                       et_secondary.requestFocus();
                                                   }
 
                                               } else {
 
                                                   snackbar.show();
-                                                  tv_snack.setText(com.vineture.movhaul.driver.R.string.aweq);
+                                                  tv_snack.setText(R.string.adf);
                                                   et_contact.requestFocus();
 
                                               }
@@ -458,8 +447,6 @@ public class ProfileActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
 
         List<String> photos = null;
-
-
         if (requestCode == REQUEST_PROFILE && resultCode == Activity.RESULT_OK) {
 
             image_uris = data.getParcelableArrayListExtra(com.gun0912.tedpicker.ImagePickerActivity.EXTRA_IMAGE_URIS);
@@ -467,17 +454,17 @@ public class ProfileActivity extends Activity {
             selectedPhotos.clear();
             if (image_uris != null) {
                 str_profile_img = image_uris.get(0).toString();
-                Glide.with(ProfileActivity.this).load(new File(str_profile_img)).into(iv_profile);
+                Glide.with(ProfileActivityBus.this).load(new File(str_profile_img)).into(iv_profile);
             }
         }
-        if (requestCode == REQUEST_VEC_BACK && resultCode == Activity.RESULT_OK) {
+        if (requestCode == REQUEST_VEC_INSIDE && resultCode == Activity.RESULT_OK) {
 
             image_uris = data.getParcelableArrayListExtra(com.gun0912.tedpicker.ImagePickerActivity.EXTRA_IMAGE_URIS);
             Log.e("tag", "12345" + image_uris.get(0).toString());
             selectedPhotos.clear();
             if (image_uris != null) {
                 str_vec_back = image_uris.get(0).toString();
-                Glide.with(ProfileActivity.this).load(new File(str_vec_back)).into(iv_vec_back);
+                Glide.with(ProfileActivityBus.this).load(new File(str_vec_back)).into(iv_vec_inside);
             }
         }
         if (requestCode == REQUEST_VEC_FRONT && resultCode == Activity.RESULT_OK) {
@@ -487,17 +474,7 @@ public class ProfileActivity extends Activity {
             selectedPhotos.clear();
             if (image_uris != null) {
                 str_vec_front = image_uris.get(0).toString();
-                Glide.with(ProfileActivity.this).load(new File(str_vec_front)).into(iv_vec_front);
-            }
-        }
-        if (requestCode == REQUEST_VEC_SIDE && resultCode == Activity.RESULT_OK) {
-
-            image_uris = data.getParcelableArrayListExtra(com.gun0912.tedpicker.ImagePickerActivity.EXTRA_IMAGE_URIS);
-            Log.e("tag", "12345" + image_uris.get(0).toString());
-            selectedPhotos.clear();
-            if (image_uris != null) {
-                str_vec_side = image_uris.get(0).toString();
-                Glide.with(ProfileActivity.this).load(new File(str_vec_side)).into(iv_vec_side);
+                Glide.with(ProfileActivityBus.this).load(new File(str_vec_front)).into(iv_vec_front);
             }
         }
         if (requestCode == REQUEST_VEC_RC && resultCode == Activity.RESULT_OK) {
@@ -507,7 +484,7 @@ public class ProfileActivity extends Activity {
             selectedPhotos.clear();
             if (image_uris != null) {
                 str_vec_rc = image_uris.get(0).toString();
-                Glide.with(ProfileActivity.this).load(new File(str_vec_rc)).into(iv_vec_rc);
+                Glide.with(ProfileActivityBus.this).load(new File(str_vec_rc)).into(iv_vec_rc);
             }
         }
         if (requestCode == REQUEST_VEC_INS && resultCode == Activity.RESULT_OK) {
@@ -517,89 +494,11 @@ public class ProfileActivity extends Activity {
             selectedPhotos.clear();
             if (image_uris != null) {
                 str_vec_ins = image_uris.get(0).toString();
-                Glide.with(ProfileActivity.this).load(new File(str_vec_ins)).into(iv_vec_ins);
+                Glide.with(ProfileActivityBus.this).load(new File(str_vec_ins)).into(iv_vec_ins);
             }
         }
 
 
-
-
-/*
-        if (resultCode == RESULT_OK && requestCode == REQUEST_PROFILE) {
-            if (data != null) {
-                photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
-            }
-            selectedPhotos.clear();
-            if (photos != null) {
-                selectedPhotos.addAll(photos);
-            }
-            Log.d("tag", "img: " + selectedPhotos.get(0));
-            str_profile_img = selectedPhotos.get(0);
-            Glide.with(ProfileActivity.this).load(new File(str_profile_img)).into(iv_profile);
-        }*/
-       /* if (resultCode == RESULT_OK && requestCode == REQUEST_VEC_BACK) {
-            if (data != null) {
-                photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
-            }
-            selectedPhotos.clear();
-            if (photos != null) {
-                selectedPhotos.addAll(photos);
-            }
-            Log.d("tag", "img: " + selectedPhotos.get(0));
-            str_vec_back = selectedPhotos.get(0);
-            Glide.with(ProfileActivity.this).load(new File(str_vec_back)).into(iv_vec_back);
-        }
-        if (resultCode == RESULT_OK && requestCode == REQUEST_VEC_FRONT) {
-            if (data != null) {
-                photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
-            }
-            selectedPhotos.clear();
-            if (photos != null) {
-                selectedPhotos.addAll(photos);
-            }
-            Log.d("tag", "img: " + selectedPhotos.get(0));
-            str_vec_front = selectedPhotos.get(0);
-            Glide.with(ProfileActivity.this).load(new File(str_vec_front)).into(iv_vec_front);
-        }
-        if (resultCode == RESULT_OK && requestCode == REQUEST_VEC_SIDE) {
-            if (data != null) {
-                photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
-            }
-            selectedPhotos.clear();
-            if (photos != null) {
-                selectedPhotos.addAll(photos);
-            }
-            Log.d("tag", "img: " + selectedPhotos.get(0));
-            str_vec_side = selectedPhotos.get(0);
-            Glide.with(ProfileActivity.this).load(new File(str_vec_side)).into(iv_vec_side);
-        }
-        if (resultCode == RESULT_OK && requestCode == REQUEST_VEC_RC) {
-            if (data != null) {
-                photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
-            }
-            selectedPhotos.clear();
-            if (photos != null) {
-                selectedPhotos.addAll(photos);
-            }
-            Log.d("tag", "img: " + selectedPhotos.get(0));
-            str_vec_rc = selectedPhotos.get(0);
-            Glide.with(ProfileActivity.this).load(new File(str_vec_rc)).centerCrop().into(iv_vec_rc);
-            view_rc.setVisibility(View.GONE);
-        }
-
-        if (resultCode == RESULT_OK && requestCode == REQUEST_VEC_INS) {
-            if (data != null) {
-                photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
-            }
-            selectedPhotos.clear();
-            if (photos != null) {
-                selectedPhotos.addAll(photos);
-            }
-            Log.d("tag", "img: " + selectedPhotos.get(0));
-            str_vec_ins = selectedPhotos.get(0);
-            Glide.with(ProfileActivity.this).load(new File(str_vec_ins)).centerCrop().into(iv_vec_ins);
-            view_ins.setVisibility(View.GONE);
-        }*/
     }
 
 
@@ -610,11 +509,6 @@ public class ProfileActivity extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             Log.e("tag", "reg_preexe");
-
-            str_contact = et_contact.getText().toString().trim();
-            str_secondary = et_secondary.getText().toString().trim();
-            str_address = et_address.getText().toString().trim();
-
             mProgressDialog.show();
         }
 
@@ -628,13 +522,13 @@ public class ProfileActivity extends Activity {
                 //driver/driverupdate
                 String responseString = null;
                 HttpClient httpclient = new DefaultHttpClient();
-                HttpPost httppost = new HttpPost(Config.WEB_URL + "truckdriver/driverupdate");
-
-                Log.e("tag", "ss:" + Config.WEB_URL + "truckdriver/driverupdate");
+                HttpPost httppost = new HttpPost(Config.WEB_URL + url_data + "/driverupdate");
+                Log.e("tag", "ss:" + Config.WEB_URL + "busdriver/driverupdate");
 
                 httppost.setHeader("driver_mobile_pri", "+91" + str_contact);
                 httppost.setHeader("driver_mobile_sec", "+91" + str_secondary);
                 httppost.setHeader("driver_address", str_address);
+                //{"id":"10000","sessiontoken":"fkjdshfjdsfhkjdfkgdgfdgfuau"
 
                 httppost.setHeader("id", id);
                 httppost.setHeader("sessiontoken", token);
@@ -695,7 +589,7 @@ public class ProfileActivity extends Activity {
                     JSONObject jo = new JSONObject(s);
                     String status = jo.getString("status");
 
-                    Log.e("tag", "<-----Status----->" + status);
+                    Log.d("tag", "<-----Status----->" + status);
 
                     if (status.equals("true")) {
 
@@ -705,27 +599,23 @@ public class ProfileActivity extends Activity {
                         String mobile2 = jo.getString("driver_mobile_sec");
                         String address = jo.getString("driver_address");
 
-                        Log.e("tag", "a: " + mobile);
-
                         editor.putString("driver_image", msg);
                         editor.putString("driver_mobile", mobile);
-                        editor.putString("driver_mobile2", mobile2);
+                        editor.putString("driver_mobile", mobile2);
                         editor.putString("driver_address", address);
                         editor.commit();
 
 
-                        if (str_vec_back != null || str_vec_front != null || str_vec_side != null || str_vec_rc != null || str_vec_ins != null) {
+                        if (str_vec_back != null || str_vec_front != null || str_vec_rc != null || str_vec_ins != null) {
                             new vechile_update().execute();
                         } else {
                             finish();
                         }
 
-                        // new vechile_update().execute();
-
 
                     } else {
                         snackbar.show();
-                        tv_snack.setText(com.vineture.movhaul.driver.R.string.network);
+                        tv_snack.setText(R.string.network);
                     }
 
 
@@ -733,11 +623,11 @@ public class ProfileActivity extends Activity {
                     e.printStackTrace();
                     Log.e("tag", "nt" + e.toString());
                     snackbar.show();
-                    tv_snack.setText(com.vineture.movhaul.driver.R.string.network);
+                    tv_snack.setText(R.string.network);
                 }
             } else {
                 snackbar.show();
-                tv_snack.setText(com.vineture.movhaul.driver.R.string.network);
+                tv_snack.setText(R.string.network);
             }
 
         }
@@ -765,8 +655,8 @@ public class ProfileActivity extends Activity {
                 //driver/driverupdate
                 String responseString = null;
                 HttpClient httpclient = new DefaultHttpClient();
-                HttpPost httppost = new HttpPost(Config.WEB_URL + "truckdriver/vehicleupdate");
-                Log.e("tag", "ss:" + Config.WEB_URL + "truckdriver/vehicleupdate");
+                HttpPost httppost = new HttpPost(Config.WEB_URL + url_data + "/vehicleupdate");
+                Log.e("tag", "ss:" + Config.WEB_URL + "busdriver/vehicleupdate");
 
 
                 httppost.setHeader("id", id);
@@ -783,11 +673,7 @@ public class ProfileActivity extends Activity {
                     if (str_vec_back != null) {
                         entity.addPart("vehicleback", new FileBody(new File(str_vec_back), "image/jpeg"));
                     }
-                    if (str_vec_side != null) {
-                        entity.addPart("vehicleside", new FileBody(new File(str_vec_side), "image/jpeg"));
-                    } else {
-                        Log.e("tag", "img:" + str_vec_side);
-                    }
+
                     if (str_vec_rc != null) {
                         entity.addPart("vehicletitle", new FileBody(new File(str_vec_rc), "image/jpeg"));
                     }
@@ -827,6 +713,7 @@ public class ProfileActivity extends Activity {
             super.onPostExecute(s);
             Log.e("tag", "tag" + s);
 
+
             mProgressDialog.dismiss();
 
 
@@ -840,17 +727,16 @@ public class ProfileActivity extends Activity {
 
 
                         editor.putString("profile", "success");
-                        editor.putString("truck_front", jo.getString("vehiclefront"));
-                        editor.putString("truck_back", jo.getString("vehicleback"));
-                        editor.putString("truck_side", jo.getString("vehicleside"));
-                        editor.putString("truck_rc", jo.getString("vehicletitle1"));
-                        editor.putString("truck_ins", jo.getString("vehicleinsurance1"));
+                        editor.putString("bus_front", jo.getString("vehiclefront"));
+                        editor.putString("bus_inside", jo.getString("vehicleback"));
+                        editor.putString("bus_rc", jo.getString("vehicletitle1"));
+                        editor.putString("bus_ins", jo.getString("vehicleinsurance1"));
                         editor.commit();
 
                         finish();
                     } else {
                         snackbar.show();
-                        tv_snack.setText(com.vineture.movhaul.driver.R.string.network);
+                        tv_snack.setText(R.string.network);
                     }
 
 
@@ -858,11 +744,11 @@ public class ProfileActivity extends Activity {
                     e.printStackTrace();
                     Log.e("tag", "nt" + e.toString());
                     snackbar.show();
-                    tv_snack.setText(com.vineture.movhaul.driver.R.string.network);
+                    tv_snack.setText(R.string.network);
                 }
             } else {
                 snackbar.show();
-                tv_snack.setText(com.vineture.movhaul.driver.R.string.network);
+                tv_snack.setText(R.string.network);
             }
 
         }

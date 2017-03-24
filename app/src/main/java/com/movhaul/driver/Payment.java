@@ -1,4 +1,4 @@
-package com.vineture.movhaul.driver;
+package com.movhaul.driver;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.movhaul.driver.R;
 import com.rey.material.widget.LinearLayout;
 import com.rey.material.widget.ListView;
 import com.sloop.fonts.FontsManager;
@@ -35,15 +36,15 @@ public class Payment extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.vineture.movhaul.driver.R.layout.payment);
+        setContentView(R.layout.payment);
         FontsManager.initFormAssets(this, "fonts/lato.ttf");       //initialization
         FontsManager.changeFonts(this);
 
-        lv_payment_list = (ListView) findViewById(com.vineture.movhaul.driver.R.id.listview_payment);
-        btn_back = (LinearLayout) findViewById(com.vineture.movhaul.driver.R.id.layout_back);
-        et_date = (EditText) findViewById(com.vineture.movhaul.driver.R.id.editTextDate);
-        btn_date = (ImageView) findViewById(com.vineture.movhaul.driver.R.id.iv_btn_date);
-        btn_close = (ImageView) findViewById(com.vineture.movhaul.driver.R.id.iv_btn_close);
+        lv_payment_list = (ListView) findViewById(R.id.listview_payment);
+        btn_back = (LinearLayout) findViewById(R.id.layout_back);
+        et_date = (EditText) findViewById(R.id.editTextDate);
+        btn_date = (ImageView) findViewById(R.id.iv_btn_date);
+        btn_close = (ImageView) findViewById(R.id.iv_btn_close);
 
         final ArrayList<String> payment_arlist = new ArrayList<>();
        // ht_arlist = new ArrayList<>();

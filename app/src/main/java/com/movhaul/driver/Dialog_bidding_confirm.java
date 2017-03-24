@@ -1,4 +1,4 @@
-package com.vineture.movhaul.driver;
+package com.movhaul.driver;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.movhaul.driver.R;
 import com.rey.material.widget.Button;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class Dialog_bidding_confirm extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.vineture.movhaul.driver.R.layout.driver_bidding_confirm);
+        setContentView(R.layout.driver_bidding_confirm);
 
         tf = Typeface.createFromAsset(activity.getAssets(), "fonts/lato.ttf");
 
@@ -52,12 +53,12 @@ public class Dialog_bidding_confirm extends Dialog {
         String name = getIntent.getStringExtra("name");
 
 
-        d2_btn_ok = (Button) findViewById(com.vineture.movhaul.driver.R.id.button_ok);
-        btn_close2 = (ImageView) findViewById(com.vineture.movhaul.driver.R.id.button_close);
-        d2_tv_dialog1 = (android.widget.TextView) findViewById(com.vineture.movhaul.driver.R.id.textView_1);
-        d2_tv_dialog2 = (android.widget.TextView) findViewById(com.vineture.movhaul.driver.R.id.textView_2);
-        d2_tv_dialog3 = (android.widget.TextView) findViewById(com.vineture.movhaul.driver.R.id.textView_3);
-        d2_tv_dialog4 = (android.widget.TextView) findViewById(com.vineture.movhaul.driver.R.id.textView_4);
+        d2_btn_ok = (Button) findViewById(R.id.button_ok);
+        btn_close2 = (ImageView) findViewById(R.id.button_close);
+        d2_tv_dialog1 = (android.widget.TextView) findViewById(R.id.textView_1);
+        d2_tv_dialog2 = (android.widget.TextView) findViewById(R.id.textView_2);
+        d2_tv_dialog3 = (android.widget.TextView) findViewById(R.id.textView_3);
+        d2_tv_dialog4 = (android.widget.TextView) findViewById(R.id.textView_4);
 
         d2_tv_dialog1.setTypeface(tf);
         d2_tv_dialog2.setTypeface(tf);

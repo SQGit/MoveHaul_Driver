@@ -1,4 +1,4 @@
-package com.vineture.movhaul.driver;
+package com.movhaul.driver;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.movhaul.driver.R;
 import com.ramotion.foldingcell.FoldingCell;
 import com.rey.material.widget.Button;
 import com.sloop.fonts.FontsManager;
@@ -74,27 +75,27 @@ public class UpcomingAdapter extends ArrayAdapter<MV_Datas> {
         if (cell == null) {
             viewHolder = new ViewHolder();
             LayoutInflater vi = LayoutInflater.from(getContext());
-            cell = (FoldingCell) vi.inflate(com.vineture.movhaul.driver.R.layout.upcoming_trip_adapter, parent, false);
+            cell = (FoldingCell) vi.inflate(R.layout.upcoming_trip_adapter, parent, false);
 
-            viewHolder.btn_cancel = (Button) cell.findViewById(com.vineture.movhaul.driver.R.id.button_cancel);
-
-
-            tv_title_date = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_title_date);
-            tv_title_booking_id = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_title_booking_id);
-            tv_title_pickup = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_title_pickup);
-            tv_title_drop = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_title_drop);
+            viewHolder.btn_cancel = (Button) cell.findViewById(R.id.button_cancel);
 
 
-            tv_content_booking_id = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_booking_id);
-            tv_content_cost = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_cost);
-            tv_content_pickup = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_pickup);
-            tv_content_drop = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_drop);
-            tv_content_cus_name = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_customer_name);
-            tv_content_cus_phone = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_customer_phone);
-            tv_content_date = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_date);
-            tv_content_time = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_time);
-            tv_content_goods = (com.rey.material.widget.TextView) cell.findViewById(com.vineture.movhaul.driver.R.id.textview_content_goods);
-            iv_content_prof = (ImageView) cell.findViewById(com.vineture.movhaul.driver.R.id.imageview_content_profile);
+            tv_title_date = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_title_date);
+            tv_title_booking_id = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_title_booking_id);
+            tv_title_pickup = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_title_pickup);
+            tv_title_drop = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_title_drop);
+
+
+            tv_content_booking_id = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_booking_id);
+            tv_content_cost = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_cost);
+            tv_content_pickup = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_pickup);
+            tv_content_drop = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_drop);
+            tv_content_cus_name = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_customer_name);
+            tv_content_cus_phone = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_customer_phone);
+            tv_content_date = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_date);
+            tv_content_time = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_time);
+            tv_content_goods = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_content_goods);
+            iv_content_prof = (ImageView) cell.findViewById(R.id.imageview_content_profile);
 
 
             cell.setTag(viewHolder);
@@ -150,13 +151,13 @@ public class UpcomingAdapter extends ArrayAdapter<MV_Datas> {
         dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog1.setCancelable(false);
-        dialog1.setContentView(com.vineture.movhaul.driver.R.layout.dialog_cancel);
-        btn_confirm = (Button) dialog1.findViewById(com.vineture.movhaul.driver.R.id.button_confirm);
-        btn_close = (ImageView) dialog1.findViewById(com.vineture.movhaul.driver.R.id.button_close);
-        tv_dialog1 = (TextView) dialog1.findViewById(com.vineture.movhaul.driver.R.id.textView_1);
-        tv_dialog2 = (TextView) dialog1.findViewById(com.vineture.movhaul.driver.R.id.textView_2);
-        tv_dialog3 = (TextView) dialog1.findViewById(com.vineture.movhaul.driver.R.id.textView_3);
-        tv_dialog4 = (TextView) dialog1.findViewById(com.vineture.movhaul.driver.R.id.textView_4);
+        dialog1.setContentView(R.layout.dialog_cancel);
+        btn_confirm = (Button) dialog1.findViewById(R.id.button_confirm);
+        btn_close = (ImageView) dialog1.findViewById(R.id.button_close);
+        tv_dialog1 = (TextView) dialog1.findViewById(R.id.textView_1);
+        tv_dialog2 = (TextView) dialog1.findViewById(R.id.textView_2);
+        tv_dialog3 = (TextView) dialog1.findViewById(R.id.textView_3);
+        tv_dialog4 = (TextView) dialog1.findViewById(R.id.textView_4);
         tv_dialog1.setTypeface(type);
         tv_dialog2.setTypeface(type);
         tv_dialog3.setTypeface(type);

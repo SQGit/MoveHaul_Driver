@@ -1,5 +1,4 @@
-package com.vineture.movhaul.driver;
-
+package com.movhaul.driver;
 
 import android.Manifest;
 import android.app.Activity;
@@ -33,6 +32,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.gun0912.tedpicker.ImagePickerActivity;
+import com.movhaul.driver.R;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
 import com.sloop.fonts.FontsManager;
@@ -104,7 +104,7 @@ public class RegisterActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.vineture.movhaul.driver.R.layout.activity_register);
+        setContentView(R.layout.activity_register);
         FontsManager.initFormAssets(this, "fonts/lato.ttf");
         FontsManager.changeFonts(this);
         tf = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
@@ -113,43 +113,43 @@ public class RegisterActivity extends Activity {
         insertDummyContactWrapper();
 
         mProgressDialog = new ProgressDialog(RegisterActivity.this);
-        mProgressDialog.setTitle(getString(com.vineture.movhaul.driver.R.string.loading));
-        mProgressDialog.setMessage(getString(com.vineture.movhaul.driver.R.string.wait));
+        mProgressDialog.setTitle(getString(R.string.loading));
+        mProgressDialog.setMessage(getString(R.string.wait));
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
 
 
 
 
-        btn_back = (LinearLayout) findViewById(com.vineture.movhaul.driver.R.id.layout_back);
-        btn_submit = (Button) findViewById(com.vineture.movhaul.driver.R.id.btn_submit);
-        tv_register = (TextView) findViewById(com.vineture.movhaul.driver.R.id.text_register);
-        et_name = (EditText) findViewById(com.vineture.movhaul.driver.R.id.edittext_name);
-        et_email = (EditText) findViewById(com.vineture.movhaul.driver.R.id.edittext_mail);
-        et_mobile = (EditText) findViewById(com.vineture.movhaul.driver.R.id.edittext_phone);
-        til_email = (TextInputLayout) findViewById(com.vineture.movhaul.driver.R.id.float_email);
-        til_mobile = (TextInputLayout) findViewById(com.vineture.movhaul.driver.R.id.float_mobile);
-        til_name = (TextInputLayout) findViewById(com.vineture.movhaul.driver.R.id.float_name);
+        btn_back = (LinearLayout) findViewById(R.id.layout_back);
+        btn_submit = (Button) findViewById(R.id.btn_submit);
+        tv_register = (TextView) findViewById(R.id.text_register);
+        et_name = (EditText) findViewById(R.id.edittext_name);
+        et_email = (EditText) findViewById(R.id.edittext_mail);
+        et_mobile = (EditText) findViewById(R.id.edittext_phone);
+        til_email = (TextInputLayout) findViewById(R.id.float_email);
+        til_mobile = (TextInputLayout) findViewById(R.id.float_mobile);
+        til_name = (TextInputLayout) findViewById(R.id.float_name);
 
-        et_lic_name = (EditText) findViewById(com.vineture.movhaul.driver.R.id.edittext_lic_name);
-        et_lic_no = (EditText) findViewById(com.vineture.movhaul.driver.R.id.edittext_lic_no);
-        et_lic_mobile = (EditText) findViewById(com.vineture.movhaul.driver.R.id.edittext_lic_phone);
-        et_lic_exp = (EditText) findViewById(com.vineture.movhaul.driver.R.id.edittext_lic_exp);
-        til_lic_no = (TextInputLayout) findViewById(com.vineture.movhaul.driver.R.id.til_lic_no);
-        til_lic_mobile = (TextInputLayout) findViewById(com.vineture.movhaul.driver.R.id.til_lic_phone);
-        til__lic_name = (TextInputLayout) findViewById(com.vineture.movhaul.driver.R.id.til_lic_name);
-        til_lic_exp = (TextInputLayout) findViewById(com.vineture.movhaul.driver.R.id.til_lic_exp);
+        et_lic_name = (EditText) findViewById(R.id.edittext_lic_name);
+        et_lic_no = (EditText) findViewById(R.id.edittext_lic_no);
+        et_lic_mobile = (EditText) findViewById(R.id.edittext_lic_phone);
+        et_lic_exp = (EditText) findViewById(R.id.edittext_lic_exp);
+        til_lic_no = (TextInputLayout) findViewById(R.id.til_lic_no);
+        til_lic_mobile = (TextInputLayout) findViewById(R.id.til_lic_phone);
+        til__lic_name = (TextInputLayout) findViewById(R.id.til_lic_name);
+        til_lic_exp = (TextInputLayout) findViewById(R.id.til_lic_exp);
 
-        btn_verify = (Button) findViewById(com.vineture.movhaul.driver.R.id.btn_verify);
+        btn_verify = (Button) findViewById(R.id.btn_verify);
 
-        lt_first = (android.widget.LinearLayout) findViewById(com.vineture.movhaul.driver.R.id.first_layout);
-        lt_second = (android.widget.LinearLayout) findViewById(com.vineture.movhaul.driver.R.id.second_layout);
-        lt_add_photo = (LinearLayout) findViewById(com.vineture.movhaul.driver.R.id.layout_lic_image);
+        lt_first = (android.widget.LinearLayout) findViewById(R.id.first_layout);
+        lt_second = (android.widget.LinearLayout) findViewById(R.id.second_layout);
+        lt_add_photo = (LinearLayout) findViewById(R.id.layout_lic_image);
 
-        iv_close = (ImageView) findViewById(com.vineture.movhaul.driver.R.id.imageview_close);
-        iv_driver_lic = (ImageView) findViewById(com.vineture.movhaul.driver.R.id.imageview_driver_lic);
+        iv_close = (ImageView) findViewById(R.id.imageview_close);
+        iv_driver_lic = (ImageView) findViewById(R.id.imageview_driver_lic);
 
-        view_lic = findViewById(com.vineture.movhaul.driver.R.id.view_driver_lic);
+        view_lic = findViewById(R.id.view_driver_lic);
 
         lt_second.setVisibility(View.GONE);
 
@@ -161,12 +161,12 @@ public class RegisterActivity extends Activity {
         final int height = getDeviceHeight(RegisterActivity.this);
 
 
-        lt_filter_dialog = (android.widget.LinearLayout) findViewById(com.vineture.movhaul.driver.R.id.filter_dialog);
+        lt_filter_dialog = (android.widget.LinearLayout) findViewById(R.id.filter_dialog);
         lt_filter_dialog.setVisibility(View.VISIBLE);
 
-        iv_truck = (ImageView) findViewById(com.vineture.movhaul.driver.R.id.image_truck);
-        iv_bus = (ImageView) findViewById(com.vineture.movhaul.driver.R.id.image_bus);
-        iv_road_assit = (ImageView) findViewById(com.vineture.movhaul.driver.R.id.image_roadside_assistance);
+        iv_truck = (ImageView) findViewById(R.id.image_truck);
+        iv_bus = (ImageView) findViewById(R.id.image_bus);
+        iv_road_assit = (ImageView) findViewById(R.id.image_roadside_assistance);
 
         et_name.setEnabled(false);
         et_email.setEnabled(false);
@@ -229,7 +229,7 @@ public class RegisterActivity extends Activity {
 
 
         snackbar = Snackbar
-                .make(findViewById(com.vineture.movhaul.driver.R.id.top), com.vineture.movhaul.driver.R.string.network, Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.top), R.string.network, Snackbar.LENGTH_LONG);
         View sbView = snackbar.getView();
         tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
         tv_snack.setTextColor(Color.WHITE);
@@ -237,7 +237,7 @@ public class RegisterActivity extends Activity {
 
         if (!config.isConnected(RegisterActivity.this)) {
             snackbar.show();
-            tv_snack.setText(com.vineture.movhaul.driver.R.string.connect);
+            tv_snack.setText(R.string.connect);
         }
 
 
@@ -245,13 +245,13 @@ public class RegisterActivity extends Activity {
         dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog2.setCancelable(false);
-        dialog2.setContentView(com.vineture.movhaul.driver.R.layout.driver_bidding_confirm);
-        d2_btn_ok = (Button) dialog2.findViewById(com.vineture.movhaul.driver.R.id.button_ok);
-        btn_close = (ImageView) dialog2.findViewById(com.vineture.movhaul.driver.R.id.button_close);
-        d2_tv_dialog1 = (TextView) dialog2.findViewById(com.vineture.movhaul.driver.R.id.textView_1);
-        d2_tv_dialog2 = (TextView) dialog2.findViewById(com.vineture.movhaul.driver.R.id.textView_2);
-        d2_tv_dialog3 = (TextView) dialog2.findViewById(com.vineture.movhaul.driver.R.id.textView_3);
-        d2_tv_dialog4 = (TextView) dialog2.findViewById(com.vineture.movhaul.driver.R.id.textView_4);
+        dialog2.setContentView(R.layout.driver_bidding_confirm);
+        d2_btn_ok = (Button) dialog2.findViewById(R.id.button_ok);
+        btn_close = (ImageView) dialog2.findViewById(R.id.button_close);
+        d2_tv_dialog1 = (TextView) dialog2.findViewById(R.id.textView_1);
+        d2_tv_dialog2 = (TextView) dialog2.findViewById(R.id.textView_2);
+        d2_tv_dialog3 = (TextView) dialog2.findViewById(R.id.textView_3);
+        d2_tv_dialog4 = (TextView) dialog2.findViewById(R.id.textView_4);
 
         d2_tv_dialog1.setTypeface(type);
         d2_tv_dialog2.setTypeface(type);
@@ -259,9 +259,9 @@ public class RegisterActivity extends Activity {
         d2_tv_dialog4.setTypeface(type);
         d2_btn_ok.setTypeface(type);
 
-        d2_tv_dialog1.setText(com.vineture.movhaul.driver.R.string.success);
-        d2_tv_dialog2.setText(com.vineture.movhaul.driver.R.string.thanks);
-        d2_tv_dialog3.setText(com.vineture.movhaul.driver.R.string.verf);
+        d2_tv_dialog1.setText(R.string.success);
+        d2_tv_dialog2.setText(R.string.thanks);
+        d2_tv_dialog3.setText(R.string.verf);
         d2_tv_dialog4.setVisibility(View.GONE);
         btn_close.setVisibility(View.GONE);
 
@@ -309,17 +309,17 @@ public class RegisterActivity extends Activity {
 
                         } else {
                             snackbar.show();
-                            tv_snack.setText(com.vineture.movhaul.driver.R.string.va_ph);
+                            tv_snack.setText(R.string.va_ph);
                             et_mobile.requestFocus();
                         }
                     } else {
                         snackbar.show();
-                        tv_snack.setText(com.vineture.movhaul.driver.R.string.va_ma);
+                        tv_snack.setText(R.string.va_ma);
                         et_email.requestFocus();
                     }
                 } else {
                     snackbar.show();
-                    tv_snack.setText(com.vineture.movhaul.driver.R.string.va_us);
+                    tv_snack.setText(R.string.va_us);
                     et_name.requestFocus();
                 }
 
@@ -355,27 +355,27 @@ public class RegisterActivity extends Activity {
                             } else {
 
                                 snackbar.show();
-                                tv_snack.setText(com.vineture.movhaul.driver.R.string.up_lc);
+                                tv_snack.setText(R.string.up_lc);
                             }
 
                         } else {
                            // et_lic_mobile.setError("Enter valid phone number");
 
                             snackbar.show();
-                            tv_snack.setText(com.vineture.movhaul.driver.R.string.va_se);
+                            tv_snack.setText(R.string.va_se);
 
                             et_lic_mobile.requestFocus();
                         }
                     } else {
                        // et_lic_no.setError("Enter a valid email address!");
                         snackbar.show();
-                        tv_snack.setText(com.vineture.movhaul.driver.R.string.va_lc);
+                        tv_snack.setText(R.string.va_lc);
                         et_lic_no.requestFocus();
                     }
                 } else {
                     //et_lic_name.setError("Enter a Name!");
                     snackbar.show();
-                    tv_snack.setText(com.vineture.movhaul.driver.R.string.va_fn);
+                    tv_snack.setText(R.string.va_fn);
                     et_lic_name.requestFocus();
                 }
             }
@@ -389,12 +389,12 @@ public class RegisterActivity extends Activity {
                 com.gun0912.tedpicker.Config config = new com.gun0912.tedpicker.Config();
                 config.setSelectionMin(1);
                 config.setSelectionLimit(1);
-                config.setCameraHeight(com.vineture.movhaul.driver.R.dimen.app_camera_height);
+                config.setCameraHeight(R.dimen.app_camera_height);
 
-                config.setCameraBtnBackground(com.vineture.movhaul.driver.R.drawable.round_rd);
+                config.setCameraBtnBackground(R.drawable.round_rd);
 
-                config.setToolbarTitleRes(com.vineture.movhaul.driver.R.string.img_vec_lic);
-                config.setSelectedBottomHeight(com.vineture.movhaul.driver.R.dimen.bottom_height);
+                config.setToolbarTitleRes(R.string.img_vec_lic);
+                config.setSelectedBottomHeight(R.dimen.bottom_height);
 
                 ImagePickerActivity.setConfig(config);
                 Intent intent = new Intent(RegisterActivity.this, com.gun0912.tedpicker.ImagePickerActivity.class);
@@ -455,7 +455,7 @@ public class RegisterActivity extends Activity {
                     str_lic_photo = image_uris.get(0).toString();
                     Glide.with(RegisterActivity.this).load(new File(str_lic_photo)).centerCrop().into(iv_driver_lic);
                     snackbar.show();
-                    tv_snack.setText(com.vineture.movhaul.driver.R.string.dr);
+                    tv_snack.setText(R.string.dr);
                     view_lic.setVisibility(View.GONE);
                 }
 
@@ -550,11 +550,11 @@ public class RegisterActivity extends Activity {
                     else{
                         if(msg.contains("Error OccuredError: ER_DUP_ENTRY: Duplicate entry")) {
                             snackbar.show();
-                            tv_snack.setText(com.vineture.movhaul.driver.R.string.us_al);
+                            tv_snack.setText(R.string.us_al);
                         }
                         else{
                             snackbar.show();
-                            tv_snack.setText(com.vineture.movhaul.driver.R.string.network);
+                            tv_snack.setText(R.string.network);
                         }
                     }
 
@@ -564,11 +564,11 @@ public class RegisterActivity extends Activity {
                     Log.e("tag", "tagnt: " + e.toString());
 
                     snackbar.show();
-                         tv_snack.setText(com.vineture.movhaul.driver.R.string.network);
+                         tv_snack.setText(R.string.network);
                 }
             } else {
                 snackbar.show();
-                     tv_snack.setText(com.vineture.movhaul.driver.R.string.network);
+                     tv_snack.setText(R.string.network);
             }
         }
     }
@@ -646,7 +646,7 @@ public class RegisterActivity extends Activity {
 
                 } else {
                     insertDummyContactWrapper();
-                    Toast.makeText(RegisterActivity.this, com.vineture.movhaul.driver.R.string.perm_de, Toast.LENGTH_SHORT)
+                    Toast.makeText(RegisterActivity.this, R.string.perm_de, Toast.LENGTH_SHORT)
                             .show();
                 }
             }
