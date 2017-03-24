@@ -6,7 +6,7 @@ android {
         config {
             keyAlias 'movhaul_driver'
             keyPassword 'mvhldriver'
-            storeFile file('F:/movhaul driver/keystore_driver.jks')
+            storeFile file('F:/movhaul driver/keystore.jks')
             storePassword 'mvhldriver'
         }
     }
@@ -14,7 +14,7 @@ android {
     buildToolsVersion '25.0.0'
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
-        applicationId "com.vineture.movhaul.driver"
+        applicationId "com.movhaul.driver"
         minSdkVersion 17
         targetSdkVersion 25
         versionCode 5
@@ -66,5 +66,4 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:9.0.2'
     compile 'com.google.firebase:firebase-crash:9.0.2'
     compile 'com.firebase:firebase-client-android:2.5.1+'
-
 }

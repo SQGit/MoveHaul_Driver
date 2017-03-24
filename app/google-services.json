@@ -80,6 +80,50 @@
           "status": 2
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:877916506885:android:7a213b8d8dafde1f",
+        "android_client_info": {
+          "package_name": "com.movhaul.driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "877916506885-b1j3cikl2pk2ceok4o8eijtbqgd4s2kc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.movhaul.driver",
+            "certificate_hash": "bdea5406f5dab54ce946311210772de114300ede"
+          }
+        },
+        {
+          "client_id": "877916506885-hkgu54moo9l9q1uvptsc4g4vh7fnsp41.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXlcKwIKxB7gMg0YC6g0sQ0JWlMDU8Gjc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "877916506885-hkgu54moo9l9q1uvptsc4g4vh7fnsp41.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
     }
   ],
   "configuration_version": "1"
