@@ -15,6 +15,8 @@ import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.Display;
+import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -96,6 +98,8 @@ public class SplashActivity extends Activity {
         if (sharedPreferences.getString("login", "").equals("success")) {
             lt_bottom.setVisibility(View.GONE);
         }
+
+
 
 
         truck_icon.animate().translationX(width / (float) 1.65).setDuration(1700).withLayer();

@@ -160,11 +160,11 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
 
 
         ImageView iv_bidding = (ImageView) cell.findViewById(R.id.imageview_bidding);
+
         tv_title_pickup = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_title_pickup);
         tv_title_drop = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_title_drop);
         tv_title_date = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_title_date);
         tv_title_pick_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_title_date);
-        tv_title_date = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_title_date);
 
         tv_title_pick_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_book_from_txt);
         tv_title_drop_txt = (com.rey.material.widget.TextView) cell.findViewById(R.id.textview_book_to_txt);
