@@ -200,7 +200,7 @@ public class JobPosting extends Activity {
 
                 if (status.equals("true")) {
 
-//
+
                     JSONArray goods_data = jo.getJSONArray("jobs");
 
                     editor.putString("jobsize",String.valueOf(goods_data.length()));
