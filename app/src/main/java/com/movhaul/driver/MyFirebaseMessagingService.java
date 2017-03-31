@@ -145,6 +145,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void send_notification(String data) {
 
         String name = null,title = null,body = null;
+        Log.e("tag","data: "+ data);
         try {
             JSONObject jsonObject = new JSONObject(data);
 

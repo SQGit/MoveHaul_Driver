@@ -133,7 +133,7 @@ public class UpcomingAdapter extends ArrayAdapter<MV_Datas> {
 
 
         tv_content_booking_id.setText(mv_datas.getBooking_id());
-        tv_content_cost.setText(mv_datas.getJob_cost());
+        tv_content_cost.setText(mv_datas.getJob_cost() + " Naira");
         tv_content_pickup.setText(mv_datas.getPickup());
         tv_content_drop.setText(mv_datas.getDrop());
         tv_content_goods.setText(mv_datas.getGoods_type());

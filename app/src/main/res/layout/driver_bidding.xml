@@ -45,12 +45,7 @@
             android:layout_gravity="center"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="$"
-                android:textColor="@color/redColor"
-                android:textSize="@dimen/_15sdp" />
+
 
             <EditText
                 android:id="@+id/edittext_bidding"
@@ -59,7 +54,7 @@
                 android:layout_centerInParent="true"
                 android:background="@null"
                 android:inputType="number"
-                android:layout_marginLeft="@dimen/_7sdp"
+
                 android:hint="@string/amount"
                 android:maxLength="5"
                 android:imeOptions="actionNext"
@@ -67,6 +62,14 @@
                 android:textColor="@color/redColor"
                 android:textColorHint="@color/redColor"
                 android:textSize="@dimen/_14sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Naira"
+                android:layout_marginLeft="@dimen/_7sdp"
+                android:textColor="@color/redColor"
+                android:textSize="@dimen/_15sdp" />
         </LinearLayout>
 
         <View

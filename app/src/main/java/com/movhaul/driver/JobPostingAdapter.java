@@ -483,7 +483,7 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
                 try {
                     JSONObject jo = new JSONObject(s);
                     String status = jo.getString("status");
-                    String msg = jo.getString("message");
+                   // String msg = jo.getString("message");
                     Log.d("tag", "<-----Status----->" + status);
                     if (status.equals("true")) {
                         Log.e("tag", "bidding successful");
