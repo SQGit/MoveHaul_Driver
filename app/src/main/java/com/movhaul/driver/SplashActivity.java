@@ -2,11 +2,15 @@ package com.movhaul.driver;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,12 +31,15 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.movhaul.driver.R;
 import com.sloop.fonts.FontsManager;
+
+import org.jsoup.Jsoup;
 
 public class SplashActivity extends Activity {
     Button btn_register, btn_login;
@@ -47,6 +54,14 @@ public class SplashActivity extends Activity {
     TranslateAnimation anim_btn_b2t, anim_btn_t2b, anim_truck_c2r, anim_new;
     Animation fadeIn, fadeOut;
     private FirebaseAnalytics mFirebaseAnalytics;
+
+    String currentVersion, playstoreVersion;
+    Dialog dg_show_update;
+    TextView tv_dg_txt, tv_dg_txt2;
+    com.rey.material.widget.Button btn_dg_download;
+
+
+
 
     public static int getDeviceWidth(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -97,6 +112,49 @@ public class SplashActivity extends Activity {
 
         if (sharedPreferences.getString("login", "").equals("success")) {
             lt_bottom.setVisibility(View.GONE);
+        }
+
+
+        dg_show_update = new Dialog(SplashActivity.this);
+        dg_show_update.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dg_show_update.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dg_show_update.setCancelable(false);
+        dg_show_update.setContentView(com.movhaul.driver.R.layout.dialog_road_confirm);
+
+        btn_dg_download = (com.rey.material.widget.Button) dg_show_update.findViewById(com.movhaul.driver.R.id.button_yes);
+        tv_dg_txt = (android.widget.TextView) dg_show_update.findViewById(com.movhaul.driver.R.id.textView_1);
+        tv_dg_txt2 = (android.widget.TextView) dg_show_update.findViewById(com.movhaul.driver.R.id.textView_2);
+
+        tv_dg_txt.setText("Hooray...!!!");
+        tv_dg_txt2.setText("New Update available on PlayStore");
+        btn_dg_download.setText("Download");
+
+        tv_dg_txt.setTypeface(tf);
+        tv_dg_txt2.setTypeface(tf);
+        btn_dg_download.setTypeface(tf);
+
+        btn_dg_download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dg_show_update.dismiss();
+
+                final String appPackageName = SplashActivity.this.getPackageName(); // getPackageName() from Context or Activity object
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                }
+
+            }
+        });
+
+
+        try {
+            currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            Log.e("Tag", "version:" + currentVersion);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            Log.e("Tag", "err:" + e.toString());
         }
 
 
@@ -154,6 +212,12 @@ public class SplashActivity extends Activity {
         textView.setTextColor(Color.WHITE);
         textView.setTypeface(tf);
         textView1.setTypeface(tf);
+
+        if (!com.movhaul.driver.Config.isConnected(SplashActivity.this)) {
+            snackbar.show();
+        } else {
+            new GetVersionCode().execute();
+        }
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -289,4 +353,70 @@ public class SplashActivity extends Activity {
             }
         }
     }
+
+
+
+    private class GetVersionCode extends AsyncTask<Void, String, String> {
+
+        @Override
+
+        protected String doInBackground(Void... voids) {
+
+            String newVersion = null;
+
+            try {
+
+                Log.e("tag", "https://play.google.com/store/apps/details?id=" + SplashActivity.this.getPackageName() + "&hl=it");
+
+                newVersion = Jsoup.connect("https://play.google.com/store/apps/details?id=" + SplashActivity.this.getPackageName() + "&hl=it").timeout(30000)
+                        .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+                        .referrer("http://www.google.com")
+                        .get()
+                        .select("div[itemprop=softwareVersion]")
+                        .first()
+                        .ownText();
+
+                Log.e("Tag", "new: " + newVersion);
+
+                return newVersion;
+
+            } catch (Exception e) {
+
+                Log.e("Tag", "dreerr: " + e.toString());
+                return newVersion;
+
+            }
+
+        }
+
+
+        @Override
+
+        protected void onPostExecute(String onlineVersion) {
+
+
+            Log.e("Tag", "OUTPUT: " + onlineVersion);
+
+            super.onPostExecute(onlineVersion);
+
+            playstoreVersion = onlineVersion;
+
+            if (playstoreVersion != null && !playstoreVersion.isEmpty()) {
+
+                if (Float.valueOf(currentVersion) < Float.valueOf(playstoreVersion)) {
+
+                    //show dialog
+                    dg_show_update.show();
+
+                }
+
+            }
+
+            Log.e("update", "Current version " + currentVersion + "playstore version " + playstoreVersion);
+
+        }
+    }
+
+
+
 }
