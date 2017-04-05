@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -32,6 +33,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.gun0912.tedpicker.ImagePickerActivity;
+import com.hbb20.CountryCodePicker;
 import com.movhaul.driver.R;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
@@ -83,11 +85,12 @@ public class RegisterActivity extends Activity {
     View view_lic;
     Config config;
     ProgressDialog mProgressDialog;
-    String vec_type;
+    String vec_type,str_mobile_prefix;
     final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
     ImageView iv_truck, iv_bus,iv_road_assit;
     android.widget.LinearLayout lt_filter_dialog;
     ArrayList<Uri> image_uris;
+    CountryCodePicker ccp;
 
     public static int getDeviceHeight(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -157,6 +160,31 @@ public class RegisterActivity extends Activity {
         til_email.setTypeface(type);
         til_mobile.setTypeface(type);
         til_name.setTypeface(type);
+
+        ccp = (CountryCodePicker) findViewById(R.id.ccp);
+
+
+        ccp.setTypeFace(tf);
+
+
+        try {
+            TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+            String countryCodeValue = tm.getNetworkCountryIso();
+            ccp.setCountryForNameCode(countryCodeValue);
+        } catch (Exception ex) {
+            Log.e("tag", "er:" + ex.toString());
+        } finally {
+            Log.e("tag", "flg" + ccp.getSelectedCountryCodeWithPlus());
+            str_mobile_prefix = ccp.getSelectedCountryCodeWithPlus();
+        }
+        ccp.setOnCountryChangeListener(new CountryCodePicker.OnCountryChangeListener() {
+            @Override
+            public void onCountrySelected() {
+                str_mobile_prefix = ccp.getSelectedCountryCodeWithPlus();
+                Log.e("tag", "flg_ccp" + ccp.getSelectedCountryCodeWithPlus());
+            }
+        });
+
 
         final int height = getDeviceHeight(RegisterActivity.this);
 
@@ -484,11 +512,11 @@ public class RegisterActivity extends Activity {
                 HttpPost httppost = new HttpPost(Config.WEB_URL + "driversignup");
 
                 httppost.setHeader("driver_name", str_name);
-                httppost.setHeader("driver_mobile_pri", "+91" + str_mobile);
+                httppost.setHeader("driver_mobile_pri", str_mobile_prefix + str_mobile);
                 httppost.setHeader("driver_email", str_email);
                 httppost.setHeader("driver_licence_name", str_lic_name);
                 httppost.setHeader("vehicle_type", vec_type);
-                httppost.setHeader("driver_mobile_sec", "+91" + str_lic_mobile);
+                httppost.setHeader("driver_mobile_sec", str_mobile_prefix + str_lic_mobile);
                 httppost.setHeader("driver_licence_number", str_lic_no);
                 httppost.setHeader("driver_experience", str_lic_exp);
 

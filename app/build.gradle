@@ -67,5 +67,7 @@ dependencies {
     compile 'com.google.firebase:firebase-crash:9.0.2'
     compile 'com.firebase:firebase-client-android:2.5.1+'
 
+    compile 'com.hbb20:ccp:1.7.2'
+
     compile 'org.jsoup:jsoup:1.8.3'
 }

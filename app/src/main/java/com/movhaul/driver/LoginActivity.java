@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 
 import com.firebase.client.Firebase;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.hbb20.CountryCodePicker;
 import com.movhaul.driver.R;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
@@ -43,7 +45,7 @@ public class LoginActivity extends Activity {
     Button btn_submit;
     TextView tv_forgot_mobile,tv_snack;
     LinearLayout btn_back;
-    String str_mobile;
+    String str_mobile,str_mobile_prefix;
     EditText et_mobile_no;
     TextInputLayout flt_mobile_no;
     Config config;
@@ -56,6 +58,7 @@ public class LoginActivity extends Activity {
     ImageView btn_close,iv_driver_lic;
   //  SharedPreferences sharedPreferences;
    //  SharedPreferences.Editor editor;
+  CountryCodePicker ccp;
 
 
     @Override
@@ -110,10 +113,32 @@ public class LoginActivity extends Activity {
         tv_forgot_mobile = (TextView) findViewById(R.id.text_forgot_no);
         et_mobile_no = (EditText) findViewById(R.id.editTextMobileNo);
         flt_mobile_no = (TextInputLayout) findViewById(R.id.float_mobile);
+        ccp = (CountryCodePicker) findViewById(R.id.ccp);
 
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
         et_mobile_no.setTypeface(tf);
         flt_mobile_no.setTypeface(type);
+
+        ccp.setTypeFace(tf);
+
+
+        try {
+            TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+            String countryCodeValue = tm.getNetworkCountryIso();
+            ccp.setCountryForNameCode(countryCodeValue);
+        } catch (Exception ex) {
+            Log.e("tag", "er:" + ex.toString());
+        } finally {
+            Log.e("tag", "flg" + ccp.getSelectedCountryCodeWithPlus());
+            str_mobile_prefix = ccp.getSelectedCountryCodeWithPlus();
+        }
+        ccp.setOnCountryChangeListener(new CountryCodePicker.OnCountryChangeListener() {
+            @Override
+            public void onCountrySelected() {
+                str_mobile_prefix = ccp.getSelectedCountryCodeWithPlus();
+                Log.e("tag", "flg_ccp" + ccp.getSelectedCountryCodeWithPlus());
+            }
+        });
 
 
 
@@ -285,7 +310,7 @@ public class LoginActivity extends Activity {
 
             try {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("driver_mobile", "+91"+str_mobile);
+                jsonObject.accumulate("driver_mobile", str_mobile_prefix+str_mobile);
 
                 json = jsonObject.toString();
                 return jsonStr = HttpUtils.makeRequest(Config.WEB_URL + "drivermobileotp", json);
