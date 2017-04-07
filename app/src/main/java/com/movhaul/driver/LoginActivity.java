@@ -125,6 +125,7 @@ public class LoginActivity extends Activity {
         try {
             TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
             String countryCodeValue = tm.getNetworkCountryIso();
+            Log.e("tag", "er:" + countryCodeValue);
             ccp.setCountryForNameCode(countryCodeValue);
         } catch (Exception ex) {
             Log.e("tag", "er:" + ex.toString());
