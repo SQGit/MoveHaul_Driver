@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
+    android:id="@+id/top"
     android:orientation="vertical">
 
     <LinearLayout
@@ -97,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="Routing Number"
-                android:inputType="textWebEmailAddress"
+                android:inputType="number"
                 android:maxLines="1"
                 android:paddingTop="@dimen/_10sdp"
                 android:textColor="#000000"
@@ -124,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="Account Number"
-                android:inputType="textWebEmailAddress"
+                android:inputType="number"
                 android:maxLines="1"
                 android:paddingTop="@dimen/_10sdp"
                 android:textColor="#000000"
@@ -151,7 +152,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="Re Enter Account Number"
-                android:inputType="textWebEmailAddress"
+                android:inputType="number"
                 android:maxLines="1"
                 android:paddingTop="@dimen/_10sdp"
                 android:textColor="#000000"
