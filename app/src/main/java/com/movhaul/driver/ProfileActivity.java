@@ -14,6 +14,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -77,6 +78,8 @@ public class ProfileActivity extends Activity {
     String id, token;
     ArrayList<Uri> image_uris;
     ImageView iv_edit;
+    android.widget.LinearLayout lt_bank;
+    TextView tv_bank;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,12 +118,16 @@ public class ProfileActivity extends Activity {
         iv_vec_ins = (ImageView) findViewById(R.id.imageview_vechile_ins);
         tv_profile_name = (TextView) findViewById(R.id.textview_profile_name);
 
+        tv_bank  = (TextView) findViewById(R.id.textview_bank);
+
         btn_back = (LinearLayout) findViewById(R.id.layout_back);
         lt_vec_rc = (LinearLayout) findViewById(R.id.layout_vechile_rc);
         lt_vec_ins = (LinearLayout) findViewById(R.id.layout_vechile_insurence);
 
         view_rc = findViewById(R.id.view_rc);
         view_ins = findViewById(R.id.view_insurence);
+
+        lt_bank = (android.widget.LinearLayout) findViewById(R.id.bank_layout);
 
         til_contact = (TextInputLayout) findViewById(R.id.til_contactnumber);
         til_secondary = (TextInputLayout) findViewById(R.id.til_secondary);
@@ -163,6 +170,15 @@ public class ProfileActivity extends Activity {
             et_secondary.setEnabled(false);
             et_address.setEnabled(false);
 
+
+        }
+
+
+        if(sharedPreferences.getString("bank_update","").equals("success")){
+            tv_bank.setText("Update Bank Details");
+        }
+        else{
+            tv_bank.setText("Add Bank Details");
 
         }
 
@@ -233,7 +249,7 @@ public class ProfileActivity extends Activity {
                 iv_vec_front.setEnabled(true);
                 iv_vec_side.setEnabled(true);
                 lt_vec_ins.setEnabled(true);
-                lt_vec_ins.setEnabled(true);
+                lt_vec_rc.setEnabled(true);
                 et_contact.setEnabled(true);
                 et_secondary.setEnabled(true);
                 et_address.setEnabled(true);
@@ -339,6 +355,14 @@ public class ProfileActivity extends Activity {
             public void onClick(View view) {
                 /* tag{"status":true};*/
                 finish();
+            }
+        });
+
+        lt_bank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), Bank_details.class);
+                startActivity(i);
             }
         });
 

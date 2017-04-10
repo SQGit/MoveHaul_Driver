@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,6 +19,9 @@ import android.widget.TextView;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
 import com.sloop.fonts.FontsManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by sqindia on 10-11-2016.
@@ -33,7 +38,8 @@ public class Bank_details extends Activity {
     ProgressDialog mProgressDialog;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    String str_bank_name,str_routing_no,str_acc_no;
+    String id, token;
+    String str_bank_name, str_routing_no, str_acc_no;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +57,9 @@ public class Bank_details extends Activity {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Bank_details.this);
         editor = sharedPreferences.edit();
+
+        id = sharedPreferences.getString("id", "");
+        token = sharedPreferences.getString("token", "");
 
         mProgressDialog = new ProgressDialog(Bank_details.this);
         mProgressDialog.setTitle(getString(R.string.loading));
@@ -76,6 +85,14 @@ public class Bank_details extends Activity {
         til_acc_no.setTypeface(tf);
         til_reacc_no.setTypeface(tf);
 
+
+        if(sharedPreferences.getString("bank_update","").equals("success")){
+            et_bank_name.setText(sharedPreferences.getString("bank_name",""));
+            et_routing_no.setText(sharedPreferences.getString("bank_routing",""));
+            et_acc_no.setText(sharedPreferences.getString("bank_no",""));
+            btn_submit.setText("Update");
+        }
+
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,9 +116,11 @@ public class Bank_details extends Activity {
                                             if (et_reacc_no.getText().toString().trim().length() > 5) {
                                                 if (et_acc_no.getText().toString().trim().equals(et_reacc_no.getText().toString().trim())) {
 
-                                                    str_bank_name =et_bank_name.getText().toString().trim();
-                                                    str_acc_no =et_acc_no.getText().toString().trim();
-                                                    str_routing_no =et_routing_no.getText().toString().trim();
+                                                    str_bank_name = et_bank_name.getText().toString().trim();
+                                                    str_acc_no = et_acc_no.getText().toString().trim();
+                                                    str_routing_no = et_routing_no.getText().toString().trim();
+
+                                                    new submit_bank().execute();
 
 
                                                 } else {
@@ -152,6 +171,84 @@ public class Bank_details extends Activity {
 
             }
         });
+
+    }
+
+
+    public class submit_bank extends AsyncTask<String, Void, String> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Log.e("tag", "reg_preexe");
+            mProgressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            String json = "", jsonStr = "", url;
+
+            try {
+                JSONObject jsonObject = new JSONObject();
+
+
+                jsonObject.accumulate("bank_name", str_bank_name);
+                jsonObject.accumulate("routing_number", str_routing_no);
+                jsonObject.accumulate("account_number", str_acc_no);
+
+
+                json = jsonObject.toString();
+                return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + "truckdriver/bankupdate", json, id, token);
+
+            } catch (Exception e) {
+                Log.e("InputStream", e.getLocalizedMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.e("tag", "tag" + s);
+            mProgressDialog.dismiss();
+
+
+            if (s != null) {
+                try {
+                    JSONObject jo = new JSONObject(s);
+                    String status = jo.getString("status");
+                    String msg = jo.getString("message");
+                    Log.d("tag", "<-----Status----->" + status);
+                    if (status.equals("true")) {
+                        Log.d("tag", "<-----true----->" + status);
+
+                        editor.putString("bank_update", "success");
+                        editor.putString("bank_name", str_bank_name);
+                        editor.putString("bank_routing", str_routing_no);
+                        editor.putString("bank_no", str_acc_no);
+                        editor.apply();
+                        finish();
+
+                    } else {
+                        snackbar.show();
+                        tv_snack.setText("Network Error, Please Try Again Later");
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e("tag", "nt" + e.toString());
+                    snackbar.show();
+                    tv_snack.setText("Network Error, Please Try Again Later");
+                }
+            } else {
+                snackbar.show();
+                tv_snack.setText("Network Error, Please Try Again Later");
+            }
+
+        }
 
     }
 }

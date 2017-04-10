@@ -447,6 +447,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:gravity="center"
+                android:id="@+id/bank_layout"
                 android:orientation="horizontal">
 
 
@@ -459,7 +460,7 @@
 
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/textview_bank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"

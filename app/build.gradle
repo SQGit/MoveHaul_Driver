@@ -17,8 +17,8 @@ android {
         applicationId "com.movhaul.driver"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 6
-        versionName "1.6"
+        versionCode 7
+        versionName "1.7"
         multiDexEnabled true
         signingConfig signingConfigs.config
     }
