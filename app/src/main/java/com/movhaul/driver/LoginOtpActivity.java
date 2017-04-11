@@ -51,7 +51,10 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
     private View view;
     String url_data,vec_type;
     public InputMethodManager imml;
-    public InputMethodManager input;
+
+    int a,b,c,d;
+    InputMethodManager inputMethodManager;
+
     private LoginOtpActivity(View view) {
         this.view = view;
     }
@@ -168,16 +171,6 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         et_otp3.addTextChangedListener(new LoginOtpActivity(et_otp3));
         et_otp4.addTextChangedListener(new LoginOtpActivity(et_otp4));
 
-       /* et_otp4.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if(!hasFocus) {
-                    if(et_otp4.getText().toString().trim().length() == 1){
-                        imml.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-                    }
-                }
-            }
-        });*/
 
 
        et_otp4.setOnKeyListener(new View.OnKeyListener() {
@@ -192,24 +185,58 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                         // imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
                         imm.toggleSoftInput(0, 0);
                     }
+
+
+                }
+                else{
+                    Log.e("tag","a"+(++d));
+                    if(d>3){
+                        et_otp3.requestFocus();
+                        d=0;
+                    }
                 }
 
                 return false;
             }
         });
 
-     /*   et_otp3.setOnKeyListener(new View.OnKeyListener() {
+
+        et_otp3.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
+                Log.e("tag", " code: " + keyCode + " event: " + event.getAction());
 
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT);
+                if (keyCode == KeyEvent.KEYCODE_DEL) {
+                    Log.e("tag","a"+(++c));
+                    if(c>3){
+                        et_otp2.requestFocus();
+                        c=0;
+                    }
 
-
+                }
                 return false;
             }
-        });*/
+        });
+
+        et_otp2.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                Log.e("tag", " code: " + keyCode + " event: " + event.getAction());
+
+                if (keyCode == KeyEvent.KEYCODE_DEL) {
+                    Log.e("tag","a"+(++b));
+                    if(b>3){
+                        et_otp1.requestFocus();
+                        b=0;
+                    }
+
+                }
+                return false;
+            }
+        });
+
 
 
         tv_resendotp.setOnClickListener(new View.OnClickListener() {
@@ -223,37 +250,54 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         });
 
 
+        inputMethodManager =
+                (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
+
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                /*Intent i = new Intent(LoginOtpActivity.this, DashboardNavigation.class);
-                startActivity(i);
-                finish();*/
-
-                /*editor.putString("login","success");
-                editor.commit();*/
 
 
                 if (et_otp1.getText().toString().isEmpty()) {
                     et_otp1.requestFocus();
                     tv_snack.setText("Enter Otp");
                     snackbar.show();
+
+                    inputMethodManager.toggleSoftInputFromWindow(
+                            et_otp1.getApplicationWindowToken(),
+                            InputMethodManager.SHOW_FORCED, 0);
+
                 } else {
                     if (et_otp2.getText().toString().isEmpty()) {
                         et_otp2.requestFocus();
                         tv_snack.setText("Enter Otp");
                         snackbar.show();
+
+                        inputMethodManager.toggleSoftInputFromWindow(
+                                et_otp1.getApplicationWindowToken(),
+                                InputMethodManager.SHOW_FORCED, 0);
+
                     } else {
                         if (et_otp3.getText().toString().isEmpty()) {
                             et_otp3.requestFocus();
                             tv_snack.setText("Enter Otp");
                             snackbar.show();
+
+                            inputMethodManager.toggleSoftInputFromWindow(
+                                    et_otp1.getApplicationWindowToken(),
+                                    InputMethodManager.SHOW_FORCED, 0);
+
                         } else {
                             if (et_otp4.getText().toString().isEmpty()) {
                                 et_otp4.requestFocus();
                                 tv_snack.setText("Enter Otp");
                                 snackbar.show();
+
+                                inputMethodManager.toggleSoftInputFromWindow(
+                                        et_otp1.getApplicationWindowToken(),
+                                        InputMethodManager.SHOW_FORCED, 0);
+
                             } else {
                                 str_otppin = et_otp1.getText().toString() + et_otp2.getText().toString() + et_otp3.getText().toString() + et_otp4.getText().toString();
                                 Log.e("tag", "pin:" + str_otppin);
@@ -305,44 +349,32 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
     @Override
     public void afterTextChanged(Editable editable) {
 
-
         switch (view.getId()) {
             case R.id.editext_otp1:
-
-                if (editable.length() == 0) {
-                    et_otp1.requestFocus();
-                } else if (editable.length() == 1) {
+                if (editable.length() == 1) {
                     et_otp2.requestFocus();
-                }
-
+                } /*else if (editable.length() == 1) {
+                    et_otp2.requestFocus();
+                }*/
                 break;
             case R.id.editext_otp2:
-
-                if (editable.length() == 0) {
-                    et_otp1.requestFocus();
-                } else if (editable.length() == 1) {
+                if (editable.length() == 1) {
                     et_otp3.requestFocus();
-                }
-
+                }/* else if (editable.length() == 1) {
+                    et_otp3.requestFocus();
+                }*/
                 break;
             case R.id.editext_otp3:
-
-                if (editable.length() == 0) {
-                    et_otp2.requestFocus();
-
-
-                } else if (editable.length() == 1) {
+                if (editable.length() == 1) {
                     et_otp4.requestFocus();
-                }
+                } /*else if (editable.length() == 1) {
+                    et_otp4.requestFocus();
+                }*/
                 break;
             case R.id.editext_otp4:
-
-                //et_otp3.requestFocus();
-
-                if (editable.length() == 0) {
+               /* if (editable.length() == 0) {
                     et_otp3.requestFocus();
-
-                }
+                }*/
 
 
                 break;
@@ -358,11 +390,8 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
-
-
         return super.dispatchTouchEvent(ev);
     }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -370,8 +399,6 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         startActivity(i);
         finish();
     }
-
-
     public class otp_verify extends AsyncTask<String, Void, String> {
 
 
@@ -395,7 +422,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
                 if (str_for.equals("phone")) {
 
-                    jsonObject.accumulate("driver_mobile", "+91" + str_data);
+                    jsonObject.accumulate("driver_mobile",str_data);
                     jsonObject.accumulate("driver_otp", str_otppin);
                     jsonObject.accumulate("fcm_id", fcm_id);
                     url = url_data+"/mobilelogin";
@@ -547,8 +574,6 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         }
 
     }
-
-
     public class resend_otp extends AsyncTask<String, Void, String> {
 
 
@@ -570,7 +595,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
                 if (str_for.equals("phone")) {
 
-                    jsonObject.accumulate("driver_mobile", "+91" + str_data);
+                    jsonObject.accumulate("driver_mobile", str_data);
                     jsonObject.accumulate("driver_otp", str_otppin);
                     url = "drivermobileotp";
                 } else {
@@ -638,9 +663,6 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         }
 
     }
-
-
-
 
 
 }

@@ -352,7 +352,7 @@ public class LoginActivity extends Activity {
                         Intent i = new Intent(LoginActivity.this, LoginOtpActivity.class);
                         i.putExtra("for","phone");
                         i.putExtra("vec_type",type);
-                        i.putExtra("data",str_mobile);
+                        i.putExtra("data",str_mobile_prefix+str_mobile);
                         startActivity(i);
                         finish();
 
@@ -381,7 +381,7 @@ public class LoginActivity extends Activity {
                             Intent i = new Intent(LoginActivity.this, LoginOtpActivity.class);
                             i.putExtra("for","phone");
                             i.putExtra("vec_type",type);
-                            i.putExtra("data",str_mobile);
+                            i.putExtra("data",str_mobile_prefix+str_mobile);
                             startActivity(i);
                             finish();
                         }
