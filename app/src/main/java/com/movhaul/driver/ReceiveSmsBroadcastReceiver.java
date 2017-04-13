@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
+import android.util.Log;
 
 /**
  * Created by SQINDIA on 10/24/2016.
@@ -33,7 +34,8 @@ public class ReceiveSmsBroadcastReceiver extends BroadcastReceiver {
 
             String messageBody = smsMessage.getMessageBody();
 
-           // Log.e("tag","mmm"+messageBody);
+            Log.e("tag","send "+sender);
+            Log.e("tag","mmm "+messageBody);
 
             //Pass on the text to our listener.
          /*   if (messageBody!=null){
@@ -46,14 +48,17 @@ public class ReceiveSmsBroadcastReceiver extends BroadcastReceiver {
 
 
 
-            try
-            {
-                LoginOtpActivity Sms = new LoginOtpActivity();
-                Sms.recivedSms(messageBody);
-            }
-            catch(Exception e){
 
-            }
+           //if(messageBody.contains("MoveHaul")) {
+               try {
+                   Log.e("tag","send "+sender);
+                   Log.e("tag","mmm "+messageBody);
+                   LoginOtpActivity Sms = new LoginOtpActivity();
+                   Sms.recivedSms(messageBody);
+               } catch (Exception e) {
+                   Log.e("tag","err "+e.toString());
+               }
+          // }
 
         }
 

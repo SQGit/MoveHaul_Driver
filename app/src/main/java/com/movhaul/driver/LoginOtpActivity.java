@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.movhaul.driver.R;
@@ -55,6 +57,8 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
     int a,b,c,d;
     InputMethodManager inputMethodManager;
 
+    ReceiveSmsBroadcastReceiver receiver;
+
     private LoginOtpActivity(View view) {
         this.view = view;
     }
@@ -80,6 +84,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         str_for = getIntent.getStringExtra("for");
         str_data = getIntent.getStringExtra("data");
         vec_type = getIntent.getStringExtra("vec_type");
+
 
 
         if(vec_type.equals("Bus")){
@@ -138,7 +143,14 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         tv_resendotp = (TextView) findViewById(R.id.textview_resendotp);
 
 
-    /*    ReceiveSmsBroadcastReceiver.bindListener(new SmsListener() {
+        /*IntentFilter filter = new IntentFilter();
+        filter.addAction("SOME_ACTION");
+        filter.addAction("SOME_OTHER_ACTION");
+        receiver = new ReceiveSmsBroadcastReceiver();
+
+        registerReceiver(receiver,filter);*/
+
+        /*ReceiveSmsBroadcastReceiver.bindListener(new SmsListener() {
             @Override
             public void messageReceived(String messageText) {
                 Log.e("Text",messageText);
@@ -326,7 +338,15 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         try {
             Log.e("tag", "asd: " + message);
 
-            char[] cArray = message.toCharArray();
+            //"Your MoveHaul OTP is 4770"
+
+            String[] parts = message.trim().split("is");
+            String part1 = parts[0]; // 004
+            String part2 = parts[1]; // 034556
+
+            char[] cArray = part2.toCharArray();
+
+            Log.e("tag", "part: " + part2);
 
             et_otp1.setText(String.valueOf(cArray[cArray.length - 4]));
             et_otp2.setText(String.valueOf(cArray[cArray.length - 3]));
@@ -335,6 +355,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
 
         } catch (Exception e) {
+            Log.e("tag", "Err: " + e.toString());
         }
     }
 

@@ -391,7 +391,7 @@ public class LoginActivity extends Activity {
                             Log.e("tag","da: "+jo.getString("account_status"));
                             dialog2.show();
                         }
-                        else if(msg.contains("{\"driver_verification\":\"pending\",\"account_status\":\"inactive\"}")){
+                        else if(msg.contains("{\"driver_verification\":\"pending\",\"account_status\":\"active\"}")){
                             dialog2.show();
                         }
 
