@@ -49,7 +49,7 @@
     <string name="us_al">User Details already Registered by someone,Please Try again</string>
     <string name="perm_de">Some Permission is Denied</string>
     <string name="mobile_no">Mobile No</string>
-    <string name="forgot_mobile_no">Forgot Mobile No?</string>
+    <string name="forgot_mobile_no">Login Via Email.!</string>
     <string name="by_login_you_agree_to_the_terms_amp_conditions_nand_privacy_policy_of_movehaul"><![CDATA[By Login you agree to the terms & conditions  and privacy policy of MovHaul]]></string>
     <string name="forgot_ph_no">Forgot Ph. No</string>
     <string name="type_email">Type Email</string>

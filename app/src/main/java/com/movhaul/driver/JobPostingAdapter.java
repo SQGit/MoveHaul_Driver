@@ -323,11 +323,13 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
                         if (!(et_driver_id.getText().toString().trim().isEmpty())) {
                             String number = sharedPreferences.getString("driver_mobile", "");
                             number = number.substring(3, number.length());
-                            if (et_driver_id.getText().toString().trim().equals(number)) {
+
+                            if (number.contains(et_driver_id.getText().toString().toString())) {
+                                mv_datas = ar_mv_datas.get(position);
                                 Log.e("tag", "id: " + mv_datas.getBooking_id());
-                                dg_bidding.dismiss();
                                 str_booking_id = mv_datas.getBooking_id();
                                 str_bidding_cost = et_bidding.getText().toString().trim();
+                                dg_bidding.dismiss();
                                 if (Config.isConnected(act)) {
                                     new bidding_job().execute();
                                 } else {
@@ -397,7 +399,11 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
                     new bidding_job().execute();
                 }
                 else{
-                    dg_bidding.show();
+
+                    mv_datas = ar_mv_datas.get(position);
+                    Log.e("tag", "id: " + mv_datas.getBooking_id());
+                    str_booking_id = mv_datas.getBooking_id();
+                    //dg_bidding.show();
                 }
 
             }

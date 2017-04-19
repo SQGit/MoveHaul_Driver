@@ -49,7 +49,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
     Config config;
     ProgressDialog mProgressDialog;
     Typeface tf;
-    String str_otppin, str_for, str_data, str_URL, fcm_id;
+    String str_otppin, str_for, str_data, str_prefix, fcm_id;
     private View view;
     String url_data,vec_type;
     public InputMethodManager imml;
@@ -84,6 +84,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         str_for = getIntent.getStringExtra("for");
         str_data = getIntent.getStringExtra("data");
         vec_type = getIntent.getStringExtra("vec_type");
+        str_prefix = getIntent.getStringExtra("prefix");
 
 
 
@@ -358,15 +359,12 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
             Log.e("tag", "Err: " + e.toString());
         }
     }
-
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
     }
-
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
     }
-
     @Override
     public void afterTextChanged(Editable editable) {
 
@@ -403,8 +401,6 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
 
     }
-
-
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
@@ -484,6 +480,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                         editor.putString("id", jo.getString("driver_id"));
                         editor.putString("token", jo.getString("token"));
                         editor.putString("driver_name", jo.getString("driver_name"));
+                        editor.putString("driver_mobile_prefix", str_prefix);
                         editor.putString("driver_mobile", jo.getString("driver_mobile"));
                         editor.putString("driver_mobile2", jo.getString("driver_mobile_sec"));
                         editor.putString("driver_email", jo.getString("driver_email"));
@@ -497,7 +494,9 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                         editor.commit();
 
                         if (jo.getString("vehicle_type").equals("Truck")) {
-                            if (jo.getString("driver_image") != "null") {
+                            Log.e("tag","img: "+jo.getString("driver_image"));
+
+                            if (!(jo.getString("driver_image").equals("null"))) {
                                 editor.putString("driver_image", jo.getString("driver_image"));
                                 editor.commit();
                             }
@@ -601,7 +600,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Log.e("tag", "reg_preexe");
+           // Log.e("tag", "reg_preexe");
             mProgressDialog.show();
         }
 
@@ -684,6 +683,5 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
         }
 
     }
-
 
 }

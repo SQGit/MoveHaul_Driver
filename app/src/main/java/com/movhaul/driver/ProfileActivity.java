@@ -149,9 +149,9 @@ public class ProfileActivity extends Activity {
         str_secondary = sharedPreferences.getString("driver_mobile2", "");
 
 
-        et_contact.setText(str_contact.substring(3, str_contact.length()));
+        et_contact.setText(str_contact);
         tv_profile_name.setText(sharedPreferences.getString("driver_name", ""));
-        et_secondary.setText(str_secondary.substring(3, str_secondary.length()));
+        et_secondary.setText(str_secondary);
 
         if (!(sharedPreferences.getString("driver_address", "").equals(""))) {
             et_address.setText(sharedPreferences.getString("driver_address", ""));
@@ -375,8 +375,8 @@ public class ProfileActivity extends Activity {
                                               str_address = et_address.getText().toString().trim();
 
 
-                                              if (!(str_contact.isEmpty() || str_contact.length() < 10)) {
-                                                  if (!(str_secondary.isEmpty() || str_secondary.length() < 10)) {
+                                              if (!(str_contact.isEmpty() || str_contact.length() < 12)) {
+                                                  if (!(str_secondary.isEmpty() || str_secondary.length() < 12)) {
                                                       if (!(str_address.isEmpty() || str_address.length() < 5)) {
                                                           if (str_profile_img != null || !(sharedPreferences.getString("driver_image", "").equals(""))) {
                                                               if (str_vec_back != null || !(sharedPreferences.getString("truck_back", "").equals(""))) {

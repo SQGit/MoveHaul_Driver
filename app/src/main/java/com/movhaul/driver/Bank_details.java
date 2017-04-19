@@ -20,6 +20,7 @@ import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
 import com.sloop.fonts.FontsManager;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -87,10 +88,10 @@ public class Bank_details extends Activity {
 
 
         if(sharedPreferences.getString("bank_update","").equals("success")){
-            et_bank_name.setText(sharedPreferences.getString("bank_name",""));
-            et_routing_no.setText(sharedPreferences.getString("bank_routing",""));
-            et_acc_no.setText(sharedPreferences.getString("bank_no",""));
-            btn_submit.setText("Update");
+            set_bank();
+        }
+        else{
+            new get_bank().execute();
         }
 
         btn_back.setOnClickListener(new View.OnClickListener() {
@@ -174,8 +175,16 @@ public class Bank_details extends Activity {
 
     }
 
+    private void set_bank() {
+        et_bank_name.setText(sharedPreferences.getString("bank_name",""));
+        et_routing_no.setText(sharedPreferences.getString("bank_routing",""));
+        et_acc_no.setText(sharedPreferences.getString("bank_no",""));
+        btn_submit.setText("Update");
+    }
+
 
     public class submit_bank extends AsyncTask<String, Void, String> {
+
 
 
         @Override
@@ -251,4 +260,94 @@ public class Bank_details extends Activity {
         }
 
     }
+
+
+    public class get_bank extends AsyncTask<String, Void, String> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Log.e("tag", "reg_preexe");
+            mProgressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            String json = "", jsonStr = "", url;
+
+            try {
+                JSONObject jsonObject = new JSONObject();
+
+                json = jsonObject.toString();
+                return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + "truckdriver/viewbankdetails", json, id, token);
+
+            } catch (Exception e) {
+                Log.e("InputStream", e.getLocalizedMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.e("tag", "tag" + s);
+            mProgressDialog.dismiss();
+
+
+            if (s != null) {
+                try {
+                    JSONObject jo = new JSONObject(s);
+                    String status = jo.getString("status");
+
+                    Log.d("tag", "<-----Status----->" + status);
+                    if (status.equals("true")) {
+                        Log.d("tag", "<-----true----->" + status);
+
+                        String msg = jo.getString("message");
+
+                        JSONArray jso_ar = new JSONArray(msg);
+
+
+                        if(jso_ar.length()>0) {
+
+                            JSONObject jos = jso_ar.getJSONObject(0);
+
+
+                            editor.putString("bank_update", "success");
+                            editor.putString("bank_name", jos.getString("bank_name"));
+                            editor.putString("bank_routing", jos.getString("routing_number"));
+                            editor.putString("bank_no", jos.getString("account_number"));
+                            editor.apply();
+
+                            set_bank();
+                        }
+
+                    } else {
+                        snackbar.show();
+                        tv_snack.setText("Network Error, Please Try Again Later");
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e("tag", "nt" + e.toString());
+                    snackbar.show();
+                    tv_snack.setText("Network Error, Please Try Again Later");
+                }
+            } else {
+                snackbar.show();
+                tv_snack.setText("Network Error, Please Try Again Later");
+            }
+
+        }
+
+    }
+
+
+
+
+
+
 }

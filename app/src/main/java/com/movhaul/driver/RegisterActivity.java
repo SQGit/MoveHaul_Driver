@@ -313,9 +313,9 @@ public class RegisterActivity extends Activity {
                 str_mobile = et_mobile.getText().toString().trim();
                 str_name = et_name.getText().toString().trim();
 
-                if (!(str_name.isEmpty())) {
+                if (!(str_name.isEmpty()|| str_name.length() < 4)) {
                     if (!(str_email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(str_email).matches())) {
-                        if (!(str_mobile.isEmpty() || str_mobile.length() < 9)) {
+                        if (!(str_mobile.isEmpty() || str_mobile.length() < 10)) {
 
                             TranslateAnimation anim_btn_b2t = new TranslateAnimation(0, 0, height, 0);
                             anim_btn_b2t.setDuration(500);

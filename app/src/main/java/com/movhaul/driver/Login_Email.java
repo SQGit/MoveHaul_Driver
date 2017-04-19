@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.movhaul.driver.R;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
 import com.sloop.fonts.FontsManager;
@@ -30,7 +29,7 @@ import org.json.JSONObject;
  * Created by sqindia on 22-10-2016.
  */
 
-public class Forgot_Mobile extends Activity {
+public class Login_Email extends Activity {
     LinearLayout btn_back;
     EditText edtxt_email;
     String str_email;
@@ -63,7 +62,7 @@ public class Forgot_Mobile extends Activity {
         tf = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
         flt_email.setTypeface(tf);
 
-        mProgressDialog = new ProgressDialog(Forgot_Mobile.this);
+        mProgressDialog = new ProgressDialog(Login_Email.this);
         mProgressDialog.setTitle(getString(R.string.loading));
         mProgressDialog.setMessage(getString(R.string.wait));
         mProgressDialog.setIndeterminate(false);
@@ -78,7 +77,7 @@ public class Forgot_Mobile extends Activity {
         tv_snack.setTextColor(Color.WHITE);
         tv_snack.setTypeface(tf);
 
-        if (!config.isConnected(Forgot_Mobile.this)) {
+        if (!config.isConnected(Login_Email.this)) {
             snackbar.show();
             tv_snack.setText(R.string.connect);
         }
@@ -92,7 +91,7 @@ public class Forgot_Mobile extends Activity {
                 str_email = edtxt_email.getText().toString().trim();
 
                 if (!(str_email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(str_email).matches())) {
-                   /* Intent i = new Intent(Forgot_Mobile.this, LoginOtpActivity.class);
+                   /* Intent i = new Intent(Login_Email.this, LoginOtpActivity.class);
                     startActivity(i);
                     finish();*/
 
@@ -110,7 +109,7 @@ public class Forgot_Mobile extends Activity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Forgot_Mobile.this, LoginActivity.class);
+                Intent i = new Intent(Login_Email.this, LoginActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -168,9 +167,10 @@ public class Forgot_Mobile extends Activity {
 
                         //Toast.makeText(getApplicationContext(),sus_txt,Toast.LENGTH_LONG).show();
 
-                        Intent i = new Intent(Forgot_Mobile.this, LoginOtpActivity.class);
+                        Intent i = new Intent(Login_Email.this, LoginOtpActivity.class);
                         i.putExtra("for","email");
                         i.putExtra("data",str_email);
+                        i.putExtra("prefix","nil");
                         startActivity(i);
                         finish();
 
@@ -188,9 +188,10 @@ public class Forgot_Mobile extends Activity {
                         }
                         else if (msg.contains("Error Occured[object Object]")) {
 
-                            Intent i = new Intent(Forgot_Mobile.this, LoginOtpActivity.class);
+                            Intent i = new Intent(Login_Email.this, LoginOtpActivity.class);
                             i.putExtra("for","email");
                             i.putExtra("data",str_email);
+                            i.putExtra("prefix","nil");
                             startActivity(i);
                             finish();
 
@@ -227,7 +228,7 @@ public class Forgot_Mobile extends Activity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent i = new Intent(Forgot_Mobile.this, LoginActivity.class);
+        Intent i = new Intent(Login_Email.this, LoginActivity.class);
         startActivity(i);
         finish();
     }

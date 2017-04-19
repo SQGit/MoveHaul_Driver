@@ -26,7 +26,6 @@ import android.widget.TextView;
 import com.firebase.client.Firebase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.hbb20.CountryCodePicker;
-import com.movhaul.driver.R;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
 import com.sloop.fonts.FontsManager;
@@ -188,7 +187,7 @@ public class LoginActivity extends Activity {
         tv_forgot_mobile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(LoginActivity.this, Forgot_Mobile.class);
+                Intent i = new Intent(LoginActivity.this, Login_Email.class);
                 startActivity(i);
                 finish();
             }
@@ -353,6 +352,7 @@ public class LoginActivity extends Activity {
                         i.putExtra("for","phone");
                         i.putExtra("vec_type",type);
                         i.putExtra("data",str_mobile_prefix+str_mobile);
+                        i.putExtra("prefix",str_mobile_prefix);
                         startActivity(i);
                         finish();
 
@@ -382,6 +382,7 @@ public class LoginActivity extends Activity {
                             i.putExtra("for","phone");
                             i.putExtra("vec_type",type);
                             i.putExtra("data",str_mobile_prefix+str_mobile);
+                            i.putExtra("prefix",str_mobile_prefix);
                             startActivity(i);
                             finish();
                         }

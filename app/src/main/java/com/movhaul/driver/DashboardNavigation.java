@@ -284,6 +284,15 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         }
 
 
+        if(!(sharedPreferences.getString("driver_image","").equals(""))){
+
+            String img = sharedPreferences.getString("driver_image","");
+            Log.e("tag_dr","dr: "+img);
+            Glide.with(DashboardNavigation.this).load(Config.WEB_URL_IMG+"driver_details/"+img).into(iv_nav_profile);
+
+        }
+
+
         for (int i = 1; i <= resources.length; i++) {
             ImageView imageView = new ImageView(this);
          //   imageView.setImageDrawable(getResources().getDrawable(resources[i]));
@@ -778,10 +787,10 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                 snackbart.show();
             }
 
-            if(!sharedPreferences.getString("driver_image","").equals("")){
+            if(!(sharedPreferences.getString("driver_image","").equals(""))){
 
                 String img = sharedPreferences.getString("driver_image","");
-                Log.e("tag","dr:"+img);
+                Log.e("tag_dr","dr: "+img);
                 Glide.with(DashboardNavigation.this).load(Config.WEB_URL_IMG+"driver_details/"+img).into(iv_nav_profile);
 
             }

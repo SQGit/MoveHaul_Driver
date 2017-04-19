@@ -49,13 +49,14 @@
 
             <EditText
                 android:id="@+id/edittext_bidding"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="@null"
                 android:inputType="number"
-
                 android:hint="@string/amount"
+                android:layout_gravity="center"
+                android:gravity="right"
                 android:maxLength="5"
                 android:imeOptions="actionNext"
                 android:maxLines="1"
@@ -67,7 +68,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" ₦"
-                android:layout_marginLeft="@dimen/_7sdp"
+                android:layout_gravity="left"
+                android:gravity="left"
+                android:layout_marginLeft="@dimen/_2sdp"
                 android:textColor="@color/redColor"
                 android:textSize="@dimen/_15sdp" />
         </LinearLayout>

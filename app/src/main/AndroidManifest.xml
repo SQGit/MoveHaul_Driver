@@ -40,7 +40,7 @@
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
-            android:name="com.movhaul.driver.Forgot_Mobile"
+            android:name="com.movhaul.driver.Login_Email"
             android:screenOrientation="sensorPortrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
