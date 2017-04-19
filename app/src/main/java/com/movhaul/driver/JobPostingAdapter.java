@@ -288,7 +288,7 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         d2_tv_dialog4.setTypeface(tf);
         d2_btn_ok.setTypeface(tf);
 
-        d2_tv_dialog2.setText(context.getString(R.string.ur_succ) + mv_datas.getBooking_id());
+        d2_tv_dialog2.setText(context.getString(R.string.ur_succ) + str_booking_id);
         d2_tv_dialog3.setVisibility(View.GONE);
         d2_tv_dialog4.setVisibility(View.GONE);
 
@@ -320,14 +320,14 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
                 Log.e("tag", position + "id: " + mv_datas.getBooking_id() + mv_datas.getGoods_type());
 
                     if (!(et_bidding.getText().toString().trim().isEmpty())) {
-                        if (!(et_driver_id.getText().toString().trim().isEmpty())) {
+                        if (!((et_driver_id.getText().toString().trim().isEmpty())  || (et_driver_id.getText().toString().trim().length()<10))) {
                             String number = sharedPreferences.getString("driver_mobile", "");
                             number = number.substring(3, number.length());
 
                             if (number.contains(et_driver_id.getText().toString().toString())) {
-                                mv_datas = ar_mv_datas.get(position);
+                               // mv_datas = ar_mv_datas.get(position);
                                 Log.e("tag", "id: " + mv_datas.getBooking_id());
-                                str_booking_id = mv_datas.getBooking_id();
+                               // str_booking_id = mv_datas.getBooking_id();
                                 str_bidding_cost = et_bidding.getText().toString().trim();
                                 dg_bidding.dismiss();
                                 if (Config.isConnected(act)) {
@@ -403,7 +403,7 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
                     mv_datas = ar_mv_datas.get(position);
                     Log.e("tag", "id: " + mv_datas.getBooking_id());
                     str_booking_id = mv_datas.getBooking_id();
-                    //dg_bidding.show();
+                    dg_bidding.show();
                 }
 
             }
@@ -470,7 +470,6 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
 
                 if(!vec_type.equals("Road"))
                 jsonObject.accumulate("bidding_cost", str_bidding_cost);
-
                 jsonObject.accumulate("booking_id", str_booking_id);
                 json = jsonObject.toString();
                 return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + service_url, json, id, token);
