@@ -38,6 +38,7 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.Window;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -84,7 +85,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     Geocoder geocoder;
     List<Address> addresses;
     double dl_latitude, dl_longitude;
-    Switch sw_active;
+    android.widget.Switch sw_active;
     LocationManager manager;
     String service_id, service_token, str_driver_email, str_driver_phone, str_driver_name,vec_type,str_lati, str_longi, str_locality, str_address, str_active = "inactive";
     private ViewFlipper mViewFlipper;
@@ -196,7 +197,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         btn_menu = (ImageView) findViewById(R.id.img_menu);
         rightmenu = (ImageView) findViewById(R.id.right_menu);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        sw_active = (Switch) findViewById(R.id.switch_active);
+        sw_active = (android.widget.Switch) findViewById(R.id.switch_active);
         btn_submit = (Button) findViewById(R.id.button_submit);
         mViewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
         tv_driver_id = (TextView) findViewById(R.id.textview_driverid);
@@ -214,6 +215,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                 R.drawable.truck_1,
                 R.drawable.truck_1_hover
         };
+
 
         mViewFlipper.setInAnimation(this, R.anim.anim1);
         mViewFlipper.setOutAnimation(this, R.anim.anim2);
@@ -349,6 +351,9 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                 }
 
 
+
+
+
                 Log.e("tag", "ee:" + str_lati + "aa:" + str_longi + "bb:" + str_locality + "cc:" + str_address);
 
                 if (!(sharedPreferences.getString("driver_status", "").equals(""))) {
@@ -424,9 +429,17 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         });
 
 
-        sw_active.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
+
+
+
+
+
+
+
+
+        sw_active.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(Switch view, boolean checked) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean checked) {
 
 
                 if (sharedPreferences.getString("profile", "").equals("")) {

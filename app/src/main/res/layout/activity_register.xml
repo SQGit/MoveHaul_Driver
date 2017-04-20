@@ -25,6 +25,42 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <include
+                layout="@layout/down_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></include>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/by_signing_up_you_agree_to_the_terms_amp_conditions"
+                    android:textSize="@dimen/_10sdp" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/and_privacy_policy_of_movehaul"
+                    android:textSize="@dimen/_10sdp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/first_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -69,6 +105,9 @@
                 android:layout_marginLeft="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:orientation="vertical">
+
+
+
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/float_name"
@@ -125,8 +164,6 @@
                     android:background="#E1E1E1" />
 
 
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -141,11 +178,9 @@
                         android:layout_gravity="center"
                         app:arrowSize="@dimen/_15sdp"
                         app:customMasterCountries="NG,US,IN"
-                        app:keyboardAutoPopOnSearch="false"
                         app:defaultNameCode="NG"
+                        app:keyboardAutoPopOnSearch="false"
                         app:textSize="@dimen/_10sdp" />
-
-
 
 
                     <android.support.design.widget.TextInputLayout
@@ -171,15 +206,16 @@
                     </android.support.design.widget.TextInputLayout>
 
 
-
                 </LinearLayout>
 
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_15sdp"
                     android:background="#E1E1E1" />
+
+
             </LinearLayout>
 
             <LinearLayout
@@ -211,9 +247,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg"
-            android:visibility="gone"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/_15sdp">
+            android:paddingBottom="@dimen/_15sdp"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -328,20 +364,24 @@
                     android:layout_marginTop="@dimen/_3sdp"
                     android:textColorHint="@color/colorAccent">
 
-                    <EditText
-                        android:id="@+id/edittext_lic_phone"
+
+
+
+                    <AutoCompleteTextView
+                        android:id="@+id/autocomplete"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
                         android:hint="@string/secondary_contact"
-                        android:imeActionId="@+id/edittext_lic_exp"
-                        android:imeOptions="actionNext"
                         android:inputType="phone"
-                        android:maxLength="10"
+                        android:imeOptions="actionNext"
+                        android:maxLength="11"
                         android:maxLines="1"
                         android:paddingTop="@dimen/_10sdp"
                         android:textColor="#000000"
                         android:textSize="@dimen/_15sdp" />
+
+
                 </android.support.design.widget.TextInputLayout>
 
                 <View
@@ -395,8 +435,8 @@
                         android:id="@+id/imageview_driver_lic"
                         android:layout_width="@dimen/_28sdp"
                         android:layout_height="@dimen/_25sdp"
-                        android:layout_marginRight="@dimen/_5sdp"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginRight="@dimen/_5sdp"
                         android:src="@drawable/lic_ico" />
 
 
@@ -417,9 +457,9 @@
                             android:textSize="@dimen/_12sdp" />
 
                         <View
+                            android:id="@+id/view_driver_lic"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_1sdp"
-                            android:id="@+id/view_driver_lic"
                             android:background="@color/redColor" />
 
                     </LinearLayout>
@@ -454,50 +494,13 @@
         </LinearLayout>
 
 
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="bottom"
-            android:gravity="bottom"
-            android:orientation="horizontal">
-
-            <include
-                layout="@layout/down_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></include>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/by_signing_up_you_agree_to_the_terms_amp_conditions"
-                    android:textSize="@dimen/_10sdp" />
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/and_privacy_policy_of_movehaul"
-                    android:textSize="@dimen/_10sdp" />
-            </LinearLayout>
-        </LinearLayout>
-
         <LinearLayout
             android:id="@+id/filter_dialog"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#ffffff"
-            android:visibility="gone"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
 
             <include
@@ -505,6 +508,8 @@
                 layout="@layout/choose_type" />
 
         </LinearLayout>
+
+
     </FrameLayout>
 
 
