@@ -38,9 +38,9 @@ public class ReceiveSmsBroadcastReceiver extends BroadcastReceiver {
             Log.e("tag","mmm "+messageBody);
 
             //Pass on the text to our listener.
-         /*   if (messageBody!=null){
+            if (messageBody!=null){
                 mListener.messageReceived(messageBody);
-            }*/
+            }
 
 
            /* LoginOtpActivity inst = LoginOtpActivity.instance();
@@ -50,14 +50,14 @@ public class ReceiveSmsBroadcastReceiver extends BroadcastReceiver {
 
 
            //if(messageBody.contains("MoveHaul")) {
-               try {
+             /*  try {
                    Log.e("tag","send "+sender);
                    Log.e("tag","mmm "+messageBody);
                    LoginOtpActivity Sms = new LoginOtpActivity();
                    Sms.recivedSms(messageBody);
                } catch (Exception e) {
                    Log.e("tag","err "+e.toString());
-               }
+               }*/
           // }
 
         }

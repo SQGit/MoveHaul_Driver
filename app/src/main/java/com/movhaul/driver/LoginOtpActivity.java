@@ -151,12 +151,22 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
         registerReceiver(receiver,filter);*/
 
-        /*ReceiveSmsBroadcastReceiver.bindListener(new SmsListener() {
+        ReceiveSmsBroadcastReceiver.bindListener(new SmsListener() {
             @Override
             public void messageReceived(String messageText) {
                 Log.e("Text",messageText);
 
-                char[] cArray = messageText.toCharArray();
+                String[] parts = messageText.trim().split("is");
+                Log.e("tag", "part1: " + parts);
+                String part1 = parts[0]; // 004
+                String part2 = parts[1]; // 034556
+                Log.e("tag", "part1: " + part1);
+                Log.e("tag", "part2: " + part2);
+                part2 = part2.trim();
+               // cArray = part2.toCharArray();
+                Log.e("tag", "partqq: " + part2);
+
+                char[] cArray = part2.toCharArray();
 
                 et_otp1.setText(String.valueOf(cArray[0]));
                 et_otp2.setText(String.valueOf(cArray[1]));
@@ -165,7 +175,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
                 Toast.makeText(LoginOtpActivity.this,"Message: "+messageText,Toast.LENGTH_LONG).show();
             }
-        });*/
+        });
 
 
         btn_back.setOnClickListener(new View.OnClickListener() {
@@ -338,16 +348,25 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
     public void recivedSms(String message) {
         try {
             Log.e("tag", "asd: " + message);
-
+            char[] cArray = new char[0];
             //"Your MoveHaul OTP is 4770"
 
-            String[] parts = message.trim().split("is");
-            String part1 = parts[0]; // 004
-            String part2 = parts[1]; // 034556
+            try {
+                String[] parts = message.trim().split("is");
+                Log.e("tag", "part1: " + parts);
+                String part1 = parts[0]; // 004
+                String part2 = parts[1]; // 034556
+                Log.e("tag", "part1: " + part1);
+                Log.e("tag", "part2: " + part2);
+                part2 = part2.trim();
+                cArray = part2.toCharArray();
+                Log.e("tag", "partqq: " + part2);
+            }
+            catch (Exception e){
+                Log.e("tag", "err: " + e.toString());
+            }
 
-            char[] cArray = part2.toCharArray();
 
-            Log.e("tag", "part: " + part2);
 
             et_otp1.setText(String.valueOf(cArray[cArray.length - 4]));
             et_otp2.setText(String.valueOf(cArray[cArray.length - 3]));
