@@ -156,7 +156,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
             public void messageReceived(String messageText) {
                 Log.e("Text",messageText);
 
-                if(messageText.contains("Movhaul")) {
+                if(messageText.contains("Your MoveHaul OTP")) {
                     String[] parts = messageText.trim().split("is");
                     Log.e("tag", "part1: " + parts);
                     String part1 = parts[0]; // 004
