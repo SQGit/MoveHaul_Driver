@@ -156,24 +156,24 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
             public void messageReceived(String messageText) {
                 Log.e("Text",messageText);
 
-                String[] parts = messageText.trim().split("is");
-                Log.e("tag", "part1: " + parts);
-                String part1 = parts[0]; // 004
-                String part2 = parts[1]; // 034556
-                Log.e("tag", "part1: " + part1);
-                Log.e("tag", "part2: " + part2);
-                part2 = part2.trim();
-               // cArray = part2.toCharArray();
-                Log.e("tag", "partqq: " + part2);
+                if(messageText.contains("Movhaul")) {
+                    String[] parts = messageText.trim().split("is");
+                    Log.e("tag", "part1: " + parts);
+                    String part1 = parts[0]; // 004
+                    String part2 = parts[1]; // 034556
+                    Log.e("tag", "part1: " + part1);
+                    Log.e("tag", "part2: " + part2);
+                    part2 = part2.trim();
+                    // cArray = part2.toCharArray();
+                    Log.e("tag", "partqq: " + part2);
+                    char[] cArray = part2.toCharArray();
+                    et_otp1.setText(String.valueOf(cArray[0]));
+                    et_otp2.setText(String.valueOf(cArray[1]));
+                    et_otp3.setText(String.valueOf(cArray[2]));
+                    et_otp4.setText(String.valueOf(cArray[3]));
+                }
 
-                char[] cArray = part2.toCharArray();
-
-                et_otp1.setText(String.valueOf(cArray[0]));
-                et_otp2.setText(String.valueOf(cArray[1]));
-                et_otp3.setText(String.valueOf(cArray[2]));
-                et_otp4.setText(String.valueOf(cArray[3]));
-
-                Toast.makeText(LoginOtpActivity.this,"Message: "+messageText,Toast.LENGTH_LONG).show();
+                //Toast.makeText(LoginOtpActivity.this,"Message: "+messageText,Toast.LENGTH_LONG).show();
             }
         });
 
