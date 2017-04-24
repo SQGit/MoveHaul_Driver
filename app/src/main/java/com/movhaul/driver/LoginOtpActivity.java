@@ -260,7 +260,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
             }
         });
 
-
+//
 
         tv_resendotp.setOnClickListener(new View.OnClickListener() {
             @Override
