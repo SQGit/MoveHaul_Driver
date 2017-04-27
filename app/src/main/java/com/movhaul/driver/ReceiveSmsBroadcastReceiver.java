@@ -39,7 +39,9 @@ public class ReceiveSmsBroadcastReceiver extends BroadcastReceiver {
 
             //Pass on the text to our listener.
             if (messageBody!=null){
-                mListener.messageReceived(messageBody);
+                if(messageBody.contains("movehaul")) {
+                    mListener.messageReceived(messageBody);
+                }
             }
 
 
