@@ -107,18 +107,23 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
             geocoder = new Geocoder(DashboardNavigation.this, Locale.getDefault());
             try {
                 addresses = geocoder.getFromLocation(dl_latitude, dl_longitude, 1);
+                str_locality = addresses.get(0).getLocality();
+                str_address = addresses.get(0).getAddressLine(0);
+
+                Log.e("tagplace0", "lati: " + str_lati + "longi: " + str_longi + "\nlocality: " + str_locality + "\taddr0: " + str_address +
+                        "\naddr1: " + addresses.get(0).getAddressLine(1) + "\n addr2: " + addresses.get(0).getAddressLine(2) + "\n adminarea: "
+                        + addresses.get(0).getAdminArea() + "\n feature name: " + addresses.get(0).getFeatureName() + "\n Sub loca: "
+                        + addresses.get(0).getSubLocality() + "\n subadmin: " + addresses.get(0).getSubAdminArea()
+                        + "\n premisis: " + addresses.get(0).getPremises() + "\n postal " + addresses.get(0).getPostalCode());
+
+                Log.e("tag_broad_0", "as: " + str_lati + str_longi + "adr:" + str_address + "loc:" + str_locality);
+
+
             } catch (Exception e) {
                 Log.e("tag", "er:" + e.toString());
             }
-            str_locality = addresses.get(0).getLocality();
-            str_address = addresses.get(0).getAddressLine(0);
-            Log.e("tagplace0", "lati: " + str_lati + "longi: " + str_longi + "\nlocality: " + str_locality + "\taddr0: " + str_address +
-                    "\naddr1: " + addresses.get(0).getAddressLine(1) + "\n addr2: " + addresses.get(0).getAddressLine(2) + "\n adminarea: "
-                    + addresses.get(0).getAdminArea() + "\n feature name: " + addresses.get(0).getFeatureName() + "\n Sub loca: "
-                    + addresses.get(0).getSubLocality() + "\n subadmin: " + addresses.get(0).getSubAdminArea()
-                    + "\n premisis: " + addresses.get(0).getPremises() + "\n postal " + addresses.get(0).getPostalCode());
 
-            Log.e("tag_broad_0", "as: " + str_lati + str_longi + "adr:" + str_address + "loc:" + str_locality);
+
 
             new updateLocation().execute();
 
