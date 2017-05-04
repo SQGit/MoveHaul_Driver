@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/_5sdp"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:id="@+id/frame_goodstype"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:clickable="true">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textinput_servicetype"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:textColorHint="@color/colorAccent">
+
+            <EditText
+                android:id="@+id/editTextGoodsType"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:clickable="false"
+                android:enabled="false"
+                android:hint="Service Type"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingTop="@dimen/_5sdp"
+                android:textColor="#000000"
+                android:textSize="@dimen/_16sdp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_gravity="bottom"
+            android:background="#E1E1E1" />
+
+        <LinearLayout
+            android:id="@+id/layout_servicetypes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:id="@+id/capa_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/row_spn_tv"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:orientation="vertical">
+
+
+        <com.rey.material.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Primary Route Coverage"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/_14sdp" />
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:id="@+id/route_local"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/image_route_local"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@mipmap/unselecting_tick"
+                    android:clickable="false"
+                    android:focusable="false" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:text="Local"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/_16sdp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/route_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/image_route_state"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@mipmap/unselecting_tick"
+                    android:clickable="false"
+                    android:focusable="false" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:text="Interstate"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/_16sdp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="#E1E1E1" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:clickable="true">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textinput_service_areas"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:textColorHint="@color/colorAccent">
+
+            <EditText
+                android:id="@+id/edittext_serviceareas"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:clickable="false"
+                android:enabled="false"
+                android:hint="Service Areas"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingTop="@dimen/_5sdp"
+                android:textColor="#000000"
+                android:textSize="@dimen/_16sdp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_gravity="bottom"
+            android:background="#E1E1E1" />
+
+        <LinearLayout
+            android:id="@+id/layout_serviceareas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:id="@+id/capa_layout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/row_spn_tv"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:orientation="vertical">
+
+
+        <com.rey.material.widget.TextView
+            android:id="@+id/capacity1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Local Government"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/_14sdp" />
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/govt_local"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:paddingBottom="@dimen/_1sdp"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:paddingTop="@dimen/_1sdp">
+
+                <ImageButton
+                    android:id="@+id/image_govt_local"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@mipmap/unselecting_tick"
+                    android:clickable="false"
+                    android:focusable="false" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:text="Local"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/_16sdp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/govt_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:paddingBottom="@dimen/_1sdp"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:paddingTop="@dimen/_1sdp">
+
+                <ImageButton
+                    android:id="@+id/image_govt_state"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@mipmap/unselecting_tick"
+                    android:clickable="false"
+                    android:focusable="false" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:text="Interstate"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/_16sdp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="#E1E1E1" />
+
+
+    <LinearLayout
+        android:id="@+id/layout_lic_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:id="@+id/imageview_driver_lic"
+            android:layout_width="@dimen/_28sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:src="@drawable/lic_ico" />
+
+
+        <LinearLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="@string/attach_driver_licence"
+                android:textColor="#F65F52"
+                android:textSize="@dimen/_12sdp" />
+
+            <View
+                android:id="@+id/view_driver_lic"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/redColor" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <com.rey.material.widget.TextView
+        android:id="@+id/textview_additional"
+        style="@style/spin32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:drawableLeft="@drawable/que_blk"
+        android:drawablePadding="@dimen/_5sdp"
+        android:gravity="center"
+        android:paddingLeft="@dimen/_5sdp"
+        android:paddingRight="@dimen/_25sdp"
+        android:paddingTop="@dimen/_5sdp"
+        android:text="Add Aditional Details"
+        android:textColor="@color/textColor"
+        android:textSize="18sp" />
+
+
+    <LinearLayout
+        android:id="@+id/layout_additional"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:orientation="vertical">
+
+
+        <com.rey.material.widget.TextView
+            android:id="@+id/capacit"
+            style="@style/spin32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Specific Service Areas"
+            android:textColor="@color/textColor"
+            android:textSize="18sp" />
+
+
+        <EditText
+            android:id="@+id/edittext_service_areas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@null"
+            android:hint=""
+            android:inputType="text"
+            android:maxLines="1"
+            android:minWidth="@dimen/_50sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:textColor="#000000"
+            android:textSize="@dimen/_15sdp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="#E1E1E1" />
+
+       <!-- <GridLayout
+            android:id="@+id/GridLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:columnCount="3"
+            android:orientation="horizontal"
+            android:rowCount="2">
+
+            <EditText
+                android:id="@+id/edittext_mail"
+                android:layout_gravity="left"
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@color/light_grey"
+                android:hint=""
+                android:inputType="text"
+                android:maxLines="1"
+                android:minWidth="@dimen/_50sdp"
+                android:padding="@dimen/_5sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:textColor="#000000"
+                android:textSize="@dimen/_15sdp" />
+
+            <EditText
+                android:id="@+id/edittedxdt_mail"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@color/light_grey"
+                android:hint=""
+                android:inputType="text"
+                android:maxLines="1"
+                android:minWidth="@dimen/_50sdp"
+                android:padding="@dimen/_5sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:textColor="#000000"
+                android:textSize="@dimen/_15sdp" />
+
+            <EditText
+                android:id="@+id/editteddxt_maidl"
+
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@color/light_grey"
+                android:hint=""
+                android:inputType="text"
+                android:maxLines="1"
+                android:minWidth="@dimen/_50sdp"
+                android:padding="@dimen/_5sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:textColor="#000000"
+                android:textSize="@dimen/_15sdp" />
+
+
+            <EditText
+                android:id="@+id/edittedxt_mail"
+                android:layout_gravity="left"
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@color/light_grey"
+                android:hint=""
+                android:inputType="text"
+                android:maxLines="1"
+                android:minWidth="@dimen/_50sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:textColor="#000000"
+                android:textSize="@dimen/_15sdp" />
+
+            <EditText
+                android:id="@+id/edittedxtd_mail"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@color/light_grey"
+                android:hint=""
+                android:inputType="text"
+                android:maxLines="1"
+                android:minWidth="@dimen/_50sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:textColor="#000000"
+                android:textSize="@dimen/_15sdp" />
+
+            <EditText
+                android:id="@+id/edittedxt_maiddfl"
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@color/light_grey"
+                android:hint=""
+                android:inputType="text"
+                android:maxLines="1"
+                android:minWidth="@dimen/_50sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:textColor="#000000"
+                android:textSize="@dimen/_15sdp" />
+
+
+        </GridLayout>-->
+
+
+        <com.rey.material.widget.TextView
+            android:id="@+id/capacidt"
+            style="@style/spin32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center"
+            android:text="References"
+            android:textColor="@color/textColor"
+            android:textSize="18sp" />
+
+
+        <GridLayout
+            android:id="@+id/GridLayout11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:columnCount="1"
+            android:orientation="horizontal"
+            android:rowCount="3">
+
+            <EditText
+                android:id="@+id/editdtext_mail"
+                android:layout_width="match_parent"
+                android:layout_gravity="left"
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@color/light_grey"
+                android:gravity="center_vertical"
+                android:hint="Reference 1"
+                android:inputType="text"
+                android:maxLines="1"
+                android:minWidth="@dimen/_50sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:textColor="#000000"
+                android:textSize="@dimen/_16sdp" />
+
+            <EditText
+                android:id="@+id/editteddxdt_mail"
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@color/light_grey"
+                android:hint="Reference 2"
+                android:inputType="text"
+                android:maxLines="1"
+                android:minWidth="@dimen/_50sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:textColor="#000000"
+                android:textSize="@dimen/_15sdp" />
+
+            <EditText
+                android:id="@+id/editteddxtd_maidl"
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@color/light_grey"
+                android:hint="Reference 3"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingBottom="@dimen/_5sdp"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:textColor="#000000"
+                android:textSize="@dimen/_15sdp" />
+
+
+        </GridLayout>
+
+        <com.rey.material.widget.TextView
+            android:id="@+id/textview_additional1"
+            style="@style/spin32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:drawableLeft="@drawable/ic_hide"
+            android:drawablePadding="@dimen/_5sdp"
+            android:gravity="center"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_25sdp"
+            android:paddingTop="@dimen/_5sdp"
+            android:text="Hide Additional Details"
+            android:textColor="@color/textColor"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

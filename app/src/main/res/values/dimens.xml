@@ -6,4 +6,10 @@
     <dimen name="app_camera_height">@dimen/_400sdp</dimen>
     <dimen name="bottom_height">100dp</dimen>
     <dimen name="pin_label_margin">15dp</dimen>
+
+    <dimen name="ticksiz">@dimen/_10sdp</dimen>
+    <dimen name="txt_siz">@dimen/_10sdp</dimen>
+    <dimen name="mar_tp">@dimen/_10sdp</dimen>
+
+    <dimen name="txss">16sp</dimen>
 </resources>

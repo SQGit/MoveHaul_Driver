@@ -15,6 +15,7 @@
         android:id="@+id/ll1"
         android:background="@android:color/transparent"
         android:orientation="horizontal"
+        android:paddingBottom="@dimen/_10sdp"
         android:weightSum="4">
 
         <com.rey.material.widget.LinearLayout

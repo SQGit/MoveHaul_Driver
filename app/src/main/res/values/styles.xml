@@ -52,4 +52,75 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+
+    <style name="spin2" parent="Material.Widget.Spinner.Light">
+        <item name="rd_style">@style/wave1</item>
+        <item name="spn_labelEnable">true</item>
+        <item name="spn_arrowSwitchMode">true</item>
+        <item name="spn_labelTextColor">@color/textColor</item>
+        <item name="spn_arrowSize">10dp</item>
+        <item name="spn_arrowPadding">10dp</item>
+        <item name="spn_labelTextSize">@dimen/_15sdp</item>
+        <item name="spn_dividerHeight">@dimen/_1sdp</item>
+        <item name="spn_dividerColor">#E1E1E1</item>
+        <item name="spn_arrowAnimDuration">@android:integer/config_shortAnimTime</item>
+        <item name="spn_arrowInterpolator">@android:anim/decelerate_interpolator</item>
+        <item name="spn_arrowColor">@color/brown</item>
+        <item name="spn_popupItemAnimation">@anim/abc_slide_in_bottom</item>
+        <item name="spn_popupItemAnimOffset">120</item>
+        <item name="android:popupBackground">#f7fdfdfd</item>
+    </style>
+
+    <style name="wave1" parent="Material.Drawable.Ripple.Touch">
+        <item name="rd_maxRippleRadius">48dp</item>
+        <item name="rd_rippleColor">#e7ecc9ca</item>
+        <item name="rd_rippleAnimDuration">200</item>
+        <item name="rd_rippleType">wave</item>
+    </style>
+
+
+    <style name="spin32" parent="Material.Widget.Spinner.Light">
+        <item name="rd_style">@style/wave</item>
+        <item name="spn_popupItemAnimation">@anim/abc_slide_in_bottom</item>
+        <item name="spn_popupItemAnimOffset">120</item>
+    </style>
+
+
+    <style name="wave" parent="Material.Drawable.Ripple.Touch">
+        <item name="rd_maxRippleRadius">48dp</item>
+        <item name="rd_rippleColor">@color/gold</item>
+        <item name="rd_rippleAnimDuration">200</item>
+        <item name="rd_rippleType">touch</item>
+    </style>
+
+    <style name="radio" parent="radiob">
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Body1</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textSize">@dimen/_16sdp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="radiob">
+        <item name="cbd_width">@dimen/_18sdp</item>
+        <item name="cbd_height">@dimen/_18sdp</item>
+
+        <item name="cbd_strokeSize">@dimen/_2sdp</item>
+        <item name="cbd_strokeColor">@color/textColor</item>
+        <item name="cbd_cornerRadius">@dimen/_1sdp</item>
+        <item name="cbd_animDuration">@android:integer/config_mediumAnimTime</item>
+    </style>
+
+
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--buttons color-->
+        <item name="colorAccent">@color/pink</item>
+        <!--title and message color-->
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <!--dialog background-->
+        <item name="android:windowBackground">@drawable/background_dialog</item>
+    </style>
+
+
+
 </resources>
