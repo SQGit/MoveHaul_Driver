@@ -150,7 +150,7 @@
             android:background="#E1E1E1" />
 
 
-        <LinearLayout
+       <!-- <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
@@ -159,11 +159,10 @@
 
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/float_mobile_emg"
+                android:id="@+id/float_mobile_emg1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_5sdp"
-
                 android:textColorHint="@color/colorAccent">
 
                 <EditText
@@ -171,7 +170,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:hint="Emergency Contact"
+                    android:hint="Experience"
                     android:inputType="phone"
                     android:maxLength="11"
                     android:maxLines="1"
@@ -181,14 +180,61 @@
             </android.support.design.widget.TextInputLayout>
 
 
-        </LinearLayout>
+        </LinearLayout>-->
 
-
+<!--
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1sdp"
             android:layout_marginBottom="@dimen/_15sdp"
-            android:background="#E1E1E1" />
+            android:background="#E1E1E1" />-->
+
+
+
+        <FrameLayout
+            android:id="@+id/frame_experience"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:clickable="true">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/float_mobile_emg"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:textColorHint="@color/colorAccent">
+
+                <EditText
+                    android:id="@+id/edittext_experience"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:hint="Experience"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/_16sdp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_gravity="bottom"
+                android:background="#E1E1E1" />
+
+            <LinearLayout
+                android:id="@+id/layout_experience"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            </LinearLayout>
+        </FrameLayout>
 
 
     </LinearLayout>

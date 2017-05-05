@@ -29,14 +29,14 @@ import com.sloop.fonts.FontsManager;
 public class Register_New extends AppCompatActivity {
     Button btn_submit;
     int status, adi_sts;
-    LinearLayout lt_first, lt_second, lt_additional, lt_service_types,lt_serviceareas;
+    LinearLayout lt_first, lt_second, lt_additional, lt_service_types,lt_serviceareas,lt_experience;
     TextView tv_header_txt;
     ScrollView scrollView;
     com.rey.material.widget.TextView tv_additional,tv_additional_hide;
-    public static String[] sting,ar_service_areas;
+    public static String[] sting,ar_service_areas,ar_experience;
     //static Context context = this;
     Typeface tf;
-    EditText et_service_type,et_service_areas;
+    EditText et_service_type,et_service_areas,et_experience;
     TextInputLayout til_service_type,til_service_areas,til_username,til_mobile,til_email,til_address,til_emg_contact;
     LinearLayout lt_route_local,lt_route_state,lt_govt_local,lt_govt_state;
     ImageButton ib_route_local,ib_route_state,ib_govt_local,ib_govt_state;
@@ -78,6 +78,9 @@ public class Register_New extends AppCompatActivity {
         ib_govt_local = (ImageButton) findViewById(R.id.image_govt_local);
         ib_govt_state = (ImageButton) findViewById(R.id.image_govt_state);
         lt_service_types = (LinearLayout) findViewById(R.id.layout_servicetypes);
+        lt_experience = (LinearLayout) findViewById(R.id.layout_experience);
+
+        et_experience = (EditText) findViewById(R.id.edittext_experience);
 
 
         lt_first.setVisibility(View.VISIBLE);
@@ -87,6 +90,7 @@ public class Register_New extends AppCompatActivity {
         sting = new String[]{"Haulage-Local", "Haulage-Interstate", "Service Truck-Party Van", "Service Truck-Cooling van", "Service Truck-Gas", "Tow truck", "Bus Rental-Charter"};
 
         ar_service_areas = new String[]{"50-100 miles", "100-200 miles", "200+ miles"};
+        ar_experience = new String[]{" 1 "," 2 "," 3 "," 4 ","5+"};
 
         til_service_type.setTypeface(tf);
         til_service_areas.setTypeface(tf);
@@ -231,28 +235,10 @@ public class Register_New extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                /*AlertDialog.Builder builder = new AlertDialog.Builder(Register_New.this);
-                builder.setItems(ar_service_areas, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        et_service_areas.setText(ar_service_areas[which]);
-                        dialog.dismiss();
-                    }
-                });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();*/
-
-
-
-
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Register_New.this);
                 LayoutInflater inflater = getLayoutInflater();
                 final View dialogView = inflater.inflate(R.layout.dialog_service_type, null);
                 dialogBuilder.setView(dialogView);
-
-             /*   final TextView edt = (TextView) dialogView.findViewById(R.id.textview_type);
-
-                edt.setTypeface(tf);*/
-
                 final AlertDialog b = dialogBuilder.create();
                 LinearLayout myRoot = (LinearLayout) dialogView.findViewById(R.id.layout_top);
                 LinearLayout a = null;
@@ -298,21 +284,68 @@ public class Register_New extends AppCompatActivity {
                             et_service_areas.setText(ar_service_areas[k]);
                         }
                     });
-
-
                 }
-
-
                 b.show();
+            }
+        });
 
 
 
+        lt_experience.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Register_New.this);
+                LayoutInflater inflater = getLayoutInflater();
+                final View dialogView = inflater.inflate(R.layout.dialog_service_type, null);
+                dialogBuilder.setView(dialogView);
+                final AlertDialog b = dialogBuilder.create();
+                LinearLayout myRoot = (LinearLayout) dialogView.findViewById(R.id.layout_top);
+                LinearLayout a = null;
 
+                for(int i = 0;i<ar_experience.length;i++) {
 
+                    a = new LinearLayout(Register_New.this);
+                    LinearLayout.LayoutParams para = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+                    para.setMargins(5,20,5,20);
+                    a.setOrientation(LinearLayout.HORIZONTAL);
+                    a.setLayoutParams(para);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(60,60);
+                    params.gravity = Gravity.CENTER;
+                    ImageView imageView = new ImageView(Register_New.this);
+                    imageView.setImageResource(R.drawable.button_change);
+                    imageView.setLayoutParams(params);
+                    TextView tss = new TextView(Register_New.this);
+                    tss.setText(ar_experience[i]);
+                    LinearLayout.LayoutParams paramsQ = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                    paramsQ.gravity = Gravity.CENTER;
+                    tss.setLayoutParams(paramsQ);
+                    tss.setTextSize(16);
+                    tss.setTextColor(getResources().getColor(R.color.textColor));
+                    tss.setTypeface(tf);
 
+                    View vres = new View(Register_New.this);
+                    LinearLayout.LayoutParams paramss = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
+                    vres.setLayoutParams(paramss);
+                    vres.setBackgroundColor(getResources().getColor(R.color.vie_bor));
 
+                    a.addView(imageView);
+                    a.addView(tss);
+                    myRoot.addView(a);
+                    myRoot.addView(vres);
 
+                    final int k =i;
+
+                    a.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Log.e("tag","a:"+ar_experience[k]);
+                            b.dismiss();
+                            et_experience.setText(ar_experience[k]);
+                        }
+                    });
+                }
+                b.show();
             }
         });
 
