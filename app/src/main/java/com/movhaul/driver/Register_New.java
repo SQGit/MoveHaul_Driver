@@ -1,9 +1,18 @@
 package com.movhaul.driver;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,34 +21,55 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.gun0912.tedpicker.ImagePickerActivity;
+import com.hbb20.CountryCodePicker;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.ImageView;
 import com.sloop.fonts.FontsManager;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Salman on 02-05-2017.
  */
 
 public class Register_New extends AppCompatActivity {
+    public final static int REQUEST_CODE = 1;
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 32;
+    public static String[] sting, ar_service_areas, ar_experience;
     Button btn_submit;
     int status, adi_sts;
-    LinearLayout lt_first, lt_second, lt_additional, lt_service_types,lt_serviceareas,lt_experience;
+    LinearLayout lt_first, lt_second, lt_additional, lt_service_types, lt_serviceareas, lt_experience, lt_add_photo;
     TextView tv_header_txt;
     ScrollView scrollView;
-    com.rey.material.widget.TextView tv_additional,tv_additional_hide;
-    public static String[] sting,ar_service_areas,ar_experience;
-    //static Context context = this;
+    com.rey.material.widget.TextView tv_additional, tv_additional_hide;
+    CountryCodePicker ccp;
     Typeface tf;
-    EditText et_service_type,et_service_areas,et_experience;
-    TextInputLayout til_service_type,til_service_areas,til_username,til_mobile,til_email,til_address,til_emg_contact;
-    LinearLayout lt_route_local,lt_route_state,lt_govt_local,lt_govt_state;
-    ImageButton ib_route_local,ib_route_state,ib_govt_local,ib_govt_state;
+    Snackbar snackbar;
+    TextView tv_snack;
+    Config config;
+    ;
+    ArrayList<Uri> image_uris;
+    ProgressDialog mProgressDialog;
+    EditText et_service_type, et_service_areas, et_experience;
+    TextInputLayout til_service_type, til_service_areas, til_username, til_mobile, til_email, til_address, til_emg_contact;
+    LinearLayout lt_route_local, lt_route_state, lt_govt_local, lt_govt_state;
+    ImageButton ib_route_local, ib_route_state, ib_govt_local, ib_govt_state;
+    ArrayList<String> selectedPhotos = new ArrayList<>();
+    String str_lic_photo;
+    android.widget.ImageView iv_driver_lic;
+    View view_lic;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +78,27 @@ public class Register_New extends AppCompatActivity {
         FontsManager.initFormAssets(Register_New.this, "fonts/lato.ttf");
         FontsManager.changeFonts(Register_New.this);
         tf = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
+
+        config = new Config();
+
+        mProgressDialog = new ProgressDialog(Register_New.this);
+        mProgressDialog.setTitle(getString(R.string.loading));
+        mProgressDialog.setMessage(getString(R.string.wait));
+        mProgressDialog.setIndeterminate(false);
+        mProgressDialog.setCancelable(false);
+
+        snackbar = Snackbar
+                .make(findViewById(R.id.top), R.string.network, Snackbar.LENGTH_LONG);
+        View sbView = snackbar.getView();
+        tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        tv_snack.setTextColor(Color.WHITE);
+        tv_snack.setTypeface(tf);
+
+        if (!config.isConnected(Register_New.this)) {
+            snackbar.show();
+            tv_snack.setText(R.string.connect);
+        }
+
 
         btn_submit = (Button) findViewById(R.id.btn_submit);
         lt_first = (LinearLayout) findViewById(R.id.layout_one);
@@ -79,18 +130,21 @@ public class Register_New extends AppCompatActivity {
         ib_govt_state = (ImageButton) findViewById(R.id.image_govt_state);
         lt_service_types = (LinearLayout) findViewById(R.id.layout_servicetypes);
         lt_experience = (LinearLayout) findViewById(R.id.layout_experience);
-
         et_experience = (EditText) findViewById(R.id.edittext_experience);
+        lt_add_photo = (LinearLayout) findViewById(R.id.layout_lic_image);
+        iv_driver_lic = (android.widget.ImageView) findViewById(R.id.imageview_driver_lic);
+        ccp = (CountryCodePicker) findViewById(R.id.ccp);
+        view_lic = findViewById(R.id.view_driver_lic);
+
+        sting = new String[]{"Haulage-Local", "Haulage-Interstate", "Service Truck-Party Van", "Service Truck-Cooling van", "Service Truck-Gas", "Tow truck", "Bus Rental-Charter"};
+        ar_service_areas = new String[]{"50-100 miles", "100-200 miles", "200+ miles"};
+        ar_experience = new String[]{" 1 ", " 2 ", " 3 ", " 4 ", "5+"};
 
 
         lt_first.setVisibility(View.VISIBLE);
         lt_second.setVisibility(View.GONE);
         lt_additional.setVisibility(View.INVISIBLE);
 
-        sting = new String[]{"Haulage-Local", "Haulage-Interstate", "Service Truck-Party Van", "Service Truck-Cooling van", "Service Truck-Gas", "Tow truck", "Bus Rental-Charter"};
-
-        ar_service_areas = new String[]{"50-100 miles", "100-200 miles", "200+ miles"};
-        ar_experience = new String[]{" 1 "," 2 "," 3 "," 4 ","5+"};
 
         til_service_type.setTypeface(tf);
         til_service_areas.setTypeface(tf);
@@ -99,6 +153,7 @@ public class Register_New extends AppCompatActivity {
         til_email.setTypeface(tf);
         til_address.setTypeface(tf);
         til_emg_contact.setTypeface(tf);
+        ccp.setTypeFace(tf);
 
         lt_route_local.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -136,7 +191,6 @@ public class Register_New extends AppCompatActivity {
         });
 
 
-
         lt_service_types.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,9 +213,6 @@ public class Register_New extends AppCompatActivity {
                 alertDialog.show();*/
 
 
-
-
-
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Register_New.this);
                 LayoutInflater inflater = getLayoutInflater();
                 final View dialogView = inflater.inflate(R.layout.dialog_service_type, null);
@@ -175,21 +226,21 @@ public class Register_New extends AppCompatActivity {
                 LinearLayout myRoot = (LinearLayout) dialogView.findViewById(R.id.layout_top);
                 LinearLayout a = null;
 
-                for(int i = 0;i<sting.length;i++) {
+                for (int i = 0; i < sting.length; i++) {
 
                     a = new LinearLayout(Register_New.this);
-                    LinearLayout.LayoutParams para = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-                    para.setMargins(5,20,5,20);
+                    LinearLayout.LayoutParams para = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    para.setMargins(5, 20, 5, 20);
                     a.setOrientation(LinearLayout.HORIZONTAL);
                     a.setLayoutParams(para);
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(60,60);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(60, 60);
                     params.gravity = Gravity.CENTER;
                     ImageView imageView = new ImageView(Register_New.this);
                     imageView.setImageResource(R.drawable.button_change);
                     imageView.setLayoutParams(params);
                     TextView tss = new TextView(Register_New.this);
                     tss.setText(sting[i]);
-                    LinearLayout.LayoutParams paramsQ = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                    LinearLayout.LayoutParams paramsQ = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     paramsQ.gravity = Gravity.CENTER;
                     tss.setLayoutParams(paramsQ);
                     tss.setTextSize(16);
@@ -206,12 +257,12 @@ public class Register_New extends AppCompatActivity {
                     myRoot.addView(a);
                     myRoot.addView(vres);
 
-                    final int k =i;
+                    final int k = i;
 
                     a.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Log.e("tag","a:"+sting[k]);
+                            Log.e("tag", "a:" + sting[k]);
                             b.dismiss();
                             et_service_type.setText(sting[k]);
                         }
@@ -222,10 +273,6 @@ public class Register_New extends AppCompatActivity {
 
 
                 b.show();
-
-
-
-
 
 
             }
@@ -243,21 +290,21 @@ public class Register_New extends AppCompatActivity {
                 LinearLayout myRoot = (LinearLayout) dialogView.findViewById(R.id.layout_top);
                 LinearLayout a = null;
 
-                for(int i = 0;i<ar_service_areas.length;i++) {
+                for (int i = 0; i < ar_service_areas.length; i++) {
 
                     a = new LinearLayout(Register_New.this);
-                    LinearLayout.LayoutParams para = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-                    para.setMargins(5,20,5,20);
+                    LinearLayout.LayoutParams para = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    para.setMargins(5, 20, 5, 20);
                     a.setOrientation(LinearLayout.HORIZONTAL);
                     a.setLayoutParams(para);
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(60,60);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(60, 60);
                     params.gravity = Gravity.CENTER;
                     ImageView imageView = new ImageView(Register_New.this);
                     imageView.setImageResource(R.drawable.button_change);
                     imageView.setLayoutParams(params);
                     TextView tss = new TextView(Register_New.this);
                     tss.setText(ar_service_areas[i]);
-                    LinearLayout.LayoutParams paramsQ = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                    LinearLayout.LayoutParams paramsQ = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     paramsQ.gravity = Gravity.CENTER;
                     tss.setLayoutParams(paramsQ);
                     tss.setTextSize(16);
@@ -274,12 +321,12 @@ public class Register_New extends AppCompatActivity {
                     myRoot.addView(a);
                     myRoot.addView(vres);
 
-                    final int k =i;
+                    final int k = i;
 
                     a.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Log.e("tag","a:"+ar_service_areas[k]);
+                            Log.e("tag", "a:" + ar_service_areas[k]);
                             b.dismiss();
                             et_service_areas.setText(ar_service_areas[k]);
                         }
@@ -288,7 +335,6 @@ public class Register_New extends AppCompatActivity {
                 b.show();
             }
         });
-
 
 
         lt_experience.setOnClickListener(new View.OnClickListener() {
@@ -303,21 +349,21 @@ public class Register_New extends AppCompatActivity {
                 LinearLayout myRoot = (LinearLayout) dialogView.findViewById(R.id.layout_top);
                 LinearLayout a = null;
 
-                for(int i = 0;i<ar_experience.length;i++) {
+                for (int i = 0; i < ar_experience.length; i++) {
 
                     a = new LinearLayout(Register_New.this);
-                    LinearLayout.LayoutParams para = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-                    para.setMargins(5,20,5,20);
+                    LinearLayout.LayoutParams para = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    para.setMargins(5, 20, 5, 20);
                     a.setOrientation(LinearLayout.HORIZONTAL);
                     a.setLayoutParams(para);
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(60,60);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(60, 60);
                     params.gravity = Gravity.CENTER;
                     ImageView imageView = new ImageView(Register_New.this);
                     imageView.setImageResource(R.drawable.button_change);
                     imageView.setLayoutParams(params);
                     TextView tss = new TextView(Register_New.this);
                     tss.setText(ar_experience[i]);
-                    LinearLayout.LayoutParams paramsQ = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                    LinearLayout.LayoutParams paramsQ = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     paramsQ.gravity = Gravity.CENTER;
                     tss.setLayoutParams(paramsQ);
                     tss.setTextSize(16);
@@ -334,12 +380,12 @@ public class Register_New extends AppCompatActivity {
                     myRoot.addView(a);
                     myRoot.addView(vres);
 
-                    final int k =i;
+                    final int k = i;
 
                     a.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Log.e("tag","a:"+ar_experience[k]);
+                            Log.e("tag", "a:" + ar_experience[k]);
                             b.dismiss();
                             et_experience.setText(ar_experience[k]);
                         }
@@ -352,9 +398,6 @@ public class Register_New extends AppCompatActivity {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
                 if (status == 0) {
                     status = 1;
                     lt_first.setVisibility(View.GONE);
@@ -374,14 +417,9 @@ public class Register_New extends AppCompatActivity {
         tv_additional.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                    lt_additional.setVisibility(View.VISIBLE);
-                    scrollView.fullScroll(View.FOCUS_DOWN);
+                lt_additional.setVisibility(View.VISIBLE);
+                scrollView.fullScroll(View.FOCUS_DOWN);
                 tv_additional.setVisibility(View.GONE);
-
-
-
 
             }
         });
@@ -396,10 +434,77 @@ public class Register_New extends AppCompatActivity {
         });
 
 
+        lt_add_photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                if (ContextCompat.checkSelfPermission(getApplicationContext(),android.Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED) {
+                    Log.e("tag","permission Not granted");
+
+
+                    ActivityCompat.requestPermissions(Register_New.this,
+                            new String[]{android.Manifest.permission.CAMERA},
+                            MY_PERMISSIONS_REQUEST_CAMERA);
+
+                }
+
+                else {
+                    com.gun0912.tedpicker.Config config = new com.gun0912.tedpicker.Config();
+                    config.setSelectionMin(1);
+                    config.setSelectionLimit(1);
+                    config.setCameraHeight(R.dimen.app_camera_height);
+                    config.setCameraBtnBackground(R.drawable.round_rd);
+                    config.setToolbarTitleRes(R.string.img_vec_lic);
+                    config.setSelectedBottomHeight(R.dimen.bottom_height);
+                    ImagePickerActivity.setConfig(config);
+                    Intent intent = new Intent(Register_New.this, com.gun0912.tedpicker.ImagePickerActivity.class);
+                    startActivityForResult(intent, REQUEST_CODE);
+                }
+
+
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        List<String> photos = null;
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+
+
+            image_uris = data.getParcelableArrayListExtra(com.gun0912.tedpicker.ImagePickerActivity.EXTRA_IMAGE_URIS);
+            Log.e("tag", "12345" + image_uris);
+            selectedPhotos.clear();
+            if (image_uris != null) {
+                str_lic_photo = image_uris.get(0).toString();
+                Glide.with(Register_New.this).load(new File(str_lic_photo)).centerCrop().into(iv_driver_lic);
+                snackbar.show();
+                tv_snack.setText(R.string.dr);
+                view_lic.setVisibility(View.GONE);
+            }
+
+        }
+    }
 }
 
 

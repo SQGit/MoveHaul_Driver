@@ -20,6 +20,7 @@ import android.os.Handler;
 import android.provider.ContactsContract;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Display;
@@ -434,16 +435,19 @@ public class RegisterActivity extends Activity {
             @Override
             public void onClick(View view) {
 
+
+
+
+
+
+
                 com.gun0912.tedpicker.Config config = new com.gun0912.tedpicker.Config();
                 config.setSelectionMin(1);
                 config.setSelectionLimit(1);
                 config.setCameraHeight(R.dimen.app_camera_height);
-
                 config.setCameraBtnBackground(R.drawable.round_rd);
-
                 config.setToolbarTitleRes(R.string.img_vec_lic);
                 config.setSelectedBottomHeight(R.dimen.bottom_height);
-
                 ImagePickerActivity.setConfig(config);
                 Intent intent = new Intent(RegisterActivity.this, com.gun0912.tedpicker.ImagePickerActivity.class);
                 startActivityForResult(intent, REQUEST_CODE);
