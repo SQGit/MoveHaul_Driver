@@ -501,14 +501,19 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                         editor.putString("driver_name", jo.getString("driver_name"));
                         editor.putString("driver_mobile_prefix", str_prefix);
                         editor.putString("driver_mobile", jo.getString("driver_mobile"));
-                        editor.putString("driver_mobile2", jo.getString("driver_mobile_sec"));
                         editor.putString("driver_email", jo.getString("driver_email"));
                         editor.putString("driver_verification", jo.getString("driver_verification"));
                         editor.putString("driver_status", jo.getString("driver_status"));
+                        editor.putString("driver_mobile2", jo.getString("driver_mobile_sec"));
                         editor.putString("account_status", jo.getString("account_status"));
                         editor.putString("driver_licence_image", jo.getString("driver_licence_image"));
                         editor.putString("driver_id", jo.getString("fake_id"));
                         editor.putString("vec_type", jo.getString("vehicle_type"));
+                        editor.putString("driver_address", jo.getString("driver_address"));
+                        editor.putString("service_type", jo.getString("service_type"));
+                        editor.putString("primary_route", jo.getString("primary_route"));
+                        editor.putString("service_areas_distance", jo.getString("service_areas_distance"));
+                        editor.putString("local_government", jo.getString("local_government"));
                         editor.putString("login", "success");
                         editor.commit();
 
@@ -525,7 +530,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                                 editor.putString("truck_side", jo.getString("truck_image_side"));
                                 editor.putString("truck_rc", jo.getString("truck_title_image1"));
                                 editor.putString("truck_ins", jo.getString("truck_insurance_image1"));
-                                editor.putString("driver_address", jo.getString("driver_address"));
+                               // editor.putString("driver_address", jo.getString("driver_address"));
                                 editor.putString("profile", "success");
                                 if (jo.getString("truck_title_image2") != "null")
                                     editor.putString("truck_rc1", jo.getString("truck_title_image2"));
@@ -544,7 +549,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                                 editor.putString("bus_inside", jo.getString("bus_image_back"));
                                 editor.putString("bus_rc", jo.getString("bus_title_image1"));
                                 editor.putString("bus_ins", jo.getString("bus_insurance_image1"));
-                                editor.putString("driver_address", jo.getString("driver_address"));
+                              //  editor.putString("driver_address", jo.getString("driver_address"));
                                 editor.putString("profile", "success");
                                 if (jo.getString("bus_title_image2") != "null")
                                     editor.putString("bus_rc1", jo.getString("bus_title_image2"));
@@ -564,7 +569,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                                 editor.putString("bus_inside", jo.getString("assistance_image_back"));
                                 editor.putString("bus_rc", jo.getString("assistance_title_image1"));
                                 editor.putString("bus_ins", jo.getString("assistance_insurance_image1"));
-                                editor.putString("driver_address", jo.getString("driver_address"));
+                               // editor.putString("driver_address", jo.getString("driver_address"));
                                 editor.putString("profile", "success");
                                 if (jo.getString("assistance_title_image2") != "null")
                                     editor.putString("bus_rc1", jo.getString("assistance_title_image2"));

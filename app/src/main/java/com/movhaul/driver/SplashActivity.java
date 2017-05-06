@@ -54,7 +54,6 @@ public class SplashActivity extends Activity {
     TranslateAnimation anim_btn_b2t, anim_btn_t2b, anim_truck_c2r, anim_new;
     Animation fadeIn, fadeOut;
     private FirebaseAnalytics mFirebaseAnalytics;
-
     String currentVersion, playstoreVersion;
     Dialog dg_show_update;
     TextView tv_dg_txt, tv_dg_txt2;
@@ -256,7 +255,7 @@ public class SplashActivity extends Activity {
                     @Override
                     public void run() {
 
-                        Intent isd = new Intent(SplashActivity.this, RegisterActivity.class);
+                        Intent isd = new Intent(SplashActivity.this, Register_New.class);
                         Bundle bndlanimation =
                                 ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.anim1, R.anim.anim2).toBundle();
                         startActivity(isd, bndlanimation);

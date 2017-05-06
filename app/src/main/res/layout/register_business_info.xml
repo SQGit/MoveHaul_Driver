@@ -371,7 +371,7 @@
 
 
         <EditText
-            android:id="@+id/edittext_service_areas"
+            android:id="@+id/edittext_service_areas_prefs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -508,7 +508,7 @@
             android:rowCount="3">
 
             <EditText
-                android:id="@+id/editdtext_mail"
+                android:id="@+id/edittext_ref1"
                 android:layout_width="match_parent"
                 android:layout_gravity="left"
                 android:layout_margin="@dimen/_5sdp"
@@ -525,7 +525,7 @@
                 android:textSize="@dimen/_16sdp" />
 
             <EditText
-                android:id="@+id/editteddxdt_mail"
+                android:id="@+id/edittext_ref2"
                 android:layout_width="match_parent"
                 android:layout_margin="@dimen/_5sdp"
                 android:background="@color/light_grey"
@@ -540,7 +540,7 @@
                 android:textSize="@dimen/_15sdp" />
 
             <EditText
-                android:id="@+id/editteddxtd_maidl"
+                android:id="@+id/edittext_ref3"
                 android:layout_width="match_parent"
                 android:layout_margin="@dimen/_5sdp"
                 android:background="@color/light_grey"

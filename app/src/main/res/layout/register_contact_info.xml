@@ -136,8 +136,9 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="Address"
-                android:inputType="textWebEmailAddress"
+                android:inputType="text"
                 android:maxLines="1"
+                android:imeOptions="actionDone"
                 android:paddingTop="@dimen/_10sdp"
                 android:textColor="#000000"
                 android:textSize="@dimen/_15sdp" />

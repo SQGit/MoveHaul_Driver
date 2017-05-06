@@ -149,10 +149,15 @@ public class ProfileActivityBus extends Activity {
 
         et_contact.setText(str_contact.substring(3, str_contact.length()));
         tv_profile_name.setText(sharedPreferences.getString("driver_name", ""));
-        et_secondary.setText(str_secondary.substring(3, str_secondary.length()));
+
 
         if (!(sharedPreferences.getString("driver_address", "").equals(""))) {
-            et_address.setText(sharedPreferences.getString("driver_address", ""));
+            str_address = sharedPreferences.getString("driver_address", "");
+            et_address.setText(str_address);
+        }
+
+        if (!(sharedPreferences.getString("driver_mobile2", "").equals(""))) {
+            et_address.setText(sharedPreferences.getString("driver_mobile2", ""));
 
             iv_edit.setVisibility(View.VISIBLE);
             btn_update.setVisibility(View.GONE);

@@ -14,7 +14,6 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -24,7 +23,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.gun0912.tedpicker.ImagePickerActivity;
-import com.movhaul.driver.R;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
 import com.sloop.fonts.FontsManager;
@@ -118,7 +116,7 @@ public class ProfileActivity extends Activity {
         iv_vec_ins = (ImageView) findViewById(R.id.imageview_vechile_ins);
         tv_profile_name = (TextView) findViewById(R.id.textview_profile_name);
 
-        tv_bank  = (TextView) findViewById(R.id.textview_bank);
+        tv_bank = (TextView) findViewById(R.id.textview_bank);
 
         btn_back = (LinearLayout) findViewById(R.id.layout_back);
         lt_vec_rc = (LinearLayout) findViewById(R.id.layout_vechile_rc);
@@ -146,15 +144,20 @@ public class ProfileActivity extends Activity {
 
 
         str_contact = sharedPreferences.getString("driver_mobile", "");
-        str_secondary = sharedPreferences.getString("driver_mobile2", "");
+        //str_secondary = sharedPreferences.getString("driver_mobile2", "");
 
 
         et_contact.setText(str_contact);
         tv_profile_name.setText(sharedPreferences.getString("driver_name", ""));
-        et_secondary.setText(str_secondary);
+
 
         if (!(sharedPreferences.getString("driver_address", "").equals(""))) {
-            et_address.setText(sharedPreferences.getString("driver_address", ""));
+            str_address = sharedPreferences.getString("driver_address", "");
+            et_address.setText(str_address);
+        }
+
+        if (!(sharedPreferences.getString("driver_mobile2", "").equals(""))) {
+            et_secondary.setText(sharedPreferences.getString("driver_mobile2", ""));
 
 
             iv_edit.setVisibility(View.VISIBLE);
@@ -174,15 +177,14 @@ public class ProfileActivity extends Activity {
         }
 
 
-        if(sharedPreferences.getString("bank_update","").equals("success")){
+        if (sharedPreferences.getString("bank_update", "").equals("success")) {
             tv_bank.setText("Update Bank Details");
-        }
-        else{
+        } else {
             tv_bank.setText("Add Bank Details");
 
         }
 
-        et_address.requestFocus();
+        et_secondary.requestFocus();
 
         if (!config.isConnected(ProfileActivity.this)) {
             snackbar.show();
@@ -276,7 +278,6 @@ public class ProfileActivity extends Activity {
         iv_vec_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
 
 
                 img_config.setSelectionMin(1);

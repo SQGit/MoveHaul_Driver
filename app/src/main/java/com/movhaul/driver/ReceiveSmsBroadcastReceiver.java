@@ -39,7 +39,7 @@ public class ReceiveSmsBroadcastReceiver extends BroadcastReceiver {
 
             //Pass on the text to our listener.
             if (messageBody!=null){
-                if(messageBody.contains("movehaul")) {
+                if(messageBody.contains("Your MoveHaul OTP")) {
                     mListener.messageReceived(messageBody);
                 }
             }
