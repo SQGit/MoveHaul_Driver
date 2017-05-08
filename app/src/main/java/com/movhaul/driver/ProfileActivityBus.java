@@ -2,21 +2,26 @@ package com.movhaul.driver;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -64,7 +69,7 @@ public class ProfileActivityBus extends Activity {
     String str_profile_img, str_vec_back, str_vec_front, str_vec_rc, str_vec_ins, str_contact, str_secondary, str_address;
     View view_rc, view_ins;
     TextInputLayout til_contact, til_secondary, til_address;
-    EditText et_contact, et_secondary, et_address;
+    EditText et_contact,  et_address;
     Button btn_update;
     Typeface tf;
     Snackbar snackbar;
@@ -79,6 +84,13 @@ public class ProfileActivityBus extends Activity {
     ImageView iv_prf_bg;
     ArrayList<Uri> image_uris;
     ImageView iv_edit;
+    TextView tv_bank;
+    AutoCompleteTextView actv_conts;
+    String driver_mobile_prefix;
+    private ArrayAdapter<String> adapter;
+    public static ArrayList<String> phoneValueArr = new ArrayList<String>();
+    android.widget.LinearLayout lt_bank;
+    public static ArrayList<String> nameValueArr = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +111,7 @@ public class ProfileActivityBus extends Activity {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ProfileActivityBus.this);
         editor = sharedPreferences.edit();
 
-
+        tv_bank = (TextView) findViewById(R.id.textview_bank);
         vec_type = sharedPreferences.getString("vec_type", "");
         Log.e("tag","ty:"+vec_type);
 
@@ -130,6 +142,8 @@ public class ProfileActivityBus extends Activity {
         view_rc = findViewById(R.id.view_rc);
         view_ins = findViewById(R.id.view_insurence);
 
+        lt_bank = (android.widget.LinearLayout) findViewById(R.id.bank_layout);
+
         til_contact = (TextInputLayout) findViewById(R.id.til_contactnumber);
         til_secondary = (TextInputLayout) findViewById(R.id.til_secondary);
         til_address = (TextInputLayout) findViewById(R.id.til_deliveryaddress);
@@ -138,16 +152,43 @@ public class ProfileActivityBus extends Activity {
         til_secondary.setTypeface(tf);
         til_address.setTypeface(tf);
 
+        actv_conts = (AutoCompleteTextView) findViewById(R.id.autocomplete);
+
+        //Create adapter
+        adapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_dropdown_item_1line, new ArrayList<String>());
+        actv_conts.setThreshold(1);
+
+        //Set adapter to AutoCompleteTextView
+        actv_conts.setAdapter(adapter);
+
+        readContactData();
+
+
+
+        if (sharedPreferences.getString("bank_update", "").equals("success")) {
+            tv_bank.setText("Update Bank Details");
+        } else {
+            tv_bank.setText("Add Bank Details");
+
+        }
+
+
         et_contact = (EditText) findViewById(R.id.edittext_contact);
-        et_secondary = (EditText) findViewById(R.id.edittext_secondary);
         et_address = (EditText) findViewById(R.id.edittext_deliveryaddress);
         iv_prf_bg = (ImageView) findViewById(R.id.prof_bg);
 
 
-        str_contact = sharedPreferences.getString("driver_mobile", "");
-        str_secondary = sharedPreferences.getString("driver_mobile2", "");
 
-        et_contact.setText(str_contact.substring(3, str_contact.length()));
+        str_contact = sharedPreferences.getString("driver_mobile", "");
+        driver_mobile_prefix = sharedPreferences.getString("driver_mobile_prefix","");
+
+        if(str_contact.contains(driver_mobile_prefix)) {
+            str_contact = str_contact.replace(driver_mobile_prefix,"");
+            et_contact.setText(str_contact);
+        }
+
+        //et_contact.setText(str_contact.substring(3, str_contact.length()));
         tv_profile_name.setText(sharedPreferences.getString("driver_name", ""));
 
 
@@ -157,7 +198,11 @@ public class ProfileActivityBus extends Activity {
         }
 
         if (!(sharedPreferences.getString("driver_mobile2", "").equals(""))) {
-            et_address.setText(sharedPreferences.getString("driver_mobile2", ""));
+            str_secondary = sharedPreferences.getString("driver_mobile2","");
+            if(str_secondary.contains(driver_mobile_prefix)) {
+                str_secondary = str_secondary.replace(driver_mobile_prefix,"");
+                actv_conts.setText(str_secondary);
+            }
 
             iv_edit.setVisibility(View.VISIBLE);
             btn_update.setVisibility(View.GONE);
@@ -168,7 +213,7 @@ public class ProfileActivityBus extends Activity {
             lt_vec_ins.setEnabled(false);
             lt_vec_rc.setEnabled(false);
             et_contact.setEnabled(false);
-            et_secondary.setEnabled(false);
+            actv_conts.setEnabled(false);
             et_address.setEnabled(false);
         }
 
@@ -207,9 +252,18 @@ public class ProfileActivityBus extends Activity {
                 lt_vec_ins.setEnabled(true);
                 lt_vec_ins.setEnabled(true);
                 et_contact.setEnabled(true);
-                et_secondary.setEnabled(true);
+                actv_conts.setEnabled(true);
                 et_address.setEnabled(true);
 
+            }
+        });
+
+
+        lt_bank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), Bank_details.class);
+                startActivity(i);
             }
         });
 
@@ -345,7 +399,7 @@ public class ProfileActivityBus extends Activity {
                                           public void onClick(View view) {
 
                                               str_contact = et_contact.getText().toString().trim();
-                                              str_secondary = et_secondary.getText().toString().trim();
+                                              str_secondary = actv_conts.getText().toString().trim();
                                               str_address = et_address.getText().toString().trim();
 
 
@@ -367,7 +421,7 @@ public class ProfileActivityBus extends Activity {
                                                                                   String seco = sharedPreferences.getString("driver_mobile2", "");
                                                                                   seco = seco.substring(3, seco.length());
 
-                                                                                  if (!(sharedPreferences.getString("driver_address", "").equals(et_address.getText().toString())) || !(str_contactss.equals(et_contact.getText().toString().trim())) || !(seco.equals(et_secondary.getText().toString().trim()))) {
+                                                                                  if (!(sharedPreferences.getString("driver_address", "").equals(et_address.getText().toString())) || !(str_contactss.equals(et_contact.getText().toString().trim())) || !(seco.equals(actv_conts.getText().toString().trim()))) {
                                                                                       new profile_update().execute();
                                                                                   } else {
 
@@ -413,7 +467,7 @@ public class ProfileActivityBus extends Activity {
                                                   } else {
                                                       snackbar.show();
                                                       tv_snack.setText(R.string.fve);
-                                                      et_secondary.requestFocus();
+                                                      actv_conts.requestFocus();
                                                   }
 
                                               } else {
@@ -530,8 +584,8 @@ public class ProfileActivityBus extends Activity {
                 HttpPost httppost = new HttpPost(Config.WEB_URL + url_data + "/driverupdate");
                 Log.e("tag", "ss:" + Config.WEB_URL + "busdriver/driverupdate");
 
-                httppost.setHeader("driver_mobile_pri", "+91" + str_contact);
-                httppost.setHeader("driver_mobile_sec", "+91" + str_secondary);
+                httppost.setHeader("driver_mobile_pri",driver_mobile_prefix+ str_contact);
+                httppost.setHeader("driver_mobile_sec", driver_mobile_prefix+str_secondary);
                 httppost.setHeader("driver_address", str_address);
                 //{"id":"10000","sessiontoken":"fkjdshfjdsfhkjdfkgdgfdgfuau"
 
@@ -757,6 +811,97 @@ public class ProfileActivityBus extends Activity {
             }
 
         }
+
+    }
+
+    private void readContactData() {
+
+        try {
+
+            /*********** Reading Contacts Name And Number **********/
+
+            String phoneNumber = "";
+            ContentResolver cr = getBaseContext()
+                    .getContentResolver();
+
+            //Query to get contact name
+
+            Cursor cur = cr
+                    .query(ContactsContract.Contacts.CONTENT_URI,
+                            null,
+                            null,
+                            null,
+                            null);
+
+            // If data data found in contacts
+            if (cur.getCount() > 0) {
+
+                Log.e("tagAutocompleteContacts", "Reading   contacts........");
+
+                int k = 0;
+                String name = "";
+
+                while (cur.moveToNext()) {
+
+                    String id = cur
+                            .getString(cur
+                                    .getColumnIndex(ContactsContract.Contacts._ID));
+                    name = cur
+                            .getString(cur
+                                    .getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+
+                    //Check contact have phone number
+                    if (Integer
+                            .parseInt(cur
+                                    .getString(cur
+                                            .getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
+
+                        //Create query to get phone number by contact id
+                        Cursor pCur = cr
+                                .query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                                        null,
+                                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID
+                                                + " = ?",
+                                        new String[]{id},
+                                        null);
+                        int j = 0;
+
+                        while (pCur
+                                .moveToNext()) {
+                            // Sometimes get multiple data
+                            if (j == 0) {
+                                // Get Phone number
+                                phoneNumber = "" + pCur.getString(pCur
+                                        .getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+                                // Add contacts names to adapter
+                                String adsf;
+                                adsf = phoneNumber.replace(" ", "");
+                                adsf = adsf.replaceAll("\u00A0", "");
+                                Log.e("tag_number", "Re " + adsf);
+                                adapter.add(adsf);
+
+                                // Add ArrayList names to adapter
+                                phoneValueArr.add(phoneNumber.trim());
+                                nameValueArr.add(name.trim());
+
+                                j++;
+                                k++;
+                            }
+                        }  // End while loop
+                        pCur.close();
+                    } // End if
+
+                }  // End while loop
+
+            } // End Cursor value check
+            cur.close();
+
+
+        } catch (Exception e) {
+            Log.e("tagAutocompleteContacts", "Exception : " + e);
+        }
+
 
     }
 

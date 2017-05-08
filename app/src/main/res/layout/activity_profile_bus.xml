@@ -218,7 +218,7 @@
                             android:background="@null"
                             android:hint="@string/contact_number"
                             android:inputType="number"
-                            android:maxLength="13"
+                            android:maxLength="11"
                             android:maxLines="1"
                             android:paddingTop="@dimen/_10sdp"
                             android:textColor="#000000"
@@ -238,18 +238,21 @@
                         android:layout_marginBottom="@dimen/_3sdp"
                         android:textColorHint="@color/colorAccent">
 
-                        <EditText
-                            android:id="@+id/edittext_secondary"
-                            android:layout_width="fill_parent"
+                        <AutoCompleteTextView
+                            android:id="@+id/autocomplete"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@null"
                             android:hint="@string/secondary_contact"
-                            android:inputType="number"
-                            android:maxLength="10"
+                            android:inputType="phone"
+                            android:imeOptions="actionNext"
+                            android:maxLength="11"
                             android:maxLines="1"
                             android:paddingTop="@dimen/_10sdp"
                             android:textColor="#000000"
                             android:textSize="@dimen/_15sdp" />
+
+
                     </android.support.design.widget.TextInputLayout>
 
                     <View
@@ -431,6 +434,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/_5sdp"
+                android:id="@+id/bank_layout"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -444,7 +448,7 @@
 
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/textview_bank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"

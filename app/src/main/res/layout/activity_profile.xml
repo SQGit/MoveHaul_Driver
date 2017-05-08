@@ -233,7 +233,7 @@
                             android:background="@null"
                             android:hint="@string/contact_number"
                             android:inputType="number"
-                            android:maxLength="15"
+                            android:maxLength="11"
                             android:maxLines="1"
                             android:paddingTop="@dimen/_10sdp"
                             android:textColor="#000000"
@@ -253,8 +253,8 @@
                         android:layout_marginBottom="@dimen/_3sdp"
                         android:textColorHint="@color/colorAccent">
 
-                        <EditText
-                            android:id="@+id/edittext_secondary"
+                      <!--  <EditText
+                            android:id="@+id/"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:background="@null"
@@ -264,7 +264,28 @@
                             android:maxLines="1"
                             android:paddingTop="@dimen/_10sdp"
                             android:textColor="#000000"
+                            android:textSize="@dimen/_15sdp" />-->
+
+
+                        <AutoCompleteTextView
+                            android:id="@+id/autocomplete"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:hint="@string/secondary_contact"
+                            android:inputType="phone"
+                            android:imeOptions="actionNext"
+                            android:maxLength="11"
+                            android:maxLines="1"
+                            android:paddingTop="@dimen/_10sdp"
+                            android:textColor="#000000"
                             android:textSize="@dimen/_15sdp" />
+
+
+
+
+
+
                     </android.support.design.widget.TextInputLayout>
 
                     <View
