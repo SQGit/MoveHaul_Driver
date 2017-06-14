@@ -1,5 +1,6 @@
 package com.movhaul.driver;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -57,9 +58,8 @@ public class MyTrips extends AppCompatActivity {
     ImageView btn_close;
     ArrayList<String> ht_arlist;
     Dialog dialog1;
-    Typeface type;
-    Snackbar snackbar;
     Typeface tf;
+    Snackbar snackbar;
     TextView tv_dialog1, tv_dialog2, tv_dialog3, tv_dialog4, tv_snack;
     TabPageIndicator tpi_ic;
     TabLayout tl_indicator;
@@ -68,14 +68,16 @@ public class MyTrips extends AppCompatActivity {
     String id, token, booking_id;
     ArrayList<MV_Datas> ar_job_history;
     ProgressDialog mProgressDialog;
-    TextView tv_cr_date,tv_cr_time,tv_cr_pickup,tv_cr_drop,tv_cr_delivery,tv_cr_cu_name,tv_cr_cu_phone,tv_cr_delivery_txt;
+    TextView tv_cr_date,tv_cr_time,tv_cr_pickup,tv_cr_drop,tv_cr_delivery,tv_cr_cu_name,tv_cr_cu_phone,tv_cr_delivery_txt,tv_cr_rc_name,tv_cr_rc_phone;
     MV_Datas mv_datas;
     String vec_type;
     ImageView iv_content_prof;
     DashboardNavigation nssl;
     String url_service;
+    android.widget.LinearLayout lt_receiver;
     Button btn_start;
     public int i;
+    View vi_last;
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
 
         @Override
@@ -88,12 +90,10 @@ public class MyTrips extends AppCompatActivity {
                 FontsManager.changeFonts(MyTrips.this);
 
 
-            } /*else if (position == 1) {
+            } else {
 
-
-            }*/ else {
-
-
+                FontsManager.initFormAssets(MyTrips.this, "fonts/lato.ttf");
+                FontsManager.changeFonts(MyTrips.this);
             }
         }
 
@@ -120,7 +120,7 @@ public class MyTrips extends AppCompatActivity {
         FontsManager.initFormAssets(this, "fonts/lato.ttf");
         FontsManager.changeFonts(this);
 
-        type = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/lato.ttf");
+        tf = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/lato.ttf");
 
         btn_back = (LinearLayout) findViewById(R.id.layout_back);
         // tpi_ic = (TabPageIndicator) findViewById(R.id.tabpage);
@@ -150,7 +150,6 @@ public class MyTrips extends AppCompatActivity {
         tv_snack.setTypeface(tf);
 
 
-        tf = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MyTrips.this);
         editor = sharedPreferences.edit();
@@ -204,11 +203,11 @@ public class MyTrips extends AppCompatActivity {
         tv_dialog4 = (TextView) dialog1.findViewById(R.id.textView_4);
         btn_confirm = (Button) dialog1.findViewById(R.id.button_confirm);
         btn_close = (ImageView) dialog1.findViewById(R.id.button_close);
-        tv_dialog1.setTypeface(type);
-        tv_dialog2.setTypeface(type);
-        tv_dialog3.setTypeface(type);
-        tv_dialog4.setTypeface(type);
-        btn_confirm.setTypeface(type);
+        tv_dialog1.setTypeface(tf);
+        tv_dialog2.setTypeface(tf);
+        tv_dialog3.setTypeface(tf);
+        tv_dialog4.setTypeface(tf);
+        btn_confirm.setTypeface(tf);
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -243,9 +242,10 @@ public class MyTrips extends AppCompatActivity {
 
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
-           /*FontsManager.initFormAssets(getApplicationContext(), "fonts/lato.ttf");       //initialization
-            FontsManager.changeFonts((Activity) getApplicationContext());*/
 
+            FontsManager.initFormAssets(MyTrips.this, "fonts/lato.ttf");       //initialization
+            FontsManager.changeFonts(view);
+            FontsManager.changeFonts(container);
             if (position == 0) {
            /*     btn_start = (Button) view.findViewById(R.id.btn_start);
                 btn_cancel = (Button) view.findViewById(R.id.btn_cancel);
@@ -274,6 +274,8 @@ public class MyTrips extends AppCompatActivity {
                  i =0;
 
                 btn_start = (Button) view.findViewById(R.id.btn_service);
+                lt_receiver = (android.widget.LinearLayout) view.findViewById(R.id.layout_receiver);
+                vi_last = view.findViewById(R.id.view_last1);
                 btn_start.setBackgroundColor(getResources().getColor(R.color.redColor));
 
                 btn_start.setTypeface(tf);
@@ -314,6 +316,9 @@ public class MyTrips extends AppCompatActivity {
                 tv_cr_cu_phone = (android.widget.TextView) view.findViewById(R.id.cr_cu_phone);
                 iv_content_prof = (ImageView) view.findViewById(R.id.imageview_content_profile);
 
+                tv_cr_rc_name = (android.widget.TextView) view.findViewById(R.id.cr_rc_name);
+                tv_cr_rc_phone = (android.widget.TextView) view.findViewById(R.id.cr_rc_phone);
+
                 View line_view = view.findViewById(R.id.view_last);
 
 
@@ -322,6 +327,14 @@ public class MyTrips extends AppCompatActivity {
                 if(mv_datas.getDelivery().equals("null")){
                     lt_nearby.setVisibility(View.GONE);
                     line_view.setVisibility(View.GONE);
+                }
+                if(mv_datas.getRec_name().equals(mv_datas.getCusotmer_name())){
+                    lt_receiver.setVisibility(View.GONE);
+                    vi_last.setVisibility(View.GONE);
+                }
+                else{
+                    tv_cr_rc_name.setText(mv_datas.getRec_name());
+                    tv_cr_rc_phone.setText(mv_datas.getRec_phone());
                 }
 
                 tv_cr_date.setText(mv_datas.getDate());
@@ -411,6 +424,15 @@ public class MyTrips extends AppCompatActivity {
 
     }
 
+
+
+
+
+
+
+
+
+
     public class get_history extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {
@@ -470,6 +492,8 @@ public class MyTrips extends AppCompatActivity {
                                 String booking_id = jos.getString("booking_id");
                                 String job_cost = jos.getString("job_cost");
                                 String goods_type = jos.getString("goods_type");
+                                String receiver_name = jos.getString("receiver_name");
+                                String receiver_phone = jos.getString("receiver_phone");
 
 
                                 //2016\/12\/08 T 18:12
@@ -492,6 +516,8 @@ public class MyTrips extends AppCompatActivity {
                                 mv_datas.setJob_cost(job_cost);
                                 mv_datas.setGoods_type(goods_type);
                                 mv_datas.setCustomer_img(customer_image);
+                                mv_datas.setRec_name(receiver_name);
+                                mv_datas.setRec_phone(receiver_phone);
 
                                 ar_job_history.add(mv_datas);
 

@@ -22,7 +22,24 @@ public class MV_Datas {
     String customer_img;
     String delivery;
     String vec_type;
+    String rec_name;
+    String rec_phone;
 
+    public void setRec_name(String rec_name) {
+        this.rec_name = rec_name;
+    }
+
+    public void setRec_phone(String rec_phone) {
+        this.rec_phone = rec_phone;
+    }
+
+    public String getRec_name() {
+        return rec_name;
+    }
+
+    public String getRec_phone() {
+        return rec_phone;
+    }
 
     public String getCustomer_img() {
         return customer_img;

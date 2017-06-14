@@ -119,8 +119,7 @@ public class Register_New extends AppCompatActivity {
 
         insertDummyContactWrapper();
 
-        snackbar = Snackbar
-                .make(findViewById(R.id.top), R.string.network, Snackbar.LENGTH_LONG);
+        snackbar = Snackbar.make(findViewById(R.id.top), R.string.network, Snackbar.LENGTH_LONG);
         View sbView = snackbar.getView();
         tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
         tv_snack.setTextColor(Color.WHITE);
