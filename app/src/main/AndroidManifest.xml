@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.movhaul.driver">
 
+
+    <permission
+        android:name="com.movhaul.driver.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.movhaul.driver.permission.MAPS_RECEIVE" />
+
     <uses-feature android:name="android.hardware.camera" />
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -104,6 +111,11 @@
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
+
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyB3u9CwWcO8J0dS9GXTR19Z9N5dhmzEK-s" />
 
 
     </application>

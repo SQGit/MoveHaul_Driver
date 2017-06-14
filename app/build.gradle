@@ -1,6 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
-
 android {
     signingConfigs {
         config {
@@ -51,9 +49,9 @@ repositories {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.3.0'
-    compile 'com.android.support:design:25.3.0'
-    compile 'com.android.support:cardview-v7:25.3.0'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:cardview-v7:25.3.1'
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.intuit.sdp:sdp-android:1.0.3'
     compile 'com.github.rey5137:material:1.2.4'
@@ -62,12 +60,15 @@ dependencies {
     compile 'com.github.ParkSangGwon:TedPicker:v1.0.10'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'com.google.firebase:firebase-core:9.0.2'
-    compile 'com.google.firebase:firebase-messaging:9.0.2'
-    compile 'com.google.firebase:firebase-crash:9.0.2'
-    compile 'com.firebase:firebase-client-android:2.5.1+'
+    compile 'com.google.firebase:firebase-core:10.2.6'
+    compile 'com.google.firebase:firebase-messaging:10.2.6'
+    compile 'com.google.firebase:firebase-crash:10.2.6'
+    compile 'com.firebase:firebase-client-android:2.5.1'
 
     compile 'com.hbb20:ccp:1.7.2'
 
     compile 'org.jsoup:jsoup:1.8.3'
+
+    compile 'com.google.android.gms:play-services-maps:10.2.6'
 }
+apply plugin: 'com.google.gms.google-services'

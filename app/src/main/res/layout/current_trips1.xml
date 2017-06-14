@@ -14,14 +14,19 @@
         android:layout_weight="1"
         android:fadeScrollbars="false">
 
+
+
+      
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_10sdp"
             android:background="@drawable/white_bg"
             android:orientation="vertical"
-            android:layout_gravity="center"
             android:paddingBottom="@dimen/_5sdp"
-            android:layout_margin="@dimen/_10sdp"
             android:paddingRight="@dimen/_3sdp"
             android:paddingTop="@dimen/_5sdp">
 
@@ -159,9 +164,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/_5sdp"
+                            android:inputType="textCapCharacters"
                             android:maxLines="2"
                             android:text="tom"
-                            android:inputType="textCapCharacters"
                             android:textColor="@color/textColor"
                             android:textSize="@dimen/_12sdp" />
                     </LinearLayout>
@@ -314,22 +319,22 @@
 
 
             <View
+                android:id="@+id/view_last"
                 android:layout_width="match_parent"
                 android:layout_height="0.70dp"
                 android:layout_marginBottom="@dimen/_3sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:id="@+id/view_last"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:background="@color/mgrey" />
 
 
             <LinearLayout
+                android:id="@+id/layout_nearby"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/_5sdp"
-                android:id="@+id/layout_nearby"
                 android:paddingRight="@dimen/_20sdp"
                 android:paddingTop="@dimen/_5sdp">
 
@@ -370,24 +375,23 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/view_last1"
                 android:layout_width="match_parent"
                 android:layout_height="0.70dp"
                 android:layout_marginBottom="@dimen/_3sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:id="@+id/view_last1"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:background="@color/mgrey" />
 
 
             <LinearLayout
+                android:id="@+id/layout_receiver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/layout_receiver"
                 android:layout_marginLeft="@dimen/_6sdp"
                 android:gravity="center"
                 android:orientation="horizontal">
-
 
 
                 <LinearLayout
@@ -422,9 +426,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/_5sdp"
+                            android:inputType="textCapCharacters"
                             android:maxLines="2"
                             android:text="Hank"
-                            android:inputType="textCapCharacters"
                             android:textColor="@color/textColor"
                             android:textSize="@dimen/_12sdp" />
                     </LinearLayout>
@@ -477,6 +481,9 @@
 
 
         </LinearLayout>
+
+
+
     </ScrollView>
 
     <LinearLayout
@@ -511,7 +518,6 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
-
 
 
     </LinearLayout>
