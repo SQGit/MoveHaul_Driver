@@ -24,6 +24,24 @@ public class MV_Datas {
     String vec_type;
     String rec_name;
     String rec_phone;
+    String cus_latitude;
+    String cus_longitude;
+
+    public String getCus_latitude() {
+        return cus_latitude;
+    }
+
+    public String getCus_longitude() {
+        return cus_longitude;
+    }
+
+    public void setCus_latitude(String cus_latitude) {
+        this.cus_latitude = cus_latitude;
+    }
+
+    public void setCus_longitude(String cus_longitude) {
+        this.cus_longitude = cus_longitude;
+    }
 
     public void setRec_name(String rec_name) {
         this.rec_name = rec_name;
