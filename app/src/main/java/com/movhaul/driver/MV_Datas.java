@@ -27,6 +27,7 @@ public class MV_Datas {
     String cus_latitude;
     String cus_longitude;
 
+
     public String getCus_latitude() {
         return cus_latitude;
     }

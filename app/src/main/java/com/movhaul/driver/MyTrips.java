@@ -213,9 +213,8 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
         }
 
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+
+
 
 
 
@@ -783,6 +782,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                                 String goods_type = jos.getString("goods_type");
                                 String receiver_name = jos.getString("receiver_name");
                                 String receiver_phone = jos.getString("receiver_phone");
+
 
 
                                 //2016\/12\/08 T 18:12
