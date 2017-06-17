@@ -39,6 +39,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -73,6 +77,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by SQINDIA on 10/26/2016.
@@ -114,8 +119,13 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
     Location glocation,customerLocation =null;
     float dist_Between;
     int iko;
+    String driver_name;
 
     android.widget.LinearLayout tabStrip= null;
+
+
+    Firebase reference1, reference2;
+
 
 
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
@@ -182,12 +192,17 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
         editor = sharedPreferences.edit();
 
 
-
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
 
         id = sharedPreferences.getString("id", "");
         token = sharedPreferences.getString("token", "");
         vec_type = sharedPreferences.getString("vec_type", "");
+
+        driver_name = sharedPreferences.getString("driver_name","");
+
         if (vec_type.equals("Bus")) {
             url_service = "busdriver/jobhistory";
         } else if (vec_type.equals("Truck")) {
@@ -195,6 +210,11 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
         } else {
             url_service = "assistance/jobhistory";
         }
+
+
+
+
+
 
         mProgressDialog = new ProgressDialog(MyTrips.this);
         mProgressDialog.setTitle(getString(R.string.loading));
@@ -211,6 +231,12 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
             new get_history().execute();
 
         }
+
+        Firebase.setAndroidContext(this);
+        reference1 = new Firebase("https://movehaul-147509.firebaseio.com/driver_track" + "driver" + "_" + "customer");
+        reference2 = new Firebase("https://movehaul-147509.firebaseio.com/driver_track" + "customer" + "_" + "driver");
+
+
 
 
 
@@ -288,6 +314,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
     public void onMapReady(GoogleMap googleMap) {
 
         this.googleMap = googleMap;
+        Log.e("tag","map_created");
         googleMap.setOnMyLocationChangeListener(myLocationChangeListener);
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -341,6 +368,11 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
 
                 Log.e("tag","res is: "+results[0]/1000+" km");
 
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("latitude", String.valueOf(current_lati));
+                map.put("longitude", String.valueOf(current_longi));
+                reference1.push().setValue(map);
+                reference2.push().setValue(map);
 
                 new updateLocation().execute();
 
@@ -460,6 +492,8 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
 
                         customerLocation.setLatitude(Double.valueOf(mv_datas.getCus_latitude()));
                         customerLocation.setLongitude( Double.valueOf(mv_datas.getCus_longitude()));
+
+
 
                         googleMap.addMarker(new MarkerOptions().position(new LatLng(cus_latitude, cus_longitude)).icon(BitmapDescriptorFactory.fromResource(R.drawable.delivery_addr_tracking)));
                         Location myLocation = googleMap.getMyLocation();
