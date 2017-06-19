@@ -63,6 +63,10 @@ public class JobPosting extends Activity {
         Intent getData = getIntent();
         vec_type = getData.getStringExtra("vec_type");
 
+        if(vec_type ==null){
+            vec_type = "Truck";
+        }
+
         if(vec_type.equals("Bus")){
             url_service="busdriver/showjobs";
         }

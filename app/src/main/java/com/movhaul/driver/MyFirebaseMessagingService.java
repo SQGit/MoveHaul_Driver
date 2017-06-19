@@ -67,7 +67,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }*/
        // sendNotification(remoteMessage.getNotification().getBody());
 
-        send_notification(remoteMessage.getNotification().getBody());
+        if(remoteMessage.getNotification().getBody().toString().contains("New Job")){
+            send_notification2();
+        }
+        else {
+            send_notification(remoteMessage.getNotification().getBody());
+        }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
@@ -170,6 +175,30 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         mNotifyBuilder = new NotificationCompat.Builder(this)
                 .setContentTitle("Bidding Confirmation")
                 .setContentText(title +" by "+name)
+                .setSmallIcon(R.drawable.truck_icon);
+        mNotifyBuilder.setContentIntent(resultPendingIntent);
+        int defaults = 0;
+        defaults = defaults | Notification.DEFAULT_LIGHTS;
+        defaults = defaults | Notification.DEFAULT_VIBRATE;
+        defaults = defaults | Notification.DEFAULT_SOUND;
+        mNotifyBuilder.setDefaults(defaults);
+        mNotifyBuilder.setAutoCancel(true);
+        mNotificationManager.notify(0, mNotifyBuilder.build());
+    }
+
+
+    private void send_notification2() {
+        Intent resultIntent = new Intent(this, JobPosting.class);
+        resultIntent.setAction(Intent.ACTION_MAIN);
+        resultIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0,
+                resultIntent, PendingIntent.FLAG_ONE_SHOT);
+        NotificationCompat.Builder mNotifyBuilder;
+        NotificationManager mNotificationManager;
+        mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotifyBuilder = new NotificationCompat.Builder(this)
+                .setContentTitle("Customer Posted New Job")
+                .setContentText("New job is waiting for bidding around you.")
                 .setSmallIcon(R.drawable.truck_icon);
         mNotifyBuilder.setContentIntent(resultPendingIntent);
         int defaults = 0;
