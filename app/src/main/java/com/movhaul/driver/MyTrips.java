@@ -539,6 +539,8 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
 
                         reference1.removeValue();
 
+                        //new start_job().execute();
+
                         fl_map_frame.setVisibility(View.VISIBLE);
                         tabStrip.getChildAt(1).setClickable(false);
                       //  btn_back.setVisibility(View.GONE);
@@ -1070,7 +1072,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.accumulate("booking_id", booking_id);
                 json = jsonObject.toString();
-                return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + "truckdriver/startjob", json, id, token);
+                return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + "truckdriver/jobstart", json, id, token);
 
             } catch (Exception e) {
                 Log.e("InputStream", e.getLocalizedMessage());
