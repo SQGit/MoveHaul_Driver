@@ -52,9 +52,12 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.ramotion.foldingcell.FoldingCell;
 import com.rey.material.widget.Button;
@@ -120,11 +123,12 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
     float dist_Between;
     int iko;
     String driver_name;
+    Marker truck_marker;
 
     android.widget.LinearLayout tabStrip= null;
 
 
-    Firebase reference1, reference2;
+    Firebase reference1;
 
 
 
@@ -174,6 +178,10 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
             public void onClick(View view) {
                 Intent i = new Intent(MyTrips.this, DashboardNavigation.class);
                 startActivity(i);
+
+
+
+
                 finish();
             }
         });
@@ -233,8 +241,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
         }
 
         Firebase.setAndroidContext(this);
-        reference1 = new Firebase("https://movehaul-147509.firebaseio.com/driver_track" + "driver" + "_" + "customer");
-        reference2 = new Firebase("https://movehaul-147509.firebaseio.com/driver_track" + "customer" + "_" + "driver");
+        reference1 = new Firebase("https://movehaul-147509.firebaseio.com/driver_track/" + driver_name);
 
 
 
@@ -259,11 +266,14 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
             @Override
             public void onClick(View v) {
 
-                if(dist_Between <3) {
+
+                reference1.removeValue();
+                if(dist_Between <5) {
 
                     fl_map_frame.setVisibility(View.GONE);
                     googleMap.setOnMyLocationChangeListener(null);
-                    new finish_job().execute();
+
+                 //   new finish_job().execute();
                 }
                 else{
                     Toast.makeText(getApplicationContext(),"Customer Location is Too Far",Toast.LENGTH_LONG).show();
@@ -321,8 +331,8 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
             return;       }
         googleMap.setMyLocationEnabled(true);
         googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(9.0f));
-        googleMap.getUiSettings().setZoomGesturesEnabled(true);
+       // googleMap.animateCamera(CameraUpdateFactory.zoomTo(9.0f));
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
 
 
         try {
@@ -350,49 +360,93 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                 Log.e("tag","gg"+glocation);
                 Log.e("tag","gg"+location);
                 iko=1;
+
+                LatLng mapCenter = new LatLng(location.getLatitude(), location.getLongitude());
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCenter, 10.5f));
+                // Flat markers will rotate when the map is rotated,
+                // and change perspective when the map is tilted.
+                googleMap.addMarker(new MarkerOptions()
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_truck2))
+                        .position(mapCenter)
+                        .flat(true)
+                        .rotation(-50));
+                CameraPosition cameraPosition = CameraPosition.builder()
+                        .target(mapCenter)
+                        .zoom(10.5f)
+                        .build();
+                // Animate the change in camera view over 2 seconds
+                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
+                        2000, null);
             }
-            if((glocation.getLatitude() != location.getLatitude()) || (glocation.getLongitude() != location.getLongitude())) {
-                glocation = location;
-                Log.e("tag", "map location changed" + location);
-                Toast.makeText(getApplicationContext(), "Map location Changed"+location.getLatitude()+"\t"+location.getLongitude(), Toast.LENGTH_LONG).show();
-                LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
-                //googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 10.5f));
 
-                current_lati = location.getLatitude();
-                current_longi = location.getLongitude();
+            Log.e("tag", "map chang called" + location);
+
+           // if(fl_map_frame.getVisibility()== View.VISIBLE) {
+                if ((glocation.getLatitude() != location.getLatitude()) || (glocation.getLongitude() != location.getLongitude())) {
+                    glocation = location;
+                    Log.e("tag", "map location changed" + location);
+                    Toast.makeText(getApplicationContext(), "Map location Changed" + location.getLatitude() + "\t" + location.getLongitude(), Toast.LENGTH_LONG).show();
+                    LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
+                    //googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 10.5f));
+
+                    current_lati = location.getLatitude();
+                    current_longi = location.getLongitude();
 
 
-                float[] results = new float[1];
-                Location.distanceBetween(current_lati, current_longi, cus_latitude , cus_longitude, results);
+                    float[] results = new float[1];
+                    Location.distanceBetween(current_lati, current_longi, cus_latitude, cus_longitude, results);
 
 
-                Log.e("tag","res is: "+results[0]/1000+" km");
+                    Log.e("tag", "res is: " + results[0] / 1000 + " km");
 
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("latitude", String.valueOf(current_lati));
-                map.put("longitude", String.valueOf(current_longi));
-                reference1.push().setValue(map);
-                reference2.push().setValue(map);
 
-                new updateLocation().execute();
 
-                if(fl_map_frame.getVisibility()== View.VISIBLE){
 
-                    dist_Between = location.distanceTo(customerLocation);
 
-                    Log.e("tag","distance is: "+ dist_Between/1000 +" km");
+                    if (fl_map_frame.getVisibility() == View.VISIBLE) {
 
-                    String str_origin = "origin=" + location.getLatitude() + "," + location.getLongitude();
-                    String str_dest = "destination=" + cus_latitude + "," + cus_longitude;
-                    String sensor = "sensor=false";
-                    String parameters = str_origin + "&" + str_dest + "&" + sensor;
-                    String output = "json";
-                    String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
-                    DownloadTask downloadTask = new DownloadTask();
-                    downloadTask.execute(url);
 
+                        Map<String, String> map = new HashMap<String, String>();
+                        map.put("latitude", String.valueOf(current_lati));
+                        map.put("longitude", String.valueOf(current_longi));
+                        reference1.push().setValue(map);
+
+                        LatLng mapCenter = new LatLng(location.getLatitude(), location.getLongitude());
+
+                        new updateLocation().execute();
+
+                        dist_Between = location.distanceTo(customerLocation);
+
+                        googleMap.clear();
+
+                        Log.e("tag", "distance is: " + dist_Between / 1000 + " km");
+
+                        String str_origin = "origin=" + location.getLatitude() + "," + location.getLongitude();
+                        String str_dest = "destination=" + cus_latitude + "," + cus_longitude;
+                        String sensor = "sensor=false";
+                        String parameters = str_origin + "&" + str_dest + "&" + sensor;
+                        String output = "json";
+                        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
+                        DownloadTask downloadTask = new DownloadTask();
+                        downloadTask.execute(url);
+
+                        googleMap.addMarker(new MarkerOptions().position(new LatLng(cus_latitude, cus_longitude)).icon(BitmapDescriptorFactory.fromResource(R.drawable.delivery_addr_tracking)));
+
+                        googleMap.addMarker(new MarkerOptions()
+                                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_truck2))
+                                .position(mapCenter)
+                                .flat(true)
+                                .rotation(-50));
+                        //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCenter, 10.5f));
+
+                        midPoint(location.getLatitude(),location.getLongitude(),cus_latitude,cus_longitude);
+
+                    }
                 }
-            }
+           // }
+
+
+
 
         }
     };
@@ -497,10 +551,13 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
 
                         googleMap.addMarker(new MarkerOptions().position(new LatLng(cus_latitude, cus_longitude)).icon(BitmapDescriptorFactory.fromResource(R.drawable.delivery_addr_tracking)));
                         Location myLocation = googleMap.getMyLocation();
-                        current_lati = myLocation.getLatitude();
-                        current_longi = myLocation.getLongitude();
-                        Log.e("tag", "cc000:" + current_lati);
-                        Log.e("tag", "c0c:00" + current_longi);
+                        if(myLocation != null) {
+                            current_lati = myLocation.getLatitude();
+                            current_longi = myLocation.getLongitude();
+                            Log.e("tag", "cc000:" + current_lati);
+                            Log.e("tag", "c0c:00" + current_longi);
+                        }
+
                         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
                         Criteria criteria = new Criteria();
                         String provider = locationManager.getBestProvider(criteria, false);
@@ -517,13 +574,20 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                         String str_origin = "origin=" + current_lati + "," + current_longi;
                         String str_dest = "destination=" + cus_latitude + "," + cus_longitude;
                         String sensor = "sensor=false";
-                        String parameters = str_origin + "&" + str_dest + "&" + sensor;
+                       String parameters = str_origin + "&" + str_dest + "&" + sensor;
                         String output = "json";
                         String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
                         DownloadTask downloadTask = new DownloadTask();
                         downloadTask.execute(url);
+
+                      /*  googleMap.addPolyline(new PolylineOptions().geodesic(true)
+                                        .add(new LatLng(current_lati, current_longi))  // Sydney
+                                        .add(new LatLng(cus_latitude, cus_longitude))  // Mountain View
+                        );*/
                        // googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(cus_latitude, cus_longitude), 10.5f));
                         midPoint(current_lati,current_longi,cus_latitude,cus_longitude);
+
+
 
 
                     }
@@ -657,7 +721,22 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
         Toast.makeText(getApplicationContext(),"mid POint"+lat+lon,Toast.LENGTH_LONG).show();
         mid_lati = Math.toDegrees(lat);
         mid_longi = Math.toDegrees(lon);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mid_lati, mid_longi), 10.5f));
+
+
+    //    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mid_lati, mid_longi), 10.5f));
+
+
+        LatLng mapCenter1 = new LatLng(mid_lati,mid_longi);
+
+        CameraPosition cameraPosition = CameraPosition.builder()
+                .target(mapCenter1)
+                .zoom(10.5f)
+                .build();
+        // Animate the change in camera view over 2 seconds
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
+                2000, null);
+
+
     }
 
     private class DownloadTask extends AsyncTask<String, Void, String> {
@@ -718,6 +797,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
         protected void onPostExecute(List<List<HashMap<String, String>>> result) {
             ArrayList<LatLng> points = null;
             PolylineOptions lineOptions = null;
+            Polyline polyline;
             MarkerOptions markerOptions = new MarkerOptions();
 
             // Traversing through all the routes
@@ -748,7 +828,10 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                 }
 
                 // Drawing polyline in the Google Map for the i-th route
-                googleMap.addPolyline(lineOptions);
+               polyline =  googleMap.addPolyline(lineOptions);
+                polyline.remove();
+                polyline =  googleMap.addPolyline(lineOptions);
+
             }
         }
     }

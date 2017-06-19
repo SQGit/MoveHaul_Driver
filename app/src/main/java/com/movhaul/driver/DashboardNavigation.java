@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -118,16 +119,20 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
                 Log.e("tag_broad_0", "as: " + str_lati + str_longi + "adr:" + str_address + "loc:" + str_locality);
 
+                new updateLocation().execute();
+
+                Toast.makeText(getApplicationContext(), R.string.update, Toast.LENGTH_SHORT).show();
+
 
             } catch (Exception e) {
                 Log.e("tag", "er:" + e.toString());
+                Toast.makeText(getApplicationContext(), "Network Err", Toast.LENGTH_SHORT).show();
             }
 
 
 
-            new updateLocation().execute();
 
-           // Toast.makeText(getApplicationContext(), R.string.update, Toast.LENGTH_LONG).show();
+
 
 
         }
@@ -162,6 +167,15 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         }
     }
 
+
+   /* @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        str_active="inactive";
+        new updateLocation().execute();
+        editor.putString("driver_status", str_active);
+        editor.commit();
+    }*/
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -379,7 +393,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     }
                 } else {
                     str_active = "inactive";
-                    editor.putString(" ", str_active);
+                    editor.putString("driver_status", str_active);
                     editor.commit();
                 }
 
@@ -411,7 +425,11 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
             @Override
             public void onClick(View view) {
 
+                str_active = "inactive";
                 if (exit_status == 0) {
+
+
+                    new updateLocation().execute();
 
                     editor.putString("login", "");
                     editor.clear();
@@ -419,12 +437,17 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
                     dialog1.dismiss();
 
+
                     Intent i = new Intent(DashboardNavigation.this, LoginActivity.class);
                     startActivity(i);
                     finishAffinity();
 
 
                 } else if (exit_status == 1) {
+                    new updateLocation().execute();
+                    editor.putString("driver_status", str_active);
+                    editor.commit();
+
                     finishAffinity();
                     dialog1.dismiss();
                 }
@@ -488,10 +511,12 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                             try {
                                 isRegistered = false;
                                 DashboardNavigation.this.unregisterReceiver(DashboardNavigation.this.getLocation_Receiver);
+
                             } catch (Exception e) {
                                 Log.e("tag", "er1:" + e.toString());
                             }
                             new updateLocation().execute();
+
                         }
                     }
                 }
@@ -515,8 +540,14 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     snackbart.show();
                 } else {
                     //stss = 0;
-                    Intent goProfile = new Intent(getApplicationContext(), MyTrips.class);
-                    startActivity(goProfile);
+                    if(sharedPreferences.getString("driver_status","").equals("active")) {
+                        Intent goProfile = new Intent(getApplicationContext(), MyTrips.class);
+                        startActivity(goProfile);
+                    }
+                    else{
+                        snackbar2.show();
+                        tv_snack2.setText("Please Be Active to get MyTrips");
+                    }
                 }
                 drawer.closeDrawer(Gravity.LEFT);
             }
@@ -574,6 +605,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                 drawer.closeDrawer(Gravity.LEFT);
             }
         });
+
 
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
@@ -790,6 +822,10 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                                 + addresses.get(0).getSubLocality() + "\n subadmin: " + addresses.get(0).getSubAdminArea()
                                 + "\n premisis: " + addresses.get(0).getPremises() + "\n postal " + addresses.get(0).getPostalCode());
 
+                        new updateLocation().execute();
+
+                        Toast.makeText(getApplicationContext(),"Location Update",Toast.LENGTH_SHORT).show();
+
                         Log.e("tag", "esse:" + str_lati + "aa:" + str_longi + "bb:" + str_locality + "cc:" + str_address);
 
 
@@ -798,7 +834,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     }
 
 
-                    new updateLocation().execute();
+
                 }
 
             } else {

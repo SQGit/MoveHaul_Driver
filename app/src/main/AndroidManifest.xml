@@ -113,6 +113,9 @@
         </receiver>
 
 
+        <service android:name=".LocationService" android:process=":my_service" />
+
+
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyB3u9CwWcO8J0dS9GXTR19Z9N5dhmzEK-s" />
