@@ -536,6 +536,9 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                     @Override
                     public void onClick(View view) {
 
+
+                        reference1.removeValue();
+
                         fl_map_frame.setVisibility(View.VISIBLE);
                         tabStrip.getChildAt(1).setClickable(false);
                       //  btn_back.setVisibility(View.GONE);
@@ -1006,6 +1009,68 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                 jsonObject.accumulate("booking_id", booking_id);
                 json = jsonObject.toString();
                 return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + "truckdriver/finishjob", json, id, token);
+
+            } catch (Exception e) {
+                Log.e("InputStream", e.getLocalizedMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.e("tag", "tag_driver" + s);
+            mProgressDialog.dismiss();
+
+
+            if (s != null) {
+                try {
+                    JSONObject jo = new JSONObject(s);
+                    String status = jo.getString("status");
+                    // String msg = jo.getString("message");
+                    Log.d("tag", "<-----Status----->" + status);
+                    if (status.equals("true")) {
+
+                        finish();
+
+                    } else if (status.equals("false")) {
+
+                        Log.e("tag", "Location not updated");
+                        //has to check internet and location...
+
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e("tag", "nt" + e.toString());
+                    // Toast.makeText(getApplicationContext(),"Network Errror0",Toast.LENGTH_LONG).show();
+                }
+            } else {
+                // Toast.makeText(getApplicationContext(),"Network Errror1",Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
+
+    public class start_job extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressDialog.show();
+            Log.e("tag", "reg_preexe_driv" + booking_id);
+
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String json = "", jsonStr = "";
+            try {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.accumulate("booking_id", booking_id);
+                json = jsonObject.toString();
+                return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + "truckdriver/startjob", json, id, token);
 
             } catch (Exception e) {
                 Log.e("InputStream", e.getLocalizedMessage());
