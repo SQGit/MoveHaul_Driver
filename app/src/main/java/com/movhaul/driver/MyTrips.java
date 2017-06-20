@@ -265,7 +265,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
         btn_stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                new finish_job().execute();
 
                 reference1.removeValue();
                 if(dist_Between <5) {
@@ -539,7 +539,9 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
 
                         reference1.removeValue();
 
-                        //new start_job().execute();
+                        booking_id = mv_datas.getBooking_id();
+
+                        new start_job().execute();
 
                         fl_map_frame.setVisibility(View.VISIBLE);
                         tabStrip.getChildAt(1).setClickable(false);
@@ -899,7 +901,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                                 String customer_longitude = jos.getString("drop_longitude");
                                 String customer_phone = jos.getString("customer_mobile");
                                 String customer_image = jos.getString("customer_image");
-                                String booking_id = jos.getString("booking_id");
+                                String sbooking_id = jos.getString("booking_id");
                                 String job_cost = jos.getString("job_cost");
                                 String goods_type = jos.getString("goods_type");
                                 String receiver_name = jos.getString("receiver_name");
@@ -923,7 +925,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                                 mv_datas.setPickup(pickup_location);
                                 mv_datas.setDrop(drop_location);
                                 mv_datas.setDelivery(delivery_address);
-                                mv_datas.setBooking_id(booking_id);
+                                mv_datas.setBooking_id(sbooking_id);
                                 mv_datas.setJob_cost(job_cost);
                                 mv_datas.setGoods_type(goods_type);
                                 mv_datas.setCustomer_img(customer_image);
@@ -1070,6 +1072,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
             String json = "", jsonStr = "";
             try {
                 JSONObject jsonObject = new JSONObject();
+                Log.e("tag","b: " +booking_id);
                 jsonObject.accumulate("booking_id", booking_id);
                 json = jsonObject.toString();
                 return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + "truckdriver/jobstart", json, id, token);
@@ -1096,7 +1099,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                     Log.d("tag", "<-----Status----->" + status);
                     if (status.equals("true")) {
 
-                        finish();
+                       // finish();
 
                     } else if (status.equals("false")) {
 
