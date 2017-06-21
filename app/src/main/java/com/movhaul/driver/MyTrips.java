@@ -265,19 +265,16 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
         btn_stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new finish_job().execute();
+              //  new finish_job().execute();
 
-                reference1.removeValue();
-                if(dist_Between <5) {
 
+                if(dist_Between >5) {
+                    Toast.makeText(getApplicationContext(),"Customer Location is Too Far",Toast.LENGTH_LONG).show();                }
+
+                    reference1.removeValue();
                     fl_map_frame.setVisibility(View.GONE);
                     googleMap.setOnMyLocationChangeListener(null);
 
-                 //   new finish_job().execute();
-                }
-                else{
-                    Toast.makeText(getApplicationContext(),"Customer Location is Too Far",Toast.LENGTH_LONG).show();
-                }
             }
         });
 
