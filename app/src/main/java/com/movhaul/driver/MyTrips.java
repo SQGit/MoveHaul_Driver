@@ -26,7 +26,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -34,21 +33,15 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.firebase.client.ChildEventListener;
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -63,8 +56,6 @@ import com.ramotion.foldingcell.FoldingCell;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.LinearLayout;
 import com.rey.material.widget.ListView;
-import com.rey.material.widget.TabIndicatorView;
-import com.rey.material.widget.TabPageIndicator;
 import com.sloop.fonts.FontsManager;
 
 import org.json.JSONArray;
@@ -89,9 +80,10 @@ import java.util.Map;
 public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, com.google.android.gms.location.LocationListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
     public int i;
+    public double cus_latitude, cus_longitude, current_lati, current_longi, mid_lati, mid_longi;
     LinearLayout btn_back;
     android.widget.LinearLayout lt_nearby;
-    Button  btn_confirm;
+    Button btn_confirm;
     ImageView btn_close;
     Dialog dialog1;
     Typeface tf;
@@ -115,23 +107,13 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
     GoogleMap googleMap = null;
     FrameLayout fl_map_frame;
     Button btn_stop;
-    public double cus_latitude, cus_longitude, current_lati, current_longi,mid_lati,mid_longi;
-    private ViewPager viewPager;
-    private int[] layouts;
-    private MyViewPagerAdapter myViewPagerAdapter;
-    Location glocation,customerLocation =null;
+    Location glocation, customerLocation = null;
     float dist_Between;
     int iko;
     String driver_name;
     Marker truck_marker;
-
-    android.widget.LinearLayout tabStrip= null;
-
-
+    android.widget.LinearLayout tabStrip = null;
     Firebase reference1;
-
-
-
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
 
         @Override
@@ -163,6 +145,102 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
 
 
     };
+    GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
+        @Override
+        public void onMyLocationChange(Location location) {
+            if (iko == 0) {
+                glocation = location;
+                Log.e("tag", "gg" + glocation);
+                Log.e("tag", "gg" + location);
+                iko = 1;
+
+                LatLng mapCenter = new LatLng(location.getLatitude(), location.getLongitude());
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCenter, 10.5f));
+                // Flat markers will rotate when the map is rotated,
+                // and change perspective when the map is tilted.
+                googleMap.addMarker(new MarkerOptions()
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_truck2))
+                        .position(mapCenter)
+                        .flat(true)
+                        .rotation(-50));
+                CameraPosition cameraPosition = CameraPosition.builder()
+                        .target(mapCenter)
+                        .zoom(10.5f)
+                        .build();
+                // Animate the change in camera view over 2 seconds
+                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
+                        2000, null);
+            }
+
+            // Log.e("tag", "map chang called" + location);
+
+            // if(fl_map_frame.getVisibility()== View.VISIBLE) {
+            if ((glocation.getLatitude() != location.getLatitude()) || (glocation.getLongitude() != location.getLongitude())) {
+                glocation = location;
+                Log.e("tag", "map location changed" + location);
+                // Toast.makeText(getApplicationContext(), "Map location Changed" + location.getLatitude() + "\t" + location.getLongitude(), Toast.LENGTH_LONG).show();
+                LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
+                //googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 10.5f));
+
+                current_lati = location.getLatitude();
+                current_longi = location.getLongitude();
+
+
+                float[] results = new float[1];
+                Location.distanceBetween(current_lati, current_longi, cus_latitude, cus_longitude, results);
+
+
+                //  Log.e("tag", "res is: " + results[0] / 1000 + " km");
+
+
+                if (fl_map_frame.getVisibility() == View.VISIBLE) {
+
+
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("latitude", String.valueOf(current_lati));
+                    map.put("longitude", String.valueOf(current_longi));
+                    reference1.push().setValue(map);
+
+                    LatLng mapCenter = new LatLng(location.getLatitude(), location.getLongitude());
+
+                    new updateLocation().execute();
+
+                    dist_Between = location.distanceTo(customerLocation);
+
+                    googleMap.clear();
+
+                    Log.e("tag", "distance is: " + dist_Between / 1000 + " km");
+
+                    String str_origin = "origin=" + location.getLatitude() + "," + location.getLongitude();
+                    String str_dest = "destination=" + cus_latitude + "," + cus_longitude;
+                    String sensor = "sensor=false";
+                    String parameters = str_origin + "&" + str_dest + "&" + sensor;
+                    String output = "json";
+                    String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
+                    DownloadTask downloadTask = new DownloadTask();
+                    downloadTask.execute(url);
+
+                    googleMap.addMarker(new MarkerOptions().position(new LatLng(cus_latitude, cus_longitude)).icon(BitmapDescriptorFactory.fromResource(R.drawable.delivery_addr_tracking)));
+
+                    googleMap.addMarker(new MarkerOptions()
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_truck2))
+                            .position(mapCenter)
+                            .flat(true)
+                            .rotation(-50));
+                    //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCenter, 10.5f));
+
+                    midPoint(location.getLatitude(), location.getLongitude(), cus_latitude, cus_longitude);
+
+                }
+            }
+            // }
+
+
+        }
+    };
+    private ViewPager viewPager;
+    private int[] layouts;
+    private MyViewPagerAdapter myViewPagerAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -178,8 +256,6 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
             public void onClick(View view) {
                 Intent i = new Intent(MyTrips.this, DashboardNavigation.class);
                 startActivity(i);
-
-
 
 
                 finish();
@@ -209,7 +285,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
         token = sharedPreferences.getString("token", "");
         vec_type = sharedPreferences.getString("vec_type", "");
 
-        driver_name = sharedPreferences.getString("driver_name","");
+        driver_name = sharedPreferences.getString("driver_name", "");
 
         if (vec_type.equals("Bus")) {
             url_service = "busdriver/jobhistory";
@@ -218,10 +294,6 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
         } else {
             url_service = "assistance/jobhistory";
         }
-
-
-
-
 
 
         mProgressDialog = new ProgressDialog(MyTrips.this);
@@ -244,13 +316,6 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
         reference1 = new Firebase("https://movehaul-147509.firebaseio.com/driver_track/" + driver_name);
 
 
-
-
-
-
-
-
-
         fl_map_frame = (FrameLayout) findViewById(R.id.map_frame);
         fl_map_frame.setVisibility(View.GONE);
         btn_stop = (Button) findViewById(R.id.button_stop);
@@ -265,15 +330,17 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
         btn_stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  new finish_job().execute();
+                //  new finish_job().execute();
 
 
-                if(dist_Between >5) {
-                    Toast.makeText(getApplicationContext(),"Customer Location is Too Far",Toast.LENGTH_LONG).show();                }
+                if (dist_Between > 5) {
+                    Toast.makeText(getApplicationContext(), "Customer Location is Too Far", Toast.LENGTH_LONG).show();
+                }
 
-                    reference1.removeValue();
-                    fl_map_frame.setVisibility(View.GONE);
-                    googleMap.setOnMyLocationChangeListener(null);
+                reference1.removeValue();
+                new finish_job().execute();
+                fl_map_frame.setVisibility(View.GONE);
+                googleMap.setOnMyLocationChangeListener(null);
 
             }
         });
@@ -321,14 +388,15 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
     public void onMapReady(GoogleMap googleMap) {
 
         this.googleMap = googleMap;
-        Log.e("tag","map_created");
+        Log.e("tag", "map_created");
         googleMap.setOnMyLocationChangeListener(myLocationChangeListener);
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;       }
+            return;
+        }
         googleMap.setMyLocationEnabled(true);
         googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-       // googleMap.animateCamera(CameraUpdateFactory.zoomTo(9.0f));
+        // googleMap.animateCamera(CameraUpdateFactory.zoomTo(9.0f));
         googleMap.getUiSettings().setZoomControlsEnabled(true);
 
 
@@ -344,114 +412,12 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
         }
 
 
-
-
-
     }
-
-    GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
-        @Override
-        public void onMyLocationChange (Location location) {
-            if(iko==0) {
-                glocation = location;
-                Log.e("tag","gg"+glocation);
-                Log.e("tag","gg"+location);
-                iko=1;
-
-                LatLng mapCenter = new LatLng(location.getLatitude(), location.getLongitude());
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCenter, 10.5f));
-                // Flat markers will rotate when the map is rotated,
-                // and change perspective when the map is tilted.
-                googleMap.addMarker(new MarkerOptions()
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_truck2))
-                        .position(mapCenter)
-                        .flat(true)
-                        .rotation(-50));
-                CameraPosition cameraPosition = CameraPosition.builder()
-                        .target(mapCenter)
-                        .zoom(10.5f)
-                        .build();
-                // Animate the change in camera view over 2 seconds
-                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
-                        2000, null);
-            }
-
-            Log.e("tag", "map chang called" + location);
-
-           // if(fl_map_frame.getVisibility()== View.VISIBLE) {
-                if ((glocation.getLatitude() != location.getLatitude()) || (glocation.getLongitude() != location.getLongitude())) {
-                    glocation = location;
-                    Log.e("tag", "map location changed" + location);
-                    Toast.makeText(getApplicationContext(), "Map location Changed" + location.getLatitude() + "\t" + location.getLongitude(), Toast.LENGTH_LONG).show();
-                    LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
-                    //googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 10.5f));
-
-                    current_lati = location.getLatitude();
-                    current_longi = location.getLongitude();
-
-
-                    float[] results = new float[1];
-                    Location.distanceBetween(current_lati, current_longi, cus_latitude, cus_longitude, results);
-
-
-                    Log.e("tag", "res is: " + results[0] / 1000 + " km");
-
-
-
-
-
-                    if (fl_map_frame.getVisibility() == View.VISIBLE) {
-
-
-                        Map<String, String> map = new HashMap<String, String>();
-                        map.put("latitude", String.valueOf(current_lati));
-                        map.put("longitude", String.valueOf(current_longi));
-                        reference1.push().setValue(map);
-
-                        LatLng mapCenter = new LatLng(location.getLatitude(), location.getLongitude());
-
-                        new updateLocation().execute();
-
-                        dist_Between = location.distanceTo(customerLocation);
-
-                        googleMap.clear();
-
-                        Log.e("tag", "distance is: " + dist_Between / 1000 + " km");
-
-                        String str_origin = "origin=" + location.getLatitude() + "," + location.getLongitude();
-                        String str_dest = "destination=" + cus_latitude + "," + cus_longitude;
-                        String sensor = "sensor=false";
-                        String parameters = str_origin + "&" + str_dest + "&" + sensor;
-                        String output = "json";
-                        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
-                        DownloadTask downloadTask = new DownloadTask();
-                        downloadTask.execute(url);
-
-                        googleMap.addMarker(new MarkerOptions().position(new LatLng(cus_latitude, cus_longitude)).icon(BitmapDescriptorFactory.fromResource(R.drawable.delivery_addr_tracking)));
-
-                        googleMap.addMarker(new MarkerOptions()
-                                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_truck2))
-                                .position(mapCenter)
-                                .flat(true)
-                                .rotation(-50));
-                        //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCenter, 10.5f));
-
-                        midPoint(location.getLatitude(),location.getLongitude(),cus_latitude,cus_longitude);
-
-                    }
-                }
-           // }
-
-
-
-
-        }
-    };
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Log.e("tag", "connected" + bundle);
-        Toast.makeText(getApplicationContext(),"map connected",Toast.LENGTH_LONG).show();
+        // Toast.makeText(getApplicationContext(),"map connected",Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -467,7 +433,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
     @Override
     public void onLocationChanged(Location location) {
         Log.e("tag", "location_changed" + location);
-        Toast.makeText(getApplicationContext(),"Onlocation Changed",Toast.LENGTH_LONG).show();
+        //  Toast.makeText(getApplicationContext(),"Onlocation Changed",Toast.LENGTH_LONG).show();
 
     }
 
@@ -509,6 +475,43 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
         return data;
     }
 
+    public void midPoint(double lat1, double lon1, double lat2, double lon2) {
+
+        double dLon = Math.toRadians(lon2 - lon1);
+
+        //convert to radians
+        lat1 = Math.toRadians(lat1);
+        lat2 = Math.toRadians(lat2);
+        lon1 = Math.toRadians(lon1);
+
+        double Bx = Math.cos(lat2) * Math.cos(dLon);
+        double By = Math.cos(lat2) * Math.sin(dLon);
+        double lat = Math.atan2(Math.sin(lat1) + Math.sin(lat2), Math.sqrt((Math.cos(lat1) + Bx) * (Math.cos(lat1) + Bx) + By * By));
+        double lon = lon1 + Math.atan2(By, Math.cos(lat1) + Bx);
+
+        //print out in degrees
+        System.out.println(Math.toDegrees(lat) + " " + Math.toDegrees(lon));
+        //Toast.makeText(getApplicationContext(),"mid POint"+lat+lon,Toast.LENGTH_LONG).show();
+        mid_lati = Math.toDegrees(lat);
+        mid_longi = Math.toDegrees(lon);
+
+
+        //    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mid_lati, mid_longi), 10.5f));
+
+
+        LatLng mapCenter1 = new LatLng(mid_lati, mid_longi);
+
+        /*CameraPosition cameraPosition = CameraPosition.builder()
+                .target(mapCenter1)
+                .zoom(10.5f)
+                .build();
+        // Animate the change in camera view over 2 seconds
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
+                2000, null);*/
+
+
+    }
+
     public class MyViewPagerAdapter extends PagerAdapter {
         private LayoutInflater layoutInflater;
 
@@ -542,20 +545,19 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
 
                         fl_map_frame.setVisibility(View.VISIBLE);
                         tabStrip.getChildAt(1).setClickable(false);
-                      //  btn_back.setVisibility(View.GONE);
+                        //  btn_back.setVisibility(View.GONE);
                         cus_latitude = Double.valueOf(mv_datas.getCus_latitude());
                         cus_longitude = Double.valueOf(mv_datas.getCus_longitude());
 
                         customerLocation = new Location(LocationManager.GPS_PROVIDER);
 
                         customerLocation.setLatitude(Double.valueOf(mv_datas.getCus_latitude()));
-                        customerLocation.setLongitude( Double.valueOf(mv_datas.getCus_longitude()));
-
+                        customerLocation.setLongitude(Double.valueOf(mv_datas.getCus_longitude()));
 
 
                         googleMap.addMarker(new MarkerOptions().position(new LatLng(cus_latitude, cus_longitude)).icon(BitmapDescriptorFactory.fromResource(R.drawable.delivery_addr_tracking)));
                         Location myLocation = googleMap.getMyLocation();
-                        if(myLocation != null) {
+                        if (myLocation != null) {
                             current_lati = myLocation.getLatitude();
                             current_longi = myLocation.getLongitude();
                             Log.e("tag", "cc000:" + current_lati);
@@ -567,7 +569,8 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                         String provider = locationManager.getBestProvider(criteria, false);
                         if (ActivityCompat.checkSelfPermission(MyTrips.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MyTrips.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                             Log.e("tag", "no permission");
-                            return;                        }
+                            return;
+                        }
                         Location myLocation1 = locationManager.getLastKnownLocation(provider);
                         if (myLocation1 != null) {
                             current_lati = myLocation1.getLatitude();
@@ -578,20 +581,27 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                         String str_origin = "origin=" + current_lati + "," + current_longi;
                         String str_dest = "destination=" + cus_latitude + "," + cus_longitude;
                         String sensor = "sensor=false";
-                       String parameters = str_origin + "&" + str_dest + "&" + sensor;
+                        String parameters = str_origin + "&" + str_dest + "&" + sensor;
                         String output = "json";
                         String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
                         DownloadTask downloadTask = new DownloadTask();
                         downloadTask.execute(url);
 
+                        LatLng mapCenter1 = new LatLng(current_lati, current_longi);
+
+                        CameraPosition cameraPosition = CameraPosition.builder()
+                                .target(mapCenter1)
+                                .build();
+                        // Animate the change in camera view over 2 seconds
+                        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
+                                2000, null);
+
                       /*  googleMap.addPolyline(new PolylineOptions().geodesic(true)
                                         .add(new LatLng(current_lati, current_longi))  // Sydney
                                         .add(new LatLng(cus_latitude, cus_longitude))  // Mountain View
                         );*/
-                       // googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(cus_latitude, cus_longitude), 10.5f));
-                        midPoint(current_lati,current_longi,cus_latitude,cus_longitude);
-
-
+                        // googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(cus_latitude, cus_longitude), 10.5f));
+                        midPoint(current_lati, current_longi, cus_latitude, cus_longitude);
 
 
                     }
@@ -644,8 +654,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                 tv_cr_cu_phone.setText(mv_datas.getCustomer_number());
 
 
-            }
-            else if (position == 1) {
+            } else if (position == 1) {
 
 
                 android.widget.ListView up_lview;
@@ -702,43 +711,6 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
 
             return title;
         }
-
-
-    }
-
-    public  void midPoint(double lat1,double lon1,double lat2,double lon2){
-
-        double dLon = Math.toRadians(lon2 - lon1);
-
-        //convert to radians
-        lat1 = Math.toRadians(lat1);
-        lat2 = Math.toRadians(lat2);
-        lon1 = Math.toRadians(lon1);
-
-        double Bx = Math.cos(lat2) * Math.cos(dLon);
-        double By = Math.cos(lat2) * Math.sin(dLon);
-        double lat = Math.atan2(Math.sin(lat1) + Math.sin(lat2), Math.sqrt((Math.cos(lat1) + Bx) * (Math.cos(lat1) + Bx) + By * By));
-        double lon = lon1 + Math.atan2(By, Math.cos(lat1) + Bx);
-
-        //print out in degrees
-        System.out.println(Math.toDegrees(lat) + " " + Math.toDegrees(lon));
-        Toast.makeText(getApplicationContext(),"mid POint"+lat+lon,Toast.LENGTH_LONG).show();
-        mid_lati = Math.toDegrees(lat);
-        mid_longi = Math.toDegrees(lon);
-
-
-    //    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mid_lati, mid_longi), 10.5f));
-
-
-        LatLng mapCenter1 = new LatLng(mid_lati,mid_longi);
-
-        CameraPosition cameraPosition = CameraPosition.builder()
-                .target(mapCenter1)
-                .zoom(10.5f)
-                .build();
-        // Animate the change in camera view over 2 seconds
-        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
-                2000, null);
 
 
     }
@@ -832,9 +804,9 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                 }
 
                 // Drawing polyline in the Google Map for the i-th route
-               polyline =  googleMap.addPolyline(lineOptions);
+                polyline = googleMap.addPolyline(lineOptions);
                 polyline.remove();
-                polyline =  googleMap.addPolyline(lineOptions);
+                polyline = googleMap.addPolyline(lineOptions);
 
             }
         }
@@ -905,7 +877,6 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                                 String receiver_phone = jos.getString("receiver_phone");
 
 
-
                                 //2016\/12\/08 T 18:12
 
                                 String[] parts = booking_time.trim().split("T");
@@ -945,7 +916,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                             viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
                             tl_indicator.setupWithViewPager(viewPager);
 
-                            tabStrip = ((android.widget.LinearLayout)tl_indicator.getChildAt(0));
+                            tabStrip = ((android.widget.LinearLayout) tl_indicator.getChildAt(0));
 
 
                            /* for(int i = 0; i < tabStrip.getChildCount(); i++) {
@@ -1069,7 +1040,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
             String json = "", jsonStr = "";
             try {
                 JSONObject jsonObject = new JSONObject();
-                Log.e("tag","b: " +booking_id);
+                Log.e("tag", "b: " + booking_id);
                 jsonObject.accumulate("booking_id", booking_id);
                 json = jsonObject.toString();
                 return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + "truckdriver/jobstart", json, id, token);
@@ -1096,7 +1067,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                     Log.d("tag", "<-----Status----->" + status);
                     if (status.equals("true")) {
 
-                       // finish();
+                        // finish();
 
                     } else if (status.equals("false")) {
 
@@ -1139,7 +1110,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                 jsonObject.accumulate("driver_latitude", current_lati);
                 jsonObject.accumulate("driver_longitude", current_longi);
                 //jsonObject.accumulate("driver_locality1", str_locality);
-               // jsonObject.accumulate("driver_locality2", str_address);
+                // jsonObject.accumulate("driver_locality2", str_address);
                 json = jsonObject.toString();
                 return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + "truckdriver/location", json, id, token);
             } catch (Exception e) {

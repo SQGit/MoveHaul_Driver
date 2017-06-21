@@ -121,12 +121,12 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
                 new updateLocation().execute();
 
-                Toast.makeText(getApplicationContext(), R.string.update, Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getApplicationContext(), R.string.update, Toast.LENGTH_SHORT).show();
 
 
             } catch (Exception e) {
                 Log.e("tag", "er:" + e.toString());
-                Toast.makeText(getApplicationContext(), "Network Err", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getApplicationContext(), "Network Err", Toast.LENGTH_SHORT).show();
             }
 
 
@@ -824,7 +824,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
                         new updateLocation().execute();
 
-                        Toast.makeText(getApplicationContext(),"Location Update",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(),"Location Update",Toast.LENGTH_SHORT).show();
 
                         Log.e("tag", "esse:" + str_lati + "aa:" + str_longi + "bb:" + str_locality + "cc:" + str_address);
 
