@@ -546,7 +546,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     }
                     else{
                         snackbar2.show();
-                        tv_snack2.setText("Please Be Active to get MyTrips");
+                        tv_snack2.setText(R.string.azs);
                     }
                 }
                 drawer.closeDrawer(Gravity.LEFT);

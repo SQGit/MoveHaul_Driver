@@ -121,7 +121,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
 
         snackbar = Snackbar
-                .make(findViewById(R.id.top), "Network Error! Please Try Again Later.", Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.top), R.string.network, Snackbar.LENGTH_LONG);
         View sbView = snackbar.getView();
         tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
         tv_snack.setTextColor(Color.WHITE);
@@ -129,7 +129,7 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
         if (!config.isConnected(LoginOtpActivity.this)) {
             snackbar.show();
-            tv_snack.setText("Please Connect Internet and Try again");
+            tv_snack.setText(R.string.connect);
         }
 
 
@@ -595,13 +595,13 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
 
                         if (msg.contains("Authentication failed.Wrong Password")) {
 
-                            tv_snack.setText("Otp Failed. Try Again Later");
+                            tv_snack.setText(R.string.ax);
                             snackbar.show();
 
 
                         } else {
 
-                            tv_snack.setText("Network Error Please Try again Later.");
+                            tv_snack.setText(R.string.network);
                             snackbar.show();
                         }
 

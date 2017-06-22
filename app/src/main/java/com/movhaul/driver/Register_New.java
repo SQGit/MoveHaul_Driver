@@ -527,18 +527,18 @@ public class Register_New extends AppCompatActivity {
                                         lt_first.setVisibility(View.GONE);
                                         lt_second.setVisibility(View.VISIBLE);
                                         btn_submit.setText("Register");
-                                        tv_header_txt.setText("Business Info");
+                                        tv_header_txt.setText(R.string.zcw);
 
                                     } else {
                                         snackbar.show();
-                                        tv_snack.setText("Enter Experience");
+                                        tv_snack.setText(R.string.adxz);
 
                                     }
 
                                 } else {
 
                                     snackbar.show();
-                                    tv_snack.setText("Enter Valid Address");
+                                    tv_snack.setText(R.string.zxa);
                                     et_address.requestFocus();
 
 
@@ -589,19 +589,19 @@ public class Register_New extends AppCompatActivity {
                                     }
                                 } else {
                                     snackbar.show();
-                                    tv_snack.setText("Enter Local Government");
+                                    tv_snack.setText(R.string.acxz);
                                 }
                             } else {
                                 snackbar.show();
-                                tv_snack.setText("Enter Service Areas");
+                                tv_snack.setText(R.string.cza);
                             }
                         } else {
                             snackbar.show();
-                            tv_snack.setText("Enter Primary Route Coverage");
+                            tv_snack.setText(R.string.zxwa);
                         }
                     } else {
                         snackbar.show();
-                        tv_snack.setText("Enter Service Type");
+                        tv_snack.setText(R.string.zcfw);
                     }
 
 

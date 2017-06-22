@@ -166,4 +166,23 @@
     <string name="avca">Network Error! Please Try Again Later.</string>
     <string name="avva">Please Connect Internet and Try again</string>
     <string name="vae">Please Try Again Later.</string>
+    <string name="asc">Account Number not match</string>
+    <string name="cs">Enter Valid Account Number</string>
+    <string name="cz">Re Enter Account Number</string>
+    <string name="asdx">Enter Valid Account Number</string>
+    <string name="css">Enter Account Number</string>
+    <string name="aex">Enter Valid Routing Number</string>
+    <string name="asx">Enter Routing Number</string>
+    <string name="cae">Enter Valid Bank Name</string>
+    <string name="acz">Enter Bank Name</string>
+    <string name="azs">Please Be Active to get MyTrips</string>
+    <string name="ax">Otp Failed. Try Again Later</string>
+    <string name="acsx">Customer Location is Too Far</string>
+    <string name="adxz">Enter Experience</string>
+    <string name="zcw">Business Info</string>
+    <string name="zxa">Enter Valid Address</string>
+    <string name="acxz">Enter Local Government</string>
+    <string name="cza">Enter Service Areas</string>
+    <string name="zxwa">Enter Primary Route Coverage</string>
+    <string name="zcfw">Enter Service Type</string>
 </resources>

@@ -126,47 +126,47 @@ public class Bank_details extends Activity {
 
                                                 } else {
                                                     snackbar.show();
-                                                    tv_snack.setText("Account Number not match");
+                                                    tv_snack.setText(R.string.asc);
                                                 }
                                             } else {
                                                 et_reacc_no.requestFocus();
                                                 snackbar.show();
-                                                tv_snack.setText("Enter Valid Account Number");
+                                                tv_snack.setText(R.string.cs);
                                             }
                                         } else {
                                             et_reacc_no.requestFocus();
                                             snackbar.show();
-                                            tv_snack.setText("Re Enter Account Number");
+                                            tv_snack.setText(R.string.cz);
                                         }
                                     } else {
                                         et_acc_no.requestFocus();
                                         snackbar.show();
-                                        tv_snack.setText("Enter Valid Account Number");
+                                        tv_snack.setText(R.string.asdx);
                                     }
                                 } else {
                                     et_acc_no.requestFocus();
                                     snackbar.show();
-                                    tv_snack.setText("Enter Account Number");
+                                    tv_snack.setText(R.string.css);
                                 }
                             } else {
                                 et_routing_no.requestFocus();
                                 snackbar.show();
-                                tv_snack.setText("Enter Valid Routing Number");
+                                tv_snack.setText(R.string.aex);
                             }
                         } else {
                             et_routing_no.requestFocus();
                             snackbar.show();
-                            tv_snack.setText("Enter Routing Number");
+                            tv_snack.setText(R.string.asx);
                         }
                     } else {
                         et_bank_name.requestFocus();
                         snackbar.show();
-                        tv_snack.setText("Enter Valid Bank Name");
+                        tv_snack.setText(R.string.cae);
                     }
                 } else {
                     et_bank_name.requestFocus();
                     snackbar.show();
-                    tv_snack.setText("Enter Bank Name");
+                    tv_snack.setText(R.string.acz);
                 }
 
 
@@ -243,18 +243,18 @@ public class Bank_details extends Activity {
 
                     } else {
                         snackbar.show();
-                        tv_snack.setText("Network Error, Please Try Again Later");
+                        tv_snack.setText(R.string.network);
 
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e("tag", "nt" + e.toString());
                     snackbar.show();
-                    tv_snack.setText("Network Error, Please Try Again Later");
+                    tv_snack.setText(R.string.network);
                 }
             } else {
                 snackbar.show();
-                tv_snack.setText("Network Error, Please Try Again Later");
+                tv_snack.setText(R.string.network);
             }
 
         }
@@ -327,18 +327,18 @@ public class Bank_details extends Activity {
 
                     } else {
                         snackbar.show();
-                        tv_snack.setText("Network Error, Please Try Again Later");
+                        tv_snack.setText(R.string.network);
 
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e("tag", "nt" + e.toString());
                     snackbar.show();
-                    tv_snack.setText("Network Error, Please Try Again Later");
+                    tv_snack.setText(R.string.network);
                 }
             } else {
                 snackbar.show();
-                tv_snack.setText("Network Error, Please Try Again Later");
+                tv_snack.setText(R.string.network);
             }
 
         }

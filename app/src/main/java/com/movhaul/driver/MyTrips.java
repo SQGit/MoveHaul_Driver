@@ -266,7 +266,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                 R.layout.upcoming_trips,};
         nssl = new DashboardNavigation();
         snackbar = Snackbar
-                .make(findViewById(R.id.top), "Network Error! Please Try Again Later.", Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.top),R.string.network, Snackbar.LENGTH_LONG);
         View sbView = snackbar.getView();
         tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
         tv_snack.setTextColor(Color.WHITE);
@@ -334,7 +334,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
 
 
                 if (dist_Between > 5) {
-                    Toast.makeText(getApplicationContext(), "Customer Location is Too Far", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.acsx, Toast.LENGTH_LONG).show();
                 }
 
                 reference1.removeValue();
