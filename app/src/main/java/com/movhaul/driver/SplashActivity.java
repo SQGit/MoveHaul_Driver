@@ -41,6 +41,8 @@ import com.sloop.fonts.FontsManager;
 
 import org.jsoup.Jsoup;
 
+import java.text.DecimalFormat;
+
 public class SplashActivity extends Activity {
     Button btn_register, btn_login;
     ImageView truck_icon, logo_icon, bg_icon;
@@ -87,6 +89,8 @@ public class SplashActivity extends Activity {
 
         Log.e("tag", "In the onCreate() event");
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+
 
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, FirebaseInstanceId.getInstance().getToken());

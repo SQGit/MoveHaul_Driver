@@ -508,7 +508,8 @@ public class LoginOtpActivity extends Activity implements TextWatcher {
                         editor.putString("account_status", jo.getString("account_status"));
                         editor.putString("driver_licence_image", jo.getString("driver_licence_image"));
                         editor.putString("driver_id", jo.getString("fake_id"));
-                        editor.putString("vec_type", jo.getString("vehicle_type"));
+                        editor.putString("vec_type", vec_type);
+                        editor.putString("vec_type0", jo.getString("vehicle_type"));
                         editor.putString("driver_address", jo.getString("driver_address"));
                         editor.putString("service_type", jo.getString("service_type"));
                         editor.putString("primary_route", jo.getString("primary_route"));

@@ -378,6 +378,21 @@ public class LoginActivity extends Activity {
 
                             String type = jo.getString("vehicle_type");
 
+                            Log.e("tag",type);
+
+                            if(type.contains("Bus")){
+                                type = "Bus";
+                                Log.e("tag","000"+type);
+                            }
+                            else if(type.contains("Tow truck")){
+                                type = "RoadSide";
+                                Log.e("tag","1111"+type);
+                            }
+                            else{
+                                type = "Truck";
+                                Log.e("tag","223"+type);
+                            }
+
                             Intent i = new Intent(LoginActivity.this, LoginOtpActivity.class);
                             i.putExtra("for","phone");
                             i.putExtra("vec_type",type);
@@ -385,6 +400,9 @@ public class LoginActivity extends Activity {
                             i.putExtra("prefix",str_mobile_prefix);
                             startActivity(i);
                             finish();
+                        }
+                        else if( msg.contains("{\"driver_verification\":\"pending\",\"account_status\":\"inactive\"}")){
+                            dialog2.show();
                         }
 
                         else if(jo.has("driver_verification")){
@@ -395,8 +413,9 @@ public class LoginActivity extends Activity {
                         else if(msg.contains("{\"driver_verification\":\"pending\",\"account_status\":\"active\"}")){
                             dialog2.show();
                         }
-
-
+                        else if(msg.contains("\"message\":{\"driver_verification\":\"pending\",\"account_status\":\"inactive\"")){
+                            dialog2.show();
+                        }
                         else  {
 
                             //Toast.makeText(getApplicationContext(),"Please Try Again Later",Toast.LENGTH_LONG).show();

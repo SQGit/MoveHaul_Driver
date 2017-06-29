@@ -105,6 +105,9 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
             str_longi = b.getString("longitude");
 
 
+
+
+
             geocoder = new Geocoder(DashboardNavigation.this, Locale.getDefault());
             try {
                 addresses = geocoder.getFromLocation(dl_latitude, dl_longitude, 1);
@@ -564,8 +567,12 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
                     Intent i = new Intent(DashboardNavigation.this, ProfileActivity.class);
                     startActivity(i);
                 }
-                else{
+                else if((vec_type.equals("Roadside"))){
                     Intent i = new Intent(DashboardNavigation.this, ProfileActivityBus.class);
+                    startActivity(i);
+                }
+                else{
+                    Intent i = new Intent(DashboardNavigation.this, ProfileActivity.class);
                     startActivity(i);
                 }
 
