@@ -288,7 +288,7 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
         d2_tv_dialog4.setTypeface(tf);
         d2_btn_ok.setTypeface(tf);
 
-        d2_tv_dialog2.setText(context.getString(R.string.ur_succ) + str_booking_id);
+
         d2_tv_dialog3.setVisibility(View.GONE);
         d2_tv_dialog4.setVisibility(View.GONE);
 
@@ -492,8 +492,10 @@ public class JobPostingAdapter extends ArrayAdapter<MV_Datas> {
                     Log.d("tag", "<-----Status----->" + status);
                     if (status.equals("true")) {
                         Log.e("tag", "bidding successful");
-                        if(!vec_type.equals("Road"))
-                            dialog2.show();
+                        if(!vec_type.equals("Road")){
+
+                        d2_tv_dialog2.setText(context.getString(R.string.ur_succ) + str_booking_id);
+                        dialog2.show();}
                         else
                             dg_road_confirm.show();
 

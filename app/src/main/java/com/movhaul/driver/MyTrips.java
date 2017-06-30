@@ -40,6 +40,7 @@ import com.bumptech.glide.Glide;
 import com.firebase.client.Firebase;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -47,6 +48,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -114,6 +116,8 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
     Marker truck_marker;
     android.widget.LinearLayout tabStrip = null;
     Firebase reference1;
+    int frm_hight;
+
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
 
         @Override
@@ -220,9 +224,11 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                     DownloadTask downloadTask = new DownloadTask();
                     downloadTask.execute(url);
 
-                    googleMap.addMarker(new MarkerOptions().position(new LatLng(cus_latitude, cus_longitude)).icon(BitmapDescriptorFactory.fromResource(R.drawable.delivery_addr_tracking)));
+                    Marker pickup_marker, drop_marker;
 
-                    googleMap.addMarker(new MarkerOptions()
+                   pickup_marker =  googleMap.addMarker(new MarkerOptions().position(new LatLng(cus_latitude, cus_longitude)).icon(BitmapDescriptorFactory.fromResource(R.drawable.delivery_addr_tracking)));
+
+                   drop_marker =  googleMap.addMarker(new MarkerOptions()
                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_truck2))
                             .position(mapCenter)
                             .flat(true)
@@ -230,6 +236,26 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                     //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCenter, 10.5f));
 
                     midPoint(location.getLatitude(), location.getLongitude(), cus_latitude, cus_longitude);
+
+                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
+
+
+                    Marker[] markers = {pickup_marker, drop_marker};
+                    for (Marker m : markers) {
+                        builder.include(m.getPosition());
+                    }
+                    LatLngBounds bounds = builder.build();
+                    int padding = ((frm_hight * 10) / 100); // offset from edges of the map
+                    // in pixels
+                    Log.e("tag", "ss:" + padding);
+
+                    //final LatLngBounds bounds = new LatLngBounds.Builder().include(new LatLng(lat1, lon1)).include(new LatLng(lat2, lon2)).build();
+                    // mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 120));
+
+                    //  final LatLngBounds boundss = new LatLngBounds.Builder().include(new LatLng(new_lat1, new_long1)).include(new LatLng(new_lat2, new_long2)).build();
+                    CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds,
+                            padding+180);
+                    googleMap.animateCamera(cu);
 
                 }
             }
@@ -279,6 +305,9 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+        frm_hight = mapFragment.getView().getMeasuredHeight();
 
 
         id = sharedPreferences.getString("id", "");
@@ -397,7 +426,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
         googleMap.setMyLocationEnabled(true);
         googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         // googleMap.animateCamera(CameraUpdateFactory.zoomTo(9.0f));
-        googleMap.getUiSettings().setZoomControlsEnabled(true);
+        googleMap.getUiSettings().setZoomControlsEnabled(false);
 
 
         try {
@@ -556,6 +585,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
 
 
                         googleMap.addMarker(new MarkerOptions().position(new LatLng(cus_latitude, cus_longitude)).icon(BitmapDescriptorFactory.fromResource(R.drawable.delivery_addr_tracking)));
+
                         Location myLocation = googleMap.getMyLocation();
                         if (myLocation != null) {
                             current_lati = myLocation.getLatitude();
@@ -587,14 +617,14 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                         DownloadTask downloadTask = new DownloadTask();
                         downloadTask.execute(url);
 
-                        LatLng mapCenter1 = new LatLng(current_lati, current_longi);
+                     //   LatLng mapCenter1 = new LatLng(current_lati, current_longi);
 
-                        CameraPosition cameraPosition = CameraPosition.builder()
+                      /*  CameraPosition cameraPosition = CameraPosition.builder()
                                 .target(mapCenter1)
                                 .build();
                         // Animate the change in camera view over 2 seconds
                         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
-                                2000, null);
+                                2000, null);*/
 
                       /*  googleMap.addPolyline(new PolylineOptions().geodesic(true)
                                         .add(new LatLng(current_lati, current_longi))  // Sydney
