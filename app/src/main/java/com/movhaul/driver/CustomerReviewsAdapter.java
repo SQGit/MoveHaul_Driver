@@ -43,7 +43,7 @@ public class CustomerReviewsAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 5;
+        return 2;
     }
 
     @Override

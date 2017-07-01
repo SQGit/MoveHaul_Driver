@@ -556,6 +556,11 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
             FontsManager.changeFonts(view);
             FontsManager.changeFonts(container);
             if (position == 0) {
+
+
+                mv_datas = ar_job_history.get(0);
+
+
                 btn_start = (Button) view.findViewById(R.id.btn_service);
                 lt_receiver = (android.widget.LinearLayout) view.findViewById(R.id.layout_receiver);
                 vi_last = view.findViewById(R.id.view_last1);
@@ -684,27 +689,32 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                 tv_cr_cu_phone.setText(mv_datas.getCustomer_number());
 
 
-            } else if (position == 1) {
+            }
+            else if (position == 1) {
 
+                Log.e("tag","xx:" +ar_job_history.size());
 
-                android.widget.ListView up_lview;
-                up_lview = (android.widget.ListView) view.findViewById(R.id.lview);
-                final ArrayList<String> up_arlist = new ArrayList<>();
-                final UpcomingAdapter up_adapter = new UpcomingAdapter(MyTrips.this, MyTrips.this, ar_job_history);
-                up_lview.setAdapter(up_adapter);
-                up_lview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-                up_lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-                        // toggle clicked cell state
-                        ((FoldingCell) view).toggle(false);
-                        // register in adapter that state for selected cell is toggled
-                        up_adapter.registerToggle(pos);
-                        Log.e("tag", "clicked" + pos);
+                if (ar_job_history.size() > 1) {
 
-                    }
-                });
+                    android.widget.ListView up_lview;
+                    up_lview = (android.widget.ListView) view.findViewById(R.id.lview);
+                    final ArrayList<String> up_arlist = new ArrayList<>();
+                    final UpcomingAdapter up_adapter = new UpcomingAdapter(MyTrips.this, MyTrips.this, ar_job_history);
+                    up_lview.setAdapter(up_adapter);
+                    up_lview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+                    up_lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                            // toggle clicked cell state
+                            ((FoldingCell) view).toggle(false);
+                            // register in adapter that state for selected cell is toggled
+                            up_adapter.registerToggle(pos);
+                            Log.e("tag", "clicked" + pos);
 
+                        }
+                    });
+
+                }
             }
 
 
