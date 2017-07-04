@@ -335,6 +335,8 @@ public class SplashActivity extends Activity {
             super.onPostExecute(s);
             Log.e("tag", "net:" + s);
             if (s.equals("true")) {
+
+
                 if (sharedPreferences.getString("login", "").equals("success")) {
                     lt_bottom.startAnimation(anim_btn_t2b);
                     truck_icon.startAnimation(anim_truck_c2r);
@@ -351,6 +353,8 @@ public class SplashActivity extends Activity {
                         }
                     }, 1100);
                 }
+
+
             } else if (s.equals("false")) {
                 snackbar.show();
             }
