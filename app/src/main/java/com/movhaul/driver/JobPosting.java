@@ -114,7 +114,6 @@ public class JobPosting extends Activity {
         mProgressDialog.setCancelable(false);
 
 
-
         if (!Config.isConnected(JobPosting.this)) {
             snackbar.show();
             tv_snack.setText(R.string.connect);
@@ -122,13 +121,6 @@ public class JobPosting extends Activity {
         else{
             new show_jobs_task().execute();
         }
-
-
-
-
-
-
-
 
 
 
@@ -157,11 +149,7 @@ public class JobPosting extends Activity {
             super.onPreExecute();
             mProgressDialog.show();
             Log.e("tag","showjobs");
-
         }
-
-
-
 
         @Override
         protected String doInBackground(String... strings) {
@@ -182,31 +170,19 @@ public class JobPosting extends Activity {
         }
 
 
-
-
-
-
-
-
         @Override
         protected void onPostExecute(String jsonStr) {
             Log.e("tag", "<-----rerseres---->" + jsonStr);
             super.onPostExecute(jsonStr);
             mProgressDialog.dismiss();
 
-
-
             try {
 
                 JSONObject jo = new JSONObject(jsonStr);
                 String status = jo.getString("status");
-                //  String count = jo.getString("count");
-
-                if (status.equals("true")) {
-
-
+                if (status.equals("true"))
+                {
                     JSONArray goods_data = jo.getJSONArray("jobs");
-
                     editor.putString("jobsize",String.valueOf(goods_data.length()));
                     editor.commit();
 
@@ -292,6 +268,8 @@ public class JobPosting extends Activity {
         }
 
     }
+
+
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
