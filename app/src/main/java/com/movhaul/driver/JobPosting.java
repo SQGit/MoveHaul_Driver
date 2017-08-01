@@ -122,8 +122,6 @@ public class JobPosting extends Activity {
             new show_jobs_task().execute();
         }
 
-
-
         ar_jobs = new ArrayList<>();
 
 
