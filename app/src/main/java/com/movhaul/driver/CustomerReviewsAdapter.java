@@ -30,15 +30,11 @@ public class CustomerReviewsAdapter extends BaseAdapter {
     ArrayList<String> myList;
     Activity act;
 
-
-
     public CustomerReviewsAdapter(Activity activity, ArrayList array_list) {
-
         this.context = activity.getApplicationContext();
         this.myList = array_list;
         inflater = LayoutInflater.from(this.context);
         act =activity;
-
     }
 
     @Override
@@ -59,27 +55,14 @@ public class CustomerReviewsAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
         final MyViewHolder mViewHolder;
-        final TextView tv_vin_no, tv_vin_make, tv_add;
-
         FontsManager.initFormAssets(act, "fonts/lato.ttf");       //initialization
         FontsManager.changeFonts(act);
-
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.customer_review_adapter, viewGroup, false);
             mViewHolder = new MyViewHolder(convertView);
-
-           // tv_vin_no = (TextView) convertView.findViewById(R.id.textview_vin_no);
-           // tv_vin_make = (TextView) convertView.findViewById(R.id.textview_vin_make);
-
-
             convertView.setTag(mViewHolder);
-
         } else {
             mViewHolder = (MyViewHolder) convertView.getTag();
-
-            tv_vin_no = mViewHolder.tv_vin_no;
-            tv_vin_make = mViewHolder.tv_vin_make;
-
         }
         RatingBar ratingBar1 = (RatingBar) convertView.findViewById(R.id.ratingbar);
         LayerDrawable layerDrawable1 = (LayerDrawable) ratingBar1.getProgressDrawable();
@@ -89,20 +72,10 @@ public class CustomerReviewsAdapter extends BaseAdapter {
                 context.getResources().getColor(R.color.gold)); // Partial star
         DrawableCompat.setTint(DrawableCompat.wrap(layerDrawable1.getDrawable(2)),
                 context.getResources().getColor(R.color.gold));
-
-
         return convertView;
     }
-
-
     private class MyViewHolder {
-        TextView tv_vin_no, tv_vin_make;
-        Spinner spin_start, spin_end;
-
         public MyViewHolder(View item) {
-          //  tv_vin_no = (TextView) item.findViewById(R.id.textview_vin_no);
-           // tv_vin_make = (TextView) item.findViewById(R.id.textview_vin_make);
-
         }
     }
 }

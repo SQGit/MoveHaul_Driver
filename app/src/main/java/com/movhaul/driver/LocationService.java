@@ -11,6 +11,7 @@ import android.util.Log;
 
 /**
  * Created by Salman on 19-06-2017.
+ * location update service
  */
 
 public class LocationService extends Service {

@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#383838</color>
-    <color name="colorControlNormal">#FF78909C</color>
-    <color name="icon">#324d5b</color>
     <color name="greyIcon">#6b6b6b</color>
     <color name="ColorStatus">#FFFFFF</color>
     <color name="textColor">#313131</color>
@@ -21,6 +17,5 @@
     <color name="or2">#4B4B4B</color>
     <color name="pink">#ffe7e5</color>
     <color name="mgrey">#9e9e9e</color>
-    <color name="green">#00E676</color>
     <color name="vie_bor">#E1E1E1</color>
 </resources>

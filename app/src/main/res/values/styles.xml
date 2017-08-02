@@ -94,23 +94,6 @@
         <item name="rd_rippleType">touch</item>
     </style>
 
-    <style name="radio" parent="radiob">
-        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Body1</item>
-        <item name="android:textColor">@color/textColor</item>
-        <item name="android:textSize">@dimen/_16sdp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="radiob">
-        <item name="cbd_width">@dimen/_18sdp</item>
-        <item name="cbd_height">@dimen/_18sdp</item>
-
-        <item name="cbd_strokeSize">@dimen/_2sdp</item>
-        <item name="cbd_strokeColor">@color/textColor</item>
-        <item name="cbd_cornerRadius">@dimen/_1sdp</item>
-        <item name="cbd_animDuration">@android:integer/config_mediumAnimTime</item>
-    </style>
-
 
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <!--buttons color-->

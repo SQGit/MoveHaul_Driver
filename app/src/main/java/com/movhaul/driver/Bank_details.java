@@ -25,7 +25,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by sqindia on 10-11-2016.
+ * Created by salman on 10-11-2016.
+ * get bank details from server and update bank details to server
  */
 
 public class Bank_details extends Activity {
@@ -55,45 +56,36 @@ public class Bank_details extends Activity {
         tv_snack = (android.widget.TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
         tv_snack.setTextColor(Color.WHITE);
         tv_snack.setTypeface(tf);
-
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Bank_details.this);
         editor = sharedPreferences.edit();
-
         id = sharedPreferences.getString("id", "");
         token = sharedPreferences.getString("token", "");
-
         mProgressDialog = new ProgressDialog(Bank_details.this);
         mProgressDialog.setTitle(getString(R.string.loading));
         mProgressDialog.setMessage(getString(R.string.wait));
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
-
         btn_back = (LinearLayout) findViewById(R.id.layout_back);
         btn_submit = (Button) findViewById(R.id.btn_submit);
-
         et_bank_name = (EditText) findViewById(R.id.editTextBankName);
         et_routing_no = (EditText) findViewById(R.id.editTextRoutingNo);
         et_acc_no = (EditText) findViewById(R.id.editTextAccountNo);
         et_reacc_no = (EditText) findViewById(R.id.editTextReAccountNo);
-
         til_bank_name = (TextInputLayout) findViewById(R.id.float_bankname);
         til_rout_no = (TextInputLayout) findViewById(R.id.float_routingno);
         til_acc_no = (TextInputLayout) findViewById(R.id.float_accountno);
         til_reacc_no = (TextInputLayout) findViewById(R.id.float_reaccountno);
-
         til_acc_no.setTypeface(tf);
         til_rout_no.setTypeface(tf);
         til_acc_no.setTypeface(tf);
         til_reacc_no.setTypeface(tf);
-
-
-        if(sharedPreferences.getString("bank_update","").equals("success")){
+        if (sharedPreferences.getString("bank_update", "").equals("success")) {
+            //if bank details already updated get from preferences.
             set_bank();
-        }
-        else{
+        } else {
+            //get bank details from server (if user logged out preferences will be destroyed).
             new get_bank().execute();
         }
-
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,12 +93,9 @@ public class Bank_details extends Activity {
                 startActivity(i);
             }
         });
-
-
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (!et_bank_name.getText().toString().trim().isEmpty()) {
                     if (et_bank_name.getText().toString().trim().length() > 5) {
                         if (!et_routing_no.getText().toString().trim().isEmpty()) {
@@ -116,14 +105,10 @@ public class Bank_details extends Activity {
                                         if (!et_reacc_no.getText().toString().trim().isEmpty()) {
                                             if (et_reacc_no.getText().toString().trim().length() > 5) {
                                                 if (et_acc_no.getText().toString().trim().equals(et_reacc_no.getText().toString().trim())) {
-
                                                     str_bank_name = et_bank_name.getText().toString().trim();
                                                     str_acc_no = et_acc_no.getText().toString().trim();
                                                     str_routing_no = et_routing_no.getText().toString().trim();
-
                                                     new submit_bank().execute();
-
-
                                                 } else {
                                                     snackbar.show();
                                                     tv_snack.setText(R.string.asc);
@@ -168,25 +153,19 @@ public class Bank_details extends Activity {
                     snackbar.show();
                     tv_snack.setText(R.string.acz);
                 }
-
-
             }
         });
-
     }
 
     private void set_bank() {
-        et_bank_name.setText(sharedPreferences.getString("bank_name",""));
-        et_routing_no.setText(sharedPreferences.getString("bank_routing",""));
-        et_acc_no.setText(sharedPreferences.getString("bank_no",""));
+        et_bank_name.setText(sharedPreferences.getString("bank_name", ""));
+        et_routing_no.setText(sharedPreferences.getString("bank_routing", ""));
+        et_acc_no.setText(sharedPreferences.getString("bank_no", ""));
         btn_submit.setText("Update");
     }
 
-
+    //upload bank details to server.
     public class submit_bank extends AsyncTask<String, Void, String> {
-
-
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -196,25 +175,17 @@ public class Bank_details extends Activity {
 
         @Override
         protected String doInBackground(String... strings) {
-
             String json = "", jsonStr = "", url;
-
             try {
                 JSONObject jsonObject = new JSONObject();
-
-
                 jsonObject.accumulate("bank_name", str_bank_name);
                 jsonObject.accumulate("routing_number", str_routing_no);
                 jsonObject.accumulate("account_number", str_acc_no);
-
-
                 json = jsonObject.toString();
                 return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + "truckdriver/bankupdate", json, id, token);
-
             } catch (Exception e) {
                 Log.e("InputStream", e.getLocalizedMessage());
             }
-
             return null;
         }
 
@@ -223,8 +194,6 @@ public class Bank_details extends Activity {
             super.onPostExecute(s);
             Log.e("tag", "tag" + s);
             mProgressDialog.dismiss();
-
-
             if (s != null) {
                 try {
                     JSONObject jo = new JSONObject(s);
@@ -233,18 +202,15 @@ public class Bank_details extends Activity {
                     Log.d("tag", "<-----Status----->" + status);
                     if (status.equals("true")) {
                         Log.d("tag", "<-----true----->" + status);
-
                         editor.putString("bank_update", "success");
                         editor.putString("bank_name", str_bank_name);
                         editor.putString("bank_routing", str_routing_no);
                         editor.putString("bank_no", str_acc_no);
                         editor.apply();
                         finish();
-
                     } else {
                         snackbar.show();
                         tv_snack.setText(R.string.network);
-
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -256,15 +222,11 @@ public class Bank_details extends Activity {
                 snackbar.show();
                 tv_snack.setText(R.string.network);
             }
-
         }
-
     }
 
-
+    //get bank details from server
     public class get_bank extends AsyncTask<String, Void, String> {
-
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -274,19 +236,14 @@ public class Bank_details extends Activity {
 
         @Override
         protected String doInBackground(String... strings) {
-
             String json = "", jsonStr = "", url;
-
             try {
                 JSONObject jsonObject = new JSONObject();
-
                 json = jsonObject.toString();
                 return jsonStr = HttpUtils.makeRequest1(Config.WEB_URL + "truckdriver/viewbankdetails", json, id, token);
-
             } catch (Exception e) {
                 Log.e("InputStream", e.getLocalizedMessage());
             }
-
             return null;
         }
 
@@ -295,40 +252,27 @@ public class Bank_details extends Activity {
             super.onPostExecute(s);
             Log.e("tag", "tag" + s);
             mProgressDialog.dismiss();
-
-
             if (s != null) {
                 try {
                     JSONObject jo = new JSONObject(s);
                     String status = jo.getString("status");
-
                     Log.d("tag", "<-----Status----->" + status);
                     if (status.equals("true")) {
                         Log.d("tag", "<-----true----->" + status);
-
                         String msg = jo.getString("message");
-
                         JSONArray jso_ar = new JSONArray(msg);
-
-
-                        if(jso_ar.length()>0) {
-
+                        if (jso_ar.length() > 0) {
                             JSONObject jos = jso_ar.getJSONObject(0);
-
-
                             editor.putString("bank_update", "success");
                             editor.putString("bank_name", jos.getString("bank_name"));
                             editor.putString("bank_routing", jos.getString("routing_number"));
                             editor.putString("bank_no", jos.getString("account_number"));
                             editor.apply();
-
                             set_bank();
                         }
-
                     } else {
                         snackbar.show();
                         tv_snack.setText(R.string.network);
-
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -340,14 +284,6 @@ public class Bank_details extends Activity {
                 snackbar.show();
                 tv_snack.setText(R.string.network);
             }
-
         }
-
     }
-
-
-
-
-
-
 }

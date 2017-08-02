@@ -1,11 +1,9 @@
 <resources>
     <string name="app_name">"MovHaul \ nDriver"</string>
-    <string name="custom_title">"ஷிப்மன்ட் கிளிக் செய்யவும்"</string>
     <string name="img_profile">"சுயவிவரங்களைத் தேர்வு"</string>
     <string name="img_vec_back">"வாகன மீண்டும் "</string>
     <string name="img_vec_front">"வாகன முன்னணி "</string>
     <string name="img_vec_side">"வாகன சைட்"</string>
-    <string name="img_vec_inside">"வாகன உள்ளே"</string>
     <string name="img_vec_rc">"வாகன பதிவு"</string>
     <string name="img_vec_ins">"வாகன காப்புறுதி"</string>
     <string name="img_vec_lic">"வாகன உரிமம்"</string>
@@ -48,7 +46,6 @@
     <string name="dr">"டிரைவர் உரிமம் சேர்க்கப்பட்டது."</string>
     <string name="us_al">"பயனர் விவரங்கள் ஏற்கனவே ஒருவர் பதிவுசெய்யப்பட்டது மீண்டும் முயற்சி"</string>
     <string name="perm_de">"சில அனுமதி மறுக்கப்பட்டது உள்ளது"</string>
-    <string name="mobile_no">"அலைபேசி எண்."</string>
     <string name="forgot_mobile_no">"மின்னஞ்சல் வழியாக நுழைவு அனுமதிக்கப்பட மாட்டாது.!"</string>
     <string name="by_login_you_agree_to_the_terms_amp_conditions_nand_privacy_policy_of_movehaul">"&lt;! [CDATA [உள்நுழைய மூலம் நீங்கள் விதிமுறைகளையும் நிபந்தனைகளையும் மற்றும் MovHaul தனியுரிமை கொள்கையை ஏற்கிறேன்"</string>
     <string name="forgot_ph_no">"பிஎச் மறந்துவிட்டேன். இல்லை"</string>
@@ -67,7 +64,6 @@
     <string name="reviews">"a. மதிப்புரைகள்"</string>
     <string name="payments">"கொடுப்பனவு"</string>
     <string name="bank_details">"வங்கி விவரங்கள்"</string>
-    <string name="update">"ஒளிபரப்பு பெற்றார்"</string>
     <string name="pev">"அனுமதி இப்போது நீங்கள் சேமிப்பு படிக்க முடியும் வழங்கப்பட்ட"</string>
     <string name="deni">"அச்சச்சோ நீங்கள் அனுமதி மறுக்கப்பட்டது"</string>
     <string name="lco">"இருப்பிடம் இயக்கப்படவில்லை"</string>
@@ -98,8 +94,6 @@
     <string name="feedback">"பின்னூட்டங்கள்"</string>
     <string name="logout">"வெளியேறு"</string>
     <string name="coma">"இணைய இணைத்து மீண்டும் முயற்சிக்கவும் கொள்ளவும்"</string>
-    <string name="fea">"பணியை முடிக்குமா"</string>
-    <string name="asde">"துவக்கு"</string>
     <string name="asdfew">"அருகிலுள்ள அடையாளத்தை"</string>
     <string name="easd">"அருகிலுள்ள அடையாளத்தை"</string>
     <string name="adsf">"தற்போதிருப்பவை"</string>
@@ -121,7 +115,6 @@
     <string name="side">"பக்கம்"</string>
     <string name="vechile_pic">"வாகன பிக்"</string>
     <string name="contact_number">"தொடர்பு எண்"</string>
-    <string name="secondary_number">"இரண்டாம் எண்"</string>
     <string name="address">"முகவரி"</string>
     <string name="attach_vechile_title">"வாகன தலைப்பு இணைக்கவும்"</string>
     <string name="attach_vechile_insurance">"வாகன காப்புறுதி இணைக்கவும்"</string>

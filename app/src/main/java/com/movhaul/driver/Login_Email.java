@@ -27,6 +27,7 @@ import org.json.JSONObject;
 
 /**
  * Created by sqindia on 22-10-2016.
+ * login via email
  */
 
 public class Login_Email extends Activity {
@@ -35,8 +36,7 @@ public class Login_Email extends Activity {
     String str_email;
     TextInputLayout flt_email;
     Button btn_submit;
-    ProgressBar progresss;
-    Snackbar snackbar, snack_wifi;
+    Snackbar snackbar;
     ProgressDialog mProgressDialog;
     TextView tv_snack;
     Config config;
@@ -49,14 +49,10 @@ public class Login_Email extends Activity {
         FontsManager.initFormAssets(this, "fonts/lato.ttf");       //initialization
         FontsManager.changeFonts(this);
 
-        Intent idg  =getIntent();
-
-
         flt_email = (TextInputLayout) findViewById(R.id.float_email);
         btn_back = (LinearLayout) findViewById(R.id.layout_back);
         edtxt_email = (EditText) findViewById(R.id.editTextEmail);
         btn_submit = (Button) findViewById(R.id.btn_submit);
-
 
         config = new Config();
         tf = Typeface.createFromAsset(getAssets(), "fonts/lato.ttf");
@@ -67,8 +63,6 @@ public class Login_Email extends Activity {
         mProgressDialog.setMessage(getString(R.string.wait));
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
-
-
 
         snackbar = Snackbar
                 .make(findViewById(R.id.top), R.string.network, Snackbar.LENGTH_LONG);
@@ -82,9 +76,6 @@ public class Login_Email extends Activity {
             tv_snack.setText(R.string.connect);
         }
 
-
-
-
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,10 +85,7 @@ public class Login_Email extends Activity {
                    /* Intent i = new Intent(Login_Email.this, LoginOtpActivity.class);
                     startActivity(i);
                     finish();*/
-
                     new forgot_mobile().execute();
-
-
                 } else {
                    // edtxt_email.setError("Enter a valid email address!");
                     snackbar.show();
@@ -118,7 +106,7 @@ public class Login_Email extends Activity {
 
 
 
-
+    /// if user forgot phone user login via mail
     public class forgot_mobile extends AsyncTask<String, Void, String> {
 
 

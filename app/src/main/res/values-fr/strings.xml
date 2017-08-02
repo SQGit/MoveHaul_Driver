@@ -1,11 +1,9 @@
 <resources>
     <string name="app_name">"MovHaul \ nDriver"</string>
-    <string name="custom_title">"Cliquez sur l'envoi"</string>
     <string name="img_profile">"Choisissez le profil"</string>
     <string name="img_vec_back">"véhicule arrière "</string>
     <string name="img_vec_front">"Avant du véhicule "</string>
     <string name="img_vec_side">"Côté véhicule"</string>
-    <string name="img_vec_inside">"Intérieur du véhicule"</string>
     <string name="img_vec_rc">"Immatriculation des véhicules"</string>
     <string name="img_vec_ins">"Assurance automobile"</string>
     <string name="img_vec_lic">"Licence de véhicule"</string>
@@ -48,7 +46,6 @@
     <string name="dr">"Licence de pilote ajoutée."</string>
     <string name="us_al">"Détails de l'utilisateur déjà enregistrés par quelqu'un, essayez à nouveau"</string>
     <string name="perm_de">"Une certaine autorisation est refusée"</string>
-    <string name="mobile_no">"Numéro de Portable"</string>
     <string name="forgot_mobile_no">"Connectez-vous par courrier électronique.!"</string>
     <string name="by_login_you_agree_to_the_terms_amp_conditions_nand_privacy_policy_of_movehaul">"&lt;! [CDATA [Par connexion, vous acceptez les termes et conditions et la politique de confidentialité de MovHaul"</string>
     <string name="forgot_ph_no">"Forgot Ph. No"</string>
@@ -67,7 +64,6 @@
     <string name="reviews">"Revus"</string>
     <string name="payments">"Paiements"</string>
     <string name="bank_details">"Coordonnées bancaires :"</string>
-    <string name="update">"Diffusion reçue"</string>
     <string name="pev">"Autorisation accordée maintenant, vous pouvez lire le stockage"</string>
     <string name="deni">"Oups, vous venez de refuser la permission"</string>
     <string name="lco">"Situation pas activé."</string>
@@ -98,8 +94,6 @@
     <string name="feedback">"Commentaire"</string>
     <string name="logout">"Déconnexion"</string>
     <string name="coma">"Connectez-vous sur Internet et réessayez"</string>
-    <string name="fea">"Terminer un emploi"</string>
-    <string name="asde">"Commencer"</string>
     <string name="asdfew">"Lieu connu à proximité"</string>
     <string name="easd">"Lieu connu à proximité"</string>
     <string name="adsf">"En cours"</string>
@@ -121,7 +115,6 @@
     <string name="side">"Côté"</string>
     <string name="vechile_pic">"Photo du véhicule"</string>
     <string name="contact_number">"Téléphone"</string>
-    <string name="secondary_number">"Téléphone secondaire"</string>
     <string name="address">"Adresse"</string>
     <string name="attach_vechile_title">"Joindre le titre du véhicule"</string>
     <string name="attach_vechile_insurance">"Attachez l'assurance automobile"</string>

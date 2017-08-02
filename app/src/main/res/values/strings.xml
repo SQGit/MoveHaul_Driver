@@ -1,11 +1,9 @@
 <resources>
     <string name="app_name">MovHaul\nDriver</string>
-    <string name="custom_title">Click Shipment</string>
     <string name="img_profile">Choose Profile</string>
     <string name="img_vec_back">Vehicle Back </string>
     <string name="img_vec_front">Vehicle Front </string>
     <string name="img_vec_side">Vehicle Side</string>
-    <string name="img_vec_inside">Vehicle Inside</string>
     <string name="img_vec_rc">Vehicle Registration</string>
     <string name="img_vec_ins">Vehicle Insurance</string>
     <string name="img_vec_lic">Vehicle Licence</string>
@@ -48,7 +46,6 @@
     <string name="dr">Driver Licence Added.</string>
     <string name="us_al">User Details already Registered by someone,Please Try again</string>
     <string name="perm_de">Some Permission is Denied</string>
-    <string name="mobile_no">Mobile No</string>
     <string name="forgot_mobile_no">Login Via Email.!</string>
     <string name="by_login_you_agree_to_the_terms_amp_conditions_nand_privacy_policy_of_movehaul"><![CDATA[By Login you agree to the terms & conditions  and privacy policy of MovHaul]]></string>
     <string name="forgot_ph_no">Forgot Ph. No</string>
@@ -67,7 +64,6 @@
     <string name="reviews">Reviews</string>
     <string name="payments">Payments</string>
     <string name="bank_details">Bank Details</string>
-    <string name="update">broadcast received</string>
     <string name="pev">Permission granted now you can read the storage</string>
     <string name="deni">Oops you just denied the permission</string>
     <string name="lco">Location Not Enabled</string>
@@ -98,8 +94,6 @@
     <string name="feedback">Feedback</string>
     <string name="logout">Logout</string>
     <string name="coma">Please Connect Internet and Try again</string>
-    <string name="fea">Finish Job</string>
-    <string name="asde">Start</string>
     <string name="asdfew">Nearby Landmark</string>
     <string name="easd">Nearby Landmark</string>
     <string name="adsf">Current</string>
@@ -121,7 +115,6 @@
     <string name="side">Side</string>
     <string name="vechile_pic">Vehicle Pic</string>
     <string name="contact_number">Contact Number</string>
-    <string name="secondary_number">Secondary Number</string>
     <string name="address">Address</string>
     <string name="attach_vechile_title">Attach Vehicle Title</string>
     <string name="attach_vechile_insurance">Attach Vehicle Insurance</string>

@@ -1,5 +1,10 @@
 package com.movhaul.driver;
 
+/*
+* push notification services
+* fire base notifications
+*
+ */
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -20,8 +25,6 @@ import org.json.JSONObject;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "tag";
-
-
     /**
      * Called when message is received.
      *
@@ -53,8 +56,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getNotification() != null) {
             Log.e(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
-
-
         /*if (remoteMessage.getData().size() > 0) {
             Log.e(TAG, "Data Payload: " + remoteMessage.getData().toString());
             try {
@@ -66,14 +67,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             }
         }*/
        // sendNotification(remoteMessage.getNotification().getBody());
-
         if(remoteMessage.getNotification().getBody().toString().contains("New Job")){
             send_notification2();
         }
         else {
             send_notification(remoteMessage.getNotification().getBody());
         }
-
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
     }
@@ -85,9 +84,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * @param messageBody FCM message body received.
      */
     private void sendNotification(String messageBody) {
-
         //String title = null,message=null;
-
      /*   try {
             //getting the json data
             JSONObject data = messageBody.getJSONObject("data");
@@ -106,29 +103,19 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String name = null,title = null,body = null;
         try {
             JSONObject jsonObject = new JSONObject(messageBody);
-
              name = jsonObject.getString("customer_name");
              title = jsonObject.getString("title");
              body = jsonObject.getString("body");
-
-
         } catch (Exception e) {
             Log.e("InputStream", e.getLocalizedMessage());
         }
-
-
         Intent intent = new Intent(this, DashboardNavigation.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                 | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
-
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-
-
-
-
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.truck_icon,3)
                 .setContentTitle("Bidding Confirmation")
@@ -136,34 +123,21 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setAutoCancel(false)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
-
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
-
-
-
-
-
     private void send_notification(String data) {
-
         String name = null,title = null,body = null;
         Log.e("tag","data: "+ data);
         try {
             JSONObject jsonObject = new JSONObject(data);
-
             name = jsonObject.getString("customer_name");
             title = jsonObject.getString("title");
             body = jsonObject.getString("body");
-
-
         } catch (Exception e) {
             Log.e("InputStream", e.getLocalizedMessage());
         }
-
-
         Intent resultIntent = new Intent(this, MyTrips.class);
         resultIntent.setAction(Intent.ACTION_MAIN);
         resultIntent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -185,8 +159,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         mNotifyBuilder.setAutoCancel(true);
         mNotificationManager.notify(0, mNotifyBuilder.build());
     }
-
-
     private void send_notification2() {
         Intent resultIntent = new Intent(this, JobPosting.class);
         resultIntent.setAction(Intent.ACTION_MAIN);
@@ -209,13 +181,4 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         mNotifyBuilder.setAutoCancel(true);
         mNotificationManager.notify(0, mNotifyBuilder.build());
     }
-
-
-
-
-
-
-
-
-
 }

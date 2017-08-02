@@ -18,10 +18,10 @@ import java.util.ArrayList;
 
 /**
  * Created by Salman on 7/28/2016.
+ * dialog for driver bidding.
  */
 
 public class Dialog_bidding_confirm extends Dialog {
-
     public Activity activity;
     Typeface tf;
     Button  d2_btn_ok;
@@ -31,53 +31,37 @@ public class Dialog_bidding_confirm extends Dialog {
     SharedPreferences.Editor editor;
     ArrayList<String> ar_goods_type = new ArrayList<>();
     ImageView btn_close2;
-
-
-
     public Dialog_bidding_confirm(Activity activity, ArrayList<String> ar_goods) {
         super(activity);
         this.activity = activity;
         this.ar_goods_type = ar_goods;
-
-
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.driver_bidding_confirm);
-
         tf = Typeface.createFromAsset(activity.getAssets(), "fonts/lato.ttf");
-
         Intent getIntent = activity.getIntent();
         String name = getIntent.getStringExtra("name");
-
-
         d2_btn_ok = (Button) findViewById(R.id.button_ok);
         btn_close2 = (ImageView) findViewById(R.id.button_close);
         d2_tv_dialog1 = (android.widget.TextView) findViewById(R.id.textView_1);
         d2_tv_dialog2 = (android.widget.TextView) findViewById(R.id.textView_2);
         d2_tv_dialog3 = (android.widget.TextView) findViewById(R.id.textView_3);
         d2_tv_dialog4 = (android.widget.TextView) findViewById(R.id.textView_4);
-
         d2_tv_dialog1.setTypeface(tf);
         d2_tv_dialog2.setTypeface(tf);
         d2_tv_dialog3.setTypeface(tf);
         d2_tv_dialog4.setTypeface(tf);
         d2_btn_ok.setTypeface(tf);
-
         d2_tv_dialog2.setText("Your Bidding has been accepted by"+name);
-
-
         d2_tv_dialog4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent i = new Intent(getContext(), MyTrips.class);
                 context.startActivity(i);
             }
         });
-
         btn_close2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,7 +69,6 @@ public class Dialog_bidding_confirm extends Dialog {
                 context.startActivity(i);
             }
         });
-
         d2_btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,10 +76,5 @@ public class Dialog_bidding_confirm extends Dialog {
                 context.startActivity(i);
             }
         });
-
     }
-
-
-
-
 }
