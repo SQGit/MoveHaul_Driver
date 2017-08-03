@@ -16,6 +16,8 @@ import java.util.ArrayList;
 
 /**
  * Created by sqindia on 01-11-2016.
+ * customer review
+ * it is in demo mode
  */
 
 public class Reviews extends Activity {
@@ -27,17 +29,12 @@ public class Reviews extends Activity {
         setContentView(R.layout.customer_review);
         FontsManager.initFormAssets(this, "fonts/lato.ttf");       //initialization
         FontsManager.changeFonts(this);
-
         lv_payment_list = (ListView) findViewById(R.id.listview_payment);
         btn_back = (LinearLayout) findViewById(R.id.layout_back);
-
         final ArrayList<String> payment_arlist = new ArrayList<>();
        // ht_arlist = new ArrayList<>();
-
         CustomerReviewsAdapter adapter = new CustomerReviewsAdapter(Reviews.this, payment_arlist);
-
         lv_payment_list.setAdapter(adapter);
-
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,7 +51,6 @@ public class Reviews extends Activity {
         startActivity(i);*/
         finish();
     }
-
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {

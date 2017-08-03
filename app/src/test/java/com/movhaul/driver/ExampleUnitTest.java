@@ -1,4 +1,4 @@
-package com.vineture.movhaul.driver;
+package com.movhaul.driver;
 
 import org.junit.Test;
 

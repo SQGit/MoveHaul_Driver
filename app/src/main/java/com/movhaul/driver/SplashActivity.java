@@ -204,7 +204,7 @@ public class SplashActivity extends Activity {
                     public void run() {
                         Intent isd = new Intent(SplashActivity.this, LoginActivity.class);
                         Bundle bndlanimation =
-                                ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.anim1, R.anim.anim2).toBundle();
+                                ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.trans_x2y, R.anim.trans_y2x).toBundle();
                         startActivity(isd, bndlanimation);
                     }
                 }, 1000);
@@ -222,7 +222,7 @@ public class SplashActivity extends Activity {
                     public void run() {
                         Intent isd = new Intent(SplashActivity.this, Register_New.class);
                         Bundle bndlanimation =
-                                ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.anim1, R.anim.anim2).toBundle();
+                                ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.trans_x2y, R.anim.trans_y2x).toBundle();
                         startActivity(isd, bndlanimation);
                     }
                 }, 1000);
@@ -248,7 +248,7 @@ public class SplashActivity extends Activity {
                     public void run() {
                         Intent isd = new Intent(SplashActivity.this, DashboardNavigation.class);
                         Bundle bndlanimation =
-                                ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.anim1, R.anim.anim2).toBundle();
+                                ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.trans_x2y, R.anim.trans_y2x).toBundle();
                         startActivity(isd, bndlanimation);
 
                     }
@@ -361,7 +361,7 @@ public class SplashActivity extends Activity {
                             public void run() {
                                 Intent isd = new Intent(SplashActivity.this, DashboardNavigation.class);
                                 Bundle bndlanimation =
-                                        ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.anim1, R.anim.anim2).toBundle();
+                                        ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.trans_x2y, R.anim.trans_y2x).toBundle();
                                 startActivity(isd, bndlanimation);
 
                             }

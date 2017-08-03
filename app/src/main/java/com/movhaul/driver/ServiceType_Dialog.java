@@ -15,6 +15,7 @@ import com.rey.material.app.DialogFragment;
 
 /**
  * Created by Salman on 03-05-2017.
+ * not used
  */
 
 public class ServiceType_Dialog extends DialogFragment {

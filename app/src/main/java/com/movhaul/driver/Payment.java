@@ -22,7 +22,9 @@ import java.util.Calendar;
 
 /**
  * Created by sqindia on 01-11-2016.
+ * payment page
  */
+
 
 public class Payment extends Activity {
     ListView lv_payment_list;
@@ -39,18 +41,14 @@ public class Payment extends Activity {
         setContentView(R.layout.payment);
         FontsManager.initFormAssets(this, "fonts/lato.ttf");       //initialization
         FontsManager.changeFonts(this);
-
         lv_payment_list = (ListView) findViewById(R.id.listview_payment);
         btn_back = (LinearLayout) findViewById(R.id.layout_back);
         et_date = (EditText) findViewById(R.id.editTextDate);
         btn_date = (ImageView) findViewById(R.id.iv_btn_date);
         btn_close = (ImageView) findViewById(R.id.iv_btn_close);
-
         final ArrayList<String> payment_arlist = new ArrayList<>();
        // ht_arlist = new ArrayList<>();
-
         Payment_Adapter adapter = new Payment_Adapter(Payment.this, payment_arlist);
-
         lv_payment_list.setAdapter(adapter);
         final Calendar c1 = Calendar.getInstance();
         year = c1.get(Calendar.YEAR);

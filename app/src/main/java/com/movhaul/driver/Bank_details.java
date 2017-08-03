@@ -1,5 +1,6 @@
 package com.movhaul.driver;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -43,6 +44,7 @@ public class Bank_details extends Activity {
     String id, token;
     String str_bank_name, str_routing_no, str_acc_no;
 
+    @SuppressLint("CommitPrefEdits")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -173,9 +175,10 @@ public class Bank_details extends Activity {
             mProgressDialog.show();
         }
 
+        @SuppressWarnings({"unused", "UnusedAssignment"})
         @Override
         protected String doInBackground(String... strings) {
-            String json = "", jsonStr = "", url;
+            String json = "", jsonStr = "";
             try {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.accumulate("bank_name", str_bank_name);
@@ -198,7 +201,6 @@ public class Bank_details extends Activity {
                 try {
                     JSONObject jo = new JSONObject(s);
                     String status = jo.getString("status");
-                    String msg = jo.getString("message");
                     Log.d("tag", "<-----Status----->" + status);
                     if (status.equals("true")) {
                         Log.d("tag", "<-----true----->" + status);
@@ -234,6 +236,7 @@ public class Bank_details extends Activity {
             mProgressDialog.show();
         }
 
+        @SuppressWarnings("unused")
         @Override
         protected String doInBackground(String... strings) {
             String json = "", jsonStr = "", url;

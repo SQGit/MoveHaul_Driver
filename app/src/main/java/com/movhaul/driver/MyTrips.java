@@ -117,38 +117,30 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
     android.widget.LinearLayout tabStrip = null;
     Firebase reference1;
     int frm_hight;
-
+    private ViewPager viewPager;
+    private int[] layouts;
+    private MyViewPagerAdapter myViewPagerAdapter;
+    //view pager page listener what to do if page changes.
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
-
         @Override
         public void onPageSelected(int position) {
-
-
             if (position == 0) {
-
                 FontsManager.initFormAssets(MyTrips.this, "fonts/lato.ttf");       //initialization
                 FontsManager.changeFonts(MyTrips.this);
-
-
             } else {
-
                 FontsManager.initFormAssets(MyTrips.this, "fonts/lato.ttf");
                 FontsManager.changeFonts(MyTrips.this);
             }
         }
-
         @Override
         public void onPageScrolled(int arg0, float arg1, int arg2) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         }
-
         @Override
         public void onPageScrollStateChanged(int arg0) {
-
         }
-
-
     };
+    //google map location change listner (after job start on map it showing truck location).
     GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
         @Override
         public void onMyLocationChange(Location location) {
@@ -234,10 +226,6 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
             // }
         }
     };
-    private ViewPager viewPager;
-    private int[] layouts;
-    private MyViewPagerAdapter myViewPagerAdapter;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -255,6 +243,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                 finish();
             }
         });
+        //upcoming ,current layouts for view pager.
         layouts = new int[]{
                 R.layout.current_trips1,
                 R.layout.upcoming_trips,};
@@ -313,7 +302,6 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
                 new finish_job().execute();
                 fl_map_frame.setVisibility(View.GONE);
                 googleMap.setOnMyLocationChangeListener(null);
-
             }
         });
         dialog1 = new Dialog(MyTrips.this);
@@ -431,6 +419,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
         }
         return data;
     }
+    //get mid point of pickup and drop location to set camera view
     public void midPoint(double lat1, double lon1, double lat2, double lon2) {
 
         double dLon = Math.toRadians(lon2 - lon1);
@@ -768,6 +757,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
             }
         }
     }
+    //get history of job details current and upcoming
     public class get_history extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {
@@ -906,6 +896,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
         }
 
     }
+    //after finishing job (notification sent to customer *pending implementation of customer side)
     public class finish_job extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {
@@ -967,6 +958,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
         }
 
     }
+    //when driver going to start job (notification sent to customer)
     public class start_job extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {
@@ -1029,6 +1021,7 @@ public class MyTrips extends AppCompatActivity implements OnMapReadyCallback, co
         }
 
     }
+    //when location changed update to server for customer wants to know the location.
     public class updateLocation extends AsyncTask<String, Void, String> {
 
 

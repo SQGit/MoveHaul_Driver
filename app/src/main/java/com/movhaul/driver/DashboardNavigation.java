@@ -47,9 +47,7 @@ import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.movhaul.driver.R;
 import com.rey.material.widget.Button;
-import com.rey.material.widget.Switch;
 import com.rey.material.widget.TextView;
 import com.sloop.fonts.FontsManager;
 
@@ -239,8 +237,8 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         };
 
 
-        mViewFlipper.setInAnimation(this, R.anim.anim1);
-        mViewFlipper.setOutAnimation(this, R.anim.anim2);
+        mViewFlipper.setInAnimation(this, R.anim.trans_x2y);
+        mViewFlipper.setOutAnimation(this, R.anim.trans_y2x);
 
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestStoragePermission();
