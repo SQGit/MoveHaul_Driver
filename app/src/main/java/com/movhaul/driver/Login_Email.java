@@ -149,7 +149,7 @@ public class Login_Email extends Activity {
                     String msg = jo.getString("message");
                     Log.d("tag", "<-----Status----->" + status);
                     if (status.equals("true")) {
-
+                        String type = jo.getString("vehicle_type");
 
                         // String sus_txt = "Thank you for Signing Up MoveHaul.";
 
@@ -159,6 +159,7 @@ public class Login_Email extends Activity {
                         i.putExtra("for","email");
                         i.putExtra("data",str_email);
                         i.putExtra("prefix","nil");
+                        i.putExtra("vec_type",type);
                         startActivity(i);
                         finish();
 
