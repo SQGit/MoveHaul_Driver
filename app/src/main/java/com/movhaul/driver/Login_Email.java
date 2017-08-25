@@ -1,11 +1,13 @@
 package com.movhaul.driver;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -13,8 +15,10 @@ import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -41,6 +45,10 @@ public class Login_Email extends Activity {
     TextView tv_snack;
     Config config;
     Typeface tf;
+    Dialog dialog2;
+    Button d2_btn_ok;
+    TextView d2_tv_dialog1,d2_tv_dialog2,d2_tv_dialog3,d2_tv_dialog4;
+    ImageView btn_close;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +83,38 @@ public class Login_Email extends Activity {
             snackbar.show();
             tv_snack.setText(R.string.connect);
         }
+
+
+        dialog2 = new Dialog(Login_Email.this);
+        dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog2.setCancelable(false);
+        dialog2.setContentView(R.layout.driver_bidding_confirm);
+        d2_btn_ok = (Button) dialog2.findViewById(R.id.button_ok);
+        btn_close = (ImageView) dialog2.findViewById(R.id.button_close);
+        d2_tv_dialog1 = (TextView) dialog2.findViewById(R.id.textView_1);
+        d2_tv_dialog2 = (TextView) dialog2.findViewById(R.id.textView_2);
+        d2_tv_dialog3 = (TextView) dialog2.findViewById(R.id.textView_3);
+        d2_tv_dialog4 = (TextView) dialog2.findViewById(R.id.textView_4);
+        d2_tv_dialog1.setTypeface(tf);
+        d2_tv_dialog2.setTypeface(tf);
+        d2_tv_dialog3.setTypeface(tf);
+        d2_tv_dialog4.setTypeface(tf);
+        d2_btn_ok.setTypeface(tf);
+        d2_tv_dialog1.setText(R.string.ad);
+        d2_tv_dialog2.setText(R.string.asdf);
+        d2_tv_dialog3.setText(R.string.cea);
+        d2_tv_dialog4.setVisibility(View.GONE);
+        btn_close.setVisibility(View.GONE);
+        d2_btn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog2.dismiss();
+            }
+        });
+
+
+
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,10 +186,14 @@ public class Login_Email extends Activity {
                 try {
                     JSONObject jo = new JSONObject(s);
                     String status = jo.getString("status");
-                    String msg = jo.getString("message");
+                    String msg = getString(R.string.vae);
+                    if(jo.has("message")) {
+                        msg = jo.getString("message");
+                    }
                     Log.d("tag", "<-----Status----->" + status);
                     if (status.equals("true")) {
                         String type = jo.getString("vehicle_type");
+                        Log.e("tag","vec:"+type);
 
                         // String sus_txt = "Thank you for Signing Up MoveHaul.";
 
@@ -165,6 +209,11 @@ public class Login_Email extends Activity {
 
 
                     } else if (status.equals("false")) {
+
+
+                        if(jo.has("message")) {
+                            msg = jo.getString("message");
+                        }
 
 
                         if (msg.contains("Register with Movehaul first to Generate OTP")) {
@@ -185,6 +234,24 @@ public class Login_Email extends Activity {
                             finish();
 
                         }
+
+                        else if( msg.contains("{\"driver_verification\":\"pending\",\"account_status\":\"inactive\"}")){
+                            dialog2.show();
+                        }
+                        else if(jo.has("driver_verification")){
+                            Log.e("tag","ds: "+jo.getString("driver_verification"));
+                            Log.e("tag","da: "+jo.getString("account_status"));
+                            dialog2.show();
+                        }
+                        else if(msg.contains("{\"driver_verification\":\"pending\",\"account_status\":\"active\"}")){
+                            dialog2.show();
+                        }
+                        else if(msg.contains("\"message\":{\"driver_verification\":\"pending\",\"account_status\":\"inactive\"")){
+                            dialog2.show();
+                        }
+
+
+
                         else  {
 
                            // Toast.makeText(getApplicationContext(),"Please Try Again Later",Toast.LENGTH_LONG).show();

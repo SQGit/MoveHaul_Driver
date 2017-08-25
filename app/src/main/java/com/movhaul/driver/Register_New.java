@@ -166,7 +166,7 @@ public class Register_New extends AppCompatActivity {
         et_ref3 = (EditText) findViewById(R.id.edittext_ref3);
         et_service_pref = (EditText) findViewById(R.id.edittext_service_areas_prefs);
         ar_service_types = new String[]{"Haulage-Local", "Haulage-Interstate", "Service Truck-Party Van", "Service Truck-Cooling van", "Service Truck-Gas", "Tow truck", "Bus Rental-Charter"};
-        ar_service_areas = new String[]{"50-100 miles", "100-200 miles", "200+ miles"};
+        ar_service_areas = new String[]{"0-100 miles", "0-200 miles", "200+ miles"};
         ar_experience = new String[]{" 1 ", " 2 ", " 3 ", " 4 ", "5+"};
         str_mobile_prefix = "+234";
         lt_first.setVisibility(View.VISIBLE);
