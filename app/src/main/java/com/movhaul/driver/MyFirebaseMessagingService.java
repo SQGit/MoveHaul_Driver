@@ -50,8 +50,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.e(TAG, "Message data payload: " + remoteMessage.getData());
-        }
 
+            Log.e(TAG, "Message  " + remoteMessage.getData().get("body"));
+
+        }
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             Log.e(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
@@ -67,11 +69,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             }
         }*/
        // sendNotification(remoteMessage.getNotification().getBody());
-        if(remoteMessage.getNotification().getBody().toString().contains("New Job")){
+        if(remoteMessage.getData().get("body").contains("New Job")){
             send_notification2();
         }
         else {
-            send_notification(remoteMessage.getNotification().getBody());
+            send_notification(remoteMessage.getData().get("body"));
         }
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
